@@ -1,0 +1,5 @@
+*
+!requirements*.txt
+!c2cciutils/
+!setup.py
+!.prospector.yaml

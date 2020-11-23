@@ -1,0 +1,9 @@
+audit:
+  pipenv:
+    python_versions:
+      - 3.6.12
+publish:
+  pypi:
+    versions:
+      - minor
+      - master
