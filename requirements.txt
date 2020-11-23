@@ -1,0 +1,12 @@
+safety==1.9.0
+Markdown==3.3.3
+markdown-table
+pipenv==2020.11.15
+EditorConfig==0.12.2
+python-magic==0.4.18
+requests==2.25.0
+black==20.8b1
+click==7.1.2
+isort==5.6.4
+twine==3.2.0
+codespell==2.0.0
