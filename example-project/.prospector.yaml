@@ -1,0 +1,21 @@
+strictness: veryhigh
+max-line-length: 110
+
+pylint:
+  disable: []
+
+pep8:
+  options:
+    max-line-length: 110
+
+mypy:
+  run: true
+  python_version: 3.8
+  ignore_missing_imports: True
+  warn_redundant_casts: True
+  warn_unused_ignores: True
+  check_untyped_defs: True
+  skip_version_check: True
+
+mccabe:
+  run: false

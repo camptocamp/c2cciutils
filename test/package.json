@@ -1,0 +1,9 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "Test",
+  "license": "FreeBSD",
+  "devDependencies": {
+    "@types/bootstrap": "4.5.0"
+  }
+}

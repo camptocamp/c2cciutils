@@ -1,0 +1,4 @@
+prospector[with_bandit,with_pyroma]==1.2.0
+mypy==0.790
+pylint==2.4.4
+astroid==2.3.3

@@ -1,0 +1,38 @@
+---
+name: Audit
+
+on:
+  schedule:
+    - cron: '30 2 * * *'
+
+jobs:
+  audit:
+    runs-on: ubuntu-20.04
+    name: Audit
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        branch:
+          - '1.0'
+          - master
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.branch }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - run: python3 -m pip install --user git+https://github.com/camptocamp/c2cciutils.git@init
+
+      - uses: asdf-vm/actions/install@v1
+        with:
+          tool_versions: python 3.8.0
+
+      - name: C2C audit
+        run: c2cciutils-audit
