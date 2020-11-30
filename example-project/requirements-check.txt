@@ -1,1 +1,0 @@
-prospector[with_bandit,with_pyroma]==1.2.0

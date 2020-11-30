@@ -1,5 +1,5 @@
 *
-!requirements*.txt
-!c2cciutils/
+!requirements.txt
+!project/
 !setup.py
-!.prospector.yaml
+!Pipfile*

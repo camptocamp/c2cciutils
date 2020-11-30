@@ -32,7 +32,7 @@ jobs:
         with:
           tool_versions: python 3.8.0
 
-      - run: sudo python3 -m pip install -e .
+      - run: sudo python3 -m pip install --editable=.
 
       - name: Audit
         run: c2cciutils-audit

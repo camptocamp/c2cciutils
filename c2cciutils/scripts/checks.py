@@ -16,22 +16,9 @@ def main() -> None:
     full_config = c2cciutils.get_config()
     config = full_config.get("checks", {})
     error = False
-    for key, check in (
-        ("print_versions", c2cciutils.print_versions),
-        ("print_config", c2cciutils.checks.print_config),
-        ("black_config", c2cciutils.checks.black_config),
-        ("editorconfig", c2cciutils.checks.editorconfig),
-        ("gitattribute", c2cciutils.checks.gitattribute),
-        ("eof", c2cciutils.checks.eof),
-        ("workflows", c2cciutils.checks.workflows),
-        ("required_workflows", c2cciutils.checks.required_workflows),
-        ("versions", c2cciutils.checks.versions),
-        ("black", c2cciutils.checks.black),
-        ("isort", c2cciutils.checks.isort),
-        ("codespell", c2cciutils.checks.codespell),
-    ):
-        conf = config.get(key, False)
+    for key, conf in config.items():
         if conf:
+            check = getattr(c2cciutils.checks, key)
             print("::group::Run check {}".format(key))
             if check(conf, full_config, args) is True:  # type: ignore
                 error = True

@@ -27,13 +27,15 @@ jobs:
           sudo apt update
           sudo apt install --yes python3-wheel
 
-      - run: sudo python3 -m pip install -e .
+      - run: sudo python3 -m pip install --editable=.
 
       - name: Checks
         run: c2cciutils-checks
 
       - name: Build
-        run: docker build --tag=${GITHUB_REPOSITORY} .
+        run: make
+      - name: Build example
+        run: (cd example-project/; make)
 
       - name: Publish
         run: c2cciutils-publish
@@ -56,7 +58,7 @@ jobs:
         with:
           tool_versions: python 3.8.0
 
-      - run: sudo python3 -m pip install -e .
+      - run: sudo python3 -m pip install --editable=.
 
       - name: Audit
         run: c2cciutils-audit

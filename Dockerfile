@@ -6,14 +6,10 @@ COPY requirements.txt .
 RUN python3 -m pip install --disable-pip-version-check --no-cache-dir --requirement=requirements.txt
 
 
-FROM base AS check
+FROM base AS checker
 
 COPY requirements-check.txt .
 RUN python3 -m pip install --disable-pip-version-check --no-cache-dir --requirement=requirements-check.txt
-
-COPY . ./
-
-RUN prospector
 
 
 FROM base AS run

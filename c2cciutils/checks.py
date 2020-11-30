@@ -12,6 +12,7 @@ import requests
 import yaml
 from editorconfig import EditorConfigError, get_properties
 
+import c2cciutils
 import c2cciutils.security
 
 
@@ -374,36 +375,31 @@ def versions(config, full_config, _):
             all_versions.add(row[version_index])
 
     if config.get("audit", False):
-        if _audit(all_versions, full_config):
+        if _versions_audit(all_versions, full_config):
             result = True
     if config.get("rebuild", False):
-        if _rebuild(all_versions, config["rebuild"], full_config):
+        if _versions_rebuild(all_versions, config["rebuild"], full_config):
             result = True
     if config.get("backport_tags", False):
-        if _backport_tags(all_versions, full_config):
+        if _versions_backport_tags(all_versions, full_config):
             result = True
     if config.get("branches", False):
-        if _branches(all_versions, full_config):
+        if _versions_branches(all_versions, full_config):
             result = True
 
     return result
 
 
-def _get_branch_matrix(job, full_config):
+def _get_branch_matrix(job, branch_to_version_re):
     """
     Get the branches from a `strategy` `matrix`, and return the corresponding version.
     """
 
     branch = job.get("strategy", {}).get("matrix", {}).get("branch", [])
-    return [
-        "master"
-        if av == "master"
-        else c2cciutils.convert(av, full_config["version"].get("branch_to_version_re"))
-        for av in branch
-    ]
+    return [c2cciutils.get_value(*c2cciutils.match(av, branch_to_version_re)) for av in branch]
 
 
-def _audit(all_versions, full_config):
+def _versions_audit(all_versions, full_config):
     """
     Check that the audit branches corresponds to the version from the Security.md
     """
@@ -420,8 +416,10 @@ def _audit(all_versions, full_config):
         with open(filename) as open_file:
             workflow = yaml.load(open_file, yaml.SafeLoader)
 
+        branch_to_version_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
+
         for name, job in workflow.get("jobs").items():
-            audit_versions = _get_branch_matrix(job, full_config)
+            audit_versions = _get_branch_matrix(job, branch_to_version_re)
 
             if all_versions != set(audit_versions):
                 error(
@@ -434,12 +432,14 @@ def _audit(all_versions, full_config):
     return result
 
 
-def _rebuild(all_versions, config, full_config):
+def _versions_rebuild(all_versions, config, full_config):
     """
     Check that the rebuild branches corresponds to the version from the Security.md
     """
     result = False
     rebuild_versions = []
+    branch_to_version_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
+
     for filename_ in config.get("files", []):
         filename = os.path.join(".github/workflows", filename_)
         if not os.path.exists(filename):
@@ -454,7 +454,7 @@ def _rebuild(all_versions, config, full_config):
                 workflow = yaml.load(open_file, yaml.SafeLoader)
 
             for _, job in workflow.get("jobs").items():
-                rebuild_versions += _get_branch_matrix(job, full_config)
+                rebuild_versions += _get_branch_matrix(job, branch_to_version_re)
 
     if all_versions != set(rebuild_versions):
         error(
@@ -466,7 +466,7 @@ def _rebuild(all_versions, config, full_config):
     return result
 
 
-def _backport_tags(all_versions, full_config):
+def _versions_backport_tags(all_versions, full_config):
     """
     Check that the backport tags corresponds to the version from the Security.md
     """
@@ -488,25 +488,11 @@ def _backport_tags(all_versions, full_config):
     )
     labels_responce.raise_for_status()
 
-    label_re = full_config["version"]["branch_re"]
-    if label_re[0] == "^":
-        label_re = label_re[1:]
-    if label_re[-1] != "$":
-        label_re += "$"
-    backport_prefix = "^backport "
-    label_re = re.compile(backport_prefix + label_re)
-
+    label_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []), "backport ")
     for json_label in labels_responce.json():
-        if json_label["name"] == "backport master":
-            label_versions.add("master")
-
-        if label_re.match(json_label["name"]):
-            label_versions.add(
-                c2cciutils.convert(
-                    json_label["name"][len(backport_prefix) - 1 :],
-                    full_config["version"].get("branch_to_version_re"),
-                )
-            )
+        match = c2cciutils.match(json_label["name"], label_re)
+        if match[0] is not None:
+            label_versions.add(c2cciutils.get_value(*match))
 
     if all_versions != label_versions:
         error(
@@ -520,7 +506,7 @@ def _backport_tags(all_versions, full_config):
     return result
 
 
-def _branches(all_versions, full_config):
+def _versions_branches(all_versions, full_config):
     """
     Check that the branches corresponds to the version from the Security.md
     """
@@ -542,20 +528,11 @@ def _branches(all_versions, full_config):
     )
     branches_responce.raise_for_status()
 
-    branches_re = full_config["version"]["branch_re"]
-    if branches_re[0] != "^":
-        branches_re = "^" + branches_re
-    if branches_re[-1] != "$":
-        branches_re += "$"
-    branches_re = re.compile(branches_re)
-
+    branche_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
     for branche in branches_responce.json():
-        if branche["name"] == "master":
-            branche_versions.add("master")
-        if branches_re.match(branche["name"]):
-            branche_versions.add(
-                c2cciutils.convert(branche["name"], full_config["version"].get("branch_to_version_re"))
-            )
+        match = c2cciutils.match(branche["name"], branche_re)
+        if match[0] is not None:
+            branche_versions.add(c2cciutils.get_value(*match))
 
     if len([v for v in all_versions if v not in branche_versions]) > 0:
         error(
@@ -582,6 +559,7 @@ def black(config, full_config, args):
         if not args.fix:
             cmd += ["--color", "--diff"]
         cmd.append(".")
+        # The . includes only the .py file, then add manually the other script files
         for file_ in glob.iglob("**/*[0-9a-zA-z_-][0-9a-zA-z_-][0-9a-zA-z_-]", recursive=True):
             if os.path.isfile(file_):
                 if magic.from_file(file_, mime=True) == "text/x-python":
@@ -611,6 +589,7 @@ def isort(config, full_config, args):
         else:
             cmd += ["--check-only", "--diff"]
         cmd.append(".")
+        # The . includes only the .py file, then add manually the other script files
         for file_ in glob.iglob("**/*[0-9a-zA-z_-][0-9a-zA-z_-][0-9a-zA-z_-]", recursive=True):
             if os.path.isfile(file_):
                 if magic.from_file(file_, mime=True) == "text/x-python":
@@ -659,3 +638,12 @@ def codespell(config, full_config, args):
             "Error, see above",
         )
         return True
+
+
+def print_versions(config, full_config, args):
+    """
+    Print some tools version
+    """
+    del full_config, args
+
+    return c2cciutils.print_versions(config)

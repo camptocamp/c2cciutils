@@ -9,7 +9,7 @@ from markdown.extensions.tables import TableExtension
 
 class Security:
     """
-    Render the table of versions got from SECURITY.md, with an additional column named 'CI status'
+    Read the table of versions got from SECURITY.md
     """
 
     headers: List[str]

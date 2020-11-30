@@ -29,10 +29,6 @@ def get_config():
         with open("ci/config.yaml") as open_file:
             config = yaml.load(open_file, yaml.SafeLoader)
 
-    version_branch_re = config.get("version", {}).get("branch_to_version_re", {}).get("from")
-    if version_branch_re is not None and config.get("version", {}).get("branch_re") is None:
-        config["version"]["branch_re"] = version_branch_re
-
     editorconfig_properties = {
         "end_of_line": "lf",
         "insert_final_newline": "true",
@@ -60,11 +56,13 @@ def get_config():
 
     default_config = {
         "version": {
-            "branch_re": r"[0-9]+.[0-9]+",
-            "tag_re": r"[0-9]+.[0-9]+.[0-9]+",
-            "tag_to_version_re": {"from": r"(.*)", "to": r"\1"},
-            "branch_to_version_re": {"from": r"(.*)", "to": r"\1"},
-            "version_to_branch_re": {"from": r"(.*)", "to": r"\1"},
+            "tag_to_version_re": [
+                {"from": r"([0-9]+.[0-9]+.[0-9]+)", "to": r"\1"},
+            ],
+            "branch_to_version_re": [
+                {"from": r"([0-9]+.[0-9]+)", "to": r"\1"},
+                {"from": "master", "to": "master"},
+            ],
         },
         "publish": {
             "print_versions": {
@@ -75,14 +73,17 @@ def get_config():
                     {"name": "docker", "cmd": ["docker", "--version"]},
                 ]
             },
-            "pypi": {"versions": ["minor"], "packages": [{"path": "."}]},
+            "pypi": {"versions": ["version_tag"], "packages": [{"path": "."}]},
             "docker": {
                 "images": [{"name": os.environ["GITHUB_REPOSITORY"]}]
                 if "GITHUB_REPOSITORY" in os.environ
                 else [],
                 "repository": {
-                    "github": {"dns": "ghcr.io", "versions": ["major", "minor", "master", "spesific"]},
-                    "dockerhub": {"versions": ["major", "minor", "master", "branch", "specific"]},
+                    "github": {
+                        "server": "ghcr.io",
+                        "versions": ["version_tag", "version_branch", "custom"],
+                    },
+                    "dockerhub": {"versions": ["version_tag", "version_branch", "custom", "feature_branch"]},
                 },
             },
         },
@@ -177,8 +178,6 @@ def get_config():
             image,
             {
                 "tags": ["{version}"],
-                "validate_tags": True,
-                "master_as": "latest",
                 "group": "default",
             },
         )
@@ -186,24 +185,58 @@ def get_config():
     return config
 
 
-def convert(value, config):
-    if not isinstance(config, dict):
-        return value
+def compile_re(config, prefix=""):
+    """
+    Compile the from as a regular expression of a dictionary of the config list.
 
-    convert_from = config.get("from", r"(.*)")
-    if convert_from[0] != "^":
-        convert_from = "^" + convert_from
-    if convert_from[-1] != "$":
-        convert_from += "$"
+    to be used with convert and match
+    """
+    result = []
+    for conf in config:
+        new_conf = dict(conf)
 
-    return re.sub(convert_from, config.get("to", r"\1"), value)
+        from_re = config.get("from", r"(.*)")
+        if from_re[0] == "^":
+            from_re = from_re[1:]
+        if from_re[-1] != "$":
+            from_re += "$"
+        from_re = "^{}{}".format(re.escape(prefix), from_re)
+
+        new_conf["from"] = re.compile(from_re)
+        result.append(new_conf)
+    return result
 
 
-def print_versions(config, *args):
+def match(value, config):
+    """
+    `value` is what we want to match with
+    `config` is the result of `compile`
+
+    Returns the re match object, the mached config and the vaule as a tuple
+    On no match it returns None, value
+    """
+    for conf in config:
+        matched = conf["from"].match(value)
+        if matched is not None:
+            return matched, config, value
+    return None, None, value
+
+
+def get_value(matched, config, value):
+    """
+    Get the final value
+
+    `match`, `config` and `value` are the result of `match`.
+
+    The `config` should have a `to` ad a expand template.
+    """
+    return matched.expand(config.get("to", r"\1")) if matched is not None else value
+
+
+def print_versions(config):
     """
     Print some tools version
     """
-    del args
 
     for version in config.get("versions", []):
         try:

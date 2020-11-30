@@ -27,3 +27,37 @@ At the base of the configuration you have:
 * `publish`: The publish configuration, see `c2cciutils/publish.py` for more information.
 
 Many actions can be disabled by setting the corresponding configuration part to `False`.
+
+# Publishing
+
+## To pypi
+
+When publishing the computed version is set as the environment variable 'VERSION' than you can use it in
+the `setup.py`.
+
+The config is like this:
+
+```yaml
+    versions: # List of kind of version you vant to publish, that can be: custom (used by rebuild),
+        # version_tag, version_branch, feature_branch, feature_tag (for pull request)
+```
+
+## To Docker registry
+
+The config is like this:
+
+```yaml
+images:
+  - name: # The base name of the image we want to publish
+repository:
+  <internal_name>:
+      "server": # The fqdn name of the server if not Docker hub
+      "version": # List of kind of version you vant to publish, that can be: custom (used by rebuild),
+          # version_tag, version_branch, feature_branch, feature_tag (for pull request)
+      "tags": # List of tags we want to publish interpreter with `template(version=version)`
+          # the image should be built with `version = 'latest'`
+      "group": # If your images are published by different job you can separate them in different groups
+          # and publish them with `c2cciutils-publisg --group=<group>`
+```
+
+With the `c2cciutils-clean` the images on Docker hub for `feature_branch` will be removed on branch removing.
