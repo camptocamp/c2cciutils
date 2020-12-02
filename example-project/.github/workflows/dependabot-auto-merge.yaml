@@ -21,7 +21,14 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      # Legacy dependabot
       - name: Auto merge
         uses: ridedott/dependabot-auto-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # GitHub dependabot
+      - name: Auto merge
+        uses: ridedott/dependabot-auto-merge-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_LOGIN: dependabot[bot]
