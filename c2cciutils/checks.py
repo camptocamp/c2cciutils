@@ -554,11 +554,36 @@ def _versions_branches(all_versions, full_config):
     return result
 
 
+def _get_python_files(ignore_patterns_re):
+    """
+    Get all the files in git that have the mime type text/x-python
+
+    ignore_patterns_re: list of regular expression to be ignored
+    """
+
+    ignore_patterns_compiled = [re.compile(p) for p in ignore_patterns_re]
+    result = []
+
+    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if magic.from_file(filename, mime=True) == "text/x-python":
+            accept = True
+            for pattern in ignore_patterns_compiled:
+                if pattern.search(filename):
+                    accept = False
+                    break
+            if accept:
+                result.append(filename)
+    return result
+
+
 def black(config, full_config, args):
     """
     Run black check on all files including Python files without .py extension
+
+    config is like:
+      ignore_patterns_re: [] # list of regular expression we should ignore
     """
-    del config, full_config
+    del full_config
 
     try:
         sys.stdout.flush()
@@ -566,12 +591,7 @@ def black(config, full_config, args):
         cmd = ["black"]
         if not args.fix:
             cmd += ["--color", "--diff"]
-        cmd.append(".")
-        # The . includes only the .py file, then add manually the other script files
-        for file_ in glob.iglob("**/*[0-9a-zA-z_-][0-9a-zA-z_-][0-9a-zA-z_-]", recursive=True):
-            if os.path.isfile(file_):
-                if magic.from_file(file_, mime=True) == "text/x-python":
-                    cmd.append(file_)
+        cmd += _get_python_files(config.get("ignore_patterns_re", []))
         subprocess.check_call(cmd)
         return True
     except subprocess.CalledProcessError:
@@ -585,8 +605,11 @@ def black(config, full_config, args):
 def isort(config, full_config, args):
     """
     Run isort check on all files including Python files without .py extension
+
+    config is like:
+      ignore_patterns_re: [] # list of regular expression we should ignore
     """
-    del config, full_config
+    del full_config
 
     try:
         sys.stdout.flush()
@@ -596,12 +619,7 @@ def isort(config, full_config, args):
             cmd.append("--apply")
         else:
             cmd += ["--check-only", "--diff"]
-        cmd.append(".")
-        # The . includes only the .py file, then add manually the other script files
-        for file_ in glob.iglob("**/*[0-9a-zA-z_-][0-9a-zA-z_-][0-9a-zA-z_-]", recursive=True):
-            if os.path.isfile(file_):
-                if magic.from_file(file_, mime=True) == "text/x-python":
-                    cmd.append(file_)
+        cmd += _get_python_files(config.get("ignore_patterns_re", []))
         subprocess.check_call(cmd)
         return True
     except subprocess.CalledProcessError:

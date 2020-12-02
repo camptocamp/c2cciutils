@@ -130,8 +130,8 @@ def get_config():
                 "audit": True,
                 "branches": True,
             },
-            "black": True,
-            "isort": True,
+            "black": {"ignore_patterns_re": []},
+            "isort": {"ignore_patterns_re": []},
             "codespell": {
                 "ignore_re": [],
                 "arguments": ["--quiet-level=2", "--check-filenames"],
