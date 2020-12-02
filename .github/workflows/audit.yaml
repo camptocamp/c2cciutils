@@ -1,0 +1,38 @@
+---
+name: Audit
+
+on:
+  schedule:
+    - cron: '30 2 * * *'
+
+jobs:
+  audit:
+    runs-on: ubuntu-20.04
+    name: Audit
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        branch:
+          - '1.0'
+          - master
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.branch }}
+
+      - run: |
+          sudo rm /etc/apt/sources.list.d/*.list
+          sudo apt update
+          sudo apt install --yes python3-wheel
+
+      - uses: asdf-vm/actions/install@v1
+        with:
+          tool_versions: python 3.8.0
+
+      - run: sudo python3 -m pip install --editable=.
+
+      - name: Audit
+        run: c2cciutils-audit
