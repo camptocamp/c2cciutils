@@ -6,6 +6,7 @@ pylint:
     - wrong-import-order
     - too-many-arguments
     - too-many-branches
+    - too-many-locals
     - too-few-public-methods
 
 pep8:
@@ -19,7 +20,6 @@ mypy:
   options:
     python_version: 3.8
     ignore-missing-imports: True
-
     warn-redundant-casts: True
     warn-unused-ignores: True
     check-untyped-defs: True

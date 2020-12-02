@@ -17,12 +17,3 @@ updates:
     open-pull-requests-limit: 99
     allow:
       - dependency-type: direct
-
-  - package-ecosystem: pip
-    directory: '/example-project/ci'
-    schedule:
-      interval: daily
-      time: '02:00'
-    open-pull-requests-limit: 99
-    allow:
-      - dependency-type: direct
