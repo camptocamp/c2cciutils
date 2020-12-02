@@ -431,7 +431,9 @@ def _versions_audit(all_versions, full_config):
                 error(
                     "versions",
                     "The workflow '{}', job '{}' does not have a branch matrix with the right list of "
-                    "versions [{}]".format(filename, name, ", ".join(all_versions)),
+                    "versions [{}] != [{}]".format(
+                        filename, name, ", ".join(all_versions), ", ".join(audit_versions)
+                    ),
                     filename,
                 )
                 result = False
