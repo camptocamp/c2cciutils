@@ -34,7 +34,10 @@ def pip(config, full_config):
         try:
             sys.stdout.flush()
             sys.stderr.flush()
-            subprocess.check_call(cmd, cwd=directory)
+            if directory != "":
+                subprocess.check_call(cmd, cwd=directory)
+            else:
+                subprocess.check_call(cmd)
         except subprocess.CalledProcessError:
             c2cciutils.checks.error("pip", "Audit issue, see above", file)
             success = False
@@ -74,7 +77,10 @@ def pipenv(config, _):
             c2cciutils.checks.error("pienv", "Audit issue, see above", file)
             sys.stdout.flush()
             sys.stderr.flush()
-            subprocess.check_call(cmd, cwd=directory)
+            if directory != "":
+                subprocess.check_call(cmd, cwd=directory)
+            else:
+                subprocess.check_call(cmd)
         except subprocess.CalledProcessError:
             success = False
             print("::endgroup::")
@@ -103,7 +109,8 @@ def npm(config, full_config):
         directory = os.path.dirname(file)
         sys.stdout.flush()
         sys.stderr.flush()
-        subprocess.check_call(["npm", "install", "--package-lock"], cwd=directory)
+        subprocess_kwargs = {} if directory == "" else {"cwd": directory}
+        subprocess.check_call(["npm", "install", "--package-lock"], **subprocess_kwargs)
         cmd = ["node", "/usr/local/lib/node_modules/better-npm-audit", "audit"]
         cve_file = os.path.join(directory, "npm-cve-ignore")
         if os.path.exists(cve_file):
@@ -112,13 +119,13 @@ def npm(config, full_config):
         try:
             sys.stdout.flush()
             sys.stderr.flush()
-            subprocess.check_call(cmd, cwd=directory)
+            subprocess.check_call(cmd, **subprocess_kwargs)
         except subprocess.CalledProcessError:
             c2cciutils.checks.error("npm", "Audit issue, see above", file)
-            subprocess.call(["npm", "audit"], cwd=directory)
-            subprocess.call(["npm", "audit", "fix", "--force"], cwd=directory)
-            subprocess.call(["git", "diff"], cwd=directory)
-            subprocess.call(["git", "diff-index", "--quiet", "HEAD"], cwd=directory)
+            subprocess.call(["npm", "audit"], **subprocess_kwargs)
+            subprocess.call(["npm", "audit", "fix", "--force"], **subprocess_kwargs)
+            subprocess.call(["git", "diff"], **subprocess_kwargs)
+            subprocess.call(["git", "diff-index", "--quiet", "HEAD"], **subprocess_kwargs)
             success = False
             print("::endgroup::")
             print("With error")
