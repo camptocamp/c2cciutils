@@ -23,7 +23,7 @@ jobs:
           sudo apt update
           sudo apt install --yes python3-wheel
 
-      - run: python3 -m pip install --user git+https://github.com/camptocamp/c2cciutils.git@init
+      - run: python3 -m pip install --user c2cciutils
 
       - name: Clean docker hub tags
         run: c2cciutils-clean
