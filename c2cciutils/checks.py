@@ -119,11 +119,11 @@ def editorconfig(config, full_config, args):
             properties = get_properties(os.path.abspath(file_))
 
             for key, value in wanted_properties.items():
-                if value is not None and properties[key] != value:
+                if value is not None and (key not in properties or properties[key] != value):
                     error(
                         "editorconfig",
                         "For pattern: {} the property '{}' is '{}' but should be '{}'.".format(
-                            pattern, key, properties[key], value
+                            pattern, key, properties.get(key, ""), value
                         ),
                         ".editorconfig",
                     )
@@ -484,7 +484,7 @@ def _versions_backport_labels(all_versions, full_config):
     sys.stdout.flush()
     sys.stderr.flush()
     labels_responce = requests.get(
-        "https://api.github.com/repos/{repo}/labels".format(repo=os.environ["GITHUB_REPOSITORY"]),
+        "https://api.github.com/repos/{repo}/labels".format(repo=c2cciutils.get_repository()),
         headers={
             "Accept": "application/vnd.github.v3+json",
             "Authorization": "Bearer {}".format(
@@ -524,7 +524,7 @@ def _versions_branches(all_versions, full_config):
     sys.stdout.flush()
     sys.stderr.flush()
     branches_responce = requests.get(
-        "https://api.github.com/repos/{repo}/branches".format(repo=os.environ["GITHUB_REPOSITORY"]),
+        "https://api.github.com/repos/{repo}/branches".format(repo=c2cciutils.get_repository()),
         headers={
             "Accept": "application/vnd.github.v3+json",
             "Authorization": "Bearer {}".format(

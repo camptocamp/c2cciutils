@@ -1,6 +1,10 @@
 import os
+import site
+import sys
 
 from setuptools import find_packages, setup
+
+site.ENABLE_USER_SITE = "--user" in sys.argv
 
 # On GitHub workflow add ~/.local/bin in PATH
 if "GITHUB_PATH" in os.environ:
