@@ -247,9 +247,7 @@ def workflows(config, full_config, args):
             if job.get("timeout-minutes") is None:
                 error(
                     "workflows",
-                    "The workflow '{}', job '{}' runs on '{}' but it is blacklisted".format(
-                        filename, name, job.get("runs-on")
-                    ),
+                    "The workflow '{}', job '{}' has no timeout".format(filename, name),
                     filename,
                 )
                 result = False
