@@ -519,7 +519,7 @@ def _versions_branches(all_versions, full_config):
     Check that the branches correspond to the version from the Security.md
     """
     result = True
-    branche_versions = set()
+    branch_versions = set()
 
     sys.stdout.flush()
     sys.stderr.flush()
@@ -536,17 +536,17 @@ def _versions_branches(all_versions, full_config):
     )
     branches_responce.raise_for_status()
 
-    branche_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
-    for branche in branches_responce.json():
-        match = c2cciutils.match(branche["name"], branche_re)
+    branch_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
+    for branch in branches_responce.json():
+        match = c2cciutils.match(branch["name"], branch_re)
         if match[0] is not None:
-            branche_versions.add(c2cciutils.get_value(*match))
+            branch_versions.add(c2cciutils.get_value(*match))
 
-    if len([v for v in all_versions if v not in branche_versions]) > 0:
+    if len([v for v in all_versions if v not in branch_versions]) > 0:
         error(
             "versions",
             "The version from the branches does not correspond with expected versions [{}] != [{}]".format(
-                ", ".join(branche_versions), ", ".join(all_versions)
+                ", ".join(branch_versions), ", ".join(all_versions)
             ),
         )
         result = False

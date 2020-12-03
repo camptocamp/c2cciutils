@@ -20,10 +20,23 @@ def match(tpe, base_re):
     return re.match("^refs/{}/{}".format(tpe, base_re), os.environ["GITHUB_REF"])
 
 
+def to_version(full_config, value, kind):
+    """
+    Compute publish version from branch name or tag
+    """
+    item_re = c2cciutils.compile_re(full_config["version"].get(kind + "_to_version_re", []))
+    value_match = c2cciutils.match(value, item_re)
+    if value_match[0] is not None:
+        return c2cciutils.get_value(*value_match)
+    return value
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Publish the project.")
     parser.add_argument("--group", default="default", help="The publishing group")
     parser.add_argument("--version", help="The version to publish to")
+    parser.add_argument("--branch", help="The branch from which to compute the version")
+    parser.add_argument("--tag", help="The tag from which to compute the version")
 
     args = parser.parse_args()
 
@@ -51,6 +64,12 @@ def main() -> None:
     if args.version is not None:
         version_type = "custom"
         version = args.version
+    elif args.branch is not None:
+        version_type = "custom"
+        version = to_version(config, args.branch, "branch")
+    elif args.tag is not None:
+        version_type = "custom"
+        version = to_version(config, args.tag, "tag")
     elif tag_match[0] is not None:
         version_type = "version_tag"
         version = c2cciutils.get_value(*tag_match)

@@ -7,6 +7,7 @@ pylint:
     - too-many-arguments
     - too-many-branches
     - too-many-locals
+    - too-many-statements
     - too-few-public-methods
 
 pep8:
