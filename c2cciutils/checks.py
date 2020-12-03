@@ -119,11 +119,11 @@ def editorconfig(config, full_config, args):
             properties = get_properties(os.path.abspath(file_))
 
             for key, value in wanted_properties.items():
-                if value is not None and properties[key] != value:
+                if value is not None and (key not in properties or properties[key] != value):
                     error(
                         "editorconfig",
                         "For pattern: {} the property '{}' is '{}' but should be '{}'.".format(
-                            pattern, key, properties[key], value
+                            pattern, key, properties.get(key, ""), value
                         ),
                         ".editorconfig",
                     )
