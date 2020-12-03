@@ -484,7 +484,7 @@ def _versions_backport_labels(all_versions, full_config):
     sys.stdout.flush()
     sys.stderr.flush()
     labels_responce = requests.get(
-        "https://api.github.com/repos/{repo}/labels".format(repo=os.environ["GITHUB_REPOSITORY"]),
+        "https://api.github.com/repos/{repo}/labels".format(repo=c2cciutils.get_repository()),
         headers={
             "Accept": "application/vnd.github.v3+json",
             "Authorization": "Bearer {}".format(
@@ -524,7 +524,7 @@ def _versions_branches(all_versions, full_config):
     sys.stdout.flush()
     sys.stderr.flush()
     branches_responce = requests.get(
-        "https://api.github.com/repos/{repo}/branches".format(repo=os.environ["GITHUB_REPOSITORY"]),
+        "https://api.github.com/repos/{repo}/branches".format(repo=c2cciutils.get_repository()),
         headers={
             "Accept": "application/vnd.github.v3+json",
             "Authorization": "Bearer {}".format(

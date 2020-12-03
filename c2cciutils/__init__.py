@@ -8,6 +8,23 @@ import subprocess
 import yaml
 
 
+def get_repository():
+    if "GITHUB_REPOSITORY" in os.environ:
+        return os.environ["GITHUB_REPOSITORY"]
+
+    remote_lines = subprocess.check_output(["git", "remote", "--verbose"]).decode().split("\n")
+    remote_match = (
+        re.match(r".*git@github.com:(.*).git .*", remote_lines[0]) if len(remote_lines) >= 1 else None
+    )
+
+    if remote_match:
+        return remote_match.group(1)
+
+    print("WARNING: the GitHub repository isn't found, using 'camptocamp/project'")
+
+    return "camptocamp/project"
+
+
 def merge(default_config, config):
     """
     Deep merge the dictionaries on dicktionaries only (not on array).
@@ -80,9 +97,7 @@ def get_config():
             },
             "pypi": {"versions": ["version_tag"], "packages": [{"path": "."}]},
             "docker": {
-                "images": [{"name": os.environ["GITHUB_REPOSITORY"]}]
-                if "GITHUB_REPOSITORY" in os.environ
-                else [],
+                "images": [{"name": get_repository()}],
                 "repository": {
                     "github": {
                         "server": "ghcr.io",
