@@ -61,7 +61,7 @@ def main() -> None:
 
     for image in config.get("publish", {}).get("docker", {}).get("images", []):
         for tag in image.get("tags", []):
-            clean(image["name"], tag.format(ref), token)
+            clean(image["name"], tag.format(version=ref), token)
 
 
 if __name__ == "__main__":
