@@ -27,7 +27,7 @@ def get_repository():
 
 def merge(default_config, config):
     """
-    Deep merge the dictionaries on dicktionaries only (not on array).
+    Deep merge the dictionaries (on dictionaries only, not on arrays).
     """
 
     for key in default_config.keys():
