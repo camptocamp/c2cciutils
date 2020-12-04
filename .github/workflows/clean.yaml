@@ -24,6 +24,7 @@ jobs:
           sudo apt install --yes python3-wheel
 
       - run: python3 -m pip install --user c2cciutils
+      - run: echo ~/.local/bin >> $GITHUB_PATH
 
       - name: Clean docker hub tags
         run: c2cciutils-clean
