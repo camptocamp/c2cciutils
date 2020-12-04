@@ -271,8 +271,11 @@ def required_workflows(config, full_config, args):
     """
     del full_config, args
 
-    result = True
+    success = True
     for file_, conf in config.items():
+        if conf is False:
+            continue
+
         filename = os.path.join(".github/workflows", file_)
         if not os.path.exists(filename):
             error(
@@ -280,10 +283,10 @@ def required_workflows(config, full_config, args):
                 "The workflow '{}' is required".format(filename),
                 filename,
             )
-            result = False
+            success = False
             continue
 
-        if isinstance(config, dict):
+        if not isinstance(conf, dict):
             continue
 
         with open(filename) as open_file:
@@ -299,7 +302,7 @@ def required_workflows(config, full_config, args):
                         ),
                         filename,
                     )
-                    result = False
+                    success = False
             if conf.get("noif", False):
                 if "if" in job:
                     error(
@@ -307,7 +310,7 @@ def required_workflows(config, full_config, args):
                         "The workflow '{}', job '{}' should not have a if".format(filename, name),
                         filename,
                     )
-                    result = False
+                    success = False
             if "strategy-fail-fast" in conf:
                 if job.get("strategy", {}).get("fail-fast") != conf["strategy-fail-fast"]:
                     error(
@@ -317,11 +320,12 @@ def required_workflows(config, full_config, args):
                         ),
                         filename,
                     )
-                    result = False
+                    success = False
             if "runs_re" in conf:
                 for run in conf["runs_re"]:
+                    run_re = re.compile(run)
                     corresponding_steps = [
-                        step for step in job["steps"] if re.match(step.get("run"), run) is not None
+                        step for step in job["steps"] if run_re.match(step.get("run", "")) is not None
                     ]
                     if len(corresponding_steps) == 0:
                         error(
@@ -331,8 +335,8 @@ def required_workflows(config, full_config, args):
                             ),
                             filename,
                         )
-                        result = False
-    return result
+                        success = False
+    return success
 
 
 def versions(config, full_config, _):
