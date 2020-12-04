@@ -177,7 +177,7 @@ def eof(config, full_config, args):
     del config, full_config
 
     try:
-        result = True
+        success = True
 
         sys.stdout.flush()
         sys.stderr.flush()
@@ -205,9 +205,9 @@ def eof(config, full_config, args):
                                         "No new line at end of '{}' file.".format(filename),
                                         filename,
                                     )
-                                    result = False
+                                    success = False
 
-        return result
+        return success
     except subprocess.CalledProcessError:
         error(
             "eof",
@@ -226,7 +226,7 @@ def workflows(config, full_config, args):
     """
     del full_config, args
 
-    result = True
+    success = True
     files = glob.glob(".github/workflows/*.yaml")
     files += glob.glob(".github/workflows/*.yml")
     for filename in files:
@@ -242,7 +242,7 @@ def workflows(config, full_config, args):
                     ),
                     filename,
                 )
-                result = False
+                success = False
 
             if job.get("timeout-minutes") is None:
                 error(
@@ -252,9 +252,9 @@ def workflows(config, full_config, args):
                     ),
                     filename,
                 )
-                result = False
+                success = False
 
-    return result
+    return success
 
 
 def required_workflows(config, full_config, args):
@@ -271,8 +271,11 @@ def required_workflows(config, full_config, args):
     """
     del full_config, args
 
-    result = True
+    success = True
     for file_, conf in config.items():
+        if conf is False:
+            continue
+
         filename = os.path.join(".github/workflows", file_)
         if not os.path.exists(filename):
             error(
@@ -280,10 +283,10 @@ def required_workflows(config, full_config, args):
                 "The workflow '{}' is required".format(filename),
                 filename,
             )
-            result = False
+            success = False
             continue
 
-        if isinstance(config, dict):
+        if not isinstance(conf, dict):
             continue
 
         with open(filename) as open_file:
@@ -299,7 +302,7 @@ def required_workflows(config, full_config, args):
                         ),
                         filename,
                     )
-                    result = False
+                    success = False
             if conf.get("noif", False):
                 if "if" in job:
                     error(
@@ -307,7 +310,7 @@ def required_workflows(config, full_config, args):
                         "The workflow '{}', job '{}' should not have a if".format(filename, name),
                         filename,
                     )
-                    result = False
+                    success = False
             if "strategy-fail-fast" in conf:
                 if job.get("strategy", {}).get("fail-fast") != conf["strategy-fail-fast"]:
                     error(
@@ -317,11 +320,12 @@ def required_workflows(config, full_config, args):
                         ),
                         filename,
                     )
-                    result = False
+                    success = False
             if "runs_re" in conf:
                 for run in conf["runs_re"]:
+                    run_re = re.compile(run)
                     corresponding_steps = [
-                        step for step in job["steps"] if re.match(step.get("run"), run) is not None
+                        step for step in job["steps"] if run_re.match(step.get("run", "")) is not None
                     ]
                     if len(corresponding_steps) == 0:
                         error(
@@ -331,8 +335,8 @@ def required_workflows(config, full_config, args):
                             ),
                             filename,
                         )
-                        result = False
-    return result
+                        success = False
+    return success
 
 
 def versions(config, full_config, _):
@@ -372,7 +376,7 @@ def versions(config, full_config, _):
     version_index = security.headers.index("Version")
     date_index = security.headers.index("Supported Until")
 
-    result = True
+    success = True
     all_versions = set(config.get("extra_versions", []))
 
     for row in security.data:
@@ -382,18 +386,18 @@ def versions(config, full_config, _):
 
     if config.get("audit", False):
         if not _versions_audit(all_versions, full_config):
-            result = False
+            success = False
     if config.get("rebuild", False):
         if not _versions_rebuild(all_versions, config["rebuild"], full_config):
-            result = False
+            success = False
     if config.get("backport_labels", False):
         if not _versions_backport_labels(all_versions, full_config):
-            result = False
+            success = False
     if config.get("branches", False):
         if not _versions_branches(all_versions, full_config):
-            result = False
+            success = False
 
-    return result
+    return success
 
 
 def _get_branch_matrix(job, branch_to_version_re):
@@ -409,7 +413,7 @@ def _versions_audit(all_versions, full_config):
     """
     Check that the audit branches correspond to the version from the Security.md
     """
-    result = True
+    success = True
     filename = ".github/workflows/audit.yaml"
     if not os.path.exists(filename):
         error(
@@ -417,7 +421,7 @@ def _versions_audit(all_versions, full_config):
             "The file '{}' does not exists".format(filename),
             filename,
         )
-        result = False
+        success = False
     else:
         with open(filename) as open_file:
             workflow = yaml.load(open_file, yaml.SafeLoader)
@@ -436,15 +440,15 @@ def _versions_audit(all_versions, full_config):
                     ),
                     filename,
                 )
-                result = False
-    return result
+                success = False
+    return success
 
 
 def _versions_rebuild(all_versions, config, full_config):
     """
     Check that the rebuild branches correspond to the version from the Security.md
     """
-    result = True
+    success = True
     rebuild_versions = []
     branch_to_version_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
 
@@ -456,7 +460,7 @@ def _versions_rebuild(all_versions, config, full_config):
                 "The rebuild file '{}' does not exists".format(filename),
                 filename,
             )
-            result = False
+            success = False
         else:
             with open(filename) as open_file:
                 workflow = yaml.load(open_file, yaml.SafeLoader)
@@ -470,15 +474,15 @@ def _versions_rebuild(all_versions, config, full_config):
             "The rebuild workflows does not have the right list of versions in the branch matrix "
             "[{}] != [{}]".format(", ".join(rebuild_versions), ", ".join(all_versions)),
         )
-        result = False
-    return result
+        success = False
+    return success
 
 
 def _versions_backport_labels(all_versions, full_config):
     """
     Check that the backport labels correspond to the version from the Security.md
     """
-    result = True
+    success = True
     label_versions = set()
 
     sys.stdout.flush()
@@ -509,17 +513,17 @@ def _versions_backport_labels(all_versions, full_config):
                 ", ".join(label_versions), ", ".join(all_versions)
             ),
         )
-        result = False
+        success = False
 
-    return result
+    return success
 
 
 def _versions_branches(all_versions, full_config):
     """
     Check that the branches correspond to the version from the Security.md
     """
-    result = True
-    branche_versions = set()
+    success = True
+    branch_versions = set()
 
     sys.stdout.flush()
     sys.stderr.flush()
@@ -536,22 +540,22 @@ def _versions_branches(all_versions, full_config):
     )
     branches_responce.raise_for_status()
 
-    branche_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
-    for branche in branches_responce.json():
-        match = c2cciutils.match(branche["name"], branche_re)
+    branch_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
+    for branch in branches_responce.json():
+        match = c2cciutils.match(branch["name"], branch_re)
         if match[0] is not None:
-            branche_versions.add(c2cciutils.get_value(*match))
+            branch_versions.add(c2cciutils.get_value(*match))
 
-    if len([v for v in all_versions if v not in branche_versions]) > 0:
+    if len([v for v in all_versions if v not in branch_versions]) > 0:
         error(
             "versions",
             "The version from the branches does not correspond with expected versions [{}] != [{}]".format(
-                ", ".join(branche_versions), ", ".join(all_versions)
+                ", ".join(branch_versions), ", ".join(all_versions)
             ),
         )
-        result = False
+        success = False
 
-    return result
+    return success
 
 
 def _get_python_files(ignore_patterns_re):

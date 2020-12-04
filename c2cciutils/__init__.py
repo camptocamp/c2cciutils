@@ -101,9 +101,9 @@ def get_config():
                 "repository": {
                     "github": {
                         "server": "ghcr.io",
-                        "versions": ["version_tag", "version_branch", "custom"],
+                        "versions": ["version_tag", "version_branch", "rebuild"],
                     },
-                    "dockerhub": {"versions": ["version_tag", "version_branch", "custom", "feature_branch"]},
+                    "dockerhub": {"versions": ["version_tag", "version_branch", "rebuild", "feature_branch"]},
                 },
             },
         },
@@ -189,7 +189,11 @@ def get_config():
 
     if config["checks"].get("versions", False):
         required_workflows = {
-            rebuild: {"noif": True, "runs_re": [r"c2cciutils-publish( .*)?$"], "strategy-fail-fast": False}
+            rebuild: {
+                "noif": True,
+                "runs_re": [r"c2cciutils-publish( .*)--type(.*)?$"],
+                "strategy-fail-fast": False,
+            }
             for rebuild in config["checks"]["versions"].get("file", ["rebuild.yaml"])
         }
         merge(required_workflows, config["checks"]["required_workflows"])

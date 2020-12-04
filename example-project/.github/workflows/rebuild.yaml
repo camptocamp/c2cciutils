@@ -43,4 +43,4 @@ jobs:
         run: docker build --tag=${GITHUB_REPOSITORY} .
 
       - name: Publish
-        run: c2cciutils-publish ${{ matrix.branch }}
+        run: c2cciutils-publish --type=rebuild --branch=${{ matrix.branch }}

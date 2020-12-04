@@ -43,7 +43,7 @@ VERSION = os.environ.get("VERSION", "1.0.0")
 The config is like this:
 
 ```yaml
-    versions: # List of kinds of versions you want to publish, that can be: custom (used by rebuild),
+    versions: # List of kinds of versions you want to publish, that can be: rebuild (specified with --type),
         # version_tag, version_branch, feature_branch, feature_tag (for pull request)
 ```
 
@@ -57,7 +57,7 @@ images:
 repository:
   <internal_name>:
       "server": # The fqdn name of the server if not Docker hub
-      "version": # List of kinds of versions you want to publish, that can be: custom (used by rebuild),
+      "version": # List of kinds of versions you want to publish, that can be: rebuild (specified using --type),
           # version_tag, version_branch, feature_branch, feature_tag (for pull request)
       "tags": # List of tags we want to publish interpreted with `template(version=version)`
           # e.-g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
