@@ -11,8 +11,8 @@ def pip(config, version, version_type):
     """
     Publish to pypi
 
-    version_type: Describe the kind of release we do: custom (used by rebuild), version_tag, version_branch,
-                  feature_branch, feature_tag (for pull request)
+    version_type: Describe the kind of release we do: rebuild (specified using --type), version_tag,
+                  version_branch, feature_branch, feature_tag (for pull request)
     config is like:
         packages:
           - path: . # the root foder of the package

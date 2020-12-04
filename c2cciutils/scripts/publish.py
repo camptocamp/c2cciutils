@@ -37,7 +37,12 @@ def main() -> None:
     parser.add_argument("--version", help="The version to publish to")
     parser.add_argument("--branch", help="The branch from which to compute the version")
     parser.add_argument("--tag", help="The tag from which to compute the version")
-
+    parser.add_argument(
+        "--type",
+        help="The type of version, if no argument provided autodeterminated, can be: "
+        "rebuild (in case of rebuild), version_tag, version_branch, feature_branch, feature_tag "
+        "(for pull request)",
+    )
     args = parser.parse_args()
 
     config = c2cciutils.get_config()
@@ -47,11 +52,15 @@ def main() -> None:
         c2cciutils.print_versions(config.get("publish", {}).get("print_versions", {}))
         print("::endgroup::")
 
-    # Describe the kind of release we do: custom (used by rebuild), version_tag, version_branch,
+    # Describe the kind of release we do: rebuild (specified with --type), version_tag, version_branch,
     # feature_branch, feature_tag (for pull request)
     version_type = None
     version: str = ""
     ref = os.environ["GITHUB_REF"]
+
+    if len([e for e in [args.version, args.branch, args.tag] if e is not None]) > 1:
+        print("ERROR: you specified more than one of the arguments --version, --branch or --tag")
+        sys.exit(1)
 
     tag_match = c2cciutils.match(
         os.environ["GITHUB_REF"],
@@ -61,29 +70,44 @@ def main() -> None:
         os.environ["GITHUB_REF"],
         c2cciutils.compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/"),
     )
+    if args.type is not None:
+        version_type = args.type
     if args.version is not None:
-        version_type = "custom"
         version = args.version
     elif args.branch is not None:
-        version_type = "custom"
         version = to_version(config, args.branch, "branch")
     elif args.tag is not None:
-        version_type = "custom"
         version = to_version(config, args.tag, "tag")
     elif tag_match[0] is not None:
-        version_type = "version_tag"
+        if version_type is None:
+            version_type = "version_tag"
+        else:
+            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         version = c2cciutils.get_value(*tag_match)
     elif branch_match[0] is not None:
-        version_type = "version_branch"
+        if version_type is None:
+            version_type = "version_branch"
+        else:
+            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         version = c2cciutils.get_value(*branch_match)
     elif ref.startswith("refs/heads/"):
-        version_type = "feature_branch"
+        if version_type is None:
+            version_type = "feature_branch"
+        else:
+            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         # By the way we replace '/' by '_' because it isn't supported by Docker
         version = "_".join(ref.split("/")[2:])
     elif ref.startswith("refs/tags/"):
-        version_type = "feature_tag"
+        if version_type is None:
+            version_type = "feature_tag"
+        else:
+            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         # By the way we replace '/' by '_' because it isn't supported by Docker
         version = "_".join(ref.split("/")[2:])
+
+    if version_type is None:
+        print("ERROR: you specified one of the arguments --version, --branch or --tag but not the --type")
+        sys.exit(1)
 
     if version_type is not None:
         print("Create release type {}: {}".format(version_type, version))
