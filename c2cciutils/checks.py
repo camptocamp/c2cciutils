@@ -177,7 +177,7 @@ def eof(config, full_config, args):
     del config, full_config
 
     try:
-        result = True
+        success = True
 
         sys.stdout.flush()
         sys.stderr.flush()
@@ -205,9 +205,9 @@ def eof(config, full_config, args):
                                         "No new line at end of '{}' file.".format(filename),
                                         filename,
                                     )
-                                    result = False
+                                    success = False
 
-        return result
+        return success
     except subprocess.CalledProcessError:
         error(
             "eof",
@@ -226,7 +226,7 @@ def workflows(config, full_config, args):
     """
     del full_config, args
 
-    result = True
+    success = True
     files = glob.glob(".github/workflows/*.yaml")
     files += glob.glob(".github/workflows/*.yml")
     for filename in files:
@@ -242,7 +242,7 @@ def workflows(config, full_config, args):
                     ),
                     filename,
                 )
-                result = False
+                success = False
 
             if job.get("timeout-minutes") is None:
                 error(
@@ -252,9 +252,9 @@ def workflows(config, full_config, args):
                     ),
                     filename,
                 )
-                result = False
+                success = False
 
-    return result
+    return success
 
 
 def required_workflows(config, full_config, args):
@@ -372,7 +372,7 @@ def versions(config, full_config, _):
     version_index = security.headers.index("Version")
     date_index = security.headers.index("Supported Until")
 
-    result = True
+    success = True
     all_versions = set(config.get("extra_versions", []))
 
     for row in security.data:
@@ -382,18 +382,18 @@ def versions(config, full_config, _):
 
     if config.get("audit", False):
         if not _versions_audit(all_versions, full_config):
-            result = False
+            success = False
     if config.get("rebuild", False):
         if not _versions_rebuild(all_versions, config["rebuild"], full_config):
-            result = False
+            success = False
     if config.get("backport_labels", False):
         if not _versions_backport_labels(all_versions, full_config):
-            result = False
+            success = False
     if config.get("branches", False):
         if not _versions_branches(all_versions, full_config):
-            result = False
+            success = False
 
-    return result
+    return success
 
 
 def _get_branch_matrix(job, branch_to_version_re):
@@ -409,7 +409,7 @@ def _versions_audit(all_versions, full_config):
     """
     Check that the audit branches correspond to the version from the Security.md
     """
-    result = True
+    success = True
     filename = ".github/workflows/audit.yaml"
     if not os.path.exists(filename):
         error(
@@ -417,7 +417,7 @@ def _versions_audit(all_versions, full_config):
             "The file '{}' does not exists".format(filename),
             filename,
         )
-        result = False
+        success = False
     else:
         with open(filename) as open_file:
             workflow = yaml.load(open_file, yaml.SafeLoader)
@@ -436,15 +436,15 @@ def _versions_audit(all_versions, full_config):
                     ),
                     filename,
                 )
-                result = False
-    return result
+                success = False
+    return success
 
 
 def _versions_rebuild(all_versions, config, full_config):
     """
     Check that the rebuild branches correspond to the version from the Security.md
     """
-    result = True
+    success = True
     rebuild_versions = []
     branch_to_version_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
 
@@ -456,7 +456,7 @@ def _versions_rebuild(all_versions, config, full_config):
                 "The rebuild file '{}' does not exists".format(filename),
                 filename,
             )
-            result = False
+            success = False
         else:
             with open(filename) as open_file:
                 workflow = yaml.load(open_file, yaml.SafeLoader)
@@ -470,15 +470,15 @@ def _versions_rebuild(all_versions, config, full_config):
             "The rebuild workflows does not have the right list of versions in the branch matrix "
             "[{}] != [{}]".format(", ".join(rebuild_versions), ", ".join(all_versions)),
         )
-        result = False
-    return result
+        success = False
+    return success
 
 
 def _versions_backport_labels(all_versions, full_config):
     """
     Check that the backport labels correspond to the version from the Security.md
     """
-    result = True
+    success = True
     label_versions = set()
 
     sys.stdout.flush()
@@ -509,16 +509,16 @@ def _versions_backport_labels(all_versions, full_config):
                 ", ".join(label_versions), ", ".join(all_versions)
             ),
         )
-        result = False
+        success = False
 
-    return result
+    return success
 
 
 def _versions_branches(all_versions, full_config):
     """
     Check that the branches correspond to the version from the Security.md
     """
-    result = True
+    success = True
     branch_versions = set()
 
     sys.stdout.flush()
@@ -549,9 +549,9 @@ def _versions_branches(all_versions, full_config):
                 ", ".join(branch_versions), ", ".join(all_versions)
             ),
         )
-        result = False
+        success = False
 
-    return result
+    return success
 
 
 def _get_python_files(ignore_patterns_re):
