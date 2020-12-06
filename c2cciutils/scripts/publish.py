@@ -114,8 +114,9 @@ def main() -> None:
 
     success = True
     pypi_config = config.get("publish", {}).get("pypi", {})
-    if version_type in pypi_config.get("versions", []):
-        success &= c2cciutils.publish.pip(pypi_config, version, version_type)
+    success &= c2cciutils.publish.pip(
+        pypi_config, version, version_type, version_type in pypi_config.get("versions", [])
+    )
 
     docker_config = config.get("publish", {}).get("docker", {})
 
