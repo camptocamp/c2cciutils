@@ -434,9 +434,11 @@ def _versions_audit(all_versions, full_config):
                     "versions",
                     "The workflow '{}', job '{}' does not have a branch matrix with the right list of "
                     "versions [{}] != [{}]".format(
-                        filename, name, ", ".join(all_versions), ", ".join(audit_versions)
+                        filename,
+                        name,
+                        ", ".join(sorted(audit_versions)),
+                        ", ".join(sorted(all_versions)),
                     ),
-                    filename,
                 )
                 success = False
     return success
@@ -470,7 +472,7 @@ def _versions_rebuild(all_versions, config, full_config):
         error(
             "versions",
             "The rebuild workflows does not have the right list of versions in the branch matrix "
-            "[{}] != [{}]".format(", ".join(rebuild_versions), ", ".join(all_versions)),
+            "[{}] != [{}]".format(", ".join(sorted(rebuild_versions)), ", ".join(sorted(all_versions))),
         )
         success = False
     return success
@@ -508,7 +510,7 @@ def _versions_backport_labels(all_versions, full_config):
         error(
             "versions",
             "The backport labels do not have the right list of versions [{}] != [{}]".format(
-                ", ".join(label_versions), ", ".join(all_versions)
+                ", ".join(sorted(label_versions)), ", ".join(sorted(all_versions))
             ),
         )
         success = False
@@ -548,7 +550,7 @@ def _versions_branches(all_versions, full_config):
         error(
             "versions",
             "The version from the branches does not correspond with expected versions [{}] != [{}]".format(
-                ", ".join(branch_versions), ", ".join(all_versions)
+                ", ".join(sorted(branch_versions)), ", ".join(sorted(all_versions))
             ),
         )
         success = False
