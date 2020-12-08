@@ -642,10 +642,12 @@ def codespell(config, full_config, args):
         ignore_re: [] # list of patterns to be ignored
         arguments: [] # codespell arguments
     """
-    del full_config, args
+    del full_config
 
     try:
         cmd = ["codespell"]
+        if args.fix:
+            cmd.append("--write-changes")
         if os.path.exists("spell-ignore-words.txt"):
             cmd.append("--ignore-words=spell-ignore-words.txt")
         cmd += config.get("arguments", [])
