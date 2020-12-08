@@ -181,7 +181,7 @@ def get_config():
             )
     elif (
         config["checks"]["versions"].get("rebuild", False)
-        and len(config["checks"]["versions"]["rebuild"].get("file", [])) == 0
+        and len(config["checks"]["versions"]["rebuild"].get("files", [])) == 0
     ):
         config["checks"]["versions"]["rebuild"] = False
 
@@ -192,7 +192,7 @@ def get_config():
                 "runs_re": [r"^c2cciutils-publish .*--type.*$"],
                 "strategy-fail-fast": False,
             }
-            for rebuild in config["checks"]["versions"]["rebuild"].get("file", ["rebuild.yaml"])
+            for rebuild in config["checks"]["versions"]["rebuild"].get("files", ["rebuild.yaml"])
         }
         merge(required_workflows, config["checks"]["required_workflows"])
 
