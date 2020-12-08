@@ -29,6 +29,34 @@ At the base of the configuration you have:
 
 Many actions can be disabled by setting the corresponding configuration part to `False`.
 
+# Checks
+
+The configuration profile consider we use a project with:
+
+-   Dependabot.
+-   The following workflows:
+    -   `Continuous integration`,
+    -   `Rebuild` on all supported branch,
+    -   `Audit` for security issues on all supported branches,
+    -   `Backport` between all supported branches,
+    -   `Clean Docker hub tags`,
+    -   `Auto merge Dependabot updates`.
+-   A `SECURITY.md` file.
+
+It will check that:
+
+-   All the workflows are conform on what we expect,
+-   All the workflows are completely configured for all the versions present in `SECURITY.md` file.
+-   The code is conform with the `black` and `isort` rules.
+-   The `gitattributes` are valid.
+-   All text files end with an empty line.
+
+# IDE
+
+The IDE should be configured as:
+
+-   using `black` and `isort` without any arguments,
+-   using the `editorconfig` configuration.
 
 # Publishing
 
