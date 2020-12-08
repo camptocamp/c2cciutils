@@ -351,7 +351,7 @@ def versions(config, full_config, _):
         backport_labels: # if `True` check the required backport labels exists
         branches: # if `True` check that the required branches exists
         rebuild: # if `False` not runs this check
-          file: [] # list of workflow files to run to rebuild all the required branches
+          files: [] # list of workflow files to run to rebuild all the required branches
     """
 
     # If the `SECURITY.md` file is not present the check is disabled.
