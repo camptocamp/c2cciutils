@@ -204,6 +204,13 @@ def get_config():
             },
             image,
         )
+    for package in config["publish"]["pypi"]["packages"]:
+        merge(
+            {
+                "group": "default",
+            },
+            package,
+        )
 
     return config
 

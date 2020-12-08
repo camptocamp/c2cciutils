@@ -7,19 +7,18 @@ import subprocess
 import sys
 
 
-def pip(config, version, version_type, publish):
+def pip(package, version, version_type, publish):
     """
     Publish to pypi
 
     version_type: Describe the kind of release we do: rebuild (specified using --type), version_tag,
                   version_branch, feature_branch, feature_tag (for pull request)
     publish: If False only check the package
-    config is like:
-        packages:
-          - path: . # the root foder of the package
+    package is like:
+        path: . # the root folder of the package
     """
 
-    print("::group::Publishing to pypi")
+    print("::group::Publishing '{}' to pypi".format(package.get("path")))
     sys.stdout.flush()
     sys.stderr.flush()
 
@@ -27,23 +26,19 @@ def pip(config, version, version_type, publish):
         env = dict(os.environ)
         env["VERSION"] = version
 
-        for pkg in config.get("packages", []):
-            cwd = os.path.abspath(pkg.get("path", "."))
-            cmd = ["python3", "./setup.py", "egg_info", "--no-date"]
-            cmd += (
-                ["--tag-build=dev" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")]
-                if version_type == "version_branch"
-                else []
-            )
-            cmd.append("bdist_wheel")
-            subprocess.check_call(cmd, cwd=cwd, env=env)
-            pkg_publish = publish
-            if "versions" in pkg:
-                pkg_publish &= version_type in pkg["versions"]
-            cmd = ["twine"]
-            cmd += ["upload", "--verbose", "--disable-progress-bar"] if pkg_publish else ["check"]
-            cmd += glob.glob(os.path.join(cwd, "dist/*.whl"))
-            subprocess.check_call(cmd)
+        cwd = os.path.abspath(package.get("path", "."))
+        cmd = ["python3", "./setup.py", "egg_info", "--no-date"]
+        cmd += (
+            ["--tag-build=dev" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")]
+            if version_type == "version_branch"
+            else []
+        )
+        cmd.append("bdist_wheel")
+        subprocess.check_call(cmd, cwd=cwd, env=env)
+        cmd = ["twine"]
+        cmd += ["upload", "--verbose", "--disable-progress-bar"] if publish else ["check"]
+        cmd += glob.glob(os.path.join(cwd, "dist/*.whl"))
+        subprocess.check_call(cmd)
         print("::endgroup::")
     except subprocess.CalledProcessError as exception:
         print("Error: {}".format(exception))
