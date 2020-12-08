@@ -189,7 +189,7 @@ def get_config():
         required_workflows = {
             rebuild: {
                 "noif": True,
-                "runs_re": [r"c2cciutils-publish .*--type.*?$"],
+                "runs_re": [r"^c2cciutils-publish .*--type.*$"],
                 "strategy-fail-fast": False,
             }
             for rebuild in config["checks"]["versions"]["rebuild"].get("file", ["rebuild.yaml"])
