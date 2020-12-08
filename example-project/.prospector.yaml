@@ -8,6 +8,7 @@ pylint:
     - too-many-branches
     - too-many-locals
     - too-many-statements
+    - too-many-nested-blocks
     - too-few-public-methods
 
 pep8:

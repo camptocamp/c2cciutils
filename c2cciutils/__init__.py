@@ -179,22 +179,20 @@ def get_config():
                 },
                 config.get("checks", {}).get("required_workflows", {}),
             )
+    elif (
+        config["checks"]["versions"].get("rebuild", False)
+        and len(config["checks"]["versions"]["rebuild"].get("file", [])) == 0
+    ):
+        config["checks"]["versions"]["rebuild"] = False
 
-        if (
-            isinstance(config.get("checks", {}).get("versions", {}), dict)
-            and isinstance(config.get("checks", {}).get("versions", {}).get("rebuild", {}), dict)
-            and len(config.get("checks", {}).get("versions", {}).get("rebuild", {}).get("files", [])) == 0
-        ):
-            config.get("checks", {}).get("versions", {}).get("rebuild", {})["files"] = ["rebuild.yaml"]
-
-    if config["checks"].get("versions", False):
+    if config["checks"].get("versions", False) and config["checks"]["versions"].get("rebuild", False):
         required_workflows = {
             rebuild: {
                 "noif": True,
-                "runs_re": [r"c2cciutils-publish( .*)--type(.*)?$"],
+                "runs_re": [r"c2cciutils-publish .*--type.*?$"],
                 "strategy-fail-fast": False,
             }
-            for rebuild in config["checks"]["versions"].get("file", ["rebuild.yaml"])
+            for rebuild in config["checks"]["versions"]["rebuild"].get("file", ["rebuild.yaml"])
         }
         merge(required_workflows, config["checks"]["required_workflows"])
 
