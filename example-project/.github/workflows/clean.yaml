@@ -1,12 +1,12 @@
 ---
-name: Clean docker hub tags
+name: Clean Docker hub tags
 
 on: delete
 
 jobs:
   clean:
     runs-on: ubuntu-20.04
-    name: Clean docker hub tags
+    name: Clean Docker hub tags
     timeout-minutes: 5
 
     steps:
