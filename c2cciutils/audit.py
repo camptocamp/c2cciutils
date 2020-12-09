@@ -26,7 +26,7 @@ def pip(config, full_config):
     for file in glob.glob("**/requirements.txt", recursive=True):
         print("::group::Audit {}".format(file))
         directory = os.path.dirname(os.path.abspath(file))
-        cmd = ["/usr/local/bin/safety", "check", "--full-report", "--file=requirements.txt"]
+        cmd = ["safety", "check", "--full-report", "--file=requirements.txt"]
         cve_file = os.path.join(directory, "pip-cve-ignore")
         if os.path.exists(cve_file):
             with open(cve_file) as cve_file:

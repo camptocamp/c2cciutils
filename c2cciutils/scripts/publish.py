@@ -114,14 +114,16 @@ def main() -> None:
 
     success = True
     pypi_config = config.get("publish", {}).get("pypi", {})
-    success &= c2cciutils.publish.pip(
-        pypi_config, version, version_type, version_type in pypi_config.get("versions", [])
-    )
+    for package in pypi_config["packages"]:
+        if package.get("group") == args.group:
+            success &= c2cciutils.publish.pip(
+                package, version, version_type, version_type in pypi_config.get("versions", [])
+            )
 
     docker_config = config.get("publish", {}).get("docker", {})
 
     for image_conf in docker_config.get("images", []):
-        if image_conf.get("group") == args.group:
+        if image_conf.get("group", "") == args.group:
             for tag_config in image_conf.get("tags", []):
                 tag_src = tag_config.format(version="latest")
                 tag_dst = tag_config.format(version=version)
