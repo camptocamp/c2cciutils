@@ -19,8 +19,6 @@ publish:
   pypi:
     packages:
     - path: .
-    - path: test/pkg
-      versions: []
     versions:
       - version_tag
       - version_branch
