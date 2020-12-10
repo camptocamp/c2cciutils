@@ -35,4 +35,6 @@ jobs:
       - run: sudo python3 -m pip install --editable=.
 
       - name: Audit
-        run: c2cciutils-audit
+        run: c2cciutils-audit --branch=${{ matrix.branch }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

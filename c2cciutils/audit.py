@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import json
 import os.path
 import subprocess
 import sys
@@ -8,18 +9,23 @@ import sys
 import c2cciutils.checks
 
 
-def print_versions(config, _):
+def print_versions(config, full_config, args):
+    """
+    Print the versions
+    """
+    del full_config, args
+
     print("::group::Versions")
     c2cciutils.print_versions(config)
     print("::endgroup::")
     return True
 
 
-def pip(config, full_config):
+def pip(config, full_config, args):
     """
     Audit all the `requirements.txt` files
     """
-    del config, full_config
+    del config, full_config, args
 
     success = True
     for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
@@ -48,7 +54,7 @@ def pip(config, full_config):
     return success
 
 
-def pipenv(config, _):
+def pipenv(config, full_config, args):
     """
     Audit all the `Pipfile`.
 
@@ -56,6 +62,8 @@ def pipenv(config, _):
         `python_versions`: []  # Python version of asdf environment the we should setup to be able to do
             the check
     """
+    del full_config, args
+
     success = True
     init = False
     for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
@@ -92,11 +100,11 @@ def pipenv(config, _):
     return success
 
 
-def npm(config, full_config):
+def npm(config, full_config, args):
     """
     Audit all the `package.json` files.
     """
-    del config, full_config
+    del config, full_config, args
 
     success = True
     init = False
@@ -138,11 +146,22 @@ def npm(config, full_config):
     return success
 
 
-def outdated_versions(config, full_config):
+def outdated_versions(config, full_config, args):
     """
     Check that the versions from the SECURITY.md are not outdated
     """
     del config, full_config
+
+    repo = c2cciutils.get_repository().split("/")
+    json_response = c2cciutils.graphql(
+        "default_branch.graphql",
+        {"name": repo[1], "owner": repo[0]},
+    )
+
+    if "errors" in json_response:
+        raise RuntimeError(json.dumps(json_response["errors"], indent=2))
+    if json_response["repository"]["defaultBranchRef"]["name"] != args.branch:
+        return True
 
     success = True
 

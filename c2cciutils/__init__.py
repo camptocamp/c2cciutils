@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 
+import json
 import os.path
 import re
 import subprocess
 
+import requests
 import yaml
 
 
 def get_repository():
+    """
+    Get the current GitHub repository like `organisation/project`
+    """
+
     if "GITHUB_REPOSITORY" in os.environ:
         return os.environ["GITHUB_REPOSITORY"]
 
@@ -172,8 +178,11 @@ def get_config():
         if isinstance(config.get("checks", {}).get("required_workflows", {}), dict):
             merge(
                 {
-                    "clean.yaml": {"runs_re": ["c2cciutils-clean$"]},
-                    "audit.yaml": {"runs_re": ["c2cciutils-audit$"], "strategy-fail-fast": False},
+                    "clean.yaml": {"steps": [{"runs_re": ["c2cciutils-clean$"]}]},
+                    "audit.yaml": {
+                        "steps": [{"runs_re": ["c2cciutils-audit --branch=.*$"], "env": "GITHUB_TOKEN"}],
+                        "strategy-fail-fast": False,
+                    },
                 },
                 config.get("checks", {}).get("required_workflows", {}),
             )
@@ -187,7 +196,7 @@ def get_config():
         required_workflows = {
             rebuild: {
                 "noif": True,
-                "runs_re": [r"^c2cciutils-publish .*--type.*$"],
+                "steps": [{"runs_re": [r"^c2cciutils-publish .*--type.*$"]}],
                 "strategy-fail-fast": False,
             }
             for rebuild in config["checks"]["versions"]["rebuild"].get("files", ["rebuild.yaml"])
@@ -276,3 +285,44 @@ def print_versions(config):
             print("{}: no present: ".format(version.get("name")), exception)
 
     return True
+
+
+def graphql(query_file, variables):
+    """
+    Get the result a a graphql on GitHub
+
+    query_file: the file related this module contains the GraphQL querry
+    variables: the query variables
+
+    Return the data result
+    In case of error it throw an exception
+    """
+
+    with open(os.path.join(os.path.dirname(__file__), query_file)) as query_open:
+        query = query_open.read()
+
+    http_response = requests.post(
+        os.environ.get("GITHUB_GRAPHQL_URL", "https://api.github.com/graphql"),
+        data=json.dumps(
+            {
+                "query": query,
+                "variables": variables,
+            }
+        ),
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {}".format(
+                os.environ["GITHUB_TOKEN"].strip()
+                if "GITHUB_TOKEN" in os.environ
+                else subprocess.check_output(["gopass", "show", "gs/ci/github/token/gopass"]).strip().decode()
+            ),
+        },
+    )
+    http_response.raise_for_status()
+    json_response = http_response.json()
+
+    if "errors" in json_response:
+        raise RuntimeError("GraphQL error: {}".format(json.dumps(json_response["errors"], indent=2)))
+    if "data" not in json_response:
+        raise RuntimeError("GraphQL no data: {}".format(json.dumps(json_response, indent=2)))
+    return json_response["data"]
