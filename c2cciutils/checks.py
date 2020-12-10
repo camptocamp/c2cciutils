@@ -604,6 +604,7 @@ def black(config, full_config, args):
         cmd = ["black"]
         if not args.fix:
             cmd += ["--color", "--diff"]
+        cmd.append("--")
         cmd += _get_python_files(config.get("ignore_patterns_re", []))
         subprocess.check_call(cmd)
         return True
@@ -632,6 +633,7 @@ def isort(config, full_config, args):
             cmd.append("--apply")
         else:
             cmd += ["--check-only", "--diff"]
+        cmd.append("--")
         cmd += _get_python_files(config.get("ignore_patterns_re", []))
         subprocess.check_call(cmd)
         return True
@@ -662,6 +664,7 @@ def codespell(config, full_config, args):
         if os.path.exists("spell-ignore-words.txt"):
             cmd.append("--ignore-words=spell-ignore-words.txt")
         cmd += config.get("arguments", [])
+        cmd.append("--")
         ignore_res = [re.compile(r) for r in config.get("ignore_re", [])]
         for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
             if os.path.isfile(filename):
