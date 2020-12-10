@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import glob
 import os.path
 import re
 import subprocess
@@ -40,11 +39,10 @@ def merge(default_config, config):
 
 def get_config():
     docker = False
-    try:
-        next(glob.iglob("**/Dockerfile", recursive=True))
-        docker = True
-    except StopIteration:
-        pass
+    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.basename(filename) == "Dockerfile":
+            docker = True
+            break
 
     config = {}
     if os.path.exists("ci/config.yaml"):

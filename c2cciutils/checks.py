@@ -55,20 +55,10 @@ def black_config(config, full_config, args):
 
     # If there is no python file the check is disabled
     python = False
-    try:
-        next(glob.iglob("**/*.py", recursive=True))
-        python = True
-    except StopIteration:
-        pass
-
-    try:
-        for file_ in glob.iglob("**/*[0-9a-zA-z_-][0-9a-zA-z_-][0-9a-zA-z_-]", recursive=True):
-            if os.path.isfile(file_):
-                if magic.from_file(file_, mime=True) == "text/x-python":
-                    python = True
-                    break
-    except StopIteration:
-        pass
+    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == "text/x-python":
+            python = True
+            break
 
     if python:
         if not os.path.exists("pyproject.toml"):
@@ -588,7 +578,7 @@ def _get_python_files(ignore_patterns_re):
     result = []
 
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if magic.from_file(filename, mime=True) == "text/x-python":
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == "text/x-python":
             accept = True
             for pattern in ignore_patterns_compiled:
                 if pattern.search(filename):
@@ -614,6 +604,7 @@ def black(config, full_config, args):
         cmd = ["black"]
         if not args.fix:
             cmd += ["--color", "--diff"]
+        cmd.append("--")
         cmd += _get_python_files(config.get("ignore_patterns_re", []))
         subprocess.check_call(cmd)
         return True
@@ -642,6 +633,7 @@ def isort(config, full_config, args):
             cmd.append("--apply")
         else:
             cmd += ["--check-only", "--diff"]
+        cmd.append("--")
         cmd += _get_python_files(config.get("ignore_patterns_re", []))
         subprocess.check_call(cmd)
         return True
@@ -672,15 +664,17 @@ def codespell(config, full_config, args):
         if os.path.exists("spell-ignore-words.txt"):
             cmd.append("--ignore-words=spell-ignore-words.txt")
         cmd += config.get("arguments", [])
+        cmd.append("--")
         ignore_res = [re.compile(r) for r in config.get("ignore_re", [])]
         for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-            include = True
-            for ignore_re in ignore_res:
-                if ignore_re.match(filename):
-                    include = False
-                    continue
-            if include:
-                cmd.append(filename)
+            if os.path.isfile(filename):
+                include = True
+                for ignore_re in ignore_res:
+                    if ignore_re.match(filename):
+                        include = False
+                        continue
+                if include:
+                    cmd.append(filename)
         sys.stdout.flush()
         sys.stderr.flush()
         subprocess.check_call(cmd)
