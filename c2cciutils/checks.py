@@ -55,20 +55,10 @@ def black_config(config, full_config, args):
 
     # If there is no python file the check is disabled
     python = False
-    try:
-        next(glob.iglob("**/*.py", recursive=True))
-        python = True
-    except StopIteration:
-        pass
-
-    try:
-        for file_ in glob.iglob("**/*[0-9a-zA-z_-][0-9a-zA-z_-][0-9a-zA-z_-]", recursive=True):
-            if os.path.isfile(file_):
-                if magic.from_file(file_, mime=True) == "text/x-python":
-                    python = True
-                    break
-    except StopIteration:
-        pass
+    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == "text/x-python":
+            python = True
+            break
 
     if python:
         if not os.path.exists("pyproject.toml"):
@@ -674,13 +664,14 @@ def codespell(config, full_config, args):
         cmd += config.get("arguments", [])
         ignore_res = [re.compile(r) for r in config.get("ignore_re", [])]
         for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-            include = True
-            for ignore_re in ignore_res:
-                if ignore_re.match(filename):
-                    include = False
-                    continue
-            if include:
-                cmd.append(filename)
+            if os.path.isfile(filename):
+                include = True
+                for ignore_re in ignore_res:
+                    if ignore_re.match(filename):
+                        include = False
+                        continue
+                if include:
+                    cmd.append(filename)
         sys.stdout.flush()
         sys.stderr.flush()
         subprocess.check_call(cmd)

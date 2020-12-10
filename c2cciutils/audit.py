@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import glob
 import os.path
 import subprocess
 import sys
@@ -23,7 +22,9 @@ def pip(config, full_config):
     del config, full_config
 
     success = True
-    for file in glob.glob("**/requirements.txt", recursive=True):
+    for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.basename(file) != "requirements.txt":
+            continue
         print("::group::Audit {}".format(file))
         directory = os.path.dirname(os.path.abspath(file))
         cmd = ["safety", "check", "--full-report", "--file=requirements.txt"]
@@ -57,7 +58,9 @@ def pipenv(config, _):
     """
     success = True
     init = False
-    for file in glob.glob("**/Pipfile", recursive=True):
+    for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.basename(file) != "Pipfile":
+            continue
         if not init:
             print("::group::Init python versions: {}".format(", ".join(config.get("python_versions", []))))
             sys.stdout.flush()
@@ -97,7 +100,9 @@ def npm(config, full_config):
 
     success = True
     init = False
-    for file in glob.glob("**/package.json", recursive=True):
+    for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.basename(file) != "package.json":
+            continue
         if not init:
             print("::group::Init")
             sys.stdout.flush()
