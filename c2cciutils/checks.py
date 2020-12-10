@@ -588,7 +588,7 @@ def _get_python_files(ignore_patterns_re):
     result = []
 
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if magic.from_file(filename, mime=True) == "text/x-python":
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == "text/x-python":
             accept = True
             for pattern in ignore_patterns_compiled:
                 if pattern.search(filename):
