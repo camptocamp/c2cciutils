@@ -2,6 +2,7 @@
 
 import configparser
 import glob
+import json
 import os
 import re
 import subprocess
@@ -252,7 +253,9 @@ def required_workflows(config, full_config, args):
     config is like:
         <filename>: # if set directly to `True` just check that the file is present, to `False`
                 check nothing.
-            runs_re: # rebular expresiion that we should have in a run, on one of the jobs.
+            steps:
+              - run_re: # rebular expresiion that we should have in a run, on one of the jobs.
+                env: # the list or required environment variable for this step
             strategy-fail-fast: False # If present check the value of the `fail-fast`, on all the jobs.
             if: # if present check the value of the `if`, on all the jobs.
             noif: # if `True` theck that we don't have an `if`.
@@ -309,21 +312,34 @@ def required_workflows(config, full_config, args):
                         filename,
                     )
                     success = False
-            if "runs_re" in conf:
-                for run in conf["runs_re"]:
-                    run_re = re.compile(run)
-                    corresponding_steps = [
-                        step for step in job["steps"] if run_re.match(step.get("run", "")) is not None
-                    ]
-                    if len(corresponding_steps) == 0:
-                        error(
-                            "required_workflows",
-                            "The workflow '{}', job '{}' doesn't have the step that runs '{}'.".format(
-                                filename, name, run
-                            ),
-                            filename,
-                        )
-                        success = False
+            for step_conf in conf.get("steps", []):
+                run_re = re.compile(step_conf["run_re"]) if "run_re" in conf else None
+                found = False
+                for step in job["steps"]:
+                    current_ok = True
+                    if run_re is not None and run_re.match(step.get("run", "")) is None:
+                        current_ok = False
+                    elif "env" in conf:
+                        # Verify that all the env specified in the config is present in the step of
+                        # the workflow
+                        conf_env = set(step_conf["env"])
+                        for env in step.get("env", {}).keys():
+                            if env in conf_env:
+                                conf_env.remove(env)
+                        if len(conf_env) != 0:
+                            current_ok = False
+                    if current_ok:
+                        found = True
+                        break
+                if not found:
+                    error(
+                        "required_workflows",
+                        "The workflow '{}', job '{}' doesn't have the step for '{}'.".format(
+                            filename, name, json.dumps(step_conf, indent=2)
+                        ),
+                        filename,
+                    )
+                    success = False
     return success
 
 

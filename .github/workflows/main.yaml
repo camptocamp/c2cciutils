@@ -63,4 +63,6 @@ jobs:
       - run: sudo python3 -m pip install --editable=.
 
       - name: Audit
-        run: c2cciutils-audit
+        run: c2cciutils-audit --branch=master
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
