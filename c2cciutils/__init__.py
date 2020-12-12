@@ -187,7 +187,8 @@ def get_config():
                 config.get("checks", {}).get("required_workflows", {}),
             )
     elif (
-        config["checks"]["versions"].get("rebuild", False)
+        config["checks"]["versions"]
+        and config["checks"]["versions"].get("rebuild", False)
         and len(config["checks"]["versions"]["rebuild"].get("files", [])) == 0
     ):
         config["checks"]["versions"]["rebuild"] = False
