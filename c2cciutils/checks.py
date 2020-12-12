@@ -621,8 +621,10 @@ def black(config, full_config, args):
         if not args.fix:
             cmd += ["--color", "--diff"]
         cmd.append("--")
-        cmd += _get_python_files(config.get("ignore_patterns_re", []))
-        subprocess.check_call(cmd)
+        python_files = _get_python_files(config.get("ignore_patterns_re", []))
+        cmd += python_files
+        if len(python_files) > 0:
+            subprocess.check_call(cmd)
         return True
     except subprocess.CalledProcessError:
         error(
@@ -650,8 +652,10 @@ def isort(config, full_config, args):
         else:
             cmd += ["--check-only", "--diff"]
         cmd.append("--")
-        cmd += _get_python_files(config.get("ignore_patterns_re", []))
-        subprocess.check_call(cmd)
+        python_files = _get_python_files(config.get("ignore_patterns_re", []))
+        cmd += python_files
+        if len(python_files) > 0:
+            subprocess.check_call(cmd)
         return True
     except subprocess.CalledProcessError:
         error(
