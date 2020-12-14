@@ -178,9 +178,9 @@ def get_config():
         if isinstance(config.get("checks", {}).get("required_workflows", {}), dict):
             merge(
                 {
-                    "clean.yaml": {"steps": [{"runs_re": ["c2cciutils-clean$"]}]},
+                    "clean.yaml": {"steps": [{"run_re": "c2cciutils-clean$"}]},
                     "audit.yaml": {
-                        "steps": [{"runs_re": ["c2cciutils-audit --branch=.*$"], "env": "GITHUB_TOKEN"}],
+                        "steps": [{"run_re": "c2cciutils-audit --branch=.*$", "env": ["GITHUB_TOKEN"]}],
                         "strategy-fail-fast": False,
                     },
                 },
@@ -197,7 +197,7 @@ def get_config():
         required_workflows = {
             rebuild: {
                 "noif": True,
-                "steps": [{"runs_re": [r"^c2cciutils-publish .*--type.*$"]}],
+                "steps": [{"run_re": r"^c2cciutils-publish .*--type.*$"}],
                 "strategy-fail-fast": False,
             }
             for rebuild in config["checks"]["versions"]["rebuild"].get("files", ["rebuild.yaml"])

@@ -2,7 +2,6 @@
 
 import configparser
 import glob
-import json
 import os
 import re
 import subprocess
@@ -313,13 +312,13 @@ def required_workflows(config, full_config, args):
                     )
                     success = False
             for step_conf in conf.get("steps", []):
-                run_re = re.compile(step_conf["run_re"]) if "run_re" in conf else None
+                run_re = re.compile(step_conf["run_re"]) if "run_re" in step_conf else None
                 found = False
                 for step in job["steps"]:
                     current_ok = True
                     if run_re is not None and run_re.match(step.get("run", "")) is None:
                         current_ok = False
-                    elif "env" in conf:
+                    elif "env" in step_conf:
                         # Verify that all the env specified in the config is present in the step of
                         # the workflow
                         conf_env = set(step_conf["env"])
@@ -334,8 +333,8 @@ def required_workflows(config, full_config, args):
                 if not found:
                     error(
                         "required_workflows",
-                        "The workflow '{}', job '{}' doesn't have the step for '{}'.".format(
-                            filename, name, json.dumps(step_conf, indent=2)
+                        "The workflow '{}', job '{}' doesn't have the step for:\n{}".format(
+                            filename, name, yaml.dump(step_conf, Dumper=yaml.SafeDumper).strip()
                         ),
                         filename,
                     )
