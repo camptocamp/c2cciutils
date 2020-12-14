@@ -1,8 +1,7 @@
 FROM ubuntu:20.04 AS base
 
 RUN apt update && \
-  DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
-  python3-pip python3-setuptools binutils && \
+  DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends python3-pip binutils && \
   apt-get clean && \
   rm -r /var/lib/apt/lists/*
 
