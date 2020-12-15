@@ -6,11 +6,6 @@ from setuptools import find_packages, setup
 
 site.ENABLE_USER_SITE = "--user" in sys.argv
 
-# On GitHub workflow add ~/.local/bin in PATH
-if "GITHUB_PATH" in os.environ:
-    with open(os.environ["GITHUB_PATH"], "a") as open_file:
-        open_file.write(os.path.expanduser("~/.local/bin\n"))
-
 VERSION = os.environ.get("version", "1.0")
 HERE = os.path.abspath(os.path.dirname(__file__))
 
