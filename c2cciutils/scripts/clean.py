@@ -41,19 +41,23 @@ def clean(image: str, tag: str, token: str) -> None:
 
 
 def main() -> None:
+    username = (
+        os.environ["DOCKERHUB_USERNAME"]
+        if "DOCKERHUB_USERNAME" in os.environ
+        else subprocess.check_output(["gopass", "show", "gs/ci/dockerhub/username"]).decode()
+    )
+    password = (
+        os.environ["DOCKERHUB_PASSWORD"]
+        if "DOCKERHUB_PASSWORD" in os.environ
+        else subprocess.check_output(["gopass", "show", "gs/ci/dockerhub/password"]).decode()
+    )
     token = requests.post(
         "https://hub.docker.com/v2/users/login/",
         headers={"Content-Type": "application/json"},
         data=json.dumps(
             {
-                "username": os.environ.get(
-                    "DOCKERHUB_USERNAME",
-                    subprocess.check_output(["gopass", "show", "gs/ci/dockerhub/username"]).decode(),
-                ),
-                "password": os.environ.get(
-                    "DOCKERHUB_PASSWORD",
-                    subprocess.check_output(["gopass", "show", "gs/ci/dockerhub/password"]).decode(),
-                ),
+                "username": username,
+                "password": password,
             }
         ),
     ).json()["token"]
