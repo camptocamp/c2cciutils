@@ -18,7 +18,7 @@ def pip(package, version, version_type, publish):
         path: . # the root folder of the package
     """
 
-    print("::group::Publishing '{}' to pypi".format(package.get("path")))
+    print("::group::{} '{}' to pypi".format("Publishing" if publish else "Checking", package.get("path")))
     sys.stdout.flush()
     sys.stderr.flush()
 

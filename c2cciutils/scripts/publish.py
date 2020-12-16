@@ -37,6 +37,7 @@ def main() -> None:
     parser.add_argument("--version", help="The version to publish to")
     parser.add_argument("--branch", help="The branch from which to compute the version")
     parser.add_argument("--tag", help="The tag from which to compute the version")
+    parser.add_argument("--dry-run", action="store_true", help="Don't do the publish")
     parser.add_argument(
         "--type",
         help="The type of version, if no argument provided autodeterminated, can be: "
@@ -63,11 +64,11 @@ def main() -> None:
         sys.exit(1)
 
     tag_match = c2cciutils.match(
-        os.environ["GITHUB_REF"],
+        ref,
         c2cciutils.compile_re(config["version"].get("tag_to_version_re", []), "refs/tags/"),
     )
     branch_match = c2cciutils.match(
-        os.environ["GITHUB_REF"],
+        ref,
         c2cciutils.compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/"),
     )
     if args.type is not None:
@@ -116,9 +117,16 @@ def main() -> None:
     pypi_config = config.get("publish", {}).get("pypi", {})
     for package in pypi_config["packages"]:
         if package.get("group") == args.group:
-            success &= c2cciutils.publish.pip(
-                package, version, version_type, version_type in pypi_config.get("versions", [])
-            )
+            publish = version_type in pypi_config.get("versions", [])
+            if args.dry_run:
+
+                print(
+                    "{} '{}' to pypi, skeeping (dry run)".format(
+                        "Publishing" if publish else "Checking", package.get("path")
+                    )
+                )
+            else:
+                success &= c2cciutils.publish.pip(package, version, version_type, publish)
 
     docker_config = config.get("publish", {}).get("docker", {})
 
@@ -129,7 +137,10 @@ def main() -> None:
                 tag_dst = tag_config.format(version=version)
                 for name, conf in docker_config.get("repository", {}).items():
                     if version_type in conf.get("versions", []):
-                        success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
+                        if args.dry_run:
+                            print("Publishing {} to {}, skeeping (dry run)".format(image_conf["name"], name))
+                        else:
+                            success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
 
     if not success:
         sys.exit(1)
