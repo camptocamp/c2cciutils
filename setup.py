@@ -53,4 +53,5 @@ setup(
             "c2cciutils-clean = c2cciutils.scripts.clean:main",
         ],
     },
+    package_data={"c2cciutils": ["*.graphql"]},
 )
