@@ -37,7 +37,7 @@ def pip(config, full_config, args):
         cve_file = os.path.join(directory, "pip-cve-ignore")
         if os.path.exists(cve_file):
             with open(cve_file) as cve_file:
-                cmd += ["--ignore=" + e.strip() for e in cve_file.read().decode().strip().split(",")]
+                cmd += ["--ignore=" + e.strip() for e in cve_file.read().strip().split(",")]
         try:
             sys.stdout.flush()
             sys.stderr.flush()
@@ -83,7 +83,7 @@ def pipenv(config, full_config, args):
         cve_file = os.path.join(directory, "pipenv-cve-ignore")
         if os.path.exists(cve_file):
             with open(cve_file) as cve_file:
-                cmd += ["--ignore=" + cve_file.read().decode().strip()]
+                cmd += ["--ignore=" + cve_file.read().strip()]
         try:
             c2cciutils.checks.error("pienv", "Audit issue, see above", file)
             sys.stdout.flush()
@@ -128,7 +128,7 @@ def npm(config, full_config, args):
         cve_file = os.path.join(directory, "npm-cve-ignore")
         if os.path.exists(cve_file):
             with open(cve_file) as cve_file:
-                cmd += ["--ignore=" + cve_file.read().decode().strip()]
+                cmd += ["--ignore=" + cve_file.read().strip()]
         try:
             sys.stdout.flush()
             sys.stderr.flush()
