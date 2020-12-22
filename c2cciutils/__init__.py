@@ -35,10 +35,13 @@ def merge(default_config, config):
     Deep merge the dictionaries (on dictionaries only, not on arrays).
     """
 
+    if not isinstance(default_config, dict) or not isinstance(config, dict):
+        return config
+
     for key in default_config.keys():
         if key not in config:
             config[key] = default_config[key]
-        elif isinstance(default_config[key], dict) and isinstance(config[key], dict):
+        else:
             merge(default_config[key], config[key])
     return config
 
