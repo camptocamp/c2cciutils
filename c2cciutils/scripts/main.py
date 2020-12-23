@@ -17,7 +17,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.get_config:
-        print(yaml.dump(c2cciutils.get_config(), Dumper=yaml.SafeDumper))
+        print(yaml.dump(c2cciutils.get_config(), default_flow_style=False, Dumper=yaml.SafeDumper))
 
     if args.version:
         for pkg in ("c2cciutils", "black", "isort"):

@@ -171,7 +171,7 @@ def get_config():
             },
             "pip": True,
             "pipenv": {"python_versions": []},
-            "npm": True,
+            "npm": {"cwe_ignore": []},
             "outdated_versions": True,
         },
     }

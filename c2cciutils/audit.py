@@ -6,6 +6,8 @@ import os.path
 import subprocess
 import sys
 
+import yaml
+
 import c2cciutils.checks
 
 
@@ -103,46 +105,92 @@ def pipenv(config, full_config, args):
 def npm(config, full_config, args):
     """
     Audit all the `package.json` files.
+
+    config:
+      cwe_ignore: list of ignored CWE
     """
-    del config, full_config, args
+    del full_config, args
 
     success = True
-    init = False
     for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
         if os.path.basename(file) != "package.json":
             continue
-        if not init:
-            print("::group::Init")
-            sys.stdout.flush()
-            sys.stderr.flush()
-            subprocess.check_call(["sudo", "npm", "install", "-g", "better-npm-audit", "npm"])
-            init = True
-            print("::endgroup::")
         print("::group::Audit " + file)
         directory = os.path.dirname(file)
         sys.stdout.flush()
         sys.stderr.flush()
         subprocess_kwargs = {} if directory == "" else {"cwd": directory}
         subprocess.check_call(["npm", "install", "--package-lock"], **subprocess_kwargs)
-        cmd = ["node", "/usr/local/lib/node_modules/better-npm-audit", "audit"]
+
         cve_file = os.path.join(directory, "npm-cve-ignore")
+        all_ignores = config.get("cve-ignore")
+        unused_ignores = []
         if os.path.exists(cve_file):
-            with open(cve_file) as cve_file:
-                cmd += ["--ignore=" + cve_file.read().strip()]
-        try:
-            sys.stdout.flush()
-            sys.stderr.flush()
-            subprocess.check_call(cmd, **subprocess_kwargs)
-        except subprocess.CalledProcessError:
-            c2cciutils.checks.error("npm", "Audit issue, see above", file)
-            subprocess.call(["npm", "audit"], **subprocess_kwargs)
-            subprocess.call(["npm", "audit", "fix", "--force"], **subprocess_kwargs)
-            subprocess.call(["git", "diff"], **subprocess_kwargs)
-            subprocess.call(["git", "diff-index", "--quiet", "HEAD"], **subprocess_kwargs)
-            success = False
+            with open(cve_file) as cve_file_open:
+                all_ignores = [int(e) for e in cve_file_open.read().strip().split(",")]
+                unused_ignores = list(all_ignores)
+
+        cwe_ignores = config.get("cwe_ignore", [])
+
+        audit = json.loads(
+            # Don't use check_output because audit will return an error on any vulnerabilities found
+            # and we want to manage that ourself.
+            subprocess.run(  # pylint: disable=subprocess-run-check
+                ["npm", "audit", "--json"], stdout=subprocess.PIPE, **subprocess_kwargs
+            ).stdout
+        )
+        vulnerabilities = {}
+        if "error" in audit:
+            print(yaml.dump(audit["error"], default_flow_style=False, Dumper=yaml.SafeDumper))
             print("::endgroup::")
             print("With error")
+            return False
+
+        for vunerability in audit["advisories"].values():
+            if vunerability["cwe"] in cwe_ignores:
+                continue
+            if vunerability["id"] not in all_ignores:
+                vulnerabilities[vunerability["id"]] = vunerability
+            elif vunerability["id"] in unused_ignores:
+                unused_ignores.remove(vunerability["id"])
+
+        if vulnerabilities:
+            first = True
+            for vunerability in vulnerabilities.values():
+                if not first:
+                    print("=======================================================")
+                print()
+                print("Title: [{}] {}".format(vunerability.get("id"), vunerability.get("title")))
+                print("Severity: " + vunerability.get("severity"))
+                print("CWE: " + vunerability.get("cwe"))
+                print("Vulnarable versions: " + vunerability.get("vulnerable_versions"))
+                print("Patched versions: " + vunerability.get("patched_versions"))
+                print("Recommendation: " + vunerability.get("recommendation"))
+                for find in vunerability.get("findings", []):
+                    print("Version: " + find["version"])
+                    for path in find.get("paths", []):
+                        print("Path: " + " > ".join(path.split(">")[2:]))
+                print("More info: " + vunerability.get("url"))
+                print()
+
+            c2cciutils.checks.error(
+                "npm", "We have some vulnerabilities see logs", file=os.path.join(directory, "package.json")
+            )
+            success = False
+
+        if len(unused_ignores) > 0:
+            c2cciutils.checks.error(
+                "npm",
+                "The following cve ignores are not present in the audit: {}".format(
+                    ", ".join([str(e) for e in unused_ignores])
+                ),
+                file=cve_file,
+            )
+            success = False
+
         print("::endgroup::")
+        if not success:
+            print("With error")
     return success
 
 
