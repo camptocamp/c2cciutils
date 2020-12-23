@@ -138,10 +138,11 @@ def main() -> None:
                 for name, conf in docker_config.get("repository", {}).items():
                     if version_type in conf.get("versions", []):
                         if args.dry_run:
-                            print("Publishing {}:{} to {}, skipping (dry run)".format(
-                                image_conf["name"],
-                                tag_dst,
-                                name))
+                            print(
+                                "Publishing {}:{} to {}, skipping (dry run)".format(
+                                    image_conf["name"], tag_dst, name
+                                )
+                            )
                         else:
                             success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
 
