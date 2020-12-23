@@ -151,7 +151,7 @@ def gitattribute(config, full_config, args):
             .split("\n")[-1]
             .split(" ")[0]
         )
-        subprocess.check_call(["git", "--no-pager", "diff", "--check", git_ref])
+        subprocess.check_call(["git", "--no-pager", "diff", "--no-renames", "--check", git_ref])
         return True
     except subprocess.CalledProcessError:
         error(
