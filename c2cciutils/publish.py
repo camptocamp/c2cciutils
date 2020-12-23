@@ -59,7 +59,7 @@ def docker(config, name, image_config, tag_src, tag_dst):
         name: # The image name
     """
 
-    print("::group::Publishing {} to {}".format(image_config["name"], name))
+    print("::group::Publishing {}:{} to {}".format(image_config["name"], tag_dst, name))
     sys.stdout.flush()
     sys.stderr.flush()
 

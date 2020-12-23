@@ -119,7 +119,7 @@ def get_config():
                 "versions": [
                     {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
                     {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "},
-                    {"name": "java", "cmd": ["java", "--version"]},
+                    {"name": "java", "cmd": ["java", "-version"]},
                     {"name": "python", "cmd": ["python3", "--version"]},
                     {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
                     {"name": "pipenv", "cmd": ["pipenv", "--version"]},

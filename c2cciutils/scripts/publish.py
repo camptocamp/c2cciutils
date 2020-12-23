@@ -121,7 +121,7 @@ def main() -> None:
             if args.dry_run:
 
                 print(
-                    "{} '{}' to pypi, skeeping (dry run)".format(
+                    "{} '{}' to pypi, skipping (dry run)".format(
                         "Publishing" if publish else "Checking", package.get("path")
                     )
                 )
@@ -138,7 +138,11 @@ def main() -> None:
                 for name, conf in docker_config.get("repository", {}).items():
                     if version_type in conf.get("versions", []):
                         if args.dry_run:
-                            print("Publishing {} to {}, skeeping (dry run)".format(image_conf["name"], name))
+                            print(
+                                "Publishing {}:{} to {}, skipping (dry run)".format(
+                                    image_conf["name"], tag_dst, name
+                                )
+                            )
                         else:
                             success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
 
