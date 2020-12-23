@@ -23,15 +23,19 @@ def error(checker, message, file=None, line=None, col=None, error_type="error"):
     See: https://docs.github.com/en/free-pro-team@latest/actions/reference/ \
         workflow-commands-for-github-actions#setting-an-error-message
     """
-    result = "::{}".format(error_type)
+    result = ""
     if file is not None:
-        result += " file={}".format(file)
+        result += "file={}".format(file)
         if line is not None:
             result += ",line={}".format(line)
             if col is not None:
                 result += ",col={}".format(col)
     result += ":: {}: {}".format(checker, message)
+    # Make the error visible on GitHub workflow logs
     print(result)
+    if os.environ.get("CI", "false").lower() == "true":
+        # Make the error visible as annotation
+        print("::{} {}".format(error_type, result))
 
 
 def print_config(config, full_config, args):
@@ -40,7 +44,7 @@ def print_config(config, full_config, args):
     """
     del config, args
 
-    print(yaml.dump(full_config, Dumper=yaml.SafeDumper))
+    print(yaml.dump(full_config, default_flow_style=False, Dumper=yaml.SafeDumper))
     return True
 
 
@@ -334,7 +338,9 @@ def required_workflows(config, full_config, args):
                     error(
                         "required_workflows",
                         "The workflow '{}', job '{}' doesn't have the step for:\n{}".format(
-                            filename, name, yaml.dump(step_conf, Dumper=yaml.SafeDumper).strip()
+                            filename,
+                            name,
+                            yaml.dump(step_conf, default_flow_style=False, Dumper=yaml.SafeDumper).strip(),
                         ),
                         filename,
                     )
