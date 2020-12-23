@@ -14,8 +14,8 @@ RUN python3 -m pip install --disable-pip-version-check --no-cache-dir --requirem
 
 FROM base AS run
 
-RUN python3 -m compileall -q /usr/local/lib/python3.8 \
-  -x '/usr/local/lib/python3.8/site-packages/pipenv/'
+RUN python3 -m compileall -q * \
+  -x '/usr/local/lib/python3.*/site-packages/pipenv/'
 
 COPY . ./
 RUN python3 -m pip install --disable-pip-version-check --no-deps --no-cache-dir --editable=.
