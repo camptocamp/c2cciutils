@@ -624,7 +624,7 @@ def black(config, full_config, args):
         sys.stderr.flush()
         cmd = ["black"]
         if not args.fix:
-            cmd += ["--color", "--diff"]
+            cmd += ["--color", "--diff", "--check"]
         cmd.append("--")
         python_files = _get_python_files(config.get("ignore_patterns_re", []))
         cmd += python_files
