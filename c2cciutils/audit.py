@@ -3,6 +3,7 @@
 import datetime
 import json
 import os.path
+import re
 import subprocess
 import sys
 
@@ -19,6 +20,17 @@ def print_versions(config, full_config, args):
 
     print("::group::Versions")
     c2cciutils.print_versions(config)
+    print("::endgroup::")
+    print("::group::Simplified list of available python for asdf")
+    all_versions = {}
+    version_re = re.compile(r"^([0-9]+)\.([0-9]+)\.([0-9]+)$")
+    for version in subprocess.check_output(["asdf", "list", "all", "python"]).decode().strip().split("\n"):
+        version_match = version_re.match(version)
+        if version_match is not None:
+            full_minor_version = "{}.{}".format(version_match.group(1), version_match.group(2))
+            all_versions.setdefault(full_minor_version, []).append(int(version_match.group(3)))
+    for full_minor in sorted(all_versions.keys()):
+        print("{}.{}".format(full_minor, max(all_versions[full_minor])))
     print("::endgroup::")
     return True
 

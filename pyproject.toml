@@ -8,4 +8,3 @@ include_trailing_comma = true
 force_grid_wrap = false
 use_parentheses = true
 line_length = 110
-known_first_party = ['c2cciutils']
