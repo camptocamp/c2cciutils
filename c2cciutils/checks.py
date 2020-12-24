@@ -12,7 +12,7 @@ import requests
 import yaml
 from editorconfig import EditorConfigError, get_properties
 
-import c2cciutils
+import c2cciutils.prettier
 import c2cciutils.security
 
 
@@ -713,6 +713,44 @@ def codespell(config, full_config, args):
             "Error, see above",
         )
         return False
+
+
+def prettier(config, full_config, args):
+    """
+    Run prittier check on all the supported files
+
+    config is like:
+      ignore_patterns_re: [] # list of regular expression we should ignore
+    """
+    del full_config
+
+    ignore_patterns_compiled = [re.compile(p) for p in config.get("ignore_patterns_re", [])]
+    success = True
+
+    with c2cciutils.prettier.Prettier() as prettier_lib:
+        for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+            if os.path.isfile(filename):
+                accept = True
+                for pattern in ignore_patterns_compiled:
+                    if pattern.search(filename):
+                        accept = False
+                        break
+                if accept:
+                    info = prettier_lib.get_info(filename)
+                    if info.get("info", {}).get("ignored", False):
+                        continue
+                    if not info.get("info", {}).get("inferredParser"):
+                        continue
+                    config = info["config"]
+                    config["parser"] = info["info"]["inferredParser"]
+
+                    if args.fix:
+                        if not prettier_lib.format(filename, config):
+                            success = False
+                    else:
+                        if not prettier_lib.check(filename, config):
+                            success = False
+    return success
 
 
 def print_versions(config, full_config, args):
