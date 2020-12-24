@@ -2,6 +2,6 @@
 
 ## Supported Versions
 
-Version | Supported Until
---- | ---
-1.0 | Unsupported
+| Version | Supported Until |
+| ------- | --------------- |
+| 1.0     | Unsupported     |

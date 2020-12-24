@@ -95,7 +95,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
         "*.yaml": editorconfig_properties_2,
         "*.yml": editorconfig_properties_2,
         "*.graphql": editorconfig_properties_2,
-        "*.json": editorconfig_properties,
+        "*.json": editorconfig_properties_2,
         "*.java": editorconfig_properties_4,
         "*.js": editorconfig_properties_2,
         "*.mk": editorconfig_properties_mk,
@@ -226,6 +226,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
                 },
                 "classifiers": ["Typing :: Typed"],
             },
+            "prettier": {"ignore_patterns_re": []},
         },
         "audit": {
             "print_versions": {

@@ -6,7 +6,6 @@ updates:
     directory: '/'
     schedule:
       interval: daily
-      time: '02:00'
     ignore:
       - dependency-name: none
 
@@ -14,7 +13,6 @@ updates:
     directory: '/example-project'
     schedule:
       interval: daily
-      time: '02:00'
     ignore:
       - dependency-name: none
 
@@ -22,7 +20,6 @@ updates:
     directory: '/'
     schedule:
       interval: daily
-      time: '02:00'
     ignore:
       - dependency-name: none
 
@@ -30,7 +27,6 @@ updates:
     directory: '/example-project'
     schedule:
       interval: daily
-      time: '02:00'
     ignore:
       - dependency-name: none
 
@@ -38,6 +34,12 @@ updates:
     directory: '/test'
     schedule:
       interval: daily
-      time: '02:00'
+    ignore:
+      - dependency-name: none
+
+  - package-ecosystem: npm
+    directory: '/c2cciutils'
+    schedule:
+      interval: daily
     ignore:
       - dependency-name: none

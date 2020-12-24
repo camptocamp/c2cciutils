@@ -1,0 +1,9 @@
+{
+  "name": "c2ccicheck",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "dependencies": {
+    "prettier": "2.2.1"
+  }
+}
