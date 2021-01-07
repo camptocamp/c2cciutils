@@ -7,6 +7,7 @@ import re
 import sys
 
 import c2cciutils.publish
+from c2cciutils.publish import GoogleCalendar
 
 
 def match(tpe, base_re):
@@ -130,6 +131,7 @@ def main() -> None:
 
     docker_config = config.get("publish", {}).get("docker", {})
 
+    google_calendar = GoogleCalendar()
     for image_conf in docker_config.get("images", []):
         if image_conf.get("group", "") == args.group:
             for tag_config in image_conf.get("tags", []):
@@ -145,6 +147,12 @@ def main() -> None:
                             )
                         else:
                             success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
+                if version_type in ["version_branch", "version_tag", "rebuild"]:
+                    summary = "{}:{}".format(image_conf["name"], tag_dst)
+                    description = "Published on: {}".format(
+                        ", ".join([e["name"] for e in docker_config["repository"]])
+                    )
+                    google_calendar.create_event(summary, description)
 
     if not success:
         sys.exit(1)

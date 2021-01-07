@@ -10,3 +10,6 @@ click==7.1.2
 isort==5.7.0
 twine==3.3.0
 codespell==2.0.0
+google-api-python-client==1.12.8
+google-auth-httplib2==0.0.4
+google-auth-oauthlib==0.4.2
