@@ -18,24 +18,30 @@ import c2cciutils.security
 
 def error(checker, message, file=None, line=None, col=None, error_type="error"):
     """
-    Write a GitHub error or warn message
+    Write an error or warn message formatted for GitHub if the CI environment variable is true else for IDE.
+
+    GitHub: ::(error|warning) file=<file>,line=<line>,col=<col>:: <checker>: <message>
+    IDE: [(error|warning)] <file>:<line>:<col>: <checker>: <message>
 
     See: https://docs.github.com/en/free-pro-team@latest/actions/reference/ \
         workflow-commands-for-github-actions#setting-an-error-message
     """
     result = ""
+    on_ci = os.environ.get("CI", "false").lower() == "true"
     if file is not None:
-        result += "file={}".format(file)
+        result += ("file={}" if on_ci else "{}").format(file)
         if line is not None:
-            result += ",line={}".format(line)
+            result += (",line={}" if on_ci else ":{}").format(line)
             if col is not None:
-                result += ",col={}".format(col)
-    result += ":: {}: {}".format(checker, message)
-    # Make the error visible on GitHub workflow logs
-    print(result)
-    if os.environ.get("CI", "false").lower() == "true":
+                result += (",col={}" if on_ci else ":{}").format(col)
+    result += (":: {}: {}" if on_ci else ": {}: {}").format(checker, message)
+    if on_ci:
+        # Make the error visible on GitHub workflow logs
+        print(result)
         # Make the error visible as annotation
         print("::{} {}".format(error_type, result))
+    else:
+        print("[{}] {}".format(error_type, result))
 
 
 def print_config(config, full_config, args):
