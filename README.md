@@ -13,6 +13,11 @@ Commands:
 
 The content of `example-project` can be a good base for a new project.
 
+# Use locally, in the projects that use c2cciutils
+
+Install it: `python3 -m pip install --user --requirement ci/requirements.txt`
+Run the checkers: `c2cciutils-checks [--fix] [--stop] [--check CHECK]`
+Dry run publish: `GITHUB_REF=... c2cciutils-publish --dry-run ...`
 
 # Configuration
 
