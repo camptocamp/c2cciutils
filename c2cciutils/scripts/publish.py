@@ -149,9 +149,7 @@ def main() -> None:
                             success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
                 if version_type in ["version_branch", "version_tag", "rebuild"]:
                     summary = "{}:{}".format(image_conf["name"], tag_dst)
-                    description = "Published on: {}".format(
-                        ", ".join([e for e in docker_config["repository"]])
-                    )
+                    description = "Published on: {}".format(", ".join(docker_config["repository"]))
                     google_calendar.create_event(summary, description)
 
     if not success:
