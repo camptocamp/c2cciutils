@@ -150,7 +150,7 @@ def main() -> None:
                 if version_type in ["version_branch", "version_tag", "rebuild"]:
                     summary = "{}:{}".format(image_conf["name"], tag_dst)
                     description = "Published on: {}".format(
-                        ", ".join([e["name"] for e in docker_config["repository"]])
+                        ", ".join([e for e in docker_config["repository"]])
                     )
                     google_calendar.create_event(summary, description)
 
