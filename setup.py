@@ -51,6 +51,7 @@ setup(
             "c2cciutils-audit = c2cciutils.scripts.audit:main",
             "c2cciutils-publish = c2cciutils.scripts.publish:main",
             "c2cciutils-clean = c2cciutils.scripts.clean:main",
+            "c2cciutils-google-calendar = c2cciutils.publish:main_calendar",
         ],
     },
     package_data={"c2cciutils": ["*.graphql"]},

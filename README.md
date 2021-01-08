@@ -7,6 +7,7 @@ Commands:
   - `c2cciutils-audit`: Do the audit, the main difference with checks is that it can change between runs on the same code.
   - `c2cciutils-publish`: Publish the project.
   - `c2cciutils-clean`: Delete Docker images on Docker Hub after corresponding branch have been deleted.
+  - `c2cciutils-google-calendar`: Tool to test the google credentials for calendar API and refresh them if needed. See `c2cciutils-google-calendar -h` for more information.
 
 
 # New project
