@@ -113,6 +113,7 @@ def get_config():
                     "dockerhub": {"versions": ["version_tag", "version_branch", "rebuild", "feature_branch"]},
                 },
             },
+            "publish": {"google_calendar": {"on": ["version_branch", "version_tag", "rebuild"]}},
         },
         "checks": {
             "print_versions": {

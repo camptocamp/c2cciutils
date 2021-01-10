@@ -131,7 +131,7 @@ def main() -> None:
 
     docker_config = config.get("publish", {}).get("docker", {})
 
-    google_calendar = GoogleCalendar()
+    google_calendar = None
     for image_conf in docker_config.get("images", []):
         if image_conf.get("group", "") == args.group:
             for tag_config in image_conf.get("tags", []):
@@ -147,9 +147,13 @@ def main() -> None:
                             )
                         else:
                             success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
-                if version_type in ["version_branch", "version_tag", "rebuild"]:
+                if version_type in config.get("publish", {}).get("google_calendar", {}).get("on", []):
+                    if not google_calendar:
+                        google_calendar = GoogleCalendar()
                     summary = "{}:{}".format(image_conf["name"], tag_dst)
-                    description = "Published on: {}".format(", ".join(docker_config["repository"].keys()))
+                    description = "Published on: {}\nFor version type: {}".format(
+                        ", ".join(docker_config["repository"].keys()), version_type
+                    )
                     google_calendar.create_event(summary, description)
 
     if not success:
