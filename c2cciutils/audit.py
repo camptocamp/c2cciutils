@@ -236,14 +236,13 @@ def outdated_versions(config, full_config, args):
 
     for row in security.data:
         str_date = row[date_index]
-        if str_date not in ("Unsupported", "Best effort"):
+        if str_date not in ("Unsupported", "Best effort", "To be defined"):
             date = datetime.datetime.strptime(row[date_index], "%d/%m/%Y")
             if date < datetime.datetime.now():
                 c2cciutils.checks.error(
                     "versions",
-                    "The version '{}' is outdated, she can be set to 'Unsupported' or 'Best effort'".format(
-                        row[version_index]
-                    ),
+                    "The version '{}' is outdated, it can be set to "
+                    "'Unsupported', 'Best effort' or 'To be defined'".format(row[version_index]),
                     "SECURITY.md",
                 )
                 success = False
