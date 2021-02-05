@@ -123,8 +123,9 @@ def npm(config, full_config, args):
     """
     del full_config, args
 
-    success = True
+    global_success = True
     for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        success = True
         if os.path.basename(file) != "package.json":
             continue
         print("::group::Audit " + file)
@@ -203,7 +204,8 @@ def npm(config, full_config, args):
         print("::endgroup::")
         if not success:
             print("With error")
-    return success
+        global_success = global_success and success
+    return global_success
 
 
 def outdated_versions(config, full_config, args):
