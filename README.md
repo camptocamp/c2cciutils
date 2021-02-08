@@ -57,6 +57,22 @@ It will check that:
 -   The `gitattributes` are valid.
 -   All text files end with an empty line.
 
+# SECURITY.md
+
+The `SECURITY.md` file should contains the security policy of the repository, espessially the end of
+support dates.
+
+For compatibility with `c2cciutils` it should contain an array with at least the columns
+`Version` and `Supported Until`. The `Version` column will contain the concerned version.
+The `Supported Until` will contains the date of end of support `dd/mm/yyyy`.
+It can also contain the following sentences:
+
+-   `Unsupported`: no longer supported => no audit, no rebuild.
+-   `Best effort`: the support is ended, it is still rebuilt and audited but this can be can stopped without any notice.
+-   `To be defined`: not yet released or the date will be set related of an other project release date (like for GeoMapFish).
+
+See also [GitHub Documentation](https://docs.github.com/en/github/managing-security-vulnerabilities/adding-a-security-policy-to-your-repository)
+
 # IDE
 
 The IDE should be configured as:

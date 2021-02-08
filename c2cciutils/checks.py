@@ -359,7 +359,7 @@ def versions(config, full_config, _):
     from `SECURITY.md` file.
     The columns `Version` and `Supported Until` should be present.
     The `Supported Until` should contains dates formatted as `dd/mm/yyyy`, or `Unsupported`
-    (we ignore those lines), or `Best effort`.
+    (we ignore those lines), or `Best effort`, or `To be defined`.
 
     config is like:
         extra_versions: # versions that are not in the `SECURITY.md` but should still be consided
