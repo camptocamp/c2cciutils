@@ -115,22 +115,21 @@ def editorconfig(config, full_config, args):
     success = True
     for pattern, wanted_properties in config.get("properties", {}).items():
         try:
-            file_ = next(glob.iglob("**/" + pattern, recursive=True))
-            properties = get_properties(os.path.abspath(file_))
+            for filename in subprocess.check_output(["git", "ls-files", pattern]).decode().split("\n"):
+                if os.path.isfile(filename):
+                    properties = get_properties(os.path.abspath(filename))
 
-            for key, value in wanted_properties.items():
-                if value is not None and (key not in properties or properties[key] != value):
-                    error(
-                        "editorconfig",
-                        "For pattern: {} the property '{}' is '{}' but should be '{}'.".format(
-                            pattern, key, properties.get(key, ""), value
-                        ),
-                        ".editorconfig",
-                    )
-                    success = False
-        except StopIteration:
-            # If the pattern is not founf the check is disable for this pattern
-            pass
+                    for key, value in wanted_properties.items():
+                        if value is not None and (key not in properties or properties[key] != value):
+                            error(
+                                "editorconfig",
+                                "For pattern: {} the property '{}' is '{}' but should be '{}'.".format(
+                                    pattern, key, properties.get(key, ""), value
+                                ),
+                                ".editorconfig",
+                            )
+                            success = False
+                    break
         except EditorConfigError:
             error(
                 "editorconfig",
