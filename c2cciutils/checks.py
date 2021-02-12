@@ -527,7 +527,7 @@ def _versions_backport_labels(all_versions, full_config):
 
         if all_versions != label_versions:
             error(
-                "versions_backport_labels",
+                "versions backport labels",
                 "The backport labels do not have the right list of versions [{}] != [{}]".format(
                     ", ".join(sorted(label_versions)), ", ".join(sorted(all_versions))
                 ),
@@ -535,7 +535,7 @@ def _versions_backport_labels(all_versions, full_config):
             success = False
     except FileNotFoundError as exception:
         error(
-            "versions_backport_labels",
+            "versions backport labels",
             f"Unable to get credentials to run the check: {exception}",
             error_type="warning",
         )
@@ -579,7 +579,7 @@ def _versions_branches(all_versions, full_config):
                         url = next_links[0]
             except Exception as exception:  # pylint: disable=broad-except
                 error(
-                    "versions_branches",
+                    "versions branches",
                     (
                         "error on reading Link header '{}': {}".format(
                             branches_response.headers.get("Link"), exception
@@ -593,22 +593,22 @@ def _versions_branches(all_versions, full_config):
                 match = c2cciutils.match(branch["name"], branch_re)
                 if match[0] is not None:
                     branch_versions.add(c2cciutils.get_value(*match))
+
+        if len([v for v in all_versions if v not in branch_versions]) > 0:
+            error(
+                "versions branches",
+                "The version from the protected branches does not correspond with "
+                "expected versions [{}] != [{}]".format(
+                    ", ".join(sorted(branch_versions)), ", ".join(sorted(all_versions))
+                ),
+            )
+            success = False
     except FileNotFoundError as exception:
         error(
-            "versions_branches",
+            "versions branches",
             f"Unable to get credentials to run the check: {exception}",
             error_type="warning",
         )
-
-    if len([v for v in all_versions if v not in branch_versions]) > 0:
-        error(
-            "versions",
-            "The version from the protected branches does not correspond with "
-            "expected versions [{}] != [{}]".format(
-                ", ".join(sorted(branch_versions)), ", ".join(sorted(all_versions))
-            ),
-        )
-        success = False
 
     return success
 
