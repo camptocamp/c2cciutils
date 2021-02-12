@@ -499,55 +499,13 @@ def _versions_backport_labels(all_versions, full_config):
     Check that the backport labels correspond to the version from the Security.md
     """
     success = True
-    label_versions = set()
+    try:
+        label_versions = set()
 
-    sys.stdout.flush()
-    sys.stderr.flush()
-    labels_response = requests.get(
-        "https://api.github.com/repos/{repo}/labels".format(repo=c2cciutils.get_repository()),
-        headers={
-            "Accept": "application/vnd.github.v3+json",
-            "Authorization": "Bearer {}".format(
-                os.environ["GITHUB_TOKEN"].strip()
-                if "GITHUB_TOKEN" in os.environ
-                else subprocess.check_output(["gopass", "show", "gs/ci/github/token/gopass"]).strip().decode()
-            ),
-        },
-    )
-    labels_response.raise_for_status()
-
-    label_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []), "backport ")
-    for json_label in labels_response.json():
-        match = c2cciutils.match(json_label["name"], label_re)
-        if match[0] is not None:
-            label_versions.add(c2cciutils.get_value(*match))
-
-    if all_versions != label_versions:
-        error(
-            "versions",
-            "The backport labels do not have the right list of versions [{}] != [{}]".format(
-                ", ".join(sorted(label_versions)), ", ".join(sorted(all_versions))
-            ),
-        )
-        success = False
-
-    return success
-
-
-def _versions_branches(all_versions, full_config):
-    """
-    Check that the branches correspond to the version from the Security.md
-    """
-    success = True
-    branch_versions = set()
-
-    sys.stdout.flush()
-    sys.stderr.flush()
-    url = "https://api.github.com/repos/{repo}/branches".format(repo=c2cciutils.get_repository())
-    while url:
-        branches_response = requests.get(
-            url,
-            params={"protected": "true"},
+        sys.stdout.flush()
+        sys.stderr.flush()
+        labels_response = requests.get(
+            "https://api.github.com/repos/{repo}/labels".format(repo=c2cciutils.get_repository()),
             headers={
                 "Accept": "application/vnd.github.v3+json",
                 "Authorization": "Bearer {}".format(
@@ -559,26 +517,88 @@ def _versions_branches(all_versions, full_config):
                 ),
             },
         )
-        branches_response.raise_for_status()
-        url = None
-        try:
-            links = requests.utils.parse_header_links(branches_response.headers.get("Link", ""))
-            if isinstance(links, list):
-                next_links = [link["url"] for link in links if link["rel"] == "next"]
-                if len(next_links) >= 1:
-                    url = next_links[0]
-        except Exception as exception:  # pylint: disable=broad-except
-            print(
-                "WARNING: error on reading Link header '{}': {}".format(
-                    branches_response.headers.get("Link"), exception
-                )
-            )
+        labels_response.raise_for_status()
 
-        branch_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
-        for branch in branches_response.json():
-            match = c2cciutils.match(branch["name"], branch_re)
+        label_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []), "backport ")
+        for json_label in labels_response.json():
+            match = c2cciutils.match(json_label["name"], label_re)
             if match[0] is not None:
-                branch_versions.add(c2cciutils.get_value(*match))
+                label_versions.add(c2cciutils.get_value(*match))
+
+        if all_versions != label_versions:
+            error(
+                "versions_backport_labels",
+                "The backport labels do not have the right list of versions [{}] != [{}]".format(
+                    ", ".join(sorted(label_versions)), ", ".join(sorted(all_versions))
+                ),
+            )
+            success = False
+    except FileNotFoundError as exception:
+        error(
+            "versions_backport_labels",
+            f"Unable to get credentials to run the check: {exception}",
+            error_type="warning",
+        )
+
+    return success
+
+
+def _versions_branches(all_versions, full_config):
+    """
+    Check that the branches correspond to the version from the Security.md
+    """
+    success = True
+    try:
+        branch_versions = set()
+
+        sys.stdout.flush()
+        sys.stderr.flush()
+        url = "https://api.github.com/repos/{repo}/branches".format(repo=c2cciutils.get_repository())
+        while url:
+            branches_response = requests.get(
+                url,
+                params={"protected": "true"},
+                headers={
+                    "Accept": "application/vnd.github.v3+json",
+                    "Authorization": "Bearer {}".format(
+                        os.environ["GITHUB_TOKEN"].strip()
+                        if "GITHUB_TOKEN" in os.environ
+                        else subprocess.check_output(["gopass", "show", "gs/ci/github/token/gopass"])
+                        .strip()
+                        .decode()
+                    ),
+                },
+            )
+            branches_response.raise_for_status()
+            url = None
+            try:
+                links = requests.utils.parse_header_links(branches_response.headers.get("Link", ""))
+                if isinstance(links, list):
+                    next_links = [link["url"] for link in links if link["rel"] == "next"]
+                    if len(next_links) >= 1:
+                        url = next_links[0]
+            except Exception as exception:  # pylint: disable=broad-except
+                error(
+                    "versions_branches",
+                    (
+                        "error on reading Link header '{}': {}".format(
+                            branches_response.headers.get("Link"), exception
+                        )
+                    ),
+                    error_type="warning",
+                )
+
+            branch_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
+            for branch in branches_response.json():
+                match = c2cciutils.match(branch["name"], branch_re)
+                if match[0] is not None:
+                    branch_versions.add(c2cciutils.get_value(*match))
+    except FileNotFoundError as exception:
+        error(
+            "versions_branches",
+            f"Unable to get credentials to run the check: {exception}",
+            error_type="warning",
+        )
 
     if len([v for v in all_versions if v not in branch_versions]) > 0:
         error(
