@@ -56,7 +56,6 @@ def main() -> None:
 
     # Describe the kind of release we do: rebuild (specified with --type), version_tag, version_branch,
     # feature_branch, feature_tag (for pull request)
-    version_type = None
     version: str = ""
     ref = os.environ["GITHUB_REF"]
 
@@ -72,8 +71,7 @@ def main() -> None:
         ref,
         c2cciutils.compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/"),
     )
-    if args.type is not None:
-        version_type = args.type
+    version_type = args.type
     if args.version is not None:
         version = args.version
     elif args.branch is not None:
@@ -106,6 +104,12 @@ def main() -> None:
             print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         # By the way we replace '/' by '_' because it isn't supported by Docker
         version = "_".join(ref.split("/")[2:])
+    else:
+        print(
+            f"WARNING: {ref} is not supported, only ref starting with 'refs/heads/' or 'refs/tags/' "
+            "are supported, ignoring"
+        )
+        sys.exit(0)
 
     if version_type is None:
         print("ERROR: you specified one of the arguments --version, --branch or --tag but not the --type")
