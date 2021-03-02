@@ -136,7 +136,7 @@ def npm(config, full_config, args):
         subprocess.check_call(["npm", "install", "--package-lock"], **subprocess_kwargs)
 
         cve_file = os.path.join(directory, "npm-cve-ignore")
-        all_ignores = config.get("cve-ignore")
+        all_ignores = config.get("cve-ignore", [])
         unused_ignores = []
         if os.path.exists(cve_file):
             with open(cve_file) as cve_file_open:
