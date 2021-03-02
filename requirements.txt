@@ -1,4 +1,4 @@
-httplib2==0.19.1
+httplib2==0.19.0
 safety==1.10.3
 Markdown==3.3.3
 markdown-table
