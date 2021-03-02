@@ -99,7 +99,6 @@ def pipenv(config, full_config, args):
             with open(cve_file) as cve_file:
                 cmd += ["--ignore=" + cve_file.read().strip()]
         try:
-            c2cciutils.checks.error("pienv", "Audit issue, see above", file)
             sys.stdout.flush()
             sys.stderr.flush()
             if directory != "":
@@ -107,6 +106,7 @@ def pipenv(config, full_config, args):
             else:
                 subprocess.check_call(cmd)
         except subprocess.CalledProcessError:
+            c2cciutils.checks.error("pipenv", "Audit issue, see above", file)
             success = False
             print("::endgroup::")
             print("With error")
