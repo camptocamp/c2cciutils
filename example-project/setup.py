@@ -1,3 +1,4 @@
+import configparser
 import os
 
 from setuptools import find_packages, setup
@@ -5,8 +6,9 @@ from setuptools import find_packages, setup
 VERSION = os.environ.get("VERSION", "1.0.0")
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-with open(os.path.join(HERE, "requirements.txt")) as open_file:
-    INSTALL_REQUIRES = open_file.read().splitlines()
+config = configparser.ConfigParser()
+config.read(os.path.join(HERE, "Pipfile"))
+INSTALL_REQUIRES = list(config["packages"].keys())
 
 
 def long_description() -> str:
