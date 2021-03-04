@@ -1,3 +1,4 @@
+import configparser
 import os
 import site
 import sys
@@ -9,8 +10,9 @@ site.ENABLE_USER_SITE = "--user" in sys.argv
 VERSION = os.environ.get("version", "1.0")
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-with open(os.path.join(HERE, "requirements.txt")) as open_file:
-    INSTALL_REQUIRES = open_file.read().splitlines()
+config = configparser.ConfigParser()
+config.read(os.path.join(HERE, "Pipfile"))
+INSTALL_REQUIRES = list(config["packages"].keys())
 
 
 def long_description() -> str:

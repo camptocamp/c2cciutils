@@ -1,0 +1,2 @@
+ignored:
+  - DL3027 # warning: Do not use apt as it is meant to be a end-user tool, use apt-get or apt-cache instead
