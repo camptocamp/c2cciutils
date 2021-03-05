@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-safety = "==1.10.0"
+safety = "==1.10.3"
 markdown-table = "*"
 pipenv = "==2020.11.15"
 python-magic = "==0.4.18"
