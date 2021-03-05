@@ -76,11 +76,15 @@ def get_config():
     editorconfig_full_properties = {
         "*.py": editorconfig_properties_4,
         "*.yaml": editorconfig_properties_2,
+        "*.yml": editorconfig_properties_2,
         "*.json": editorconfig_properties,
         "*.java": editorconfig_properties_4,
         "*.js": editorconfig_properties_2,
         "*.mk": editorconfig_properties_mk,
         "Makefile": editorconfig_properties_mk,
+        "*.css": editorconfig_properties_2,
+        "*.scss": editorconfig_properties_2,
+        "*.html": editorconfig_properties_2,
     }
 
     default_config = {
