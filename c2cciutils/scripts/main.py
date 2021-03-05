@@ -13,6 +13,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Some utils of c2cciutils.")
     parser.add_argument("--get-config", action="store_true", help="display the current config")
     parser.add_argument("--version", action="store_true", help="display the current version")
+    parser.add_argument("--ls-files-mime", help="List all the files with the specified mime type")
 
     args = parser.parse_args()
 
@@ -25,6 +26,10 @@ def main() -> None:
                 print("{} {}".format(pkg, pkg_resources.get_distribution(pkg).version))
             except pkg_resources.DistributionNotFound:
                 print("{} missing".format(pkg))
+
+    if args.ls_files_mime:
+        for file_name in c2cciutils.get_git_files_mime(args.ls_files_mime):
+            print(file_name)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ import os.path
 import re
 import subprocess
 
+import magic
 import requests
 import yaml
 
@@ -335,3 +336,25 @@ def graphql(query_file, variables):
     if "data" not in json_response:
         raise RuntimeError("GraphQL no data: {}".format(json.dumps(json_response, indent=2)))
     return json_response["data"]
+
+
+def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
+    """
+    Get all the files in git that have the specified mime type
+
+    ignore_patterns_re: list of regular expression to be ignored
+    """
+
+    ignore_patterns_compiled = [re.compile(p) for p in ignore_patterns_re or []]
+    result = []
+
+    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == mime_type:
+            accept = True
+            for pattern in ignore_patterns_compiled:
+                if pattern.search(filename):
+                    accept = False
+                    break
+            if accept:
+                result.append(filename)
+    return result
