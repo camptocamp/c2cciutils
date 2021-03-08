@@ -12,7 +12,7 @@ from c2cciutils.publish import GoogleCalendar
 
 def match(tpe, base_re):
     """
-    Return the match for `GITHUB_REF` basically like: `refs/<tpe>/<base_re>`
+    Return the match for `GITHUB_REF` basically like: `refs/<type>/<base_re>`
     """
     if base_re[0] == "^":
         base_re = base_re[1:]
