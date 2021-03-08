@@ -613,28 +613,6 @@ def _versions_branches(all_versions, full_config):
     return success
 
 
-def _get_python_files(ignore_patterns_re):
-    """
-    Get all the files in git that have the mime type text/x-python
-
-    ignore_patterns_re: list of regular expression to be ignored
-    """
-
-    ignore_patterns_compiled = [re.compile(p) for p in ignore_patterns_re]
-    result = []
-
-    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == "text/x-python":
-            accept = True
-            for pattern in ignore_patterns_compiled:
-                if pattern.search(filename):
-                    accept = False
-                    break
-            if accept:
-                result.append(filename)
-    return result
-
-
 def black(config, full_config, args):
     """
     Run black check on all files including Python files without .py extension
@@ -651,7 +629,7 @@ def black(config, full_config, args):
         if not args.fix:
             cmd += ["--color", "--diff", "--check"]
         cmd.append("--")
-        python_files = _get_python_files(config.get("ignore_patterns_re", []))
+        python_files = c2cciutils.get_git_files_mime(ignore_patterns_re=config.get("ignore_patterns_re", []))
         cmd += python_files
         if len(python_files) > 0:
             subprocess.check_call(cmd)
@@ -682,7 +660,7 @@ def isort(config, full_config, args):
         else:
             cmd += ["--check-only", "--diff"]
         cmd.append("--")
-        python_files = _get_python_files(config.get("ignore_patterns_re", []))
+        python_files = c2cciutils.get_git_files_mime(ignore_patterns_re=config.get("ignore_patterns_re", []))
         cmd += python_files
         if len(python_files) > 0:
             subprocess.check_call(cmd)
