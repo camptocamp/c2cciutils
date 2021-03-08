@@ -31,7 +31,8 @@ jobs:
           patterns: pypi docker
 
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user --editable=.
+      - run: python3 ./setup.py egg_info --no-date bdist_wheel
+      - run: python3 -m pip install --user --force-reinstall dist/*.whl
 
       - name: Checks
         run: c2cciutils-checks
@@ -61,7 +62,9 @@ jobs:
           tool_versions: python 3.8.0
 
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user --editable=.
+      - run: python3 -m pip install --user wheel
+      - run: python3 ./setup.py egg_info --no-date bdist_wheel
+      - run: python3 -m pip install --user --force-reinstall dist/*.whl
 
       - name: Audit
         run: c2cciutils-audit --branch=master
