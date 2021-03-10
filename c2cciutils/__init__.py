@@ -78,7 +78,7 @@ def get_config():
         "*.py": editorconfig_properties_4,
         "*.yaml": editorconfig_properties_2,
         "*.yml": editorconfig_properties_2,
-        "*.json": editorconfig_properties,
+        "*.json": editorconfig_properties_2,
         "*.java": editorconfig_properties_4,
         "*.js": editorconfig_properties_2,
         "*.mk": editorconfig_properties_mk,
@@ -164,6 +164,7 @@ def get_config():
                 "ignore_re": [],
                 "arguments": ["--quiet-level=2", "--check-filenames"],
             },
+            "prettier": {"ignore_patterns_re": []},
         },
         "audit": {
             "print_versions": {

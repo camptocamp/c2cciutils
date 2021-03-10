@@ -1,0 +1,37 @@
+/**
+ * Styles for the map and OL3 controls.
+ */
+.ol-rotate,
+.ol-zoom {
+  background-color: transparent;
+  padding: 0;
+  z-index: $below-content-index;
+  button {
+    margin: 0;
+    margin-bottom: $micro-app-margin;
+    height: $map-tools-size;
+    width: $map-tools-size;
+    background-color: $map-tools-bg-color;
+    background-color: var(--map-tools-bg-color);
+    border: $border;
+    border-color: $border-color;
+    border-color: var(--border-color);
+    color: $map-tools-color;
+    color: var(--map-tools-color);
+    &:hover {
+      background-color: $onhover-color;
+      background-color: var(--onhover-color);
+    }
+    &:focus {
+      background-color: $map-tools-bg-color;
+      background-color: var(--map-tools-bg-color);
+      outline: none;
+    }
+    &:active {
+      outline: none;
+    }
+  }
+  &:hover {
+    background-color: transparent;
+  }
+}

@@ -1,4 +1,3 @@
-
 FROM ubuntu:20.04 AS base
 
 RUN apt update && \

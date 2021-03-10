@@ -18,7 +18,7 @@ audit:
 publish:
   pypi:
     packages:
-    - path: .
+      - path: .
     versions:
       - version_tag
       - version_branch

@@ -21,7 +21,7 @@ def print_versions(config, full_config, args):
     print("::group::Versions")
     c2cciutils.print_versions(config)
     print("::endgroup::")
-    print("::group::Simplified list of available python for asdf")
+    print("::group::Simplified list of available Python for asdf")
     all_versions = {}
     version_re = re.compile(r"^([0-9]+)\.([0-9]+)\.([0-9]+)$")
     for version in subprocess.check_output(["asdf", "list", "all", "python"]).decode().strip().split("\n"):
