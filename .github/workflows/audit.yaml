@@ -15,7 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         branch:
-          - '1.0'
           - master
 
     steps:
