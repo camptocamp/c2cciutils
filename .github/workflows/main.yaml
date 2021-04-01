@@ -2,7 +2,10 @@
 name: Continuous integration
 
 on:
+  pull_request:
   push:
+    paths-ignore:
+      - 'example-project/**'
 
 jobs:
   main:
