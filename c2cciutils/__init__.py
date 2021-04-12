@@ -157,7 +157,9 @@ def get_config():
                 "main.yaml": {"if": "!startsWith(github.event.head_commit.message, '[skip ci] ')"},
                 "backport.yaml": True,
                 "codeql.yaml": True,
-                "dependabot-auto-merge.yaml": True,
+                "dependabot-auto-merge.yaml": {"on": {"workflow_run": {"types": ["completed"]}}}
+                if config.get("dependabot_config", True)
+                else False,
             },
             "versions": {
                 "extra_versions": [master_branch],
@@ -173,6 +175,15 @@ def get_config():
             "codespell": {
                 "ignore_re": [],
                 "arguments": ["--quiet-level=2", "--check-filenames"],
+            },
+            "dependabot_config": {
+                "ignore_version_files": [],
+                "update_ignore": [],
+                "types": [
+                    {"filename": "Pipfile", "ecosystem": "pip"},
+                    {"filename": "Dockerfile", "ecosystem": "docker"},
+                    {"filename": "package.json", "ecosystem": "npm"},
+                ],
             },
         },
         "audit": {
