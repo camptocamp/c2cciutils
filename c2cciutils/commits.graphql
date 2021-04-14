@@ -3,7 +3,7 @@ query Commits($owner: String!, $name: String!, $branch: String!) {
     ref(qualifiedName: $branch) {
       target {
         ... on Commit {
-          history(first: 6) {
+          history(first: 20) {
             nodes {
               oid
             }

@@ -78,6 +78,7 @@ def get_config():
         "*.py": editorconfig_properties_4,
         "*.yaml": editorconfig_properties_2,
         "*.yml": editorconfig_properties_2,
+        "*.graphql": editorconfig_properties_2,
         "*.json": editorconfig_properties,
         "*.java": editorconfig_properties_4,
         "*.js": editorconfig_properties_2,
@@ -96,36 +97,7 @@ def get_config():
     )
     master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"]
 
-    based_on_master = True
-    if os.environ.get("GITHUB_REF", "").startswith("refs/heads/"):
-        current_branch = os.environ["GITHUB_REF"][len("refs/heads/") :]
-        if current_branch != master_branch:
-            commits_json = graphql(
-                "commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}
-            )["repository"]["ref"]["target"]["history"]["nodes"]
-            branches_json = [
-                branch
-                for branch in graphql("branches.graphql", {"name": repo[1], "owner": repo[0]},)["repository"][
-                    "refs"
-                ]["nodes"]
-                if branch["name"] != current_branch
-            ]
-            based_branch = master_branch
-            found = False
-            for commit in commits_json:
-                for branch in branches_json:
-                    commits = [
-                        branch_commit
-                        for branch_commit in branch["target"]["history"]["nodes"]
-                        if commit["oid"] == branch_commit["oid"]
-                    ]
-                    if commits:
-                        based_branch = branch["name"]
-                        found = True
-                        break
-                if found:
-                    break
-            based_on_master = based_branch == master_branch
+    based_on_master = get_based_on_master(repo, master_branch)
 
     default_config = {
         "version": {
@@ -399,3 +371,43 @@ def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
             if accept:
                 result.append(filename)
     return result
+
+
+def get_based_on_master(repo, master_branch):
+    """
+    This function will browse the 20 last commits to get the branch on with one we are based on.
+    For that be browse the 10 last commits on the branches (max 50) to see if we are base on that branch.
+    Finally returns true if we are mased on the master branch.
+    """
+
+    based_on_master = True
+    if os.environ.get("GITHUB_REF", "").startswith("refs/heads/"):
+        current_branch = os.environ["GITHUB_REF"][len("refs/heads/") :]
+        if current_branch != master_branch:
+            commits_json = graphql(
+                "commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}
+            )["repository"]["ref"]["target"]["history"]["nodes"]
+            branches_json = [
+                branch
+                for branch in graphql("branches.graphql", {"name": repo[1], "owner": repo[0]},)["repository"][
+                    "refs"
+                ]["nodes"]
+                if branch["name"] != current_branch
+            ]
+            based_branch = master_branch
+            found = False
+            for commit in commits_json:
+                for branch in branches_json:
+                    commits = [
+                        branch_commit
+                        for branch_commit in branch["target"]["history"]["nodes"]
+                        if commit["oid"] == branch_commit["oid"]
+                    ]
+                    if commits:
+                        based_branch = branch["name"]
+                        found = True
+                        break
+                if found:
+                    break
+            based_on_master = based_branch == master_branch
+    return based_on_master

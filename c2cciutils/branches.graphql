@@ -7,7 +7,7 @@ query Branches($owner: String!, $name: String!) {
           ... on Commit {
             history(first: 10) {
               nodes {
-                  oid
+                oid
               }
             }
           }
