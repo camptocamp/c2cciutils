@@ -88,6 +88,16 @@ def get_config():
         "*.html": editorconfig_properties_2,
     }
 
+    repository = get_repository()
+    repo = repository.split("/")
+    json_response = graphql(
+        "default_branch.graphql",
+        {"name": repo[1], "owner": repo[0]},
+    )
+    if "errors" in json_response:
+        raise RuntimeError(json.dumps(json_response["errors"], indent=2))
+    master_branch = json_response["repository"]["defaultBranchRef"]["name"]
+
     default_config = {
         "version": {
             "tag_to_version_re": [
@@ -95,7 +105,7 @@ def get_config():
             ],
             "branch_to_version_re": [
                 {"from": r"([0-9]+.[0-9]+)", "to": r"\1"},
-                {"from": "master", "to": "master"},
+                {"from": master_branch, "to": master_branch},
             ],
         },
         "publish": {
@@ -150,7 +160,7 @@ def get_config():
                 "dependabot-auto-merge.yaml": True,
             },
             "versions": {
-                "extra_versions": ["master"],
+                "extra_versions": [master_branch],
                 "backport_labels": True,
                 "rebuild": {
                     "files": [f for f in os.listdir(".github/workflows") if re.match(r"rebuild.*\.yaml", f)]
