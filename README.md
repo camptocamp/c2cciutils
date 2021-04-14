@@ -13,6 +13,16 @@ Commands:
 
 The content of `example-project` can be a good base for a new project.
 
+# Secrets
+
+In the CI we needs to have the following secrets::
+
+* `HAS_SECRETS` to be set to 'HAS_SECRETS', to avoid error errors from dependabot and from external
+  pull requests, already set globally on camtocamp organisation.
+* `GOPASS_CI_GITHUB_TOKEN` and `CI_GPG_PRIVATE_KEY` required to initialise the gopass password store,
+  the secrets axists in the camptocamp organisation but not shared on all project, then you should add
+  your project to the shared list.
+
 # Use locally, in the projects that use c2cciutils
 
 Install it: `python3 -m pip install --user --requirement ci/requirements.txt`
