@@ -78,6 +78,7 @@ def get_config():
         "*.py": editorconfig_properties_4,
         "*.yaml": editorconfig_properties_2,
         "*.yml": editorconfig_properties_2,
+        "*.graphql": editorconfig_properties_2,
         "*.json": editorconfig_properties,
         "*.java": editorconfig_properties_4,
         "*.js": editorconfig_properties_2,
@@ -90,19 +91,30 @@ def get_config():
 
     repository = get_repository()
     repo = repository.split("/")
-    json_response = graphql("default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False)
-    master_branch = json_response["repository"]["defaultBranchRef"]["name"] if json_response else "master"
+    default_branch_json = graphql(
+        "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False
+    )
+    credentials = default_branch_json is not False
+    master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"] if credentials else "master"
+
+    merge(
+        {
+            "version": {
+                "tag_to_version_re": [
+                    {"from": r"([0-9]+.[0-9]+.[0-9]+)", "to": r"\1"},
+                ],
+                "branch_to_version_re": [
+                    {"from": r"([0-9]+.[0-9]+)", "to": r"\1"},
+                    {"from": master_branch, "to": master_branch},
+                ],
+            }
+        },
+        config,
+    )
+
+    based_on_master = get_based_on_master(repo, master_branch, config) if credentials else False
 
     default_config = {
-        "version": {
-            "tag_to_version_re": [
-                {"from": r"([0-9]+.[0-9]+.[0-9]+)", "to": r"\1"},
-            ],
-            "branch_to_version_re": [
-                {"from": r"([0-9]+.[0-9]+)", "to": r"\1"},
-                {"from": master_branch, "to": master_branch},
-            ],
-        },
         "publish": {
             "print_versions": {
                 "versions": [
@@ -164,7 +176,9 @@ def get_config():
                 },
                 "audit": True,
                 "branches": True,
-            },
+            }
+            if based_on_master
+            else False,
             "black": {"ignore_patterns_re": []},
             "isort": {"ignore_patterns_re": []},
             "codespell": {
@@ -398,3 +412,49 @@ def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
             if accept:
                 result.append(filename)
     return result
+
+
+def get_based_on_master(repo, master_branch, config):
+    """
+    Check that we are not on a release branch (to avoid errors in versions check).
+
+    This function will check the last 20 commits in current branch,
+    and for each other branch (max 50) check if any commit in last 10 commits is the current one.
+    """
+
+    if os.environ.get("GITHUB_REF", "").startswith("refs/heads/"):
+        current_branch = os.environ["GITHUB_REF"][len("refs/heads/") :]
+        if current_branch == master_branch:
+            return True
+        branches_re = compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/")
+        if match(current_branch, branches_re):
+            return False
+        commits_json = graphql(
+            "commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}
+        )["repository"]["ref"]["target"]["history"]["nodes"]
+        branches_json = [
+            branch
+            for branch in (
+                graphql("branches.graphql", {"name": repo[1], "owner": repo[0]})["repository"]["refs"][
+                    "nodes"
+                ]
+            )
+            if branch["name"] != current_branch and match(branch["name"], branches_re)
+        ]
+        based_branch = master_branch
+        found = False
+        for commit in commits_json:
+            for branch in branches_json:
+                commits = [
+                    branch_commit
+                    for branch_commit in branch["target"]["history"]["nodes"]
+                    if commit["oid"] == branch_commit["oid"]
+                ]
+                if commits:
+                    based_branch = branch["name"]
+                    found = True
+                    break
+            if found:
+                break
+        return based_branch == master_branch
+    return True

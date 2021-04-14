@@ -1,0 +1,15 @@
+query Commits($owner: String!, $name: String!, $branch: String!) {
+  repository(name: $name, owner: $owner) {
+    ref(qualifiedName: $branch) {
+      target {
+        ... on Commit {
+          history(first: 20) {
+            nodes {
+              oid
+            }
+          }
+        }
+      }
+    }
+  }
+}
