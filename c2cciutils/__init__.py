@@ -90,13 +90,42 @@ def get_config():
 
     repository = get_repository()
     repo = repository.split("/")
-    json_response = graphql(
+    default_branch_json = graphql(
         "default_branch.graphql",
         {"name": repo[1], "owner": repo[0]},
     )
-    if "errors" in json_response:
-        raise RuntimeError(json.dumps(json_response["errors"], indent=2))
-    master_branch = json_response["repository"]["defaultBranchRef"]["name"]
+    master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"]
+
+    based_on_master = True
+    if os.environ.get("GITHUB_REF", "").startswith("refs/heads/"):
+        current_branch = os.environ["GITHUB_REF"][len("refs/heads/") :]
+        if current_branch != master_branch:
+            commits_json = graphql(
+                "commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}
+            )["repository"]["ref"]["target"]["history"]["nodes"]
+            branches_json = [
+                branch
+                for branch in graphql("branches.graphql", {"name": repo[1], "owner": repo[0]},)["repository"][
+                    "refs"
+                ]["nodes"]
+                if branch["name"] != current_branch
+            ]
+            based_branch = master_branch
+            found = False
+            for commit in commits_json:
+                for branch in branches_json:
+                    commits = [
+                        branch_commit
+                        for branch_commit in branch["target"]["history"]["nodes"]
+                        if commit["oid"] == branch_commit["oid"]
+                    ]
+                    if commits:
+                        based_branch = branch["name"]
+                        found = True
+                        break
+                if found:
+                    break
+            based_on_master = based_branch == master_branch
 
     default_config = {
         "version": {
@@ -167,7 +196,9 @@ def get_config():
                 },
                 "audit": True,
                 "branches": True,
-            },
+            }
+            if based_on_master
+            else False,
             "black": {"ignore_patterns_re": []},
             "isort": {"ignore_patterns_re": []},
             "codespell": {
