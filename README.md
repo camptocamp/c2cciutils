@@ -110,7 +110,7 @@ repository:
       "version": # List of kinds of versions you want to publish, that can be: rebuild (specified using --type),
           # version_tag, version_branch, feature_branch, feature_tag (for pull request)
       "tags": # List of tags we want to publish interpreted with `template(version=version)`
-          # e.-g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
+          # e.g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
           # (that should be built by the application build) is `latest-lite`, and it will be published
           # with the tag `1.2.3-lite`.
       "group": # If your images are published by different jobs you can separate them in different groups
