@@ -819,53 +819,54 @@ def dependabot_config(config, full_config, args):
                 )
                 success = False
 
-        # update_ignore: True/False # Do a check that we ignoe everything on each rules to ignore all the
-        # `@dependabot ignore`.
-        if config.get("update_ignore", True) is not False:
-            update_ignores = [] if config.get("update_ignore", True) is True else config.get("update_ignore")
+    # update_ignore: True/False # Do a check that we ignoe everything on each rules to ignore all the
+    # `@dependabot ignore`.
+    if config.get("update_ignore", True) is not False:
+        update_ignores = [] if config.get("update_ignore", True) is True else config.get("update_ignore")
 
-            for update in dependabot["updates"]:
-                ignored = False
-                for update_ignore in update_ignores:
-                    if (
-                        update["package-ecosystem"] == update_ignore["package-ecosystem"]
-                        and update["directory"] == update_ignore["directory"]
-                    ):
-                        ignored = True
-                if ignored:
-                    continue
-                current_error = (
-                    f"The 'ignore' of '{update['package-ecosystem']}' in "
-                    f"'{update.get('directory', '/')}' should be an empty array"
+        for update in dependabot["updates"]:
+            ignored = False
+            for update_ignore in update_ignores:
+                if (
+                    update["package-ecosystem"] == update_ignore["package-ecosystem"]
+                    and update["directory"] == update_ignore["directory"]
+                ):
+                    ignored = True
+            if ignored:
+                continue
+            current_error = (
+                f"The 'ignore' of '{update['package-ecosystem']}' in "
+                f"'{update.get('directory', '/')}' should be:\n"
+                "    ignore:\n"
+                "      - dependency-name: none"
+            )
+            if "ignore" not in update:
+                error(
+                    "dependabot_config",
+                    current_error,
+                    ".github/dependabot.yaml",
+                    update.lc.line + 1,
+                    update.lc.col + 1,
                 )
-                if "ignore" not in update:
-                    error(
-                        "dependabot_config",
-                        current_error,
-                        ".github/dependabot.yaml",
-                        update.lc.line + 1,
-                        update.lc.col + 1,
-                    )
-                    success = False
-                    continue
-                if len(update["ignore"]) != 1:
-                    error(
-                        "dependabot_config",
-                        current_error,
-                        ".github/dependabot.yaml",
-                        update["ignore"].lc.line + 1,
-                        update["ignore"].lc.col + 1,
-                    )
-                    success = False
-                if update["ignore"][0] != {"dependency-name": "none"}:
-                    error(
-                        "dependabot_config",
-                        current_error,
-                        ".github/dependabot.yaml",
-                        update["ignore"][0].lc.line + 1,
-                        update["ignore"][0].lc.col + 1,
-                    )
-                    success = False
+                success = False
+                continue
+            if len(update["ignore"]) != 1:
+                error(
+                    "dependabot_config",
+                    current_error,
+                    ".github/dependabot.yaml",
+                    update["ignore"].lc.line + 1,
+                    update["ignore"].lc.col + 1,
+                )
+                success = False
+            if update["ignore"][0] != {"dependency-name": "none"}:
+                error(
+                    "dependabot_config3",
+                    current_error,
+                    update["ignore"][0].lc.line + 1,
+                    update["ignore"][0].lc.col + 1,
+                )
+                success = False
 
     return success
 
