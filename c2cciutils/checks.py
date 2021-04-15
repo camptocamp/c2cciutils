@@ -790,6 +790,8 @@ def dependabot_config(config, full_config, args):
             .decode()
             .split("\n")
         ):
+            if version_file == "":
+                continue
             if version_file in config.get("ignore_version_files", []):
                 continue
             folder = "/"
