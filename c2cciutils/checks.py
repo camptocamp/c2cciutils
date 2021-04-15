@@ -9,6 +9,7 @@ import sys
 
 import magic
 import requests
+import ruamel.yaml
 import yaml
 from editorconfig import EditorConfigError, get_properties
 
@@ -350,6 +351,26 @@ def required_workflows(config, full_config, args):
                         filename,
                     )
                     success = False
+        if conf.get("on", False):
+            for workflow_on, on_config in conf.get("on").items():
+                # 'on' become True
+                if workflow_on not in workflow.get(True, {}):
+                    error(
+                        "required_workflows",
+                        "The workflow '{}', does not have the 'on' as '{}'".format(filename, workflow_on),
+                        filename,
+                    )
+                    success = False
+                elif isinstance(on_config, dict) and "types" in on_config:
+                    for on_type in on_config["types"]:
+                        if on_type not in workflow.get(True, {})[workflow_on].get("types", []):
+                            error(
+                                "required_workflows",
+                                f"The workflow '{filename}', does not have the on '{workflow_on}' should "
+                                f"have the type '{on_type}'",
+                                filename,
+                            )
+                            success = False
     return success
 
 
@@ -713,6 +734,130 @@ def codespell(config, full_config, args):
             "Error, see above",
         )
         return False
+
+
+def dependabot_config(config, full_config, args):
+    """
+    config can be False or dict, with:
+        types:
+          - filename: the finename to be checked
+            echosystem: the dependabot package echosystem
+        ignore_version_files: [...] # list of version files with path (Pipenv, Dockerfile, package.json)
+            that shouldn't be checked.
+        update_ignore: # ignore the rule for ignore used to ignore all the `@dependabot ignore`
+          - directory: # The directory
+          - ecosystem: # The dependabot package echosystem
+    """
+    del full_config, args
+
+    if not config:
+        return True
+
+    if not os.path.exists(".github/dependabot.yaml"):
+        error(
+            "dependabot_config",
+            "Missing Dependabot config file",
+            ".github/dependabot.yaml",
+        )
+        return False
+
+    success = True
+    with open(".github/dependabot.yaml") as dependabot_file:
+        dependabot = ruamel.yaml.round_trip_load(dependabot_file)
+
+    # Check that c2cciutils has update rule
+    found = False
+    for folder in ("/", "/ci"):
+        for update in dependabot["updates"]:
+            if update["package-ecosystem"] == "pip" and update["directory"] == folder:
+                found = True
+                break
+    if not found:
+        error(
+            "dependabot_config",
+            "Missing configuration for c2cciutils",
+            ".github/dependabot.yaml",
+        )
+        success = False
+
+    # Check that we have have the rules for the files
+    for depends_type in config.get("types", []):
+        for version_file in (
+            subprocess.check_output(
+                ["git", "ls-files", depends_type["filename"], f"**/{depends_type['filename']}"]
+            )
+            .strip()
+            .decode()
+            .split("\n")
+        ):
+            if version_file in config.get("ignore_version_files", []):
+                continue
+            folder = "/"
+            if len(version_file) > len(depends_type["filename"]):
+                folder += version_file[: -len(depends_type["filename"]) - 1]
+
+            found = False
+            for update in dependabot["updates"]:
+                if update["package-ecosystem"] == depends_type["ecosystem"] and update["directory"] == folder:
+                    found = True
+                    break
+            if not found:
+                error(
+                    "dependabot_config",
+                    f"Missing configuration for {version_file}",
+                    ".github/dependabot.yaml",
+                )
+                success = False
+
+        # update_ignore: True/False # Do a check that we ignoe everything on each rules to ignore all the
+        # `@dependabot ignore`.
+        if config.get("update_ignore", True) is not False:
+            update_ignores = [] if config.get("update_ignore", True) is True else config.get("update_ignore")
+
+            for update in dependabot["updates"]:
+                ignored = False
+                for update_ignore in update_ignores:
+                    if (
+                        update["package-ecosystem"] == update_ignore["package-ecosystem"]
+                        and update["directory"] == update_ignore["directory"]
+                    ):
+                        ignored = True
+                if ignored:
+                    continue
+                current_error = (
+                    f"The 'ignore' of '{update['package-ecosystem']}' in "
+                    f"'{update.get('directory', '/')}' should be an empty array"
+                )
+                if "ignore" not in update:
+                    error(
+                        "dependabot_config",
+                        current_error,
+                        ".github/dependabot.yaml",
+                        update.lc.line + 1,
+                        update.lc.col + 1,
+                    )
+                    success = False
+                    continue
+                if len(update["ignore"]) != 1:
+                    error(
+                        "dependabot_config",
+                        current_error,
+                        ".github/dependabot.yaml",
+                        update["ignore"].lc.line + 1,
+                        update["ignore"].lc.col + 1,
+                    )
+                    success = False
+                if update["ignore"][0] != {"dependency-name": "none"}:
+                    error(
+                        "dependabot_config",
+                        current_error,
+                        ".github/dependabot.yaml",
+                        update["ignore"][0].lc.line + 1,
+                        update["ignore"][0].lc.col + 1,
+                    )
+                    success = False
+
+    return success
 
 
 def print_versions(config, full_config, args):

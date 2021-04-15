@@ -7,6 +7,9 @@ on:
     paths-ignore:
       - 'example-project/**'
 
+env:
+  HAS_SECRETS: ${{ secrets.HAS_SECRETS }}
+
 jobs:
   main:
     runs-on: ubuntu-20.04
@@ -32,6 +35,7 @@ jobs:
           ci-gpg-private-key: ${{secrets.CI_GPG_PRIVATE_KEY}}
           github-gopass-ci-token: ${{secrets.GOPASS_CI_GITHUB_TOKEN}}
           patterns: pypi docker
+        if: env.HAS_SECRETS == 'HAS_SECRETS'
 
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
       - run: python3 ./setup.py egg_info --no-date bdist_wheel
@@ -49,6 +53,7 @@ jobs:
       - run: sudo chmod go+rw -R *.egg-info
       - name: Publish
         run: c2cciutils-publish
+        if: env.HAS_SECRETS == 'HAS_SECRETS'
 
   audit:
     runs-on: ubuntu-20.04
