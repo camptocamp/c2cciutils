@@ -806,7 +806,15 @@ def dependabot_config(config, full_config, args):
             if not found:
                 error(
                     "dependabot_config",
-                    f"Missing configuration for {version_file}",
+                    f"Missing configuration for {version_file}, can be like:\n"
+                    f'  - package-ecosystem: {depends_type["ecosystem"]}\n'
+                    f'    directory: "{folder}"\n'
+                    "    schedule:\n"
+                    "      interval: daily\n"
+                    '      time: "02:00"\n'
+                    "    open-pull-requests-limit: 99\n"
+                    "    ignore:\n"
+                    "        - dependency-name: none"
                     ".github/dependabot.yaml",
                 )
                 success = False
