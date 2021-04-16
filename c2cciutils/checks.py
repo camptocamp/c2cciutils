@@ -796,7 +796,7 @@ def dependabot_config(config, full_config, args):
                     '      time: "02:00"\n'
                     "    open-pull-requests-limit: 99\n"
                     "    ignore:\n"
-                    "        - dependency-name: none"
+                    "        - dependency-name: none",
                     ".github/dependabot.yaml",
                 )
                 success = False
