@@ -306,9 +306,17 @@ def print_versions(config):
             current_version = subprocess.check_output(version.get("cmd", [])).decode()
             print("{}{}".format(version.get("prefix", ""), current_version))
         except PermissionError as exception:
-            print("{}: not allowed cmd: {}".format(version.get("name"), exception))
+            error(
+                "print_version",
+                "{}: not allowed cmd: {}".format(version.get("name"), exception),
+                error_type="warning",
+            )
         except subprocess.CalledProcessError as exception:
-            print("{}: no present: ".format(version.get("name")), exception)
+            error(
+                "print_version",
+                "{}: no present: {}".format(version.get("name"), exception),
+                error_type="warning",
+            )
 
     return True
 
