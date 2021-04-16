@@ -313,6 +313,34 @@ def print_versions(config):
     return True
 
 
+def error(checker, message, file=None, line=None, col=None, error_type="error"):
+    """
+    Write an error or warn message formatted for GitHub if the CI environment variable is true else for IDE.
+
+    GitHub: ::(error|warning) file=<file>,line=<line>,col=<col>:: <checker>: <message>
+    IDE: [(error|warning)] <file>:<line>:<col>: <checker>: <message>
+
+    See: https://docs.github.com/en/free-pro-team@latest/actions/reference/ \
+        workflow-commands-for-github-actions#setting-an-error-message
+    """
+    result = ""
+    on_ci = os.environ.get("CI", "false").lower() == "true"
+    if file is not None:
+        result += ("file={}" if on_ci else "{}").format(file)
+        if line is not None:
+            result += (",line={}" if on_ci else ":{}").format(line)
+            if col is not None:
+                result += (",col={}" if on_ci else ":{}").format(col)
+    result += (":: {}: {}" if on_ci else ": {}: {}").format(checker, message)
+    if on_ci:
+        # Make the error visible on GitHub workflow logs
+        print(result)
+        # Make the error visible as annotation
+        print("::{} {}".format(error_type, result))
+    else:
+        print("[{}] {}".format(error_type, result))
+
+
 def gopass(key, default=None):
     try:
         return subprocess.check_output(["gopass", "show", key]).strip().decode()

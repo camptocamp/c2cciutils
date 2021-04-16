@@ -17,34 +17,6 @@ import c2cciutils
 import c2cciutils.security
 
 
-def error(checker, message, file=None, line=None, col=None, error_type="error"):
-    """
-    Write an error or warn message formatted for GitHub if the CI environment variable is true else for IDE.
-
-    GitHub: ::(error|warning) file=<file>,line=<line>,col=<col>:: <checker>: <message>
-    IDE: [(error|warning)] <file>:<line>:<col>: <checker>: <message>
-
-    See: https://docs.github.com/en/free-pro-team@latest/actions/reference/ \
-        workflow-commands-for-github-actions#setting-an-error-message
-    """
-    result = ""
-    on_ci = os.environ.get("CI", "false").lower() == "true"
-    if file is not None:
-        result += ("file={}" if on_ci else "{}").format(file)
-        if line is not None:
-            result += (",line={}" if on_ci else ":{}").format(line)
-            if col is not None:
-                result += (",col={}" if on_ci else ":{}").format(col)
-    result += (":: {}: {}" if on_ci else ": {}: {}").format(checker, message)
-    if on_ci:
-        # Make the error visible on GitHub workflow logs
-        print(result)
-        # Make the error visible as annotation
-        print("::{} {}".format(error_type, result))
-    else:
-        print("[{}] {}".format(error_type, result))
-
-
 def print_config(config, full_config, args):
     """
     Print the config
@@ -73,7 +45,7 @@ def black_config(config, full_config, args):
 
     if python:
         if not os.path.exists("pyproject.toml"):
-            error(
+            c2cciutils.error(
                 "black_config",
                 "The file 'pyproject.toml' with a section tool.black is required",
                 "pyproject.toml",
@@ -83,7 +55,7 @@ def black_config(config, full_config, args):
         configp = configparser.ConfigParser()
         configp.read("pyproject.toml")
         if "tool.black" not in configp.sections():
-            error(
+            c2cciutils.error(
                 "black_config",
                 "The 'tool.black' section is required in the 'pyproject.toml' file",
                 "pyproject.toml",
@@ -93,7 +65,7 @@ def black_config(config, full_config, args):
         if isinstance(config, dict):
             for key, value in config.get("properties", {}).items():
                 if configp.get("tool.black", key) != value:
-                    error(
+                    c2cciutils.error(
                         "black_config",
                         "The property '{}' should have the value, '{}', but is '{}'".format(
                             key, value, configp.get("tool.black", key)
@@ -122,7 +94,7 @@ def editorconfig(config, full_config, args):
 
                     for key, value in wanted_properties.items():
                         if value is not None and (key not in properties or properties[key] != value):
-                            error(
+                            c2cciutils.error(
                                 "editorconfig",
                                 "For pattern: {} the property '{}' is '{}' but should be '{}'.".format(
                                     pattern, key, properties.get(key, ""), value
@@ -132,7 +104,7 @@ def editorconfig(config, full_config, args):
                             success = False
                     break
         except EditorConfigError:
-            error(
+            c2cciutils.error(
                 "editorconfig",
                 "Error occurred while getting EditorConfig properties",
                 ".editorconfig",
@@ -160,7 +132,7 @@ def gitattribute(config, full_config, args):
         subprocess.check_call(["git", "--no-pager", "diff", "--no-renames", "--check", git_ref])
         return True
     except subprocess.CalledProcessError:
-        error(
+        c2cciutils.error(
             "gitattribute",
             "Error, see above",
         )
@@ -200,7 +172,7 @@ def eof(config, full_config, args):
                                     with open(filename, "a") as open_file_write:
                                         open_file_write.write("\n")
                                 else:
-                                    error(
+                                    c2cciutils.error(
                                         "eof",
                                         "No new line at end of '{}' file.".format(filename),
                                         filename,
@@ -209,7 +181,7 @@ def eof(config, full_config, args):
 
         return success
     except subprocess.CalledProcessError:
-        error(
+        c2cciutils.error(
             "eof",
             "Error, see above",
         )
@@ -235,7 +207,7 @@ def workflows(config, full_config, args):
 
         for name, job in workflow.get("jobs").items():
             if job.get("runs-on") in config.get("images_blacklist", []):
-                error(
+                c2cciutils.error(
                     "workflows",
                     "The workflow '{}', job '{}' runs on '{}' but it is blacklisted".format(
                         filename, name, job.get("runs-on")
@@ -245,7 +217,7 @@ def workflows(config, full_config, args):
                 success = False
 
             if job.get("timeout-minutes") is None:
-                error(
+                c2cciutils.error(
                     "workflows",
                     "The workflow '{}', job '{}' has no timeout".format(filename, name),
                     filename,
@@ -278,7 +250,7 @@ def required_workflows(config, full_config, args):
 
         filename = os.path.join(".github/workflows", file_)
         if not os.path.exists(filename):
-            error(
+            c2cciutils.error(
                 "required_workflows",
                 "The workflow '{}' is required".format(filename),
                 filename,
@@ -295,7 +267,7 @@ def required_workflows(config, full_config, args):
         for name, job in workflow.get("jobs").items():
             if "if" in conf:
                 if job.get("if") != conf["if"]:
-                    error(
+                    c2cciutils.error(
                         "required_workflows",
                         "The workflow '{}', job '{}' does not have the following if '{}'".format(
                             filename, name, conf["if"]
@@ -305,7 +277,7 @@ def required_workflows(config, full_config, args):
                     success = False
             if conf.get("noif", False):
                 if "if" in job:
-                    error(
+                    c2cciutils.error(
                         "required_workflows",
                         "The workflow '{}', job '{}' should not have a if".format(filename, name),
                         filename,
@@ -313,7 +285,7 @@ def required_workflows(config, full_config, args):
                     success = False
             if "strategy-fail-fast" in conf:
                 if job.get("strategy", {}).get("fail-fast") != conf["strategy-fail-fast"]:
-                    error(
+                    c2cciutils.error(
                         "required_workflows",
                         "The workflow '{}', job '{}' does not have the strategy/fail-fast as {}".format(
                             filename, name, conf["strategy-fail-fast"]
@@ -341,7 +313,7 @@ def required_workflows(config, full_config, args):
                         found = True
                         break
                 if not found:
-                    error(
+                    c2cciutils.error(
                         "required_workflows",
                         "The workflow '{}', job '{}' doesn't have the step for:\n{}".format(
                             filename,
@@ -355,7 +327,7 @@ def required_workflows(config, full_config, args):
             for workflow_on, on_config in conf.get("on").items():
                 # 'on' become True
                 if workflow_on not in workflow.get(True, {}):
-                    error(
+                    c2cciutils.error(
                         "required_workflows",
                         "The workflow '{}', does not have the 'on' as '{}'".format(filename, workflow_on),
                         filename,
@@ -364,7 +336,7 @@ def required_workflows(config, full_config, args):
                 elif isinstance(on_config, dict) and "types" in on_config:
                     for on_type in on_config["types"]:
                         if on_type not in workflow.get(True, {})[workflow_on].get("types", []):
-                            error(
+                            c2cciutils.error(
                                 "required_workflows",
                                 f"The workflow '{filename}', does not have the on '{workflow_on}' should "
                                 f"have the type '{on_type}'",
@@ -393,7 +365,9 @@ def versions(config, full_config, _):
 
     # If the `SECURITY.md` file is not present the check is disabled.
     if not os.path.exists("SECURITY.md"):
-        error("versions", "The file 'SECURITY.md' does not exists", "SECURITY.md", error_type="warning")
+        c2cciutils.error(
+            "versions", "The file 'SECURITY.md' does not exists", "SECURITY.md", error_type="warning"
+        )
         return True
 
     with open("SECURITY.md") as open_file:
@@ -401,7 +375,7 @@ def versions(config, full_config, _):
 
     for col in ("Version", "Supported Until"):
         if col not in security.headers:
-            error(
+            c2cciutils.error(
                 "versions",
                 "The file 'SECURITY.md' does not have the column required '{}'".format(col),
                 "SECURITY.md",
@@ -451,7 +425,7 @@ def _versions_audit(all_versions, full_config):
     success = True
     filename = ".github/workflows/audit.yaml"
     if not os.path.exists(filename):
-        error(
+        c2cciutils.error(
             "versions",
             "The file '{}' does not exists".format(filename),
             filename,
@@ -467,7 +441,7 @@ def _versions_audit(all_versions, full_config):
             audit_versions = _get_branch_matrix(job, branch_to_version_re)
 
             if all_versions != set(audit_versions):
-                error(
+                c2cciutils.error(
                     "versions",
                     "The workflow '{}', job '{}' does not have a branch matrix with the right list of "
                     "versions [{}] != [{}]".format(
@@ -492,7 +466,7 @@ def _versions_rebuild(all_versions, config, full_config):
     for filename_ in config.get("files", []):
         filename = os.path.join(".github/workflows", filename_)
         if not os.path.exists(filename):
-            error(
+            c2cciutils.error(
                 "versions",
                 "The rebuild file '{}' does not exists".format(filename),
                 filename,
@@ -506,7 +480,7 @@ def _versions_rebuild(all_versions, config, full_config):
                 rebuild_versions += _get_branch_matrix(job, branch_to_version_re)
 
     if all_versions != set(rebuild_versions):
-        error(
+        c2cciutils.error(
             "versions",
             "The rebuild workflows does not have the right list of versions in the branch matrix "
             "[{}] != [{}]".format(", ".join(sorted(rebuild_versions)), ", ".join(sorted(all_versions))),
@@ -538,7 +512,7 @@ def _versions_backport_labels(all_versions, full_config):
                 label_versions.add(c2cciutils.get_value(*match))
 
         if all_versions != label_versions:
-            error(
+            c2cciutils.error(
                 "versions backport labels",
                 "The backport labels do not have the right list of versions [{}] != [{}]".format(
                     ", ".join(sorted(label_versions)), ", ".join(sorted(all_versions))
@@ -546,7 +520,7 @@ def _versions_backport_labels(all_versions, full_config):
             )
             success = False
     except FileNotFoundError as exception:
-        error(
+        c2cciutils.error(
             "versions backport labels",
             f"Unable to get credentials to run the check: {exception}",
             error_type="warning",
@@ -581,7 +555,7 @@ def _versions_branches(all_versions, full_config):
                     if len(next_links) >= 1:
                         url = next_links[0]
             except Exception as exception:  # pylint: disable=broad-except
-                error(
+                c2cciutils.error(
                     "versions branches",
                     (
                         "error on reading Link header '{}': {}".format(
@@ -598,7 +572,7 @@ def _versions_branches(all_versions, full_config):
                     branch_versions.add(c2cciutils.get_value(*match))
 
         if len([v for v in all_versions if v not in branch_versions]) > 0:
-            error(
+            c2cciutils.error(
                 "versions branches",
                 "The version from the protected branches does not correspond with "
                 "expected versions [{}] != [{}]".format(
@@ -607,7 +581,7 @@ def _versions_branches(all_versions, full_config):
             )
             success = False
     except FileNotFoundError as exception:
-        error(
+        c2cciutils.error(
             "versions branches",
             f"Unable to get credentials to run the check: {exception}",
             error_type="warning",
@@ -638,7 +612,7 @@ def black(config, full_config, args):
             subprocess.check_call(cmd)
         return True
     except subprocess.CalledProcessError:
-        error(
+        c2cciutils.error(
             "black",
             "Error, see above",
         )
@@ -669,7 +643,7 @@ def isort(config, full_config, args):
             subprocess.check_call(cmd)
         return True
     except subprocess.CalledProcessError:
-        error(
+        c2cciutils.error(
             "isort",
             "Error, see above",
         )
@@ -711,7 +685,7 @@ def codespell(config, full_config, args):
         subprocess.check_call(cmd)
         return True
     except subprocess.CalledProcessError:
-        error(
+        c2cciutils.error(
             "codespell",
             "Error, see above",
         )
@@ -736,7 +710,7 @@ def dependabot_config(config, full_config, args):
         return True
 
     if not os.path.exists(".github/dependabot.yaml"):
-        error(
+        c2cciutils.error(
             "dependabot_config",
             "Missing Dependabot config file",
             ".github/dependabot.yaml",
@@ -755,7 +729,7 @@ def dependabot_config(config, full_config, args):
                 found = True
                 break
     if not found:
-        error(
+        c2cciutils.error(
             "dependabot_config",
             "Missing configuration for c2cciutils",
             ".github/dependabot.yaml",
@@ -786,7 +760,7 @@ def dependabot_config(config, full_config, args):
                     found = True
                     break
             if not found:
-                error(
+                c2cciutils.error(
                     "dependabot_config",
                     f"Missing configuration for {version_file}, can be like:\n"
                     f'  - package-ecosystem: {depends_type["ecosystem"]}\n'
@@ -823,7 +797,7 @@ def dependabot_config(config, full_config, args):
                 "      - dependency-name: none"
             )
             if "ignore" not in update:
-                error(
+                c2cciutils.error(
                     "dependabot_config",
                     current_error,
                     ".github/dependabot.yaml",
@@ -833,7 +807,7 @@ def dependabot_config(config, full_config, args):
                 success = False
                 continue
             if len(update["ignore"]) != 1:
-                error(
+                c2cciutils.error(
                     "dependabot_config",
                     current_error,
                     ".github/dependabot.yaml",
@@ -842,7 +816,7 @@ def dependabot_config(config, full_config, args):
                 )
                 success = False
             if update["ignore"][0] != {"dependency-name": "none"}:
-                error(
+                c2cciutils.error(
                     "dependabot_config3",
                     current_error,
                     update["ignore"][0].lc.line + 1,
