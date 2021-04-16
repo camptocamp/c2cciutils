@@ -13,6 +13,8 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
+import c2cciutils
+
 
 class GoogleCalendar:
     # pylint: disable=too-many-instance-attributes
@@ -23,22 +25,22 @@ class GoogleCalendar:
             "GOOGLE_CREDS_JSON_FILE", "~/google-credentials-c2cibot.json"
         )  # used to refresh the refresh_token or to initialize the credentials the first time
         self.calendar_id = os.environ.get(
-            "GOOGLE_CALENDAR_ID", self.gopass_get("gs/ci/google_calendar/calendarId")
+            "GOOGLE_CALENDAR_ID", c2cciutils.gopass("gs/ci/google_calendar/calendarId")
         )
-        self.token = os.environ.get("GOOGLE_TOKEN", self.gopass_get("gs/ci/google_calendar/token"))
+        self.token = os.environ.get("GOOGLE_TOKEN", c2cciutils.gopass("gs/ci/google_calendar/token"))
         self.token_uri = os.environ.get(
-            "GOOGLE_TOKEN_URI", self.gopass_get("gs/ci/google_calendar/token_uri")
+            "GOOGLE_TOKEN_URI", c2cciutils.gopass("gs/ci/google_calendar/token_uri")
         )
         self.refresh_token = os.environ.get(
             "GOOGLE_REFRESH_TOKEN",
-            self.gopass_get("gs/ci/google_calendar/refresh_token"),
+            c2cciutils.gopass("gs/ci/google_calendar/refresh_token"),
         )
         self.client_id = os.environ.get(
-            "GOOGLE_CLIENT_ID", self.gopass_get("gs/ci/google_calendar/client_id")
+            "GOOGLE_CLIENT_ID", c2cciutils.gopass("gs/ci/google_calendar/client_id")
         )
         self.client_secret = os.environ.get(
             "GOOGLE_CLIENT_SECRET",
-            self.gopass_get("gs/ci/google_calendar/client_secret"),
+            c2cciutils.gopass("gs/ci/google_calendar/client_secret"),
         )
 
         self.init_calendar_service()
@@ -144,17 +146,6 @@ class GoogleCalendar:
         # UNSAFE: DO NEVER PRINT CREDENTIALS IN CI ENVIRONMENT, DEBUG ONLY!!!!
         print(self.creds.to_json())
 
-    @staticmethod
-    def gopass_get(key):
-        try:
-            return subprocess.check_output(["gopass", "show", key]).strip().decode()
-        except subprocess.CalledProcessError:
-            return None
-
-    @staticmethod
-    def gopass_put(secret, key):
-        subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
-
     def save_credentials_to_gopass(self):
         objs_to_save = {
             "gs/ci/google_calendar/calendarId": self.calendar_id,
@@ -165,7 +156,7 @@ class GoogleCalendar:
             "gs/ci/google_calendar/client_secret": self.client_secret,
         }
         for key, secret in objs_to_save.items():
-            self.gopass_put(secret, key)
+            c2cciutils.gopass_put(secret, key)
 
     def __del__(self):
         if os.path.exists(self.credentials_pickle_file):

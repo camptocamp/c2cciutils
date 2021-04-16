@@ -527,16 +527,7 @@ def _versions_backport_labels(all_versions, full_config):
         sys.stderr.flush()
         labels_response = requests.get(
             "https://api.github.com/repos/{repo}/labels".format(repo=c2cciutils.get_repository()),
-            headers={
-                "Accept": "application/vnd.github.v3+json",
-                "Authorization": "Bearer {}".format(
-                    os.environ["GITHUB_TOKEN"].strip()
-                    if "GITHUB_TOKEN" in os.environ
-                    else subprocess.check_output(["gopass", "show", "gs/ci/github/token/gopass"])
-                    .strip()
-                    .decode()
-                ),
-            },
+            headers=c2cciutils.add_authorization_header({"Accept": "application/vnd.github.v3+json"}),
         )
         labels_response.raise_for_status()
 
@@ -579,16 +570,7 @@ def _versions_branches(all_versions, full_config):
             branches_response = requests.get(
                 url,
                 params={"protected": "true"},
-                headers={
-                    "Accept": "application/vnd.github.v3+json",
-                    "Authorization": "Bearer {}".format(
-                        os.environ["GITHUB_TOKEN"].strip()
-                        if "GITHUB_TOKEN" in os.environ
-                        else subprocess.check_output(["gopass", "show", "gs/ci/github/token/gopass"])
-                        .strip()
-                        .decode()
-                    ),
-                },
+                headers=c2cciutils.add_authorization_header({"Accept": "application/vnd.github.v3+json"}),
             )
             branches_response.raise_for_status()
             url = None

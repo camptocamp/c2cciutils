@@ -4,7 +4,6 @@
 
 import json
 import os
-import subprocess
 import sys
 
 import requests
@@ -44,12 +43,12 @@ def main() -> None:
     username = (
         os.environ["DOCKERHUB_USERNAME"]
         if "DOCKERHUB_USERNAME" in os.environ
-        else subprocess.check_output(["gopass", "show", "gs/ci/dockerhub/username"]).decode()
+        else c2cciutils.gopass("gs/ci/dockerhub/username")
     )
     password = (
         os.environ["DOCKERHUB_PASSWORD"]
         if "DOCKERHUB_PASSWORD" in os.environ
-        else subprocess.check_output(["gopass", "show", "gs/ci/dockerhub/password"]).decode()
+        else c2cciutils.gopass("gs/ci/dockerhub/password")
     )
     token = requests.post(
         "https://hub.docker.com/v2/users/login/",
