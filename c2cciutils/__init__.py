@@ -503,9 +503,17 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
             current_version = subprocess.check_output(version.get("cmd", [])).decode()
             print(f"{version.get('prefix', '')}{current_version}")
         except PermissionError as exception:
-            print(f"{version.get('name')}: not allowed cmd: {exception}")
+            error(
+                "print_version",
+                f"{version.get('name')}: not allowed cmd: {exception}",
+                error_type="warning",
+            )
         except subprocess.CalledProcessError as exception:
-            print(f"{version.get('name')}: no present: {exception}")
+            error(
+                "print_version",
+                f"{version.get('name')}: no present: {exception}",
+                error_type="warning",
+            )
 
     return True
 
