@@ -90,13 +90,8 @@ def get_config():
 
     repository = get_repository()
     repo = repository.split("/")
-    json_response = graphql(
-        "default_branch.graphql",
-        {"name": repo[1], "owner": repo[0]},
-    )
-    if "errors" in json_response:
-        raise RuntimeError(json.dumps(json_response["errors"], indent=2))
-    master_branch = json_response["repository"]["defaultBranchRef"]["name"]
+    json_response = graphql("default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False)
+    master_branch = json_response["repository"]["defaultBranchRef"]["name"] if json_response else "master"
 
     default_config = {
         "version": {
@@ -318,7 +313,32 @@ def print_versions(config):
     return True
 
 
-def graphql(query_file, variables):
+def gopass(key, default=None):
+    try:
+        return subprocess.check_output(["gopass", "show", key]).strip().decode()
+    except FileNotFoundError:
+        if default is not None:
+            return default
+        raise
+
+
+def gopass_put(secret, key):
+    subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
+
+
+def add_authorization_header(headers):
+    try:
+        headers["Authorization"] = "Bearer {}".format(
+            os.environ["GITHUB_TOKEN"].strip()
+            if "GITHUB_TOKEN" in os.environ
+            else gopass("gs/ci/github/token/gopass")
+        )
+        return headers
+    except FileNotFoundError:
+        return headers
+
+
+def graphql(query_file, variables, default=None):
     """
     Get the result a a graphql on GitHub
 
@@ -340,15 +360,14 @@ def graphql(query_file, variables):
                 "variables": variables,
             }
         ),
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": "Bearer {}".format(
-                os.environ["GITHUB_TOKEN"].strip()
-                if "GITHUB_TOKEN" in os.environ
-                else subprocess.check_output(["gopass", "show", "gs/ci/github/token/gopass"]).strip().decode()
-            ),
-        },
+        headers=add_authorization_header(
+            {
+                "Content-Type": "application/json",
+            }
+        ),
     )
+    if http_response.status_code == 401 and default is not None:
+        return default
     http_response.raise_for_status()
     json_response = http_response.json()
 
