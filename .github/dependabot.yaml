@@ -7,7 +7,6 @@ updates:
     schedule:
       interval: daily
       time: '02:00'
-    open-pull-requests-limit: 99
     ignore:
       - dependency-name: none
 
@@ -16,7 +15,6 @@ updates:
     schedule:
       interval: daily
       time: '02:00'
-    open-pull-requests-limit: 99
     ignore:
       - dependency-name: none
 
@@ -25,7 +23,6 @@ updates:
     schedule:
       interval: daily
       time: '02:00'
-    open-pull-requests-limit: 99
     ignore:
       - dependency-name: none
 
@@ -34,7 +31,6 @@ updates:
     schedule:
       interval: daily
       time: '02:00'
-    open-pull-requests-limit: 99
     ignore:
       - dependency-name: none
 
@@ -43,6 +39,5 @@ updates:
     schedule:
       interval: daily
       time: '02:00'
-    open-pull-requests-limit: 99
     ignore:
       - dependency-name: none
