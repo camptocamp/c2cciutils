@@ -1,0 +1,18 @@
+query Branches($owner: String!, $name: String!) {
+  repository(name: $name, owner: $owner) {
+    refs(first: 50, refPrefix: "refs/heads/") {
+      nodes {
+        name
+        target {
+          ... on Commit {
+            history(first: 10) {
+              nodes {
+                oid
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
