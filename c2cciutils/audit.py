@@ -7,7 +7,12 @@ import re
 import subprocess
 import sys
 
+import safety.errors
+import safety.formatter
+import safety.safety
+import safety.util
 import yaml
+from pipenv.patched import pipfile as pipfile_lib
 
 import c2cciutils.checks
 
@@ -35,37 +40,116 @@ def print_versions(config, full_config, args):
     return True
 
 
+def _python_ignores(directory):
+    ignores = []
+    for filename in ("pip-cve-ignore", "pipenv-cve-ignore"):
+        cve_file = os.path.join(directory, filename)
+        if os.path.exists(cve_file):
+            with open(cve_file) as cve_file:
+                ignores += [e.strip() for e in re.split(",|\n", cve_file.read().decode()) if e.strip()]
+    return ignores
+
+
+def _safely(filename, read_packages):
+    """
+    Audit Python packages from `filename` using the `read_packages` to read it.
+    """
+
+    success = True
+    for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
+        if os.path.basename(file) != filename:
+            continue
+        print("::group::Audit {}".format(file))
+        directory = os.path.dirname(os.path.abspath(file))
+
+        ignores = _python_ignores(directory)
+        packages = read_packages(file)
+        try:
+            vulns = safety.safety.check(
+                packages=packages,
+                key="",
+                db_mirror="",
+                cached=True,
+                ignore_ids=ignores,
+                proxy={},
+            )
+            if vulns:
+                success = False
+                output_report = safety.formatter.report(
+                    vulns=vulns,
+                    full=True,
+                    checked_packages=len(packages),
+                )
+                print(output_report)
+                print("::endgroup::")
+                print("With error")
+            else:
+                print("::endgroup::")
+        except safety.errors.DatabaseFetchError:
+            c2cciutils.checks.error("pip", "Audit issue, see above", file)
+            success = False
+            print("::endgroup::")
+            print("With error")
+    return success
+
+
 def pip(config, full_config, args):
     """
     Audit all the `requirements.txt` files
     """
     del config, full_config, args
 
-    success = True
-    for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.basename(file) != "requirements.txt":
-            continue
-        print("::group::Audit {}".format(file))
-        directory = os.path.dirname(os.path.abspath(file))
-        cmd = ["safety", "check", "--full-report", "--file=requirements.txt"]
-        cve_file = os.path.join(directory, "pip-cve-ignore")
-        if os.path.exists(cve_file):
-            with open(cve_file) as cve_file:
-                cmd += ["--ignore=" + e.strip() for e in cve_file.read().strip().split(",")]
-        try:
-            sys.stdout.flush()
-            sys.stderr.flush()
-            if directory != "":
-                subprocess.check_call(cmd, cwd=directory)
-            else:
-                subprocess.check_call(cmd)
-        except subprocess.CalledProcessError:
-            c2cciutils.checks.error("pip", "Audit issue, see above", file)
-            success = False
-            print("::endgroup::")
-            print("With error")
-        print("::endgroup::")
-    return success
+    def read_packages(filename):
+        with open(filename) as file_:
+            return list(safety.util.read_requirements(file_, resolve=True))
+
+    return _safely("requirements.txt", read_packages)
+
+
+def pipfile(config, full_config, args):
+    """
+    Audit all the `Pipfile`.
+
+    config is like:
+        sections: [...] # to select withch section we want to check
+    """
+    del full_config, args
+
+    def read_packages(filename):
+        packages = []
+        project = pipfile_lib.Pipfile.load(filename)
+        for section in config["sections"]:
+            for package, version in project.data[section].items():
+                if isinstance(version, dict):
+                    packages.append(safety.util.Package(key=package, version=version["version"].lstrip("=")))
+                else:
+                    packages.append(safety.util.Package(key=package, version=version.lstrip("=")))
+        return packages
+
+    return _safely("Pipfile", read_packages)
+
+
+def pipfile_lock(config, full_config, args):
+    """
+    Audit all the `Pipfile.lock` files
+
+    config is like:
+        sections: [...] # to select withch section we want to check
+    """
+    del full_config, args
+
+    def read_packages(filename):
+        packages = []
+        with open(filename) as file_:
+            data = json.load(file_)
+            for section in config["sections"]:
+                for package, package_data in data[section].items():
+                    packages.append(
+                        safety.util.Package(key=package, version=package_data["version"].lstrip("="))
+                    )
+        return packages
+
+    return _safely("Pipfile.lock", read_packages)
 
 
 def pipenv(config, full_config, args):
@@ -94,10 +178,9 @@ def pipenv(config, full_config, args):
         print("::group::Audit " + file)
         directory = os.path.dirname(file)
         cmd = ["pipenv", "check"]
-        cve_file = os.path.join(directory, "pipenv-cve-ignore")
-        if os.path.exists(cve_file):
-            with open(cve_file) as cve_file:
-                cmd += ["--ignore=" + cve_file.read().strip()]
+        ignores = _python_ignores(directory)
+        if ignores:
+            cmd += ["--ignore=" + ",".join(ignores)]
         try:
             sys.stdout.flush()
             sys.stderr.flush()
