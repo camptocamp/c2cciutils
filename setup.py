@@ -36,6 +36,7 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Topic :: Scientific/Engineering :: GIS",
+        "Typed",
     ],
     keywords="ci",
     author="Camptocamp",

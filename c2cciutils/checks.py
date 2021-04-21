@@ -866,6 +866,7 @@ def setup(config, full_config, args):
     has the classifier Typed
 
     config is like:
+      ignore_file: [] # The files to ignore
       cfg: # what's required in the setup.cfg
         mypy:
             warn_redundant_casts: True
@@ -874,9 +875,11 @@ def setup(config, full_config, args):
       classifiers: # list of required classifiers
         - Typed
     """
+    del full_config, args
+
     success = True
     for filename in subprocess.check_output(["git", "ls-files", "setup.cfg"]).decode().split("\n"):
-        if not filename:
+        if not filename or filename in config.get("ignore_file", []):
             continue
         setup_config = configparser.ConfigParser()
         setup_config.read(filename)
@@ -893,11 +896,12 @@ def setup(config, full_config, args):
                     success = False
                     continue
                 try:
-                    if isinstance(value, boolean):
+                    if isinstance(value, bool):
                         if setup_config.getboolean(section, key) != value:
                             error(
                                 "setup",
-                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.getboolean(section, key)}'",
+                                f"The key '{key}' in section '{section}' in {filename} should have "
+                                f"the value '{value}', instead of '{setup_config.getboolean(section, key)}'",
                                 filename,
                             )
                             success = False
@@ -905,7 +909,8 @@ def setup(config, full_config, args):
                         if setup_config.getint(section, key) != value:
                             error(
                                 "setup",
-                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.getint(section, key)}'",
+                                f"The key '{key}' in section '{section}' in {filename} should have "
+                                f"the value '{value}', instead of '{setup_config.getint(section, key)}'",
                                 filename,
                             )
                             success = False
@@ -913,7 +918,8 @@ def setup(config, full_config, args):
                         if setup_config.getfloat(section, key) != value:
                             error(
                                 "setup",
-                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.getfloat(section, key)}'",
+                                f"The key '{key}' in section '{section}' in {filename} should have "
+                                f"the value '{value}', instead of '{setup_config.getfloat(section, key)}'",
                                 filename,
                             )
                             success = False
@@ -921,27 +927,27 @@ def setup(config, full_config, args):
                         if setup_config.get(section, key) != value:
                             error(
                                 "setup",
-                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.get(section, key)}'",
+                                f"The key '{key}' in section '{section}' in {filename} should have "
+                                f"the value '{value}', instead of '{setup_config.get(section, key)}'",
                                 filename,
                             )
                             success = False
                 except AttributeError as excepted_error:
                     error(
                         "setup",
-                        f"The key '{key}' in section '{section}' in {filename} has the wrong type: '{excepted_error}'",
+                        f"The key '{key}' in section '{section}' in {filename} has the wrong type: "
+                        f"'{excepted_error}'",
                         filename,
                     )
                     success = False
 
     for filename in subprocess.check_output(["git", "ls-files", "setup.py"]).decode().split("\n"):
-        if not filename:
+        if not filename or filename in config.get("ignore_file", []):
             continue
-        classifiers = subprocess.check_output(["python3", filename, "--classifiers"]).decode().split('\n')
+        classifiers = subprocess.check_output(["python3", filename, "--classifiers"]).decode().split("\n")
         for classifier in config["classifiers"]:
             if classifier not in classifiers:
-                error(
-                    "setup", f"The classifier '{classifier}' is required in {filename}", filename
-                )
+                error("setup", f"The classifier '{classifier}' is required in {filename}", filename)
                 success = False
 
     return success
