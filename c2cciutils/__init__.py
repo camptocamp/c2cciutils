@@ -195,6 +195,10 @@ def get_config():
                     {"filename": "package.json", "ecosystem": "npm"},
                 ],
             },
+            "setup": {
+                "cfg": {"mypy": {"warn_redundant_casts": True, "warn_unused_ignores": True, "strict": True}},
+                "classifiers": ["Typed"],
+            },
         },
         "audit": {
             "print_versions": {
