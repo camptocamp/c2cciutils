@@ -873,6 +873,101 @@ def dependabot_config(config, full_config, args):
     return success
 
 
+def setup(config, full_config, args):
+    """
+    Check the typing options
+
+    in setup.cfg:
+    [mypy]
+    warn_redundant_casts = True
+    warn_unused_ignores = True
+    strict = True
+
+    in setup.py:
+    has the classifier Typed
+
+    config is like:
+      cfg: # what's required in the setup.cfg
+        mypy:
+            warn_redundant_casts: True
+            warn_unused_ignores: True
+            strict: True
+      classifiers: # list of required classifiers
+        - Typed
+    """
+    success = True
+    for filename in subprocess.check_output(["git", "ls-files", "setup.cfg"]).decode().split("\n"):
+        if not filename:
+            continue
+        setup_config = configparser.ConfigParser()
+        setup_config.read(filename)
+        for section, values in config.get("cfg", {}).items():
+            if section not in setup_config:
+                error("setup", f"The section '{section}' is missing in {filename}", filename)
+                success = False
+                continue
+            for key, value in values.items():
+                if key not in setup_config[section]:
+                    error(
+                        "setup", f"The key '{key}' in section '{section}' is missing in {filename}", filename
+                    )
+                    success = False
+                    continue
+                try:
+                    if isinstance(value, boolean):
+                        if setup_config.getboolean(section, key) != value:
+                            error(
+                                "setup",
+                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.getboolean(section, key)}'",
+                                filename,
+                            )
+                            success = False
+                    elif isinstance(value, int):
+                        if setup_config.getint(section, key) != value:
+                            error(
+                                "setup",
+                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.getint(section, key)}'",
+                                filename,
+                            )
+                            success = False
+                    elif isinstance(value, float):
+                        if setup_config.getfloat(section, key) != value:
+                            error(
+                                "setup",
+                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.getfloat(section, key)}'",
+                                filename,
+                            )
+                            success = False
+                    else:
+                        if setup_config.get(section, key) != value:
+                            error(
+                                "setup",
+                                f"The key '{key}' in section '{section}' in {filename} should have the value '{value}', instead of '{setup_config.get(section, key)}'",
+                                filename,
+                            )
+                            success = False
+                except AttributeError as excepted_error:
+                    error(
+                        "setup",
+                        f"The key '{key}' in section '{section}' in {filename} has the wrong type: '{excepted_error}'",
+                        filename,
+                    )
+                    success = False
+
+    for filename in subprocess.check_output(["git", "ls-files", "setup.py"]).decode().split("\n"):
+        if not filename:
+            continue
+        classifiers = subprocess.check_output(["python3", filename, "--classifiers"]).decode().split('\n')
+        for classifier in config["classifiers"]:
+            if classifier not in classifiers:
+                error(
+                    "setup", f"The classifier '{classifier}' is required in {filename}", filename
+                )
+                success = False
+
+    return success
+
+
 def print_versions(config, full_config, args):
     """
     Print some tools version

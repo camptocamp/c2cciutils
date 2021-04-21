@@ -205,6 +205,10 @@ def get_config():
             }
             if based_on_master
             else False,
+            "setup": {
+                "cfg": {"mypy": {"warn_redundant_casts": True, "warn_unused_ignores": True, "strict": True}},
+                "classifiers": ["Typed"],
+            },
         },
         "audit": {
             "print_versions": {
