@@ -5,6 +5,7 @@
 import json
 import os
 import sys
+from typing import cast
 
 import requests
 
@@ -68,7 +69,11 @@ def main() -> None:
 
     config = c2cciutils.get_config()
 
-    for image in config.get("publish", {}).get("docker", {}).get("images", []):
+    docker_config = cast(
+        c2cciutils.configuration.PublishDockerConfig,
+        config.get("publish", {}).get("docker", {}) if config.get("publish", {}).get("docker", False) else {},
+    )
+    for image in docker_config.get("images", []):
         for tag in image.get("tags", []):
             clean(image["name"], tag.format(version=ref), token)
 
