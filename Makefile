@@ -13,4 +13,4 @@ checks: prospector
 
 .PHONY: prospector
 prospector: build-checker
-	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --include-tool-stdout
+	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --include-tool-stdout --direct-tool-stdout
