@@ -13,4 +13,5 @@ checks: prospector
 
 .PHONY: prospector
 prospector: build-checker
+	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker mypy c2cciutils
 	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --include-tool-stdout -X
