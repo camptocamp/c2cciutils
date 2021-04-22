@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+from typing import Any, Dict, List, Optional, Set
 
 import magic
 import requests
@@ -17,7 +18,14 @@ import c2cciutils
 import c2cciutils.security
 
 
-def error(checker, message, file=None, line=None, col=None, error_type="error"):
+def error(
+    checker: str,
+    message: str,
+    file: Optional[str] = None,
+    line: Optional[int] = None,
+    col: Optional[int] = None,
+    error_type: str = "error",
+) -> None:
     """
     Write an error or warn message formatted for GitHub if the CI environment variable is true else for IDE.
 
@@ -45,7 +53,7 @@ def error(checker, message, file=None, line=None, col=None, error_type="error"):
         print("[{}] {}".format(error_type, result))
 
 
-def print_config(config, full_config, args):
+def print_config(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Print the config
     """
@@ -55,7 +63,7 @@ def print_config(config, full_config, args):
     return True
 
 
-def black_config(config, full_config, args):
+def black_config(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Check the black configuration
 
@@ -103,7 +111,7 @@ def black_config(config, full_config, args):
     return True
 
 
-def editorconfig(config, full_config, args):
+def editorconfig(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Check the right editorconfig configuration
 
@@ -141,7 +149,7 @@ def editorconfig(config, full_config, args):
     return success
 
 
-def gitattribute(config, full_config, args):
+def gitattribute(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Check that we don't have any error with the gitattributes
     """
@@ -170,7 +178,7 @@ def gitattribute(config, full_config, args):
 FNULL = open(os.devnull, "w")
 
 
-def eof(config, full_config, args):
+def eof(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Check the files eof
     """
@@ -216,7 +224,7 @@ def eof(config, full_config, args):
         return False
 
 
-def workflows(config, full_config, args):
+def workflows(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Do some generic check on the workflows
 
@@ -255,7 +263,7 @@ def workflows(config, full_config, args):
     return success
 
 
-def required_workflows(config, full_config, args):
+def required_workflows(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Test that we have the required workflow with the required element
 
@@ -352,7 +360,7 @@ def required_workflows(config, full_config, args):
                     )
                     success = False
         if conf.get("on", False):
-            for workflow_on, on_config in conf.get("on").items():
+            for workflow_on, on_config in conf["on"].items():
                 # 'on' become True
                 if workflow_on not in workflow.get(True, {}):
                     error(
@@ -374,7 +382,7 @@ def required_workflows(config, full_config, args):
     return success
 
 
-def versions(config, full_config, _):
+def versions(config: Dict[str, Any], full_config: Dict[str, Any], _: Any) -> bool:
     """
     Verify that various GitHub / CI tools versions or branches configuration match with versions
     from `SECURITY.md` file.
@@ -435,7 +443,7 @@ def versions(config, full_config, _):
     return success
 
 
-def _get_branch_matrix(job, branch_to_version_re):
+def _get_branch_matrix(job: Dict[str, Any], branch_to_version_re: List[Dict[str, Any]]) -> List[str]:
     """
     Get the branches from a `strategy` `matrix`, and return the corresponding version.
     """
@@ -444,7 +452,7 @@ def _get_branch_matrix(job, branch_to_version_re):
     return [c2cciutils.get_value(*c2cciutils.match(av, branch_to_version_re)) for av in branch]
 
 
-def _versions_audit(all_versions, full_config):
+def _versions_audit(all_versions: Set[str], full_config: Dict[str, Any]) -> bool:
     """
     Check that the audit branches correspond to the version from the Security.md
     """
@@ -481,7 +489,7 @@ def _versions_audit(all_versions, full_config):
     return success
 
 
-def _versions_rebuild(all_versions, config, full_config):
+def _versions_rebuild(all_versions: Set[str], config: Dict[str, Any], full_config: Dict[str, Any]) -> bool:
     """
     Check that the rebuild branches correspond to the version from the Security.md
     """
@@ -515,7 +523,7 @@ def _versions_rebuild(all_versions, config, full_config):
     return success
 
 
-def _versions_backport_labels(all_versions, full_config):
+def _versions_backport_labels(all_versions: Set[str], full_config: Dict[str, Any]) -> bool:
     """
     Check that the backport labels correspond to the version from the Security.md
     """
@@ -555,17 +563,19 @@ def _versions_backport_labels(all_versions, full_config):
     return success
 
 
-def _versions_branches(all_versions, full_config):
+def _versions_branches(all_versions: Set[str], full_config: Dict[str, Any]) -> bool:
     """
     Check that the branches correspond to the version from the Security.md
     """
     success = True
     try:
-        branch_versions = set()
+        branch_versions: Set[str] = set()
 
         sys.stdout.flush()
         sys.stderr.flush()
-        url = "https://api.github.com/repos/{repo}/branches".format(repo=c2cciutils.get_repository())
+        url: Optional[str] = "https://api.github.com/repos/{repo}/branches".format(
+            repo=c2cciutils.get_repository()
+        )
         while url:
             branches_response = requests.get(
                 url,
@@ -575,7 +585,9 @@ def _versions_branches(all_versions, full_config):
             branches_response.raise_for_status()
             url = None
             try:
-                links = requests.utils.parse_header_links(branches_response.headers.get("Link", ""))
+                links = requests.utils.parse_header_links(
+                    branches_response.headers.get("Link", "")
+                )  # type: ignore
                 if isinstance(links, list):
                     next_links = [link["url"] for link in links if link["rel"] == "next"]
                     if len(next_links) >= 1:
@@ -616,7 +628,7 @@ def _versions_branches(all_versions, full_config):
     return success
 
 
-def black(config, full_config, args):
+def black(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Run black check on all files including Python files without .py extension
 
@@ -645,7 +657,7 @@ def black(config, full_config, args):
         return False
 
 
-def isort(config, full_config, args):
+def isort(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Run isort check on all files including Python files without .py extension
 
@@ -676,7 +688,7 @@ def isort(config, full_config, args):
         return False
 
 
-def codespell(config, full_config, args):
+def codespell(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Run codespell check on all files
 
@@ -718,7 +730,7 @@ def codespell(config, full_config, args):
         return False
 
 
-def dependabot_config(config, full_config, args):
+def dependabot_config(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     config can be False or dict, with:
         types:
@@ -745,7 +757,7 @@ def dependabot_config(config, full_config, args):
 
     success = True
     with open(".github/dependabot.yaml") as dependabot_file:
-        dependabot = ruamel.yaml.round_trip_load(dependabot_file)
+        dependabot = ruamel.yaml.round_trip_load(dependabot_file)  # type: ignore
 
     # Check that c2cciutils has update rule
     found = False
@@ -804,6 +816,7 @@ def dependabot_config(config, full_config, args):
     # `@dependabot ignore`.
     if config.get("update_ignore", True) is not False:
         update_ignores = [] if config.get("update_ignore", True) is True else config.get("update_ignore")
+        assert isinstance(update_ignores, list)
 
         for update in dependabot["updates"]:
             ignored = False
@@ -852,7 +865,7 @@ def dependabot_config(config, full_config, args):
     return success
 
 
-def setup(config, full_config, args):
+def setup(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Check the typing options
 
@@ -941,6 +954,8 @@ def setup(config, full_config, args):
                     )
                     success = False
 
+            # TODO prospector
+
     for filename in subprocess.check_output(["git", "ls-files", "setup.py"]).decode().split("\n"):
         if not filename or filename in config.get("ignore_file", []):
             continue
@@ -953,7 +968,7 @@ def setup(config, full_config, args):
     return success
 
 
-def print_versions(config, full_config, args):
+def print_versions(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Print some tools version
     """

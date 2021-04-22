@@ -5,12 +5,13 @@ import argparse
 import os
 import re
 import sys
+from typing import Any, Dict, Match, Optional
 
 import c2cciutils.publish
 from c2cciutils.publish import GoogleCalendar
 
 
-def match(tpe, base_re):
+def match(tpe: str, base_re: str) -> Optional[Match[str]]:
     """
     Return the match for `GITHUB_REF` basically like: `refs/<type>/<base_re>`
     """
@@ -21,7 +22,7 @@ def match(tpe, base_re):
     return re.match("^refs/{}/{}".format(tpe, base_re), os.environ["GITHUB_REF"])
 
 
-def to_version(full_config, value, kind):
+def to_version(full_config: Dict[str, Any], value: str, kind: str) -> str:
     """
     Compute publish version from branch name or tag
     """
@@ -49,7 +50,7 @@ def main() -> None:
 
     config = c2cciutils.get_config()
 
-    if config.get("publish").get("print_versions"):
+    if config["publish"].get("print_versions"):
         print("::group::Versions")
         c2cciutils.print_versions(config.get("publish", {}).get("print_versions", {}))
         print("::endgroup::")

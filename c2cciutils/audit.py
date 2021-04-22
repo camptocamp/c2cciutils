@@ -6,6 +6,7 @@ import os.path
 import re
 import subprocess
 import sys
+from typing import Any, Callable, Dict, List
 
 import safety.errors
 import safety.formatter
@@ -17,7 +18,7 @@ from pipenv.patched import pipfile as pipfile_lib
 import c2cciutils.checks
 
 
-def print_versions(config, full_config, args):
+def print_versions(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Print the versions
     """
@@ -27,7 +28,7 @@ def print_versions(config, full_config, args):
     c2cciutils.print_versions(config)
     print("::endgroup::")
     print("::group::Simplified list of available python for asdf")
-    all_versions = {}
+    all_versions: Dict[str, Any] = {}
     version_re = re.compile(r"^([0-9]+)\.([0-9]+)\.([0-9]+)$")
     for version in subprocess.check_output(["asdf", "list", "all", "python"]).decode().strip().split("\n"):
         version_match = version_re.match(version)
@@ -40,17 +41,17 @@ def print_versions(config, full_config, args):
     return True
 
 
-def _python_ignores(directory):
+def _python_ignores(directory: str) -> List[str]:
     ignores = []
     for filename in ("pip-cve-ignore", "pipenv-cve-ignore"):
-        cve_file = os.path.join(directory, filename)
-        if os.path.exists(cve_file):
-            with open(cve_file) as cve_file:
+        cve_filename = os.path.join(directory, filename)
+        if os.path.exists(cve_filename):
+            with open(cve_filename) as cve_file:
                 ignores += [e.strip() for e in re.split(",|\n", cve_file.read()) if e.strip()]
     return ignores
 
 
-def _safely(filename, read_packages):
+def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
     """
     Audit Python packages from `filename` using the `read_packages` to read it.
     """
@@ -93,20 +94,20 @@ def _safely(filename, read_packages):
     return success
 
 
-def pip(config, full_config, args):
+def pip(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Audit all the `requirements.txt` files
     """
     del config, full_config, args
 
-    def read_packages(filename):
+    def read_packages(filename: str) -> List[str]:
         with open(filename) as file_:
             return list(safety.util.read_requirements(file_, resolve=True))
 
     return _safely("requirements.txt", read_packages)
 
 
-def pipfile(config, full_config, args):
+def pipfile(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Audit all the `Pipfile`.
 
@@ -115,7 +116,7 @@ def pipfile(config, full_config, args):
     """
     del full_config, args
 
-    def read_packages(filename):
+    def read_packages(filename: str) -> List[str]:
         packages = []
         project = pipfile_lib.Pipfile.load(filename)
         for section in config["sections"]:
@@ -129,7 +130,7 @@ def pipfile(config, full_config, args):
     return _safely("Pipfile", read_packages)
 
 
-def pipfile_lock(config, full_config, args):
+def pipfile_lock(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Audit all the `Pipfile.lock` files
 
@@ -138,7 +139,7 @@ def pipfile_lock(config, full_config, args):
     """
     del full_config, args
 
-    def read_packages(filename):
+    def read_packages(filename: str) -> List[str]:
         packages = []
         with open(filename) as file_:
             data = json.load(file_)
@@ -152,7 +153,7 @@ def pipfile_lock(config, full_config, args):
     return _safely("Pipfile.lock", read_packages)
 
 
-def pipenv(config, full_config, args):
+def pipenv(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Audit all the `Pipfile`.
 
@@ -197,7 +198,7 @@ def pipenv(config, full_config, args):
     return success
 
 
-def npm(config, full_config, args):
+def npm(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Audit all the `package.json` files.
 
@@ -215,7 +216,7 @@ def npm(config, full_config, args):
         directory = os.path.dirname(file)
         sys.stdout.flush()
         sys.stderr.flush()
-        subprocess_kwargs = {} if directory == "" else {"cwd": directory}
+        subprocess_kwargs: Dict[str, Any] = {} if directory == "" else {"cwd": directory}
         subprocess.check_call(["npm", "install", "--package-lock"], **subprocess_kwargs)
 
         cve_file = os.path.join(directory, "npm-cve-ignore")
@@ -291,7 +292,7 @@ def npm(config, full_config, args):
     return global_success
 
 
-def outdated_versions(config, full_config, args):
+def outdated_versions(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
     """
     Check that the versions from the SECURITY.md are not outdated
     """

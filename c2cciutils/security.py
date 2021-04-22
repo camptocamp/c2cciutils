@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+import xml.etree.ElementTree
 from typing import List, Optional
 
 import markdown
@@ -36,11 +37,12 @@ class Security:
         for row in self.data:
             row.append("")
 
-    def _pe(self, elem):
+    def _pe(self, elem: xml.etree.ElementTree.Element) -> None:
         """
         Parse the HTML table
         """
         if elem.tag == "th":
+            assert elem.text is not None
             self.headers.append(elem.text)
         if elem.tag == "tr":
             self._row = []

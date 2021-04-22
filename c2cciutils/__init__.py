@@ -5,13 +5,14 @@ import os.path
 import re
 import subprocess
 import sys
+from typing import Any, Dict, List, Match, Optional, Tuple, cast
 
 import magic
 import requests
 import yaml
 
 
-def get_repository():
+def get_repository() -> str:
     """
     Get the current GitHub repository like `organisation/project`
     """
@@ -32,7 +33,7 @@ def get_repository():
     return "camptocamp/project"
 
 
-def merge(default_config, config):
+def merge(default_config: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
     """
     Deep merge the dictionaries (on dictionaries only, not on arrays).
     """
@@ -48,7 +49,7 @@ def merge(default_config, config):
     return config
 
 
-def get_config():
+def get_config() -> Dict[str, Any]:
     docker = False
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
         if os.path.basename(filename) == "Dockerfile":
@@ -269,7 +270,7 @@ def get_config():
     return config
 
 
-def compile_re(config, prefix=""):
+def compile_re(config: List[Dict[str, Any]], prefix: str = "") -> List[Dict[str, Any]]:
     """
     Compile the from as a regular expression of a dictionary of the config list.
 
@@ -291,7 +292,9 @@ def compile_re(config, prefix=""):
     return result
 
 
-def match(value, config):
+def match(
+    value: str, config: List[Dict[str, Any]]
+) -> Tuple[Optional[Match[str]], Optional[Dict[str, Any]], str]:
     """
     `value` is what we want to match with
     `config` is the result of `compile`
@@ -306,7 +309,7 @@ def match(value, config):
     return None, None, value
 
 
-def get_value(matched, config, value):
+def get_value(matched: Optional[Match[str]], config: Optional[Dict[str, Any]], value: str) -> str:
     """
     Get the final value
 
@@ -314,10 +317,11 @@ def get_value(matched, config, value):
 
     The `config` should have a `to` ad a expand template.
     """
+    assert config
     return matched.expand(config.get("to", r"\1")) if matched is not None else value
 
 
-def print_versions(config):
+def print_versions(config: Dict[str, Any]) -> bool:
     """
     Print some tools version
     """
@@ -336,7 +340,7 @@ def print_versions(config):
     return True
 
 
-def gopass(key, default=None):
+def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
     try:
         return subprocess.check_output(["gopass", "show", key]).strip().decode()
     except FileNotFoundError:
@@ -345,11 +349,11 @@ def gopass(key, default=None):
         raise
 
 
-def gopass_put(secret, key):
+def gopass_put(secret: str, key: str) -> None:
     subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
 
 
-def add_authorization_header(headers):
+def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
     try:
         headers["Authorization"] = "Bearer {}".format(
             os.environ["GITHUB_TOKEN"].strip()
@@ -361,7 +365,7 @@ def add_authorization_header(headers):
         return headers
 
 
-def graphql(query_file, variables, default=None):
+def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> Any:
     """
     Get the result a a graphql on GitHub
 
@@ -398,10 +402,12 @@ def graphql(query_file, variables, default=None):
         raise RuntimeError("GraphQL error: {}".format(json.dumps(json_response["errors"], indent=2)))
     if "data" not in json_response:
         raise RuntimeError("GraphQL no data: {}".format(json.dumps(json_response, indent=2)))
-    return json_response["data"]
+    return cast(Dict[str, Any], json_response["data"])
 
 
-def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
+def get_git_files_mime(
+    mime_type: str = "text/x-python", ignore_patterns_re: Optional[str] = None
+) -> List[str]:
     """
     Get all the files in git that have the specified mime type
 
@@ -423,7 +429,7 @@ def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
     return result
 
 
-def get_based_on_master(repo, master_branch, config):
+def get_based_on_master(repo: List[str], master_branch: str, config: Dict[str, Any]) -> bool:
     """
     Check that we are not on a release branch (to avoid errors in versions check).
 
