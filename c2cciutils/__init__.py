@@ -4,6 +4,7 @@ import json
 import os.path
 import re
 import subprocess
+import sys
 
 import magic
 import requests
@@ -206,7 +207,9 @@ def get_config():
                 ]
             },
             "pip": True,
-            "pipenv": {"python_versions": []},
+            "pipfile": {"sections": ["default", "develop"]},
+            "pipfile_lock": {"sections": ["default"]},
+            "pipenv": False,
             "npm": {"cwe_ignore": []},
             "outdated_versions": True,
         },
@@ -317,6 +320,8 @@ def print_versions(config):
 
     for version in config.get("versions", []):
         try:
+            sys.stdout.flush()
+            sys.stderr.flush()
             current_version = subprocess.check_output(version.get("cmd", [])).decode()
             print("{}{}".format(version.get("prefix", ""), current_version))
         except PermissionError as exception:
