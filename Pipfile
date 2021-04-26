@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 safety = "==1.10.3"
-markdown-table = "*"
+markdown-table = "==2020.12.3"
 pipenv = "==2020.11.15"
 python-magic = "==0.4.22"
 requests = "==2.25.1"
