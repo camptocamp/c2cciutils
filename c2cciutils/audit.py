@@ -46,7 +46,7 @@ def _python_ignores(directory):
         cve_file = os.path.join(directory, filename)
         if os.path.exists(cve_file):
             with open(cve_file) as cve_file:
-                ignores += [e.strip() for e in re.split(",|\n", cve_file.read().decode()) if e.strip()]
+                ignores += [e.strip() for e in re.split(",|\n", cve_file.read()) if e.strip()]
     return ignores
 
 
