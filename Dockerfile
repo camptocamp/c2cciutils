@@ -9,8 +9,8 @@ RUN apt update && \
 WORKDIR /app
 
 
-COPY requirements.txt /tmp/
-RUN python3 -m pip install --disable-pip-version-check --no-cache-dir --requirement=/tmp/requirements.txt && \
+COPY requirements-pipenv.txt /tmp/
+RUN python3 -m pip install --disable-pip-version-check --no-cache-dir --requirement=/tmp/requirements-pipenv.txt && \
     rm --recursive --force /tmp/*
 
 COPY Pipfile Pipfile.lock ./
