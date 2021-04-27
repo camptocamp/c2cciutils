@@ -187,23 +187,29 @@
         {
           "type": "object",
           "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "steps": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "env": { "type": "array", "items": { "type": "string" } },
-                    "run_re": { "type": "string" }
-                  }
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "steps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "env": { "type": "array", "items": { "type": "string" } },
+                        "run_re": { "type": "string" }
+                      }
+                    }
+                  },
+                  "strategy-fail-fast": { "type": "boolean" },
+                  "if": { "type": "string" },
+                  "no_if": { "type": "boolean" },
+                  "on": { "type": "object" }
+
                 }
               },
-              "strategy-fail-fast": { "type": "boolean" },
-              "if": { "type": "string" },
-              "no_if": { "type": "boolean" },
-              "on": { "type": "object" }
-            }
+              {"type": "boolean"}
+            ]
           }
         },
         { "const": false }
@@ -331,13 +337,16 @@
           "type": "object",
           "properties": {
             "packages": {
-              "type": "object",
-              "properties": {
-                "group": {
-                  "type": "string"
-                },
-                "path": {
-                  "type": "string"
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
                 }
               }
             },
@@ -360,11 +369,13 @@
       "description": "The audit configuration",
       "properties": {
         "versions": {
+        "type": "array",
+        "items": {
           "type": "object",
           "properties": {
             "cmd": { "type": "array", "items": { "type": "string" } },
             "name": { "type": "string" }
-          }
+          }}
         }
       }
     },

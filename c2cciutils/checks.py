@@ -841,7 +841,7 @@ def setup(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> boo
     strict = True
 
     in setup.py:
-    has the classifier Typed
+    has the classifier Typing :: Typed
 
     config is like:
       ignore_file: [] # The files to ignore
@@ -851,7 +851,7 @@ def setup(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> boo
             warn_unused_ignores: True
             strict: True
       classifiers: # list of required classifiers
-        - Typed
+        - Typing :: Typed
     """
     del full_config, args
 

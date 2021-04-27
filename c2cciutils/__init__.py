@@ -200,7 +200,7 @@ def get_config() -> Dict[str, Any]:
             },
             "setup": {
                 "cfg": {"mypy": {"warn_redundant_casts": True, "warn_unused_ignores": True, "strict": True}},
-                "classifiers": ["Typed"],
+                "classifiers": ["Typing :: Typed"],
             },
         },
         "audit": {
