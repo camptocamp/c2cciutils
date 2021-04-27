@@ -1,0 +1,438 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/camptocamp/tilecloud-chain/master/tilecloud_chain/schema.json",
+  "type": "object",
+  "title": "configuration",
+  "description": "C2C CI utils configuration file",
+  "additionalProperties": false,
+  "definitions": {
+    "audit_npm": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "cwe_ignore": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "audit_outdated_versions": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "type": "boolean"
+    },
+    "audit_pip": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "type": "boolean"
+    },
+    "audit_pipenv": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "python_versions": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "audit_pipfile": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "sections": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "audit_pipfile_lock": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "sections": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_black": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "ignore_patterns_re": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_black_config": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "propertires": {
+              "type": "object",
+              "additionalProperties": { "type": ["number", "string"] }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_codespell": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "arguments": { "type": "array", "items": { "type": "string" } },
+            "ignore_re": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_dependabot_config": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "ignore_version_files": { "type": "array", "items": { "type": "string" } },
+            "types": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "echosystem": { "type": "string" },
+                  "filename": { "type": "string" }
+                }
+              }
+            },
+            "update_ignore": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_editorconfig": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "properties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_eof": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "type": "boolean"
+    },
+    "checks_gitattribute": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "type": "boolean"
+    },
+    "checks_isort": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": { "ignore_patterns_re": { "type": "array", "items": { "type": "string" } } }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_print_config": {
+      "type": "boolean",
+      "title": "Defaults",
+      "description": "The audit configuration"
+    },
+    "checks_required_workflows": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "env": { "type": "array", "items": { "type": "string" } },
+                    "run_re": { "type": "string" }
+                  }
+                }
+              },
+              "strategy-fail-fast": { "type": "boolean" },
+              "if": { "type": "string" },
+              "no_if": { "type": "boolean" },
+              "on": { "type": "object" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_versions": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "audit": { "type": "boolean" },
+            "backport_labels": { "type": "boolean" },
+            "branches": { "type": "boolean" },
+            "extra_versions": { "type": "array", "items": { "type": "string" } },
+            "rebuild": {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_workflows": {
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "images_blacklist": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "timeout": {
+              "type": "boolean"
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "publish_docker": {
+      "title": "Publish Docker",
+      "description": "The configuration used to publish on Docker",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "images": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": { "type": "string" },
+                  "name": { "type": "string" },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "repository": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "server": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "publish_publish": {
+      "title": "Defaults",
+      "description": "The configuration to publish on Google Calendar",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "google_calendar": {
+              "type": "object",
+              "properties": {
+                "on": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "publish_pypi": {
+      "title": "Defaults",
+      "description": "Configuration to publish on pypi",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "packages": {
+              "type": "object",
+              "properties": {
+                "group": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                }
+              }
+            },
+            "versions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "const": false
+        }
+      ]
+    },
+    "print_versions": {
+      "type": "object",
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "properties": {
+        "versions": {
+          "type": "object",
+          "properties": {
+            "cmd": { "type": "array", "items": { "type": "string" } },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    },
+    "version_transform": {
+      "type": "array",
+      "title": "Transform",
+      "description": "A version transformer definition",
+      "items": {
+        "type": "object",
+        "properties": { "from": { "type": "string" }, "to": { "type": "string" } }
+      }
+    }
+  },
+  "properties": {
+    "audit": {
+      "type": "object",
+      "title": "Defaults",
+      "description": "The audit configuration",
+      "properties": {
+        "npm": { "$ref": "#/definitions/audit_npm" },
+        "outdated_versions": { "$ref": "#/definitions/audit_outdated_versions" },
+        "pip": { "$ref": "#/definitions/audit_pip" },
+        "pipenv": { "$ref": "#/definitions/audit_pipenv" },
+        "pipfile": { "$ref": "#/definitions/audit_pipfile" },
+        "pipfile_lock": { "$ref": "#/definitions/audit_pipfile_lock" },
+        "print_versions": { "$ref": "#/definitions/print_versions" }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "title": "Defaults",
+      "description": "The checker configurations",
+      "properties": {
+        "black": { "$ref": "#/definitions/checks_black" },
+        "black_config": { "$ref": "#/definitions/checks_black_config" },
+        "codespell": { "$ref": "#/definitions/checks_codespell" },
+        "dependabot_config": { "$ref": "#/definitions/checks_dependabot_config" },
+        "editorconfig": { "$ref": "#/definitions/checks_editorconfig" },
+        "eof": { "$ref": "#/definitions/checks_eof" },
+        "gitattribute": { "$ref": "#/definitions/checks_gitattribute" },
+        "isort": { "$ref": "#/definitions/checks_isort" },
+        "print_config": { "$ref": "#/definitions/checks_print_config" },
+        "required_workflows": { "$ref": "#/definitions/checks_required_workflows" },
+        "versions": { "$ref": "#/definitions/checks_versions" },
+        "workflows": { "$ref": "#/definitions/checks_workflows" },
+        "print_versions": { "$ref": "#/definitions/print_versions" }
+      }
+    },
+    "publish": {
+      "type": "object",
+      "title": "Defaults",
+      "description": "The checker configurations",
+      "properties": {
+        "": { "$ref": "#/definitions/publish_" },
+        "docker": { "$ref": "#/definitions/publish_docker" },
+        "publish": { "$ref": "#/definitions/publish_publish" },
+        "pypi": { "$ref": "#/definitions/publish_pypi" },
+        "print_versions": { "$ref": "#/definitions/print_versions" }
+      }
+    },
+    "version": {
+      "type": "object",
+      "title": "Defaults",
+      "description": "The checker configurations",
+      "properties": {
+        "branch_to_version_re": { "$ref": "#/definitions/version_transform" },
+        "tag_to_version_re": { "$ref": "#/definitions/version_transform" }
+      }
+    }
+  }
+}

@@ -2,11 +2,13 @@
 
 import json
 import os.path
+import pkgutil
 import re
 import subprocess
 import sys
 from typing import Any, Dict, List, Match, Optional, Tuple, cast
 
+import jsonschema
 import magic
 import requests
 import yaml
@@ -267,7 +269,56 @@ def get_config() -> Dict[str, Any]:
             package,
         )
 
+    validate_config(config, "ci/config.yaml")
     return config
+
+
+def validate_config(config, config_file):
+    validator = jsonschema.Draft7Validator(schema=json.loads(pkgutil.get_data("c2cciutils", "schema.json")))
+    errors = sorted(
+        [
+            f' - {".".join([str(i) for i in e.path] if e.path else "/")}: {e.message}'
+            for e in validator.iter_errors(config)
+        ]
+    )
+    if errors:
+        error("config", "The config file is invalid.\n%s", "\n".join(errors), config_file)
+        sys.exit(1)
+
+
+def error(
+    checker: str,
+    message: str,
+    file: Optional[str] = None,
+    line: Optional[int] = None,
+    col: Optional[int] = None,
+    error_type: str = "error",
+) -> None:
+    """
+    Write an error or warn message formatted for GitHub if the CI environment variable is true else for IDE.
+
+    GitHub: ::(error|warning) file=<file>,line=<line>,col=<col>:: <checker>: <message>
+    IDE: [(error|warning)] <file>:<line>:<col>: <checker>: <message>
+
+    See: https://docs.github.com/en/free-pro-team@latest/actions/reference/ \
+        workflow-commands-for-github-actions#setting-an-error-message
+    """
+    result = ""
+    on_ci = os.environ.get("CI", "false").lower() == "true"
+    if file is not None:
+        result += ("file={}" if on_ci else "{}").format(file)
+        if line is not None:
+            result += (",line={}" if on_ci else ":{}").format(line)
+            if col is not None:
+                result += (",col={}" if on_ci else ":{}").format(col)
+    result += (":: {}: {}" if on_ci else ": {}: {}").format(checker, message)
+    if on_ci:
+        # Make the error visible on GitHub workflow logs
+        print(result)
+        # Make the error visible as annotation
+        print("::{} {}".format(error_type, result))
+    else:
+        print("[{}] {}".format(error_type, result))
 
 
 def compile_re(config: List[Dict[str, Any]], prefix: str = "") -> List[Dict[str, Any]]:
