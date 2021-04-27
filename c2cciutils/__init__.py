@@ -269,12 +269,13 @@ def get_config() -> Dict[str, Any]:
             package,
         )
 
-    validate_config(config, "ci/config.yaml")
-    return config
+    return validate_config(config, "ci/config.yaml")
 
 
-def validate_config(config, config_file):
-    validator = jsonschema.Draft7Validator(schema=json.loads(pkgutil.get_data("c2cciutils", "schema.json")))
+def validate_config(config: Dict[str, Any], config_file: str) -> Dict[str, Any]:
+    schema_data = pkgutil.get_data("c2cciutils", "schema.json")
+    assert schema_data is not None
+    validator = jsonschema.Draft7Validator(schema=json.loads(schema_data))
     errors = sorted(
         [
             f' - {".".join([str(i) for i in e.path] if e.path else "/")}: {e.message}'
@@ -282,8 +283,9 @@ def validate_config(config, config_file):
         ]
     )
     if errors:
-        error("config", "The config file is invalid.\n%s", "\n".join(errors), config_file)
+        error("config", "The config file is invalid.\n{}".format("\n".join(errors)), config_file)
         sys.exit(1)
+    return config
 
 
 def error(

@@ -87,7 +87,7 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
             else:
                 print("::endgroup::")
         except safety.errors.DatabaseFetchError:
-            c2cciutils.checks.error("pip", "Audit issue, see above", file)
+            c2cciutils.error("pip", "Audit issue, see above", file)
             success = False
             print("::endgroup::")
             print("With error")
@@ -190,7 +190,7 @@ def pipenv(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bo
             else:
                 subprocess.check_call(cmd)
         except subprocess.CalledProcessError:
-            c2cciutils.checks.error("pipenv", "Audit issue, see above", file)
+            c2cciutils.error("pipenv", "Audit issue, see above", file)
             success = False
             print("::endgroup::")
             print("With error")
@@ -270,13 +270,13 @@ def npm(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
                 print("More info: " + vunerability.get("url"))
                 print()
 
-            c2cciutils.checks.error(
+            c2cciutils.error(
                 "npm", "We have some vulnerabilities see logs", file=os.path.join(directory, "package.json")
             )
             success = False
 
         if len(unused_ignores) > 0:
-            c2cciutils.checks.error(
+            c2cciutils.error(
                 "npm",
                 "The following cve ignores are not present in the audit: {}".format(
                     ", ".join([str(e) for e in unused_ignores])
@@ -325,7 +325,7 @@ def outdated_versions(config: Dict[str, Any], full_config: Dict[str, Any], args:
         if str_date not in ("Unsupported", "Best effort", "To be defined"):
             date = datetime.datetime.strptime(row[date_index], "%d/%m/%Y")
             if date < datetime.datetime.now():
-                c2cciutils.checks.error(
+                c2cciutils.error(
                     "versions",
                     "The version '{}' is outdated, it can be set to "
                     "'Unsupported', 'Best effort' or 'To be defined'".format(row[version_index]),
