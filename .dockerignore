@@ -1,5 +1,6 @@
 *
 !requirements.txt
+!requirements-pipenv.txt
 !Pipfile*
 !c2cciutils/
 !setup.py
