@@ -154,6 +154,8 @@ def get_config():
                 ]
             },
             "print_config": True,
+            "print_environment_variables": True,
+            "print_github_event": True,
             "black_config": {"propertires": {"line-length": 110}},
             "editorconfig": {
                 "properties": editorconfig_full_properties,
@@ -427,6 +429,9 @@ def get_based_on_master(repo, master_branch, config):
     and for each other branch (max 50) check if any commit in last 10 commits is the current one.
     """
 
+    if os.environ.get("GITHUB_REF", "").startswith("refs/tags/"):
+        # The tags are never consider as based on master
+        return False
     if os.environ.get("GITHUB_REF", "").startswith("refs/heads/"):
         current_branch = os.environ["GITHUB_REF"][len("refs/heads/") :]
         if current_branch == master_branch:

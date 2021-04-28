@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+from typing import Any, Dict
 
 import magic
 import requests
@@ -52,6 +53,29 @@ def print_config(config, full_config, args):
     del config, args
 
     print(yaml.dump(full_config, default_flow_style=False, Dumper=yaml.SafeDumper))
+    return True
+
+
+def print_environment_variables(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
+    """
+    Print the environment variables
+    """
+    del config, full_config, args
+
+    for name, value in sorted(os.environ.items()):
+        print(f"{name}: {value}")
+    return True
+
+
+def print_github_event(config: Dict[str, Any], full_config: Dict[str, Any], args: Any) -> bool:
+    """
+    Print the GitHub event
+    """
+    del config, full_config, args
+
+    if "GITHUB_EVENT_PATH" in os.environ:
+        with open(os.environ["GITHUB_EVENT_PATH"]) as event:
+            print(event.read())
     return True
 
 
