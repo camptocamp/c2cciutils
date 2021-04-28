@@ -682,9 +682,7 @@ def isort(config, full_config, args):
         sys.stdout.flush()
         sys.stderr.flush()
         cmd = ["isort"]
-        if args.fix:
-            cmd.append("--apply")
-        else:
+        if not args.fix:
             cmd += ["--check-only", "--diff"]
         cmd.append("--")
         python_files = c2cciutils.get_git_files_mime(ignore_patterns_re=config.get("ignore_patterns_re", []))
