@@ -154,6 +154,8 @@ def get_config():
                 ]
             },
             "print_config": True,
+            "print_environment_variables": True,
+            "print_github_event": True,
             "black_config": {"propertires": {"line-length": 110}},
             "editorconfig": {
                 "properties": editorconfig_full_properties,
