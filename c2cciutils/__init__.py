@@ -162,14 +162,20 @@ def get_config():
             },
             "gitattribute": True,
             "eof": True,
-            "workflows": {"images_blacklist": ["ubuntu-latest"], "timeout": True},
+            "workflows": {"images_blacklist": ["ubuntu-latest"] if based_on_master else [], "timeout": True},
             "required_workflows": {
                 "main.yaml": {"if": "!startsWith(github.event.head_commit.message, '[skip ci] ')"},
-                "backport.yaml": True,
                 "codeql.yaml": True,
-                "dependabot-auto-merge.yaml": {"on": {"workflow_run": {"types": ["completed"]}}}
-                if config.get("dependabot_config", True)
-                else False,
+                **(
+                    {
+                        "backport.yaml": True,
+                        "dependabot-auto-merge.yaml": {"on": {"workflow_run": {"types": ["completed"]}}}
+                        if config.get("dependabot_config", True)
+                        else False,
+                    }
+                    if based_on_master
+                    else {}
+                ),
             },
             "versions": {
                 "extra_versions": [master_branch],
@@ -196,7 +202,9 @@ def get_config():
                     {"filename": "Dockerfile", "ecosystem": "docker"},
                     {"filename": "package.json", "ecosystem": "npm"},
                 ],
-            },
+            }
+            if based_on_master
+            else False,
         },
         "audit": {
             "print_versions": {
