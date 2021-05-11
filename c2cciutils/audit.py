@@ -269,7 +269,7 @@ def npm(config, full_config, args):
                 for find in vunerability.get("findings", []):
                     print("Version: " + find["version"])
                     for path in find.get("paths", []):
-                        print("Path: " + " > ".join(path.split(">")[2:]))
+                        print("Path: " + " > ".join(path.split(">")))
                 print("More info: " + vunerability.get("url"))
                 print()
 
