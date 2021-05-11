@@ -121,7 +121,11 @@ def pipfile(config, full_config, args):
         for section in config["sections"]:
             for package, version in project.data[section].items():
                 if isinstance(version, dict):
-                    packages.append(safety.util.Package(key=package, version=version["version"].lstrip("=")))
+                    # We can have an path without any version
+                    if "version" in version:
+                        packages.append(
+                            safety.util.Package(key=package, version=version["version"].lstrip("="))
+                        )
                 else:
                     packages.append(safety.util.Package(key=package, version=version.lstrip("=")))
         return packages
@@ -216,7 +220,7 @@ def npm(config, full_config, args):
         sys.stdout.flush()
         sys.stderr.flush()
         subprocess_kwargs = {} if directory == "" else {"cwd": directory}
-        subprocess.check_call(["npm", "install", "--package-lock"], **subprocess_kwargs)
+        subprocess.check_call(["npm", "install", "--package-lock-only"], **subprocess_kwargs)
 
         cve_file = os.path.join(directory, "npm-cve-ignore")
         all_ignores = config.get("cve-ignore", [])
@@ -242,7 +246,7 @@ def npm(config, full_config, args):
             print("With error")
             return False
 
-        for vunerability in audit["advisories"].values():
+        for vunerability in audit.get("advisories", audit.get("vulnerabilities")).values():
             if vunerability["cwe"] in cwe_ignores:
                 continue
             if vunerability["id"] not in all_ignores:
@@ -265,7 +269,7 @@ def npm(config, full_config, args):
                 for find in vunerability.get("findings", []):
                     print("Version: " + find["version"])
                     for path in find.get("paths", []):
-                        print("Path: " + " > ".join(path.split(">")[2:]))
+                        print("Path: " + " > ".join(path.split(">")))
                 print("More info: " + vunerability.get("url"))
                 print()
 
