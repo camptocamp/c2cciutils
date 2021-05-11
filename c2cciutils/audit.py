@@ -121,7 +121,11 @@ def pipfile(config, full_config, args):
         for section in config["sections"]:
             for package, version in project.data[section].items():
                 if isinstance(version, dict):
-                    packages.append(safety.util.Package(key=package, version=version["version"].lstrip("=")))
+                    # We can have an path without any version
+                    if "version" in version:
+                        packages.append(
+                            safety.util.Package(key=package, version=version["version"].lstrip("="))
+                        )
                 else:
                     packages.append(safety.util.Package(key=package, version=version.lstrip("=")))
         return packages
