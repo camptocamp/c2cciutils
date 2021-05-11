@@ -246,7 +246,7 @@ def npm(config, full_config, args):
             print("With error")
             return False
 
-        for vunerability in audit["advisories"].values():
+        for vunerability in audit.get("advisories", audit.get("vulnerabilities")).values():
             if vunerability["cwe"] in cwe_ignores:
                 continue
             if vunerability["id"] not in all_ignores:
