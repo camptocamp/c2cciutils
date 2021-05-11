@@ -220,7 +220,7 @@ def npm(config, full_config, args):
         sys.stdout.flush()
         sys.stderr.flush()
         subprocess_kwargs = {} if directory == "" else {"cwd": directory}
-        subprocess.check_call(["npm", "install", "--package-lock"], **subprocess_kwargs)
+        subprocess.check_call(["npm", "install", "--package-lock-only"], **subprocess_kwargs)
 
         cve_file = os.path.join(directory, "npm-cve-ignore")
         all_ignores = config.get("cve-ignore", [])
