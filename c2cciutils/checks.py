@@ -750,7 +750,7 @@ def dependabot_config(config, full_config, args):
             that shouldn't be checked.
         update_ignore: # ignore the rule for ignore used to ignore all the `@dependabot ignore`
           - directory: # The directory
-          - ecosystem: # The dependabot package echosystem
+            ecosystem: # The dependabot package echosystem
     """
     del full_config, args
 
@@ -815,9 +815,8 @@ def dependabot_config(config, full_config, args):
                     f'    directory: "{folder}"\n'
                     "    schedule:\n"
                     "      interval: daily\n"
-                    '      time: "02:00"\n'
                     "    ignore:\n"
-                    "        - dependency-name: none",
+                    "      - dependency-name: none",
                     ".github/dependabot.yaml",
                 )
                 success = False
