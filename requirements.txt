@@ -7,7 +7,7 @@ black==21.5b2
 click==7.1.2
 isort==5.8.0
 twine==3.4.1
-codespell==2.0.0
+codespell==2.1.0
 node-vm2==0.3.7
 Markdown==3.3.4
 EditorConfig==0.12.3
