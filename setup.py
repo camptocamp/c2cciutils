@@ -36,6 +36,7 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Topic :: Scientific/Engineering :: GIS",
+        "Typing :: Typed",
     ],
     keywords="ci",
     author="Camptocamp",
@@ -54,5 +55,5 @@ setup(
             "c2cciutils-google-calendar = c2cciutils.publish:main_calendar",
         ],
     },
-    package_data={"c2cciutils": ["*.graphql"]},
+    package_data={"c2cciutils": ["*.graphql", "*.json"]},
 )

@@ -5,12 +5,14 @@ import argparse
 import os
 import re
 import sys
+from typing import Match, Optional, cast
 
+import c2cciutils.configuration
 import c2cciutils.publish
 from c2cciutils.publish import GoogleCalendar
 
 
-def match(tpe, base_re):
+def match(tpe: str, base_re: str) -> Optional[Match[str]]:
     """
     Return the match for `GITHUB_REF` basically like: `refs/<type>/<base_re>`
     """
@@ -21,11 +23,15 @@ def match(tpe, base_re):
     return re.match("^refs/{}/{}".format(tpe, base_re), os.environ["GITHUB_REF"])
 
 
-def to_version(full_config, value, kind):
+def to_version(full_config: c2cciutils.configuration.Configuration, value: str, kind: str) -> str:
     """
     Compute publish version from branch name or tag
     """
-    item_re = c2cciutils.compile_re(full_config["version"].get(kind + "_to_version_re", []))
+    item_re = c2cciutils.compile_re(
+        cast(
+            c2cciutils.configuration.VersionTransform, full_config["version"].get(kind + "_to_version_re", [])
+        )
+    )
     value_match = c2cciutils.match(value, item_re)
     if value_match[0] is not None:
         return c2cciutils.get_value(*value_match)
@@ -49,7 +55,7 @@ def main() -> None:
 
     config = c2cciutils.get_config()
 
-    if config.get("publish").get("print_versions"):
+    if config["publish"].get("print_versions"):
         print("::group::Versions")
         c2cciutils.print_versions(config.get("publish", {}).get("print_versions", {}))
         print("::endgroup::")
@@ -119,7 +125,10 @@ def main() -> None:
         print("Create release type {}: {}".format(version_type, version))
 
     success = True
-    pypi_config = config.get("publish", {}).get("pypi", {})
+    pypi_config = cast(
+        c2cciutils.configuration.PublishPypiConfig,
+        config.get("publish", {}).get("pypi", {}) if config.get("publish", {}).get("pypi", False) else {},
+    )
     for package in pypi_config["packages"]:
         if package.get("group") == args.group:
             publish = version_type in pypi_config.get("versions", [])
@@ -133,9 +142,18 @@ def main() -> None:
             else:
                 success &= c2cciutils.publish.pip(package, version, version_type, publish)
 
-    docker_config = config.get("publish", {}).get("docker", {})
+    docker_config = cast(
+        c2cciutils.configuration.PublishDockerConfig,
+        config.get("publish", {}).get("docker", {}) if config.get("publish", {}).get("docker", False) else {},
+    )
 
     google_calendar = None
+    google_calendar_config = cast(
+        c2cciutils.configuration.PublishGoogleCalendarConfig,
+        config.get("publish", {}).get("google_calendar", {})
+        if config.get("publish", {}).get("google_calendar", False)
+        else {},
+    )
     for image_conf in docker_config.get("images", []):
         if image_conf.get("group", "") == args.group:
             for tag_config in image_conf.get("tags", []):
@@ -151,7 +169,7 @@ def main() -> None:
                             )
                         else:
                             success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
-                if version_type in config.get("publish", {}).get("google_calendar", {}).get("on", []):
+                if version_type in google_calendar_config.get("on", []):
                     if not google_calendar:
                         google_calendar = GoogleCalendar()
                     summary = "{}:{}".format(image_conf["name"], tag_dst)

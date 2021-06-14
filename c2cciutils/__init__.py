@@ -2,16 +2,21 @@
 
 import json
 import os.path
+import pkgutil
 import re
 import subprocess
 import sys
+from typing import Any, Dict, List, Match, Optional, Pattern, Tuple, TypedDict, cast
 
+import jsonschema_gentypes.validate
 import magic
 import requests
-import yaml
+import ruamel.yaml
+
+import c2cciutils.configuration
 
 
-def get_repository():
+def get_repository() -> str:
     """
     Get the current GitHub repository like `organisation/project`
     """
@@ -32,7 +37,7 @@ def get_repository():
     return "camptocamp/project"
 
 
-def merge(default_config, config):
+def merge(default_config: Any, config: Any) -> Any:
     """
     Deep merge the dictionaries (on dictionaries only, not on arrays).
     """
@@ -48,17 +53,18 @@ def merge(default_config, config):
     return config
 
 
-def get_config():
+def get_config() -> c2cciutils.configuration.Configuration:
     docker = False
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
         if os.path.basename(filename) == "Dockerfile":
             docker = True
             break
 
-    config = {}
+    config: c2cciutils.configuration.Configuration = {}
     if os.path.exists("ci/config.yaml"):
         with open("ci/config.yaml") as open_file:
-            config = yaml.load(open_file, yaml.SafeLoader)
+            yaml_ = ruamel.yaml.YAML()  # type: ignore
+            config = yaml_.load(open_file)
 
     editorconfig_properties = {
         "end_of_line": "lf",
@@ -170,7 +176,7 @@ def get_config():
                     {
                         "backport.yaml": True,
                         "dependabot-auto-merge.yaml": {"on": {"workflow_run": {"types": ["completed"]}}}
-                        if config.get("dependabot_config", True)
+                        if config.get("checks", {}).get("dependabot_config", True)
                         else False,
                     }
                     if based_on_master
@@ -205,6 +211,12 @@ def get_config():
             }
             if based_on_master
             else False,
+            "setup": {
+                "cfg": {
+                    "mypy": {"warn_redundant_casts": "True", "warn_unused_ignores": "True", "strict": "True"}
+                },
+                "classifiers": ["Typing :: Typed"],
+            },
         },
         "audit": {
             "print_versions": {
@@ -226,6 +238,15 @@ def get_config():
     }
     merge(default_config, config)
 
+    check_version_config = cast(
+        c2cciutils.configuration.ChecksVersionsConfig,
+        config["checks"]["versions"] if config["checks"].get("versions", False) else {},
+    )
+    check_version_config_rebuild = cast(
+        c2cciutils.configuration.ChecksVersionsRebuild,
+        check_version_config["rebuild"] if check_version_config.get("rebuild", False) else {},
+    )
+
     if docker:
         if isinstance(config.get("checks", {}).get("required_workflows", {}), dict):
             merge(
@@ -238,44 +259,111 @@ def get_config():
                 },
                 config.get("checks", {}).get("required_workflows", {}),
             )
-    elif (
-        config["checks"]["versions"]
-        and config["checks"]["versions"].get("rebuild", False)
-        and len(config["checks"]["versions"]["rebuild"].get("files", [])) == 0
-    ):
+    elif len(check_version_config_rebuild.get("files", [])) == 0:
+        assert isinstance(config["checks"]["versions"], dict)
         config["checks"]["versions"]["rebuild"] = False
+        check_version_config_rebuild = {}
 
-    if config["checks"].get("versions", False) and config["checks"]["versions"].get("rebuild", False):
+    if check_version_config.get("rebuild", False):
         required_workflows = {
             rebuild: {
                 "noif": True,
                 "steps": [{"run_re": r"^c2cciutils-publish .*--type.*$"}],
                 "strategy-fail-fast": False,
             }
-            for rebuild in config["checks"]["versions"]["rebuild"].get("files", ["rebuild.yaml"])
+            for rebuild in check_version_config_rebuild.get("files", ["rebuild.yaml"])
         }
         merge(required_workflows, config["checks"]["required_workflows"])
 
-    for image in config["publish"]["docker"]["images"]:
-        merge(
-            {
-                "tags": ["{version}"],
-                "group": "default",
-            },
-            image,
-        )
-    for package in config["publish"]["pypi"]["packages"]:
-        merge(
-            {
-                "group": "default",
-            },
-            package,
-        )
+    if config["publish"].get("docker", False):
+        assert isinstance(config["publish"]["docker"], dict)
+        for image in config["publish"]["docker"]["images"]:
+            merge(
+                {
+                    "tags": ["{version}"],
+                    "group": "default",
+                },
+                image,
+            )
+    if config["publish"].get("pypi", False):
+        assert isinstance(config["publish"]["pypi"], dict)
+        for package in config["publish"]["pypi"]["packages"]:
+            merge(
+                {
+                    "group": "default",
+                },
+                package,
+            )
 
-    return config
+    return validate_config(config, "ci/config.yaml")
 
 
-def compile_re(config, prefix=""):
+def validate_config(
+    config: c2cciutils.configuration.Configuration, config_file: str
+) -> c2cciutils.configuration.Configuration:
+    schema_data = pkgutil.get_data("c2cciutils", "schema.json")
+    assert schema_data is not None
+
+    errors, data = jsonschema_gentypes.validate.validate(
+        config_file, cast(Dict[str, Any], config), json.loads(schema_data)
+    )
+
+    if errors:
+        print("The config file is invalid:\n{}".format("\n".join(errors)))
+        if os.environ.get("IGNORE_CONFIG_ERROR", "FALSE").lower() != "true":
+            sys.exit(1)
+
+    return cast(c2cciutils.configuration.Configuration, data)
+
+
+def error(
+    checker: str,
+    message: str,
+    file: Optional[str] = None,
+    line: Optional[int] = None,
+    col: Optional[int] = None,
+    error_type: str = "error",
+) -> None:
+    """
+    Write an error or warn message formatted for GitHub if the CI environment variable is true else for IDE.
+
+    GitHub: ::(error|warning) file=<file>,line=<line>,col=<col>:: <checker>: <message>
+    IDE: [(error|warning)] <file>:<line>:<col>: <checker>: <message>
+
+    See: https://docs.github.com/en/free-pro-team@latest/actions/reference/ \
+        workflow-commands-for-github-actions#setting-an-error-message
+    """
+    result = ""
+    on_ci = os.environ.get("CI", "false").lower() == "true"
+    if file is not None:
+        result += ("file={}" if on_ci else "{}").format(file)
+        if line is not None:
+            result += (",line={}" if on_ci else ":{}").format(line)
+            if col is not None:
+                result += (",col={}" if on_ci else ":{}").format(col)
+    result += (":: {}: {}" if on_ci else ": {}: {}").format(checker, message)
+    if on_ci:
+        # Make the error visible on GitHub workflow logs
+        print(result)
+        # Make the error visible as annotation
+        print("::{} {}".format(error_type, result))
+    else:
+        print("[{}] {}".format(error_type, result))
+
+
+VersionTransform = TypedDict(
+    "VersionTransform",
+    {
+        # The from regular expression
+        "from": Pattern[str],
+        # The expand regular expression: https://docs.python.org/3/library/re.html#re.Match.expand
+        "to": str,
+    },
+    total=False,
+)
+
+
+def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = "") -> List[VersionTransform]:
     """
     Compile the from as a regular expression of a dictionary of the config list.
 
@@ -283,7 +371,7 @@ def compile_re(config, prefix=""):
     """
     result = []
     for conf in config:
-        new_conf = dict(conf)
+        new_conf = cast(VersionTransform, dict(conf))
 
         from_re = conf.get("from", r"(.*)")
         if from_re[0] == "^":
@@ -297,7 +385,9 @@ def compile_re(config, prefix=""):
     return result
 
 
-def match(value, config):
+def match(
+    value: str, config: List[VersionTransform]
+) -> Tuple[Optional[Match[str]], Optional[VersionTransform], str]:
     """
     `value` is what we want to match with
     `config` is the result of `compile`
@@ -312,7 +402,7 @@ def match(value, config):
     return None, None, value
 
 
-def get_value(matched, config, value):
+def get_value(matched: Optional[Match[str]], config: Optional[VersionTransform], value: str) -> str:
     """
     Get the final value
 
@@ -320,10 +410,11 @@ def get_value(matched, config, value):
 
     The `config` should have a `to` ad a expand template.
     """
+    assert config
     return matched.expand(config.get("to", r"\1")) if matched is not None else value
 
 
-def print_versions(config):
+def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
     """
     Print some tools version
     """
@@ -342,7 +433,7 @@ def print_versions(config):
     return True
 
 
-def gopass(key, default=None):
+def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
     try:
         return subprocess.check_output(["gopass", "show", key]).strip().decode()
     except FileNotFoundError:
@@ -351,11 +442,11 @@ def gopass(key, default=None):
         raise
 
 
-def gopass_put(secret, key):
+def gopass_put(secret: str, key: str) -> None:
     subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
 
 
-def add_authorization_header(headers):
+def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
     try:
         headers["Authorization"] = "Bearer {}".format(
             os.environ["GITHUB_TOKEN"].strip()
@@ -367,7 +458,7 @@ def add_authorization_header(headers):
         return headers
 
 
-def graphql(query_file, variables, default=None):
+def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> Any:
     """
     Get the result a a graphql on GitHub
 
@@ -404,10 +495,12 @@ def graphql(query_file, variables, default=None):
         raise RuntimeError("GraphQL error: {}".format(json.dumps(json_response["errors"], indent=2)))
     if "data" not in json_response:
         raise RuntimeError("GraphQL no data: {}".format(json.dumps(json_response, indent=2)))
-    return json_response["data"]
+    return cast(Dict[str, Any], json_response["data"])
 
 
-def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
+def get_git_files_mime(
+    mime_type: str = "text/x-python", ignore_patterns_re: Optional[List[str]] = None
+) -> List[str]:
     """
     Get all the files in git that have the specified mime type
 
@@ -418,7 +511,7 @@ def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
     result = []
 
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == mime_type:
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == mime_type:  # type: ignore
             accept = True
             for pattern in ignore_patterns_compiled:
                 if pattern.search(filename):
@@ -429,7 +522,9 @@ def get_git_files_mime(mime_type="text/x-python", ignore_patterns_re=None):
     return result
 
 
-def get_based_on_master(repo, master_branch, config):
+def get_based_on_master(
+    repo: List[str], master_branch: str, config: c2cciutils.configuration.Configuration
+) -> bool:
     """
     Check that we are not on a release branch (to avoid errors in versions check).
 

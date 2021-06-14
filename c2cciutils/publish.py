@@ -7,6 +7,7 @@ import pickle
 import subprocess
 import sys
 import uuid
+from typing import Optional
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -14,11 +15,12 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
 import c2cciutils
+import c2cciutils.configuration
 
 
 class GoogleCalendar:
     # pylint: disable=too-many-instance-attributes
-    def __init__(self):
+    def __init__(self) -> None:
         self.scopes = ["https://www.googleapis.com/auth/calendar"]  # in fact it is better to hard-code this
         self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", "/tmp/{}.pickle".format(uuid.uuid4()))
         self.credentials_json_file = os.environ.get(
@@ -43,23 +45,24 @@ class GoogleCalendar:
             c2cciutils.gopass("gs/ci/google_calendar/client_secret"),
         )
 
-        self.init_calendar_service()
+        self.creds: Credentials = self.init_calendar_service()
+        self._update_creds()
+        self.service = build("calendar", "v3", credentials=self.creds)
 
-    def init_calendar_service(self):
-        self.creds = None
+    def init_calendar_service(self) -> Credentials:
         # The file token pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
         if os.path.exists(self.credentials_pickle_file):
             with open(self.credentials_pickle_file, "rb") as token:
-                self.creds = pickle.load(token)
+                creds = pickle.load(token)
         # If there are no (valid) credentials available, let the user log in.
-        if not self.creds or not self.creds.valid:
-            if self.creds and self.creds.expired and self.creds.refresh_token:
-                self.creds.refresh(Request())
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
             else:
                 if self.token:
-                    self.creds = Credentials(
+                    creds = Credentials(
                         self.token,
                         refresh_token=self.refresh_token,
                         token_uri=self.token_uri,
@@ -69,23 +72,21 @@ class GoogleCalendar:
                     )
                 else:
                     flow = InstalledAppFlow.from_client_secrets_file(self.credentials_json_file, self.scopes)
-                    self.creds = flow.run_local_server(port=0)
-                    self.refresh_token = self.creds
+                    creds = flow.run_local_server(port=0)
+                    self.refresh_token = creds
 
             # Save the credentials for the next run
             with open(self.credentials_pickle_file, "wb") as token:
-                pickle.dump(self.creds, token)
-        self._update_creds()
-        self.service = build("calendar", "v3", credentials=self.creds)
+                pickle.dump(creds, token)
 
-    def _update_creds(self):
+    def _update_creds(self) -> None:
         self.client_id = self.creds.client_id
         self.client_secret = self.creds.client_secret
         self.token = self.creds.token
         self.token_uri = self.creds.token_uri
         self.refresh_token = self.creds.refresh_token
 
-    def print_all_calendars(self):
+    def print_all_calendars(self) -> None:
         # list all the calendars that the user has access to.
         # used to debug credentials
         print("Getting list of calendars")
@@ -101,7 +102,7 @@ class GoogleCalendar:
             primary = "Primary" if calendar.get("primary") else ""
             print("%s\t%s\t%s" % (summary, event_id, primary))
 
-    def print_latest_events(self, time_min=None):
+    def print_latest_events(self, time_min: Optional[datetime.datetime] = None) -> None:
         now = datetime.datetime.utcnow()
         if not time_min:
             time_min = datetime.datetime.utcnow() - datetime.timedelta(days=30)
@@ -126,9 +127,9 @@ class GoogleCalendar:
 
     def create_event(
         self,
-        summary="dummy/image:{}".format(datetime.datetime.now().isoformat()),
-        description="description",
-    ):
+        summary: str = "dummy/image:{}".format(datetime.datetime.now().isoformat()),
+        description: str = "description",
+    ) -> None:
         now = datetime.datetime.now()
         start = now.isoformat()
         end = (now + datetime.timedelta(minutes=15)).isoformat()
@@ -142,11 +143,11 @@ class GoogleCalendar:
         event_result = self.service.events().insert(calendarId=self.calendar_id, body=body).execute()
         print("created event with id: {}".format(event_result["id"]))
 
-    def _print_credentials(self):
+    def _print_credentials(self) -> None:
         # UNSAFE: DO NEVER PRINT CREDENTIALS IN CI ENVIRONMENT, DEBUG ONLY!!!!
         print(self.creds.to_json())
 
-    def save_credentials_to_gopass(self):
+    def save_credentials_to_gopass(self) -> None:
         objs_to_save = {
             "gs/ci/google_calendar/calendarId": self.calendar_id,
             "gs/ci/google_calendar/token": self.token,
@@ -156,9 +157,10 @@ class GoogleCalendar:
             "gs/ci/google_calendar/client_secret": self.client_secret,
         }
         for key, secret in objs_to_save.items():
+            assert secret is not None
             c2cciutils.gopass_put(secret, key)
 
-    def __del__(self):
+    def __del__(self) -> None:
         if os.path.exists(self.credentials_pickle_file):
             os.remove(self.credentials_pickle_file)
 
@@ -199,7 +201,9 @@ def main_calendar() -> None:
         google_calendar.create_event()
 
 
-def pip(package, version, version_type, publish):
+def pip(
+    package: c2cciutils.configuration.PublishPypiPackage, version: str, version_type: str, publish: bool
+) -> bool:
     """
     Publish to pypi
 
@@ -240,7 +244,13 @@ def pip(package, version, version_type, publish):
     return True
 
 
-def docker(config, name, image_config, tag_src, tag_dst):
+def docker(
+    config: c2cciutils.configuration.PublishDockerRepository,
+    name: str,
+    image_config: c2cciutils.configuration.PublishDockerImage,
+    tag_src: str,
+    tag_dst: str,
+) -> bool:
     """
     Publish to a docker registry
 

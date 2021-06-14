@@ -1,0 +1,656 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/camptocamp/tilecloud-chain/master/tilecloud_chain/schema.json",
+  "type": "object",
+  "title": "configuration",
+  "description": "C2C CI utils configuration file",
+  "additionalProperties": false,
+  "definitions": {
+    "audit_npm": {
+      "title": "audit npm",
+      "description": "The npm audit configuration",
+      "oneOf": [
+        {
+          "title": "audit npm config",
+          "description": "The npm audit configuration",
+          "type": "object",
+          "properties": {
+            "cwe_ignore": {
+              "description": "The list of CWE id to be ignored",
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "audit_outdated_versions": {
+      "title": "Audit outdated versions",
+      "description": "Audit of outdated version",
+      "type": "boolean"
+    },
+    "audit_pip": {
+      "title": "Audit pip",
+      "description": "Audit the requirements.txt files",
+      "type": "boolean"
+    },
+    "audit_pipenv": {
+      "title": "Audit pipenv",
+      "description": "The audit Pipfile and Pipfile.lock configuration (old version)",
+      "oneOf": [
+        {
+          "title": "Audit pipenv config",
+          "description": "The audit Pipfile and Pipfile.lock configuration (old version)",
+          "type": "object",
+          "properties": {
+            "python_versions": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "audit_pipfile": {
+      "title": "Audit pipfile",
+      "description": "The audit Pipfile configuration",
+      "oneOf": [
+        {
+          "title": "Audit pipfile config",
+          "description": "The audit Pipfile configuration",
+          "type": "object",
+          "properties": {
+            "sections": {
+              "description": "The section to be audited",
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "audit_pipfile_lock": {
+      "title": "Audit pipfile lock",
+      "description": "The audit Pipfile.lock configuration",
+      "oneOf": [
+        {
+          "title": "Audit pipfile lock config",
+          "description": "The audit Pipfile.lock configuration",
+          "type": "object",
+          "properties": {
+            "sections": {
+              "description": "The section to be audited",
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_black": {
+      "title": "Checks black",
+      "description": "The Black check configuration",
+      "oneOf": [
+        {
+          "title": "Checks black config",
+          "description": "The Black check configuration",
+          "type": "object",
+          "properties": {
+            "properties": {
+              "type": "object"
+            },
+            "ignore_patterns_re": {
+              "description": "List of regular expression that should be ignored",
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_black_config": {
+      "title": "Checks black configuration",
+      "description": "The Black configuration check configuration",
+      "oneOf": [
+        {
+          "title": "Checks black configuration config",
+          "description": "The Black configuration check configuration",
+          "type": "object",
+          "properties": {
+            "properties": {
+              "description": "The properties key = value thet should be present",
+              "type": "object",
+              "additionalProperties": { "type": ["number", "string"] }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_codespell": {
+      "title": "Checks codespell",
+      "description": "The codespell check configuration",
+      "oneOf": [
+        {
+          "title": "Checks codespell config",
+          "description": "The codespell check configuration",
+          "type": "object",
+          "properties": {
+            "arguments": {
+              "description": "List of argument that will be added to the codspell command",
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "ignore_re": {
+              "description": "List of regular expression that should be ignored",
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_dependabot_config": {
+      "title": "Checks Dependabot configuration",
+      "description": "The Dependabot configuration check configuration",
+      "oneOf": [
+        {
+          "title": "Checks Dependabot configuration config",
+          "description": "The Dependabot configuration check configuration",
+          "type": "object",
+          "properties": {
+            "ignore_version_files": {
+              "description": "List of files to be ignored",
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "types": {
+              "description": "List of check that should be present in the Dependabot config",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ecosystem": {
+                    "description": "The use ecosystem",
+                    "type": "string"
+                  },
+                  "filename": {
+                    "description": "The use filename",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "update_ignore": {
+              "description": "List of files to be ignored",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "package-ecosystem": {
+                    "description": "The use ecosystem",
+                    "type": "string"
+                  },
+                  "directory": {
+                    "description": "The use directory",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_editorconfig": {
+      "title": "Checks editorconfig",
+      "description": "The editorconfig configuration check configuration",
+      "oneOf": [
+        {
+          "title": "Checks editorconfig config",
+          "description": "The editorconfig configuration check configuration",
+          "type": "object",
+          "properties": {
+            "properties": {
+              "description": "The key = value that should be present in the configuration",
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_eof": {
+      "title": "checks eof",
+      "description": "Check the end-of-file",
+      "type": "boolean"
+    },
+    "checks_gitattribute": {
+      "title": "checks gitattribute",
+      "description": "Run the Git attributes check",
+      "type": "boolean"
+    },
+    "checks_isort": {
+      "title": "checks isort",
+      "description": "The isort check configuration",
+      "oneOf": [
+        {
+          "title": "checks isort config",
+          "description": "The isort check configuration",
+          "type": "object",
+          "properties": {
+            "ignore_patterns_re": {
+              "description": "List of regular expression that should be ignored",
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_print_config": {
+      "title": "Checks print config",
+      "description": "The print the autogenerated configguration",
+      "type": "boolean"
+    },
+    "checks_required_workflows": {
+      "title": "checks required workflows",
+      "description": "The required workflow check configuration",
+      "oneOf": [
+        {
+          "title": "checks required workflows config",
+          "description": "The required workflow check configuration",
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "steps": {
+                    "description": "The required steps configuration",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "env": {
+                          "description": "The required environment variable",
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "run_re": {
+                          "description": "The required regular expression of the run part",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "strategy-fail-fast": {
+                    "description": "Should we have a fail fast configuration",
+                    "type": "boolean"
+                  },
+                  "if": {
+                    "description": "The if that we should have",
+                    "type": "string"
+                  },
+                  "noif": {
+                    "description": "We shouldn't have any if",
+                    "type": "boolean"
+                  },
+                  "on": {
+                    "description": "The on configuration that we should have",
+                    "type": "object"
+                  }
+                }
+              },
+              { "type": "boolean" }
+            ]
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_versions": {
+      "title": "checks versions",
+      "description": "The version check configuration",
+      "oneOf": [
+        {
+          "title": "checks versions config",
+          "description": "The version check configuration",
+          "type": "object",
+          "properties": {
+            "audit": {
+              "description": "Check the versions in the audit workflow",
+              "type": "boolean"
+            },
+            "backport_labels": {
+              "description": "Check the versions of the backport labels",
+              "type": "boolean"
+            },
+            "branches": {
+              "description": "Check the versions of the protected branches",
+              "type": "boolean"
+            },
+            "extra_versions": {
+              "description": "Versions that are not in the `SECURITY.md` but should still be consided",
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "rebuild": {
+              "description": "Check the versions in the rebuild workflows",
+              "oneOf": [
+                {
+                  "title": "checks versions rebuild",
+                  "description": "Check the versions in the rebuild workflows",
+                  "type": "object",
+                  "properties": {
+                    "files": {
+                      "description": "The workflows files name",
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  }
+                },
+                { "const": false }
+              ]
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_workflows": {
+      "title": "checks workflows",
+      "description": "The workflows checks configuration",
+      "oneOf": [
+        {
+          "title": "checks workflows config",
+          "description": "The workflows checks configuration",
+          "type": "object",
+          "properties": {
+            "images_blacklist": {
+              "description": "The images that shouldn't be used",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "timeout": {
+              "description": "A timeout should be present",
+              "type": "boolean"
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "checks_setup": {
+      "title": "checks setup",
+      "description": "Check the typing options in setup.cfg and in setup.py",
+      "oneOf": [
+        {
+          "title": "checks setup config",
+          "description": "Check the typing options in setup.cfg and in setup.py",
+          "type": "object",
+          "properties": {
+            "ignore_file": {
+              "description": "list of files to be ignored",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "cfg": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              }
+            },
+            "classifiers": {
+              "description": "list of required classifiers",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "publish_docker": {
+      "title": "Publish Docker",
+      "description": "The configuration used to publish on Docker",
+      "oneOf": [
+        {
+          "title": "Publish Docker config",
+          "description": "The configuration used to publish on Docker",
+          "type": "object",
+          "properties": {
+            "images": {
+              "description": "List of images to be published",
+              "type": "array",
+              "items": {
+                "title": "Publish Docker image",
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "description": "The image is in the group, should be used with the --group option of c2cciutils-publish script",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "The image name",
+                    "type": "string"
+                  },
+                  "tags": {
+                    "description": "The tag name, will be formatted with the version=<the version>, the image with version=latest should be present when we call the c2cciutils-publish script",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "repository": {
+              "description": "The repository where we should publish the images",
+              "type": "object",
+              "additionalProperties": {
+                "title": "Publish Docker repository",
+                "type": "object",
+                "properties": {
+                  "server": {
+                    "description": "The server URL",
+                    "type": "string"
+                  },
+                  "versions": {
+                    "description": "The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "publish_google_calendar": {
+      "title": "Publish Google calendar",
+      "description": "The configuration to publish on Google Calendar",
+      "oneOf": [
+        {
+          "title": "Publish Google calendar config",
+          "description": "The configuration to publish on Google Calendar",
+          "type": "object",
+          "properties": {
+            "on": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
+    "publish_pypi": {
+      "title": "publish pypi",
+      "description": "Configuration to publish on pypi",
+      "oneOf": [
+        {
+          "title": "publish pypi config",
+          "description": "Configuration to publish on pypi",
+          "type": "object",
+          "properties": {
+            "packages": {
+              "description": "The configuration of packages that will be published",
+              "type": "array",
+              "items": {
+                "title": "publish pypi package",
+                "description": "The configuration of package that will be published",
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "description": "The image is in the group, should be used with the --group option of c2cciutils-publish script",
+                    "type": "string"
+                  },
+                  "path": {
+                    "description": "The path of the pypi package",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "versions": {
+              "description": "The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "const": false
+        }
+      ]
+    },
+    "print_versions": {
+      "title": "Print versions",
+      "description": "The print versions configuration",
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cmd": {
+                "description": "The command that should be used",
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "name": {
+                "description": "The name",
+                "type": "string"
+              },
+              "prefix": {
+                "description": "Prefix added when we print the version",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "version_transform": {
+      "title": "Version transform",
+      "description": "A version transformer definition",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "description": "The from regular expression",
+            "type": "string"
+          },
+          "to": {
+            "description": "The expand regular expression: https://docs.python.org/3/library/re.html#re.Match.expand",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "audit": {
+      "title": "Audit",
+      "description": "The audit configuration",
+      "type": "object",
+      "properties": {
+        "npm": { "$ref": "#/definitions/audit_npm" },
+        "outdated_versions": { "$ref": "#/definitions/audit_outdated_versions" },
+        "pip": { "$ref": "#/definitions/audit_pip" },
+        "pipenv": { "$ref": "#/definitions/audit_pipenv" },
+        "pipfile": { "$ref": "#/definitions/audit_pipfile" },
+        "pipfile_lock": { "$ref": "#/definitions/audit_pipfile_lock" },
+        "print_versions": { "$ref": "#/definitions/print_versions" }
+      }
+    },
+    "checks": {
+      "title": "Checks",
+      "description": "The checkers configurations",
+      "type": "object",
+      "properties": {
+        "black": { "$ref": "#/definitions/checks_black" },
+        "black_config": { "$ref": "#/definitions/checks_black_config" },
+        "codespell": { "$ref": "#/definitions/checks_codespell" },
+        "dependabot_config": { "$ref": "#/definitions/checks_dependabot_config" },
+        "editorconfig": { "$ref": "#/definitions/checks_editorconfig" },
+        "eof": { "$ref": "#/definitions/checks_eof" },
+        "gitattribute": { "$ref": "#/definitions/checks_gitattribute" },
+        "isort": { "$ref": "#/definitions/checks_isort" },
+        "print_config": { "$ref": "#/definitions/checks_print_config" },
+        "required_workflows": { "$ref": "#/definitions/checks_required_workflows" },
+        "versions": { "$ref": "#/definitions/checks_versions" },
+        "workflows": { "$ref": "#/definitions/checks_workflows" },
+        "setup": { "$ref": "#/definitions/checks_setup" },
+        "print_versions": { "$ref": "#/definitions/print_versions" }
+      }
+    },
+    "publish": {
+      "title": "Publish",
+      "description": "The publishing configurations",
+      "type": "object",
+      "properties": {
+        "docker": { "$ref": "#/definitions/publish_docker" },
+        "pypi": { "$ref": "#/definitions/publish_pypi" },
+        "google_calendar": { "$ref": "#/definitions/publish_google_calendar" },
+        "print_versions": { "$ref": "#/definitions/print_versions" }
+      }
+    },
+    "version": {
+      "title": "Version",
+      "description": "The version configurations",
+      "type": "object",
+      "properties": {
+        "branch_to_version_re": { "$ref": "#/definitions/version_transform" },
+        "tag_to_version_re": { "$ref": "#/definitions/version_transform" }
+      }
+    }
+  }
+}
