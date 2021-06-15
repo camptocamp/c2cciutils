@@ -260,9 +260,9 @@ def get_config() -> c2cciutils.configuration.Configuration:
                 config.get("checks", {}).get("required_workflows", {}),
             )
     elif len(check_version_config_rebuild.get("files", [])) == 0:
-        assert isinstance(config["checks"]["versions"], dict)
-        config["checks"]["versions"]["rebuild"] = False
-        check_version_config_rebuild = {}
+        if isinstance(config["checks"]["versions"], dict):
+            config["checks"]["versions"]["rebuild"] = False
+            check_version_config_rebuild = {}
 
     if check_version_config.get("rebuild", False):
         required_workflows = {
