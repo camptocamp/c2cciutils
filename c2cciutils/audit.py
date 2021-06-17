@@ -223,6 +223,28 @@ def pipenv(
     return success
 
 
+def get_global_npm_cve() -> List[int]:
+    with open("/tmp/package.json", "w") as package:
+        package.write("{}")
+
+    subprocess.check_call(["npm", "install", "--package-lock-only"], cwd="/tmp")
+    audit = json.loads(
+        # Don't use check=True because audit will return an error on any vulnerabilities found
+        # and we want to manage that ourself.
+        subprocess.run(  # pylint: disable=subprocess-run-check
+            ["npm", "audit", "--json"], stdout=subprocess.PIPE, cwd="/tmp"
+        ).stdout
+    )
+
+    if "error" in audit:
+        print(yaml.dump(audit["error"], default_flow_style=False, Dumper=yaml.SafeDumper))
+        return []
+
+    return [
+        vunerability["id"] for vunerability in audit.get("advisories", audit.get("vulnerabilities")).values()
+    ]
+
+
 def npm(
     config: c2cciutils.configuration.AuditNpmConfig,
     full_config: c2cciutils.configuration.Configuration,
@@ -236,6 +258,7 @@ def npm(
     """
     del full_config, args
 
+    global_cve = get_global_npm_cve()
     global_success = True
     for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
         success = True
@@ -274,6 +297,8 @@ def npm(
 
         for vunerability in audit.get("advisories", audit.get("vulnerabilities")).values():
             if vunerability["cwe"] in cwe_ignores:
+                continue
+            if vunerability["id"] in global_cve:
                 continue
             if vunerability["id"] not in all_ignores:
                 vulnerabilities[vunerability["id"]] = vunerability
