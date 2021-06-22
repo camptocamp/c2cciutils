@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+"""
+Read the table of versions from SECURITY.md.
+"""
 
 import xml.etree.ElementTree
 from typing import List, Optional
@@ -10,7 +13,7 @@ from markdown.extensions.tables import TableExtension
 
 class Security:
     """
-    Read the table of versions got from SECURITY.md
+    Read the table of versions from SECURITY.md.
     """
 
     headers: List[str]
@@ -19,7 +22,9 @@ class Security:
 
     def __init__(self, status: str):
         """
-        Parameters:
+        Initialize.
+
+        Arguments:
             status: the content of the SECURITY.md file.
         """
 
@@ -39,7 +44,10 @@ class Security:
 
     def _pe(self, elem: xml.etree.ElementTree.Element) -> None:
         """
-        Parse the HTML table
+        Parse the HTML table.
+
+        Arguments:
+            elem: The XML element
         """
         if elem.tag == "th":
             assert elem.text is not None

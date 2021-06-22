@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+The auditing functions.
+"""
 
 import datetime
 import json
@@ -25,7 +28,12 @@ def print_versions(
     args: Namespace,
 ) -> bool:
     """
-    Print the versions
+    Print the versions.
+
+    Arguments:
+        config: The audit section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -105,7 +113,12 @@ def pip(
     args: Namespace,
 ) -> bool:
     """
-    Audit all the `requirements.txt` files
+    Audit all the `requirements.txt` files.
+
+    Arguments:
+        config: The audit section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del config, full_config, args
 
@@ -126,6 +139,11 @@ def pipfile(
 
     config is like:
         sections: [...] # to select withch section we want to check
+
+    Arguments:
+        config: The audit section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -153,10 +171,15 @@ def pipfile_lock(
     args: Namespace,
 ) -> bool:
     """
-    Audit all the `Pipfile.lock` files
+    Audit all the `Pipfile.lock` files.
 
     config is like:
         sections: [...] # to select withch section we want to check
+
+    Arguments:
+        config: The audit section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -185,6 +208,11 @@ def pipenv(
     config is like:
         `python_versions`: []  # Python version of asdf environment the we should setup to be able to do
             the check
+
+    Arguments:
+        config: The audit section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -224,6 +252,9 @@ def pipenv(
 
 
 def get_global_npm_cve() -> List[int]:
+    """
+    Get the CVE which were installed globally by GitHub.
+    """
     with open("/tmp/package.json", "w") as package:
         package.write("{}")
 
@@ -253,8 +284,13 @@ def npm(
     """
     Audit all the `package.json` files.
 
-    config:
+    config is like:
       cwe_ignore: list of ignored CWE
+
+    Arguments:
+        config: The audit section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -352,7 +388,12 @@ def outdated_versions(
     args: Namespace,
 ) -> bool:
     """
-    Check that the versions from the SECURITY.md are not outdated
+    Check that the versions from the SECURITY.md are not outdated.
+
+    Arguments:
+        config: The audit section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del config, full_config
 

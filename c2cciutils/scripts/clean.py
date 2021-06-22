@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+The clean main function.
+"""
 
 import json
 import os
@@ -14,7 +17,12 @@ import c2cciutils
 
 def clean(image: str, tag: str, token: str) -> None:
     """
-    Delete an image on Docker hub
+    Delete an image from Docker hub.
+
+    Arguments:
+        image: The image name that should be deleted (<organistation>/<name>)
+        tag: The tag that should be deleted
+        token: The token used to be authenticated on Docker hub
     """
 
     print("Delete image '{image}:{tag}'.".format(image=image, tag=tag))
@@ -41,6 +49,9 @@ def clean(image: str, tag: str, token: str) -> None:
 
 
 def main() -> None:
+    """
+    Run the main function.
+    """
     username = (
         os.environ["DOCKERHUB_USERNAME"]
         if "DOCKERHUB_USERNAME" in os.environ

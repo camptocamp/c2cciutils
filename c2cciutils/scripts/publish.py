@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+The publish script.
+"""
+
 import argparse
 import os
 import re
@@ -14,7 +18,11 @@ from c2cciutils.publish import GoogleCalendar
 
 def match(tpe: str, base_re: str) -> Optional[Match[str]]:
     """
-    Return the match for `GITHUB_REF` basically like: `refs/<type>/<base_re>`
+    Return the match for `GITHUB_REF` basically like: `refs/<tpe>/<base_re>`.
+
+    Arguments:
+        tpe: The type of ref we want to match (heads, tag, ...)
+        base_re: The regular expression to match the value
     """
     if base_re[0] == "^":
         base_re = base_re[1:]
@@ -25,7 +33,12 @@ def match(tpe: str, base_re: str) -> Optional[Match[str]]:
 
 def to_version(full_config: c2cciutils.configuration.Configuration, value: str, kind: str) -> str:
     """
-    Compute publish version from branch name or tag
+    Compute publish version from branch name or tag.
+
+    Arguments:
+        full_config: The full configuration
+        value: The value to be transformed
+        kind: The name of the transformer in the configuration
     """
     item_re = c2cciutils.compile_re(
         cast(
@@ -39,6 +52,9 @@ def to_version(full_config: c2cciutils.configuration.Configuration, value: str, 
 
 
 def main() -> None:
+    """
+    Run the publish.
+    """
     parser = argparse.ArgumentParser(description="Publish the project.")
     parser.add_argument("--group", default="default", help="The publishing group")
     parser.add_argument("--version", help="The version to publish to")

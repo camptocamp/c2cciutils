@@ -1,3 +1,7 @@
+"""
+The package setup.
+"""
+
 import os
 import site
 import sys
@@ -14,6 +18,9 @@ with open("requirements.txt") as requirements:
 
 
 def long_description() -> str:
+    """
+    Get the long description from README.md file.
+    """
     try:
         with open("README.md") as readme_file:
             return readme_file.read()
