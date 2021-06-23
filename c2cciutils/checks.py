@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+The checking functions.
+"""
 
 import configparser
 import glob
@@ -26,7 +29,12 @@ def print_config(
     args: Namespace,
 ) -> bool:
     """
-    Print the config
+    Print the configuration.
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del config, args
 
@@ -42,7 +50,12 @@ def print_environment_variables(
     config: None, full_config: c2cciutils.configuration.Configuration, args: Namespace
 ) -> bool:
     """
-    Print the environment variables
+    Print the environment variables.
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del config, full_config, args
 
@@ -55,7 +68,12 @@ def print_github_event(
     config: None, full_config: c2cciutils.configuration.Configuration, args: Namespace
 ) -> bool:
     """
-    Print the GitHub event
+    Print the GitHub event.
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del config, full_config, args
 
@@ -71,10 +89,15 @@ def black_config(
     args: Namespace,
 ) -> bool:
     """
-    Check the black configuration
+    Check the black configuration.
 
     config is like:
         properties: # dictionary of properties to check
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -126,11 +149,16 @@ def editorconfig(
     args: Namespace,
 ) -> bool:
     """
-    Check the right editorconfig configuration
+    Check the editorconfig configuration.
 
     config is like:
         properties:
           <file_pattern>: {} # dictionary of properties to check
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -168,7 +196,12 @@ def gitattribute(
     args: Namespace,
 ) -> bool:
     """
-    Check that we don't have any error with the gitattributes
+    Check that we don't have any error with the gitattributes.
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del config, full_config, args
 
@@ -196,8 +229,13 @@ FNULL = open(os.devnull, "w")
 
 
 def eof(config: None, full_config: c2cciutils.configuration.Configuration, args: Namespace) -> bool:
-    """
-    Check the files eof
+    r"""
+    Check the non empty text files end with "\n".
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del config, full_config
 
@@ -247,11 +285,16 @@ def workflows(
     args: Namespace,
 ) -> bool:
     """
-    Do some generic check on the workflows
+    Check each workflow have a timeout and/or do not use blacklisted images.
 
     config is like:
         images_blacklist: [] # list of `runs-on` images to blacklist
         timeout: True # check that all the workflow have a timeout
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -290,7 +333,7 @@ def required_workflows(
     args: Namespace,
 ) -> bool:
     """
-    Test that we have the required workflow with the required element
+    Test we have the required workflow with the required properties.
 
     config is like:
         <filename>: # if set directly to `True` just check that the file is present, to `False`
@@ -301,6 +344,11 @@ def required_workflows(
             strategy-fail-fast: False # If present check the value of the `fail-fast`, on all the jobs.
             if: # if present check the value of the `if`, on all the jobs.
             noif: # if `True` theck that we don't have an `if`.
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -413,8 +461,10 @@ def versions(
     args: Namespace,
 ) -> bool:
     """
-    Verify that various GitHub / CI tools versions or branches configuration match with versions
-    from `SECURITY.md` file.
+    Verify various GitHub / CI tools versions or branches configurations.
+
+    Versions from audit workflow, rebuild workdlow(s), protected branches and backport labels
+    match with versions from `SECURITY.md` file.
     The columns `Version` and `Supported Until` should be present.
     The `Supported Until` should contains dates formatted as `dd/mm/yyyy`, or `Unsupported`
     (we ignore those lines), or `Best effort`, or `To be defined`.
@@ -426,6 +476,11 @@ def versions(
         branches: # if `True` check that the required branches exists
         rebuild: # if `False` not runs this check
           files: [] # list of workflow files to run to rebuild all the required branches
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
 
     del args
@@ -482,6 +537,10 @@ def _get_branch_matrix(
 ) -> List[str]:
     """
     Get the branches from a `strategy` `matrix`, and return the corresponding version.
+
+    Arguments:
+        job: The job from the GitHub workflow
+        branch_to_version_re: The transform configuration
     """
 
     branch = job.get("strategy", {}).get("matrix", {}).get("branch", [])
@@ -490,7 +549,11 @@ def _get_branch_matrix(
 
 def _versions_audit(all_versions: Set[str], full_config: c2cciutils.configuration.Configuration) -> bool:
     """
-    Check that the audit branches correspond to the version from the Security.md
+    Check the audit branches match with the versions from the Security.md.
+
+    Arguments:
+        all_versions: All the required versions
+        full_config: All the CI configuration
     """
     success = True
     filename = ".github/workflows/audit.yaml"
@@ -531,7 +594,12 @@ def _versions_rebuild(
     full_config: c2cciutils.configuration.Configuration,
 ) -> bool:
     """
-    Check that the rebuild branches correspond to the version from the Security.md
+    Check the rebuild branches match with the versions from the Security.md.
+
+    Arguments:
+        all_versions: All the required versions
+        config: The check section configuration
+        full_config: All the CI configuration
     """
     success = True
     rebuild_versions = []
@@ -567,7 +635,11 @@ def _versions_backport_labels(
     all_versions: Set[str], full_config: c2cciutils.configuration.Configuration
 ) -> bool:
     """
-    Check that the backport labels correspond to the version from the Security.md
+    Check the backport labels match with the version from the Security.md.
+
+    Arguments:
+        all_versions: All the required versions
+        full_config: All the CI configuration
     """
     success = True
     try:
@@ -607,7 +679,11 @@ def _versions_backport_labels(
 
 def _versions_branches(all_versions: Set[str], full_config: c2cciutils.configuration.Configuration) -> bool:
     """
-    Check that the branches correspond to the version from the Security.md
+    Check the branches match with the versions from the Security.md.
+
+    Arguments:
+        all_versions: All the required versions
+        full_config: All the CI configuration
     """
     success = True
     try:
@@ -676,10 +752,15 @@ def black(
     args: Namespace,
 ) -> bool:
     """
-    Run black check on all files including Python files without .py extension
+    Run black check on all files including Python files without .py extension.
 
     config is like:
       ignore_patterns_re: [] # list of regular expression we should ignore
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config
 
@@ -709,10 +790,15 @@ def isort(
     args: Namespace,
 ) -> bool:
     """
-    Run isort check on all files including Python files without .py extension
+    Run isort check on all files including Python files without .py extension.
 
     config is like:
       ignore_patterns_re: [] # list of regular expression we should ignore
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config
 
@@ -742,13 +828,18 @@ def codespell(
     args: Namespace,
 ) -> bool:
     """
-    Run codespell check on all files
+    Run codespell check on all files.
 
-    If therer is an `spell-ignore-words.txt` file we consider it with ignore word
+    If there is an `spell-ignore-words.txt` file we consider it with ignore word
 
     config is like:
         ignore_re: [] # list of patterns to be ignored
         arguments: [] # codespell arguments
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config
 
@@ -788,6 +879,8 @@ def dependabot_config(
     args: Namespace,
 ) -> bool:
     """
+    Check the Dependabot configuration.
+
     config can be False or dict, with:
         types:
           - filename: the filename to be checked
@@ -797,6 +890,11 @@ def dependabot_config(
         update_ignore: # ignore the rule for ignore used to ignore all the `@dependabot ignore`
           - directory: # The directory
             ecosystem: # The dependabot package echosystem
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -926,7 +1024,7 @@ def setup(
     args: Namespace,
 ) -> bool:
     """
-    Check the typing options
+    Check the typing options.
 
     in setup.cfg:
     [mypy]
@@ -946,6 +1044,11 @@ def setup(
             strict: True
       classifiers: # list of required classifiers
         - Typing :: Typed
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 
@@ -1035,7 +1138,12 @@ def print_versions(
     args: Namespace,
 ) -> bool:
     """
-    Print some tools version
+    Print some tools versions.
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
     """
     del full_config, args
 

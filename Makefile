@@ -2,7 +2,7 @@ GITHUB_REPOSITORY ?= camptocamp/c2cciutils
 
 .PHONY: build
 build: checks
-		docker build --tag=$(GITHUB_REPOSITORY) .
+	docker build --tag=$(GITHUB_REPOSITORY) .
 
 .PHONY: build-checker
 build-checker:

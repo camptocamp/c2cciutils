@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+The publishing functions.
+"""
+
 import argparse
 import datetime
 import glob
@@ -19,8 +23,15 @@ import c2cciutils.configuration
 
 
 class GoogleCalendar:
+    """
+    Interact with the Google Calendar API.
+    """
+
     # pylint: disable=too-many-instance-attributes
     def __init__(self) -> None:
+        """
+        Initialize.
+        """
         self.scopes = ["https://www.googleapis.com/auth/calendar"]  # in fact it is better to hard-code this
         self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", "/tmp/{}.pickle".format(uuid.uuid4()))
         self.credentials_json_file = os.environ.get(
@@ -50,6 +61,9 @@ class GoogleCalendar:
         self.service = build("calendar", "v3", credentials=self.creds)
 
     def init_calendar_service(self) -> Credentials:
+        """
+        Initialize the calendar service.
+        """
         # The file token pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
@@ -80,6 +94,9 @@ class GoogleCalendar:
                 pickle.dump(creds, token)
 
     def _update_creds(self) -> None:
+        """
+        Update the credentials.
+        """
         self.client_id = self.creds.client_id
         self.client_secret = self.creds.client_secret
         self.token = self.creds.token
@@ -87,6 +104,9 @@ class GoogleCalendar:
         self.refresh_token = self.creds.refresh_token
 
     def print_all_calendars(self) -> None:
+        """
+        Print all calendar events.
+        """
         # list all the calendars that the user has access to.
         # used to debug credentials
         print("Getting list of calendars")
@@ -103,6 +123,12 @@ class GoogleCalendar:
             print("%s\t%s\t%s" % (summary, event_id, primary))
 
     def print_latest_events(self, time_min: Optional[datetime.datetime] = None) -> None:
+        """
+        Print latest events.
+
+        Arguments:
+            time_min: The time to be considered.
+        """
         now = datetime.datetime.utcnow()
         if not time_min:
             time_min = datetime.datetime.utcnow() - datetime.timedelta(days=30)
@@ -130,6 +156,13 @@ class GoogleCalendar:
         summary: str = "dummy/image:{}".format(datetime.datetime.now().isoformat()),
         description: str = "description",
     ) -> None:
+        """
+        Create a calendar event.
+
+        Arguments:
+            summary: The event summary
+            description: The event description
+        """
         now = datetime.datetime.now()
         start = now.isoformat()
         end = (now + datetime.timedelta(minutes=15)).isoformat()
@@ -144,10 +177,16 @@ class GoogleCalendar:
         print("created event with id: {}".format(event_result["id"]))
 
     def _print_credentials(self) -> None:
+        """
+        Print the credentials.
+        """
         # UNSAFE: DO NEVER PRINT CREDENTIALS IN CI ENVIRONMENT, DEBUG ONLY!!!!
         print(self.creds.to_json())
 
     def save_credentials_to_gopass(self) -> None:
+        """
+        Save the calendar credentials to gopass.
+        """
         objs_to_save = {
             "gs/ci/google_calendar/calendarId": self.calendar_id,
             "gs/ci/google_calendar/token": self.token,
@@ -166,6 +205,9 @@ class GoogleCalendar:
 
 
 def main_calendar() -> None:
+    """
+    Run the calendar main function.
+    """
     parser = argparse.ArgumentParser(
         description="Interact with google API for the docker publishing calendar"
     )
@@ -205,13 +247,14 @@ def pip(
     package: c2cciutils.configuration.PublishPypiPackage, version: str, version_type: str, publish: bool
 ) -> bool:
     """
-    Publish to pypi
+    Publish to pypi.
 
-    version_type: Describe the kind of release we do: rebuild (specified using --type), version_tag,
-                  version_branch, feature_branch, feature_tag (for pull request)
-    publish: If False only check the package
-    package is like:
-        path: . # the root folder of the package
+    Arguments:
+        version: The version that will be published
+        version_type: Describe the kind of release we do: rebuild (specified using --type), version_tag,
+                    version_branch, feature_branch, feature_tag (for pull request)
+        publish: If False only check the package
+        package: The package configuration
     """
 
     print("::group::{} '{}' to pypi".format("Publishing" if publish else "Checking", package.get("path")))
@@ -252,13 +295,20 @@ def docker(
     tag_dst: str,
 ) -> bool:
     """
-    Publish to a docker registry
+    Publish to a docker registry.
 
     config is like:
         server: # The server fqdn
 
     image_config is like:
         name: # The image name
+
+    Arguments:
+        config: The publishing config
+        name: The reposotory name, just used to print messages
+        image_config: The image config
+        tag_src: The source tag (usually latest)
+        tag_dst: The tag used for publication
     """
 
     print("::group::Publishing {}:{} to {}".format(image_config["name"], tag_dst, name))

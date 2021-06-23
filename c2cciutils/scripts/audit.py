@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+The audit main function.
+"""
+
 import argparse
 import sys
 
@@ -8,6 +12,9 @@ import c2cciutils.audit
 
 
 def main() -> None:
+    """
+    Run the audit.
+    """
     parser = argparse.ArgumentParser(description="Run the audit of c2cciutils.")
     parser.add_argument("--branch", required=True, help="The audited branch")
 

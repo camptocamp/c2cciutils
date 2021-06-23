@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+c2cciutils shared utils function.
+"""
+
 import json
 import os.path
 import pkgutil
@@ -18,7 +22,7 @@ import c2cciutils.configuration
 
 def get_repository() -> str:
     """
-    Get the current GitHub repository like `organisation/project`
+    Get the current GitHub repository like `organisation/project`.
     """
 
     if "GITHUB_REPOSITORY" in os.environ:
@@ -40,6 +44,10 @@ def get_repository() -> str:
 def merge(default_config: Any, config: Any) -> Any:
     """
     Deep merge the dictionaries (on dictionaries only, not on arrays).
+
+    Arguments:
+        default_config: The default config that will be applied
+        config: The base config, will be modified
     """
 
     if not isinstance(default_config, dict) or not isinstance(config, dict):
@@ -54,6 +62,9 @@ def merge(default_config: Any, config: Any) -> Any:
 
 
 def get_config() -> c2cciutils.configuration.Configuration:
+    """
+    Get the configuration, with project and autodetections.
+    """
     docker = False
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
         if os.path.basename(filename) == "Dockerfile":
@@ -301,6 +312,16 @@ def get_config() -> c2cciutils.configuration.Configuration:
 def validate_config(
     config: c2cciutils.configuration.Configuration, config_file: str
 ) -> c2cciutils.configuration.Configuration:
+    """
+    Validate the configuration.
+
+    Arguments:
+        config: The configuration to be validated
+        config_file: The configuration file name, used to build the error messages
+
+    Return the configusation (used to be chained)
+    Print an message and evantually exit on vailidation error.
+    """
     schema_data = pkgutil.get_data("c2cciutils", "schema.json")
     assert schema_data is not None
 
@@ -332,6 +353,14 @@ def error(
 
     See: https://docs.github.com/en/free-pro-team@latest/actions/reference/ \
         workflow-commands-for-github-actions#setting-an-error-message
+
+    Arguments:
+        checker: The check name, used to prefix the message
+        message: The message
+        file: The file where the error happens
+        line: The line number of the error
+        col: The column number of the error
+        error_type: The kind of error (error or warning)
     """
     result = ""
     on_ci = os.environ.get("CI", "false").lower() == "true"
@@ -368,6 +397,12 @@ def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = 
     Compile the from as a regular expression of a dictionary of the config list.
 
     to be used with convert and match
+
+    Arguments:
+        config: The treansform config
+        prefix: The version prefix
+
+    Return the compiled transform config.
     """
     result = []
     for conf in config:
@@ -389,8 +424,11 @@ def match(
     value: str, config: List[VersionTransform]
 ) -> Tuple[Optional[Match[str]], Optional[VersionTransform], str]:
     """
-    `value` is what we want to match with
-    `config` is the result of `compile`
+    Get the matched version.
+
+    Arguments:
+        value: That we want to match with
+        config: The result of `compile`
 
     Returns the re match object, the matched config and the value as a tuple
     On no match it returns None, value
@@ -404,11 +442,18 @@ def match(
 
 def get_value(matched: Optional[Match[str]], config: Optional[VersionTransform], value: str) -> str:
     """
-    Get the final value
+    Get the final value.
 
     `match`, `config` and `value` are the result of `match`.
 
-    The `config` should have a `to` ad a expand template.
+    The `config` should have a `to` key with an expand template.
+
+    Arguments:
+        matched: The matched object to a regular expression
+        config: The result of `compile`
+        value: The default value on returned no match
+
+    Return the value
     """
     assert config
     return matched.expand(config.get("to", r"\1")) if matched is not None else value
@@ -416,7 +461,10 @@ def get_value(matched: Optional[Match[str]], config: Optional[VersionTransform],
 
 def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
     """
-    Print some tools version
+    Print some tools version.
+
+    Arguments:
+        config: The print configuration
     """
 
     for version in config.get("versions", []):
@@ -434,6 +482,15 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
 
 
 def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
+    """
+    Get a value from gopass.
+
+    Arguments:
+        key: The key to get
+        default: the value to return if gopass is not found
+
+    Return the value
+    """
     try:
         return subprocess.check_output(["gopass", "show", key]).strip().decode()
     except FileNotFoundError:
@@ -443,10 +500,25 @@ def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
 
 
 def gopass_put(secret: str, key: str) -> None:
+    """
+    Put an entry in gopass.
+
+    Arguments:
+        secret: The secret value
+        key: The key
+    """
     subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
 
 
 def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
+    """
+    Add the Authorization header needed to be authenticated on GitHub.
+
+    Arguments:
+        headers: The headers
+
+    Return the headers (to be chained)
+    """
     try:
         headers["Authorization"] = "Bearer {}".format(
             os.environ["GITHUB_TOKEN"].strip()
@@ -460,10 +532,12 @@ def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
 
 def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> Any:
     """
-    Get the result a a graphql on GitHub
+    Get a graphql result from GitHub.
 
-    query_file: the file related this module contains the GraphQL querry
-    variables: the query variables
+    Arguments:
+        query_file: Relative path from this file to the GraphQL query file.
+        variables: The query variables
+        default:  The return result if we are not authorized to get the resource
 
     Return the data result
     In case of error it throw an exception
@@ -502,9 +576,11 @@ def get_git_files_mime(
     mime_type: str = "text/x-python", ignore_patterns_re: Optional[List[str]] = None
 ) -> List[str]:
     """
-    Get all the files in git that have the specified mime type
+    Get list of paths from git with all the files that have the specified mime type.
 
-    ignore_patterns_re: list of regular expression to be ignored
+    Arguments:
+        mime_type: The considered MIME type
+        ignore_patterns_re: A list of regular expressions of files that we should ignore
     """
 
     ignore_patterns_compiled = [re.compile(p) for p in ignore_patterns_re or []]
@@ -530,6 +606,11 @@ def get_based_on_master(
 
     This function will check the last 20 commits in current branch,
     and for each other branch (max 50) check if any commit in last 10 commits is the current one.
+
+    Arguments:
+        repo: The repository [<organisation>, <name>]
+        master_branch: The master branch name
+        config: The full configuration
     """
 
     if os.environ.get("GITHUB_REF", "").startswith("refs/tags/"):

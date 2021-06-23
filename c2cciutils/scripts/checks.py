@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+The checker main function.
+"""
+
 import argparse
 import sys
 
@@ -8,6 +12,9 @@ import c2cciutils.checks
 
 
 def main() -> None:
+    """
+    Run the checks.
+    """
     parser = argparse.ArgumentParser(description="Run the checks of c2cciutils.")
     parser.add_argument("--fix", action="store_true", help="fix black and isort issues")
     parser.add_argument("--stop", action="store_true", help="stop on first error")
