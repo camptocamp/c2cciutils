@@ -411,7 +411,7 @@ def outdated_versions(
     success = True
 
     if not os.path.exists("SECURITY.md"):
-        return False
+        return True
 
     with open("SECURITY.md") as security_file:
         security = c2cciutils.security.Security(security_file.read())
