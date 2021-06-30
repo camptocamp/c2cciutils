@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 The checking functions.
 """
@@ -248,7 +247,7 @@ def eof(config: None, full_config: c2cciutils.configuration.Configuration, args:
             if os.path.isfile(filename):
                 if (
                     subprocess.call(
-                        "git check-attr -a '{}' | grep ' text: set'".format(filename),
+                        f"git check-attr -a '{filename}' | grep ' text: set'",
                         shell=True,
                         stdout=FNULL,
                     )
@@ -265,7 +264,7 @@ def eof(config: None, full_config: c2cciutils.configuration.Configuration, args:
                                 else:
                                     c2cciutils.error(
                                         "eof",
-                                        "No new line at end of '{}' file.".format(filename),
+                                        f"No new line at end of '{filename}' file.",
                                         filename,
                                     )
                                     success = False
@@ -319,7 +318,7 @@ def workflows(
             if job.get("timeout-minutes") is None:
                 c2cciutils.error(
                     "workflows",
-                    "The workflow '{}', job '{}' has no timeout".format(filename, name),
+                    f"The workflow '{filename}', job '{name}' has no timeout",
                     filename,
                 )
                 success = False
@@ -361,7 +360,7 @@ def required_workflows(
         if not os.path.exists(filename):
             c2cciutils.error(
                 "required_workflows",
-                "The workflow '{}' is required".format(filename),
+                f"The workflow '{filename}' is required",
                 filename,
             )
             success = False
@@ -388,7 +387,7 @@ def required_workflows(
                 if "if" in job:
                     c2cciutils.error(
                         "required_workflows",
-                        "The workflow '{}', job '{}' should not have a if".format(filename, name),
+                        f"The workflow '{filename}', job '{name}' should not have a if",
                         filename,
                     )
                     success = False
@@ -438,7 +437,7 @@ def required_workflows(
                 if workflow_on not in workflow.get(True, {}):
                     c2cciutils.error(
                         "required_workflows",
-                        "The workflow '{}', does not have the 'on' as '{}'".format(filename, workflow_on),
+                        f"The workflow '{filename}', does not have the 'on' as '{workflow_on}'",
                         filename,
                     )
                     success = False
@@ -499,7 +498,7 @@ def versions(
         if col not in security.headers:
             c2cciutils.error(
                 "versions",
-                "The file 'SECURITY.md' does not have the column required '{}'".format(col),
+                f"The file 'SECURITY.md' does not have the column required '{col}'",
                 "SECURITY.md",
             )
             return False
@@ -560,7 +559,7 @@ def _versions_audit(all_versions: Set[str], full_config: c2cciutils.configuratio
     if not os.path.exists(filename):
         c2cciutils.error(
             "versions",
-            "The file '{}' does not exists".format(filename),
+            f"The file '{filename}' does not exists",
             filename,
         )
         success = False
@@ -610,7 +609,7 @@ def _versions_rebuild(
         if not os.path.exists(filename):
             c2cciutils.error(
                 "versions",
-                "The rebuild file '{}' does not exists".format(filename),
+                f"The rebuild file '{filename}' does not exists",
                 filename,
             )
             success = False
@@ -648,7 +647,7 @@ def _versions_backport_labels(
         sys.stdout.flush()
         sys.stderr.flush()
         labels_response = requests.get(
-            "https://api.github.com/repos/{repo}/labels".format(repo=c2cciutils.get_repository()),
+            f"https://api.github.com/repos/{c2cciutils.get_repository()}/labels",
             headers=c2cciutils.add_authorization_header({"Accept": "application/vnd.github.v3+json"}),
         )
         labels_response.raise_for_status()

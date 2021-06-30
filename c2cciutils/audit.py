@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 The auditing functions.
 """
@@ -46,10 +45,10 @@ def print_versions(
     for version in subprocess.check_output(["asdf", "list", "all", "python"]).decode().strip().split("\n"):
         version_match = version_re.match(version)
         if version_match is not None:
-            full_minor_version = "{}.{}".format(version_match.group(1), version_match.group(2))
+            full_minor_version = f"{version_match.group(1)}.{version_match.group(2)}"
             all_versions.setdefault(full_minor_version, []).append(int(version_match.group(3)))
     for full_minor in sorted(all_versions.keys()):
-        print("{}.{}".format(full_minor, max(all_versions[full_minor])))
+        print(f"{full_minor}.{max(all_versions[full_minor])}")
     print("::endgroup::")
     return True
 
@@ -73,7 +72,7 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
     for file in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
         if os.path.basename(file) != filename:
             continue
-        print("::group::Audit {}".format(file))
+        print(f"::group::Audit {file}")
         directory = os.path.dirname(os.path.abspath(file))
 
         ignores = _python_ignores(directory)

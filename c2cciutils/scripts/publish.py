@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 The publish script.
@@ -28,7 +27,7 @@ def match(tpe: str, base_re: str) -> Optional[Match[str]]:
         base_re = base_re[1:]
     if base_re[-1] != "$":
         base_re += "$"
-    return re.match("^refs/{}/{}".format(tpe, base_re), os.environ["GITHUB_REF"])
+    return re.match(f"^refs/{tpe}/{base_re}", os.environ["GITHUB_REF"])
 
 
 def to_version(full_config: c2cciutils.configuration.Configuration, value: str, kind: str) -> str:
@@ -138,7 +137,7 @@ def main() -> None:
         sys.exit(1)
 
     if version_type is not None:
-        print("Create release type {}: {}".format(version_type, version))
+        print(f"Create release type {version_type}: {version}")
 
     success = True
     pypi_config = cast(

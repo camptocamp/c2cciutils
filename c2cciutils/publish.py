@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 The publishing functions.
 """
@@ -33,7 +32,7 @@ class GoogleCalendar:
         Initialize.
         """
         self.scopes = ["https://www.googleapis.com/auth/calendar"]  # in fact it is better to hard-code this
-        self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", "/tmp/{}.pickle".format(uuid.uuid4()))
+        self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", f"/tmp/{uuid.uuid4()}.pickle")
         self.credentials_json_file = os.environ.get(
             "GOOGLE_CREDS_JSON_FILE", "~/google-credentials-c2cibot.json"
         )  # used to refresh the refresh_token or to initialize the credentials the first time
@@ -120,7 +119,7 @@ class GoogleCalendar:
             summary = calendar["summary"]
             event_id = calendar["id"]
             primary = "Primary" if calendar.get("primary") else ""
-            print("%s\t%s\t%s" % (summary, event_id, primary))
+            print(f"{summary}\t{event_id}\t{primary}")
 
     def print_latest_events(self, time_min: Optional[datetime.datetime] = None) -> None:
         """
@@ -153,7 +152,7 @@ class GoogleCalendar:
 
     def create_event(
         self,
-        summary: str = "dummy/image:{}".format(datetime.datetime.now().isoformat()),
+        summary: str = f"dummy/image:{datetime.datetime.now().isoformat()}",
         description: str = "description",
     ) -> None:
         """
@@ -280,7 +279,7 @@ def pip(
         subprocess.check_call(cmd)
         print("::endgroup::")
     except subprocess.CalledProcessError as exception:
-        print("Error: {}".format(exception))
+        print(f"Error: {exception}")
         print("::endgroup::")
         print("With error")
         return False
@@ -351,7 +350,7 @@ def docker(
             )
         print("::endgroup::")
     except subprocess.CalledProcessError as exception:
-        print("Error: {}".format(exception))
+        print(f"Error: {exception}")
         print("::endgroup::")
         print("With error")
         return False

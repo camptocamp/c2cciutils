@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 The clean main function.
@@ -25,21 +24,21 @@ def clean(image: str, tag: str, token: str) -> None:
         token: The token used to be authenticated on Docker hub
     """
 
-    print("Delete image '{image}:{tag}'.".format(image=image, tag=tag))
+    print(f"Delete image '{image}:{tag}'.")
 
     response = requests.head(
-        "https://hub.docker.com/v2/repositories/{image}/tags/{tag}/".format(image=image, tag=tag),
+        f"https://hub.docker.com/v2/repositories/{image}/tags/{tag}/",
         headers={"Authorization": "JWT " + token},
     )
     if response.status_code == 404:
         return
     if not response.ok:
-        print("Error checking image '{image}:{tag}' status.".format(image=image, tag=tag))
+        print(f"Error checking image '{image}:{tag}' status.")
         print(response.text)
         sys.exit(1)
 
     response = requests.delete(
-        "https://hub.docker.com/v2/repositories/{image}/tags/{tag}/".format(image=image, tag=tag),
+        f"https://hub.docker.com/v2/repositories/{image}/tags/{tag}/",
         headers={"Authorization": "JWT " + token},
     )
     if not response.ok:
