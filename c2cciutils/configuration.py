@@ -9,13 +9,13 @@ from typing import Any, Dict, List, Literal, TypedDict, Union
 #
 # The audit configuration
 class Audit(TypedDict, total=False):
-    npm: 'AuditNpm'
-    outdated_versions: 'AuditOutdatedVersions'
-    pip: 'AuditPip'
-    pipenv: 'AuditPipenv'
-    pipfile: 'AuditPipfile'
-    pipfile_lock: 'AuditPipfileLock'
-    print_versions: 'PrintVersions'
+    npm: "AuditNpm"
+    outdated_versions: "AuditOutdatedVersions"
+    pip: "AuditPip"
+    pipenv: "AuditPipenv"
+    pipfile: "AuditPipfile"
+    pipfile_lock: "AuditPipfileLock"
+    print_versions: "PrintVersions"
 
 
 # audit npm
@@ -94,20 +94,20 @@ class AuditPipfileLockConfig(TypedDict, total=False):
 #
 # The checkers configurations
 class Checks(TypedDict, total=False):
-    black: 'ChecksBlack'
-    black_config: 'ChecksBlackConfiguration'
-    codespell: 'ChecksCodespell'
-    dependabot_config: 'ChecksDependabotConfiguration'
-    editorconfig: 'ChecksEditorconfig'
-    eof: 'ChecksEof'
-    gitattribute: 'ChecksGitattribute'
-    isort: 'ChecksIsort'
-    print_config: 'ChecksPrintConfig'
-    required_workflows: 'ChecksRequiredWorkflows'
-    versions: 'ChecksVersions'
-    workflows: 'ChecksWorkflows'
-    setup: 'ChecksSetup'
-    print_versions: 'PrintVersions'
+    black: "ChecksBlack"
+    black_config: "ChecksBlackConfiguration"
+    codespell: "ChecksCodespell"
+    dependabot_config: "ChecksDependabotConfiguration"
+    editorconfig: "ChecksEditorconfig"
+    eof: "ChecksEof"
+    gitattribute: "ChecksGitattribute"
+    isort: "ChecksIsort"
+    print_config: "ChecksPrintConfig"
+    required_workflows: "ChecksRequiredWorkflows"
+    versions: "ChecksVersions"
+    workflows: "ChecksWorkflows"
+    setup: "ChecksSetup"
+    print_versions: "PrintVersions"
 
 
 # Checks black
@@ -170,8 +170,8 @@ ChecksDependabotConfiguration = Union["ChecksDependabotConfigurationConfig", Lit
 # The Dependabot configuration check configuration
 class ChecksDependabotConfigurationConfig(TypedDict, total=False):
     ignore_version_files: List[str]
-    types: List['_ChecksDependabotConfigurationConfigTypesItem']
-    update_ignore: List['_ChecksDependabotConfigurationConfigUpdateIgnoreItem']
+    types: List["_ChecksDependabotConfigurationConfigTypesItem"]
+    update_ignore: List["_ChecksDependabotConfigurationConfigUpdateIgnoreItem"]
 
 
 # Checks editorconfig
@@ -269,7 +269,7 @@ class ChecksVersionsConfig(TypedDict, total=False):
     backport_labels: bool
     branches: bool
     extra_versions: List[str]
-    rebuild: Union['ChecksVersionsRebuild', Literal[False]]
+    rebuild: Union["ChecksVersionsRebuild", Literal[False]]
 
 
 # checks versions rebuild
@@ -299,27 +299,27 @@ class ChecksWorkflowsConfig(TypedDict, total=False):
 #
 # C2C CI utils configuration file
 class Configuration(TypedDict, total=False):
-    audit: 'Audit'
-    checks: 'Checks'
-    publish: 'Publish'
-    version: 'Version'
+    audit: "Audit"
+    checks: "Checks"
+    publish: "Publish"
+    version: "Version"
 
 
 # Print versions
 #
 # The print versions configuration
 class PrintVersions(TypedDict, total=False):
-    versions: List['_PrintVersionsVersionsItem']
+    versions: List["_PrintVersionsVersionsItem"]
 
 
 # Publish
 #
 # The publishing configurations
 class Publish(TypedDict, total=False):
-    docker: 'PublishDocker'
-    pypi: 'PublishPypi'
-    google_calendar: 'PublishGoogleCalendar'
-    print_versions: 'PrintVersions'
+    docker: "PublishDocker"
+    pypi: "PublishPypi"
+    google_calendar: "PublishGoogleCalendar"
+    print_versions: "PrintVersions"
 
 
 # Publish Docker
@@ -334,8 +334,8 @@ PublishDocker = Union["PublishDockerConfig", Literal[False]]
 #
 # The configuration used to publish on Docker
 class PublishDockerConfig(TypedDict, total=False):
-    images: List['PublishDockerImage']
-    repository: Dict[str, 'PublishDockerRepository']
+    images: List["PublishDockerImage"]
+    repository: Dict[str, "PublishDockerRepository"]
 
 
 # Publish Docker image
@@ -378,7 +378,7 @@ PublishPypi = Union["PublishPypiConfig", Literal[False]]
 #
 # Configuration to publish on pypi
 class PublishPypiConfig(TypedDict, total=False):
-    packages: List['PublishPypiPackage']
+    packages: List["PublishPypiPackage"]
     versions: List[str]
 
 
@@ -394,8 +394,8 @@ class PublishPypiPackage(TypedDict, total=False):
 #
 # The version configurations
 class Version(TypedDict, total=False):
-    branch_to_version_re: 'VersionTransform'
-    tag_to_version_re: 'VersionTransform'
+    branch_to_version_re: "VersionTransform"
+    tag_to_version_re: "VersionTransform"
 
 
 # Version transform
