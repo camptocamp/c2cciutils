@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 Read the table of versions from SECURITY.md.
 """

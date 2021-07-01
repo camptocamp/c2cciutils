@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 The audit main function.
@@ -26,7 +25,7 @@ def main() -> None:
     for key, conf in config.items():
         if conf:
             audit = getattr(c2cciutils.audit, key)
-            print("Run audit {}".format(key))
+            print(f"Run audit {key}")
             success &= audit(conf, full_config, args)
     if not success:
         sys.exit(1)

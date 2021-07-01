@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 c2cciutils shared utils function.
 """
@@ -375,9 +373,9 @@ def error(
         # Make the error visible on GitHub workflow logs
         print(result)
         # Make the error visible as annotation
-        print("::{} {}".format(error_type, result))
+        print(f"::{error_type} {result}")
     else:
-        print("[{}] {}".format(error_type, result))
+        print(f"[{error_type}] {result}")
 
 
 VersionTransform = TypedDict(
@@ -413,7 +411,7 @@ def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = 
             from_re = from_re[1:]
         if from_re[-1] != "$":
             from_re += "$"
-        from_re = "^{}{}".format(re.escape(prefix), from_re)
+        from_re = f"^{re.escape(prefix)}{from_re}"
 
         new_conf["from"] = re.compile(from_re)
         result.append(new_conf)
@@ -568,7 +566,7 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
     if "errors" in json_response:
         raise RuntimeError("GraphQL error: {}".format(json.dumps(json_response["errors"], indent=2)))
     if "data" not in json_response:
-        raise RuntimeError("GraphQL no data: {}".format(json.dumps(json_response, indent=2)))
+        raise RuntimeError(f"GraphQL no data: {json.dumps(json_response, indent=2)}")
     return cast(Dict[str, Any], json_response["data"])
 
 

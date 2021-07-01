@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 The checker main function.
@@ -28,7 +27,7 @@ def main() -> None:
     for key, conf in config.items():
         if conf and (args.check is None or args.check == key):
             check = getattr(c2cciutils.checks, key)
-            print("::group::Run check {}".format(key))
+            print(f"::group::Run check {key}")
             if not check(conf, full_config, args):
                 success = False
                 print("::endgroup::")

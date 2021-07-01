@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 The main function of some utilities.
@@ -30,9 +29,9 @@ def main() -> None:
     if args.version:
         for pkg in ("c2cciutils", "black", "isort"):
             try:
-                print("{} {}".format(pkg, pkg_resources.get_distribution(pkg).version))
+                print(f"{pkg} {pkg_resources.get_distribution(pkg).version}")
             except pkg_resources.DistributionNotFound:
-                print("{} missing".format(pkg))
+                print(f"{pkg} missing")
 
     if args.ls_files_mime:
         for file_name in c2cciutils.get_git_files_mime(args.ls_files_mime):
