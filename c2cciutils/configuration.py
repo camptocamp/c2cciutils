@@ -3,7 +3,8 @@ Automatically generated file from a JSON schema.
 """
 
 
-from typing import Any, Dict, List, Literal, TypedDict, Union
+from typing import List, Any, Literal, Dict, TypedDict, Union
+
 
 # Audit
 #
@@ -107,10 +108,11 @@ class Checks(TypedDict, total=False):
     versions: "ChecksVersions"
     workflows: "ChecksWorkflows"
     setup: "ChecksSetup"
+    prettier: "ChecksPrettier"
     print_versions: "PrintVersions"
 
 
-# Checks black
+# Checks Black
 #
 # The Black check configuration
 #
@@ -126,7 +128,7 @@ class ChecksBlackConfig(TypedDict, total=False):
     ignore_patterns_re: List[str]
 
 
-# Checks black configuration
+# Checks Black configuration
 #
 # The Black configuration check configuration
 #
@@ -213,6 +215,22 @@ ChecksIsort = Union["ChecksIsortConfig", Literal[False]]
 #
 # The isort check configuration
 class ChecksIsortConfig(TypedDict, total=False):
+    ignore_patterns_re: List[str]
+
+
+# Checks Prettier
+#
+# The Prettier check configuration
+#
+# oneOf
+ChecksPrettier = Union["ChecksPrettierConfig", Literal[False]]
+
+
+# Checks Prettier config
+#
+# The Prettier check configuration
+class ChecksPrettierConfig(TypedDict, total=False):
+    properties: Dict[str, Any]
     ignore_patterns_re: List[str]
 
 

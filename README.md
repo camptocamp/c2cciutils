@@ -17,11 +17,11 @@ The content of `example-project` can be a good base for a new project.
 
 In the CI we needs to have the following secrets::
 
-* `HAS_SECRETS` to be set to 'HAS_SECRETS', to avoid error errors from dependabot and from external
-  pull requests, already set globally on camtocamp organisation.
-* `GOPASS_CI_GITHUB_TOKEN` and `CI_GPG_PRIVATE_KEY` required to initialise the gopass password store,
-  the secrets axists in the camptocamp organisation but not shared on all project, then you should add
-  your project to the shared list.
+-   `HAS_SECRETS` to be set to 'HAS_SECRETS', to avoid error errors from dependabot and from external
+    pull requests, already set globally on camtocamp organisation.
+-   `GOPASS_CI_GITHUB_TOKEN` and `CI_GPG_PRIVATE_KEY` required to initialise the gopass password store,
+    the secrets axists in the camptocamp organisation but not shared on all project, then you should add
+    your project to the shared list.
 
 # Use locally, in the projects that use c2cciutils
 
@@ -89,6 +89,21 @@ The IDE should be configured as:
 -   using `black` and `isort` without any arguments,
 -   using the `editorconfig` configuration.
 
+## VScode
+
+-   Recommend extensions to work well with c2cciutils:
+    -   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) And use EditorConfig
+-   Other recommend extensions:
+    -   [hadolint](https://marketplace.visualstudio.com/items?itemName=exiasr.hadolint)
+    -   [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+
+Select a formatter:
+
+-   `CTRL+MAJ+P`
+-   Format document With...
+-   Configure Default Formatter...
+-   Select the formatter
+
 # Publishing
 
 ## To pypi
@@ -102,8 +117,9 @@ VERSION = os.environ.get("VERSION", "1.0.0")
 The config is like this:
 
 ```yaml
-versions:# List of kinds of versions you want to publish, that can be:
-    rebuild (specified with --type),
+versions:
+    # List of kinds of versions you want to publish, that can be:
+    # rebuild (specified with --type),
     # version_tag, version_branch, feature_branch, feature_tag (for pull request)
 ```
 

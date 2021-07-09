@@ -164,6 +164,14 @@
             "index": "pypi",
             "version": "==2020.12.3"
         },
+        "node-vm2": {
+            "hashes": [
+                "sha256:53508e9eb4ee48fd3a8ae1ef44cc06c7f986371c3ab456ad3e1fa5c2ce091d18",
+                "sha256:f27f9e118bb5ef2ba0505b2cc3dc0dcb814b906ae4407c7d6eef3ebf92bbe80b"
+            ],
+            "index": "pypi",
+            "version": "==0.3.7"
+        },
         "oauthlib": {
             "hashes": [
                 "sha256:42bf6354c2ed8c6acb54d971fce6f88193d97297e18602a3a886603f9d7730cc",

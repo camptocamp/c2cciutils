@@ -62,5 +62,17 @@ setup(
             "c2cciutils-google-calendar = c2cciutils.publish:main_calendar",
         ],
     },
-    package_data={"c2cciutils": ["*.graphql", "*.json"]},
+    package_data={
+        "c2cciutils": [
+            "*.graphql",
+            "*.json",
+            "*.js",
+            "node_modules/*/package.json",
+            "node_modules/*/*.js",
+            "node_modules/*/src/*.js",
+            "node_modules/*/src/*/*.js",
+            "node_modules/*/src/*/*/*.js",
+            "node_modules/*/lib/*.js",
+        ]
+    },
 )

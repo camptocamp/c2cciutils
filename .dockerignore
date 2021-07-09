@@ -3,4 +3,5 @@
 !requirements-pipenv.txt
 !Pipfile*
 !c2cciutils/
+c2cciutils/node_modules
 !setup.py

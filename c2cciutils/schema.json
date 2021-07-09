@@ -89,7 +89,7 @@
       ]
     },
     "checks_black": {
-      "title": "Checks black",
+      "title": "Checks Black",
       "description": "The Black check configuration",
       "oneOf": [
         {
@@ -110,8 +110,30 @@
         { "const": false }
       ]
     },
+    "checks_prettier": {
+      "title": "Checks Prettier",
+      "description": "The Prettier check configuration",
+      "oneOf": [
+        {
+          "title": "Checks Prettier config",
+          "description": "The Prettier check configuration",
+          "type": "object",
+          "properties": {
+            "properties": {
+              "type": "object"
+            },
+            "ignore_patterns_re": {
+              "description": "List of regular expression that should be ignored",
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "const": false }
+      ]
+    },
     "checks_black_config": {
-      "title": "Checks black configuration",
+      "title": "Checks Black configuration",
       "description": "The Black configuration check configuration",
       "oneOf": [
         {
@@ -629,6 +651,7 @@
         "versions": { "$ref": "#/definitions/checks_versions" },
         "workflows": { "$ref": "#/definitions/checks_workflows" },
         "setup": { "$ref": "#/definitions/checks_setup" },
+        "prettier": { "$ref": "#/definitions/checks_prettier" },
         "print_versions": { "$ref": "#/definitions/print_versions" }
       }
     },
