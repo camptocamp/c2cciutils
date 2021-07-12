@@ -103,6 +103,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
         "*.css": editorconfig_properties_2,
         "*.scss": editorconfig_properties_2,
         "*.html": editorconfig_properties_2,
+        "*.md": editorconfig_properties_2,
     }
 
     repository = get_repository()
