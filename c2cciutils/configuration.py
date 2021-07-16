@@ -352,6 +352,7 @@ PublishDocker = Union["PublishDockerConfig", Literal[False]]
 #
 # The configuration used to publish on Docker
 class PublishDockerConfig(TypedDict, total=False):
+    latest: bool
     images: List["PublishDockerImage"]
     repository: Dict[str, "PublishDockerRepository"]
 

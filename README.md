@@ -128,6 +128,7 @@ versions:
 The config is like this:
 
 ```yaml
+latest: True
 images:
     - name: # The base name of the image we want to publish
 repository:
@@ -142,5 +143,8 @@ repository:
         'group':# If your images are published by different jobs you can separate them in different groups
             # and publish them with `c2cciutils-publish --group=<group>`
 ```
+
+By default the last line of the `SECURITY.md` file will be published (`docker`) with the tag
+`latest`. Set `latest` to `False` to disable it.
 
 With the `c2cciutils-clean` the images on Docker hub for `feature_branch` will be removed on branch removing.
