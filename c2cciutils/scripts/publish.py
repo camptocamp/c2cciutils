@@ -12,6 +12,7 @@ from typing import Match, Optional, cast
 
 import c2cciutils.configuration
 import c2cciutils.publish
+import c2cciutils.security
 from c2cciutils.publish import GoogleCalendar
 
 
@@ -169,6 +170,14 @@ def main() -> None:
         if config.get("publish", {}).get("google_calendar", False)
         else {},
     )
+
+    latest = False
+    if os.path.exists("SECURITY.md") and docker_config["latest"] is True:
+        with open("SECURITY.md") as security_file:
+            security = c2cciutils.security.Security(security_file.read())
+        version_index = security.headers.index("Version")
+        latest = security.data[-1][version_index] == version
+
     for image_conf in docker_config.get("images", []):
         if image_conf.get("group", "") == args.group:
             for tag_config in image_conf.get("tags", []):
@@ -183,7 +192,9 @@ def main() -> None:
                                 )
                             )
                         else:
-                            success &= c2cciutils.publish.docker(conf, name, image_conf, tag_src, tag_dst)
+                            success &= c2cciutils.publish.docker(
+                                conf, name, image_conf, tag_src, tag_dst, latest
+                            )
                 if version_type in google_calendar_config.get("on", []):
                     if not google_calendar:
                         google_calendar = GoogleCalendar()

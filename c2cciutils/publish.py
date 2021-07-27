@@ -17,7 +17,6 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-import c2cciutils
 import c2cciutils.configuration
 
 
@@ -208,7 +207,7 @@ def main_calendar() -> None:
     Run the calendar main function.
     """
     parser = argparse.ArgumentParser(
-        description="Interact with google API for the docker publishing calendar"
+        description="Interact with google API for the Docker publishing calendar"
     )
     parser.add_argument(
         "--refresh-gopass-credentials",
@@ -292,9 +291,10 @@ def docker(
     image_config: c2cciutils.configuration.PublishDockerImage,
     tag_src: str,
     tag_dst: str,
+    latest: bool,
 ) -> bool:
     """
-    Publish to a docker registry.
+    Publish to a Docker registry.
 
     config is like:
         server: # The server fqdn
@@ -308,6 +308,7 @@ def docker(
         image_config: The image config
         tag_src: The source tag (usually latest)
         tag_dst: The tag used for publication
+        latest: Publish also the tag latest
     """
 
     print("::group::Publishing {}:{} to {}".format(image_config["name"], tag_dst, name))
@@ -316,38 +317,60 @@ def docker(
 
     try:
         if "server" in config:
-            subprocess.check_call(
+            subprocess.run(
                 [
                     "docker",
                     "tag",
                     "{}:{}".format(image_config["name"], tag_src),
                     "{}/{}:{}".format(config["server"], image_config["name"], tag_dst),
-                ]
+                ],
+                check=True,
             )
-            subprocess.check_call(
+            subprocess.run(
                 [
                     "docker",
                     "push",
                     "{}/{}:{}".format(config["server"], image_config["name"], tag_dst),
-                ]
+                ],
+                check=True,
             )
+            if latest:
+                subprocess.run(
+                    [
+                        "docker",
+                        "push",
+                        "{}/{}:{}".format(config["server"], image_config["name"], tag_src),
+                    ],
+                    check=True,
+                )
         else:
             if tag_src != tag_dst:
-                subprocess.check_call(
+                subprocess.run(
                     [
                         "docker",
                         "tag",
                         "{}:{}".format(image_config["name"], tag_src),
                         "{}:{}".format(image_config["name"], tag_dst),
-                    ]
+                    ],
+                    check=True,
                 )
-            subprocess.check_call(
+            subprocess.run(
                 [
                     "docker",
                     "push",
                     "{}:{}".format(image_config["name"], tag_dst),
-                ]
+                ],
+                check=True,
             )
+            if latest:
+                subprocess.run(
+                    [
+                        "docker",
+                        "push",
+                        "{}:{}".format(image_config["name"], tag_src),
+                    ],
+                    check=True,
+                )
         print("::endgroup::")
     except subprocess.CalledProcessError as exception:
         print(f"Error: {exception}")

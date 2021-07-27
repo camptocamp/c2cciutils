@@ -458,6 +458,11 @@
           "description": "The configuration used to publish on Docker",
           "type": "object",
           "properties": {
+            "latest": {
+              "description": "Publish the latest version on tag latest",
+              "default": true,
+              "type": "boolean"
+            },
             "images": {
               "description": "List of images to be published",
               "type": "array",
