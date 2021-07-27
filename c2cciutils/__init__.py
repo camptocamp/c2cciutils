@@ -107,11 +107,19 @@ def get_config() -> c2cciutils.configuration.Configuration:
 
     repository = get_repository()
     repo = repository.split("/")
-    default_branch_json = graphql(
-        "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False
-    )
-    credentials = default_branch_json is not False
-    master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"] if credentials else "master"
+    master_branch = "master"
+    credentials = False
+    try:
+        default_branch_json = graphql(
+            "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False
+        )
+        credentials = default_branch_json is not False
+        master_branch = (
+            default_branch_json["repository"]["defaultBranchRef"]["name"] if credentials else "master"
+        )
+    except RuntimeError as error:
+        print(error)
+        print("Failback to master")
 
     merge(
         {
