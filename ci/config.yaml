@@ -12,11 +12,6 @@ checks:
     extra_versions:
       - '1.1'
 
-audit:
-  pipenv:
-    python_versions:
-      - 3.6.12
-
 publish:
   pypi:
     packages:
