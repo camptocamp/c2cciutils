@@ -576,6 +576,36 @@
         }
       ]
     },
+    "publish_helm": {
+      "title": "publish helm",
+      "description": "Configuration to publish Helm charts on GitHub release",
+      "oneOf": [
+        {
+          "title": "publish helm config",
+          "description": "Configuration to publish on Helm charts on GitHub release",
+          "type": "object",
+          "properties": {
+            "folders": {
+              "description": "The folders that will be published",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "versions": {
+              "description": "The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "const": false
+        }
+      ]
+    },
     "print_versions": {
       "title": "Print versions",
       "description": "The print versions configuration",
@@ -667,6 +697,7 @@
       "properties": {
         "docker": { "$ref": "#/definitions/publish_docker" },
         "pypi": { "$ref": "#/definitions/publish_pypi" },
+        "helm": { "$ref": "#/definitions/publish_helm" },
         "google_calendar": { "$ref": "#/definitions/publish_google_calendar" },
         "print_versions": { "$ref": "#/definitions/print_versions" }
       }
