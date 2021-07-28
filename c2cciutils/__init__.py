@@ -2,6 +2,7 @@
 c2cciutils shared utils function.
 """
 
+import glob
 import json
 import os.path
 import pkgutil
@@ -10,12 +11,12 @@ import subprocess
 import sys
 from typing import Any, Dict, List, Match, Optional, Pattern, Tuple, TypedDict, cast
 
-import jsonschema_gentypes.validate
 import magic
 import requests
 import ruamel.yaml
 
 import c2cciutils.configuration
+import jsonschema_gentypes.validate
 
 
 def get_repository() -> str:
@@ -150,6 +151,10 @@ def get_config() -> c2cciutils.configuration.Configuration:
                     },
                     "dockerhub": {"versions": ["version_tag", "version_branch", "rebuild", "feature_branch"]},
                 },
+            },
+            "helm": {
+                "versions": ["version_tag"],
+                "folders": [os.path.dirname(f) for f in glob.glob("./**/Chart.yaml", recursive=True)],
             },
             "publish": {"google_calendar": {"on": ["version_branch", "version_tag", "rebuild"]}},
         },

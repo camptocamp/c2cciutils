@@ -12,6 +12,7 @@ import sys
 import uuid
 from typing import Optional
 
+import ruamel.yaml
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -348,6 +349,68 @@ def docker(
                     "{}:{}".format(image_config["name"], tag_dst),
                 ]
             )
+        print("::endgroup::")
+    except subprocess.CalledProcessError as exception:
+        print(f"Error: {exception}")
+        print("::endgroup::")
+        print("With error")
+        return False
+    return True
+
+
+def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, token: str) -> bool:
+    """
+    Publish to pypi.
+
+    Arguments:
+        folder: The folder to be published
+        version: The version that will be published
+        owner: The GitHub repository owner
+        repo: The GitHub repository name
+        commit_sha: The sha of the current commit
+        token: The GitHub token
+    """
+
+    print(f"::group::Publishing Helm chart from '{folder}' to GitHub release")
+    sys.stdout.flush()
+    sys.stderr.flush()
+
+    try:
+        yaml_ = ruamel.yaml.YAML()  # type: ignore
+        with open(os.path.join(folder, "Chart.yaml")) as open_file:
+            chart = yaml_.load(open_file)
+        chart["version"] = version
+        with open(os.path.join(folder, "Chart.yaml"), "w") as open_file:
+            chart = yaml_.dump(chart, open_file)
+
+        subprocess.run(["cr", "package", folder], check=True)
+        subprocess.run(
+            [
+                "cr",
+                "upload",
+                f"--owner={owner}",
+                f"--git-repo={repo}",
+                f"--commit={commit_sha}",
+                "--release-name-template={{ .Version }}",
+                f"--token={token}",
+            ],
+            check=True,
+        )
+        subprocess.run(["mkdir", ".cr-index"], check=True)
+        subprocess.run(
+            [
+                "cr",
+                "index",
+                f"--owner={owner}",
+                f"--git-repo={repo}",
+                f"--charts-repo=https://{owner}.github.io/{repo}",
+                "--push",
+                "--release-name-template={{ .Version }}",
+                f"--token={token}",
+            ],
+            check=True,
+        )
+
         print("::endgroup::")
     except subprocess.CalledProcessError as exception:
         print(f"Error: {exception}")
