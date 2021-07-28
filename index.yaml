@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  test:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2021-07-28T14:53:44.682266417Z"
+    description: A Helm chart for Kubernetes
+    digest: ce23c1ba00569a22717fc0b02054f6f00baf416c7bcb82ae759b2e3db5822cba
+    name: test
+    urls:
+    - https://github.com/camptocamp/c2cciutils/releases/download/0.1.0/test-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-07-28T14:53:44.682270817Z"
