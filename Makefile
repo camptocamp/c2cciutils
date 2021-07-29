@@ -14,3 +14,7 @@ checks: prospector
 .PHONY: prospector
 prospector: build-checker
 	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --output=pylint
+
+.PHONY: jsonschema
+jsonschema:
+	jsonschema-gentypes

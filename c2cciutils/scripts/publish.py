@@ -7,8 +7,12 @@ The publish script.
 import argparse
 import os
 import re
+import subprocess
 import sys
+import tarfile
 from typing import Match, Optional, cast
+
+import requests
 
 import c2cciutils.configuration
 import c2cciutils.publish
@@ -145,23 +149,18 @@ def main() -> None:
         c2cciutils.configuration.PublishPypiConfig,
         config.get("publish", {}).get("pypi", {}) if config.get("publish", {}).get("pypi", False) else {},
     )
-    for package in pypi_config["packages"]:
-        if package.get("group") == args.group:
-            publish = version_type in pypi_config.get("versions", [])
-            if args.dry_run:
-
-                print(
-                    "{} '{}' to pypi, skipping (dry run)".format(
-                        "Publishing" if publish else "Checking", package.get("path")
+    if pypi_config:
+        for package in pypi_config["packages"]:
+            if package.get("group") == args.group:
+                publish = version_type in pypi_config.get("versions", [])
+                if args.dry_run:
+                    print(
+                        "{} '{}' to pypi, skipping (dry run)".format(
+                            "Publishing" if publish else "Checking", package.get("path")
+                        )
                     )
-                )
-            else:
-                success &= c2cciutils.publish.pip(package, version, version_type, publish)
-
-    docker_config = cast(
-        c2cciutils.configuration.PublishDockerConfig,
-        config.get("publish", {}).get("docker", {}) if config.get("publish", {}).get("docker", False) else {},
-    )
+                else:
+                    success &= c2cciutils.publish.pip(package, version, version_type, publish)
 
     google_calendar = None
     google_calendar_config = cast(
@@ -171,38 +170,92 @@ def main() -> None:
         else {},
     )
 
-    latest = False
-    if os.path.exists("SECURITY.md") and docker_config["latest"] is True:
-        with open("SECURITY.md") as security_file:
-            security = c2cciutils.security.Security(security_file.read())
-        version_index = security.headers.index("Version")
-        latest = security.data[-1][version_index] == version
+    docker_config = cast(
+        c2cciutils.configuration.PublishDockerConfig,
+        config.get("publish", {}).get("docker", {}) if config.get("publish", {}).get("docker", False) else {},
+    )
+    if docker_config:
+        latest = False
+        if os.path.exists("SECURITY.md") and docker_config["latest"] is True:
+            with open("SECURITY.md") as security_file:
+                security = c2cciutils.security.Security(security_file.read())
+            version_index = security.headers.index("Version")
+            latest = security.data[-1][version_index] == version
 
-    for image_conf in docker_config.get("images", []):
-        if image_conf.get("group", "") == args.group:
-            for tag_config in image_conf.get("tags", []):
-                tag_src = tag_config.format(version="latest")
-                tag_dst = tag_config.format(version=version)
-                for name, conf in docker_config.get("repository", {}).items():
-                    if version_type in conf.get("versions", []):
-                        if args.dry_run:
-                            print(
-                                "Publishing {}:{} to {}, skipping (dry run)".format(
-                                    image_conf["name"], tag_dst, name
+        for image_conf in docker_config.get("images", []):
+            if image_conf.get("group", "") == args.group:
+                for tag_config in image_conf.get("tags", []):
+                    tag_src = tag_config.format(version="latest")
+                    tag_dst = tag_config.format(version=version)
+                    for name, conf in docker_config.get("repository", {}).items():
+                        if version_type in conf.get("versions", []):
+                            if args.dry_run:
+                                print(
+                                    "Publishing {}:{} to {}, skipping (dry run)".format(
+                                        image_conf["name"], tag_dst, name
+                                    )
                                 )
-                            )
-                        else:
-                            success &= c2cciutils.publish.docker(
-                                conf, name, image_conf, tag_src, tag_dst, latest
-                            )
-                if version_type in google_calendar_config.get("on", []):
-                    if not google_calendar:
-                        google_calendar = GoogleCalendar()
-                    summary = "{}:{}".format(image_conf["name"], tag_dst)
-                    description = "Published on: {}\nFor version type: {}".format(
-                        ", ".join(docker_config["repository"].keys()), version_type
+                            else:
+                                success &= c2cciutils.publish.docker(
+                                    conf, name, image_conf, tag_src, tag_dst, latest
+                                )
+                    if version_type in google_calendar_config.get("on", []):
+                        if not google_calendar:
+                            google_calendar = GoogleCalendar()
+                        summary = "{}:{}".format(image_conf["name"], tag_dst)
+                        description = "Published on: {}\nFor version type: {}".format(
+                            ", ".join(docker_config["repository"].keys()), version_type
+                        )
+                        google_calendar.create_event(summary, description)
+
+    helm_config = cast(
+        c2cciutils.configuration.PublishHelmConfig,
+        config.get("publish", {}).get("helm", {}) if config.get("publish", {}).get("helm", False) else {},
+    )
+    if helm_config and helm_config["folders"] and version_type in helm_config.get("versions", []):
+        url = "https://github.com/helm/chart-releaser/releases/download/v1.2.1/chart-releaser_1.2.1_linux_amd64.tar.gz"
+        response = requests.get(url, stream=True)
+        file = tarfile.open(fileobj=response.raw, mode="r:gz")
+        file.extractall(path=os.path.expanduser("~/.local/bin"))
+
+        owner, repo = c2cciutils.get_repository().split("/")
+        commit_sha = (
+            subprocess.run(["git", "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE)
+            .stdout.strip()
+            .decode()
+        )
+        token = (
+            os.environ["GITHUB_TOKEN"].strip()
+            if "GITHUB_TOKEN" in os.environ
+            else c2cciutils.gopass("gs/ci/github/token/gopass")
+        )
+        assert token is not None
+        if version_type == "version_branch":
+            last_tag = (
+                subprocess.run(
+                    ["git", "describe", "--abbrev=0", "--tags"], check=True, stdout=subprocess.PIPE
+                )
+                .stdout.strip()
+                .decode()
+            )
+            expression = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
+            while expression.match(last_tag) is None:
+                last_tag = (
+                    subprocess.run(
+                        ["git", "describe", "--abbrev=0", "--tags", f"{last_tag}^"],
+                        check=True,
+                        stdout=subprocess.PIPE,
                     )
-                    google_calendar.create_event(summary, description)
+                    .stdout.strip()
+                    .decode()
+                )
+
+            versions = last_tag.split(".")
+            versions[-1] = str(int(versions[-1]) + 1)
+            version = ".".join(versions)
+
+        for folder in helm_config["folders"]:
+            success &= c2cciutils.publish.helm(folder, version, owner, repo, commit_sha, token)
 
     if not success:
         sys.exit(1)
