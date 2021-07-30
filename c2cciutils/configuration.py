@@ -309,8 +309,6 @@ ChecksPrettierConfig = TypedDict(
     "ChecksPrettierConfig",
     {
         "properties": Dict[str, Any],
-        # List of regular expression that should be ignored
-        "ignore_patterns_re": List[str],
     },
     total=False,
 )

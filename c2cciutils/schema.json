@@ -121,11 +121,6 @@
           "properties": {
             "properties": {
               "type": "object"
-            },
-            "ignore_patterns_re": {
-              "description": "List of regular expression that should be ignored",
-              "type": "array",
-              "items": { "type": "string" }
             }
           }
         },

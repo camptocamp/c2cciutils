@@ -1140,41 +1140,34 @@ def prettier(
     Run prettier check on all the supported files.
 
     config is like:
-      ignore_patterns_re: [] # list of regular expression we should ignore
+      # Currently empty
 
     Arguments:
         config: The config
         full_config: The full config
         args: The parsed command arguments
     """
-    del full_config
+    del config, full_config
 
-    ignore_patterns_compiled = [re.compile(p) for p in config.get("ignore_patterns_re", [])]
     success = True
 
     with c2cciutils.prettier.Prettier() as prettier_lib:
         for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
             if os.path.isfile(filename):
-                accept = True
-                for pattern in ignore_patterns_compiled:
-                    if pattern.search(filename):
-                        accept = False
-                        break
-                if accept:
-                    info = prettier_lib.get_info(filename)
-                    if info.get("info", {}).get("ignored", False):
-                        continue
-                    if not info.get("info", {}).get("inferredParser"):
-                        continue
-                    prettier_config = info["config"]
-                    prettier_config["parser"] = info["info"]["inferredParser"]
+                info = prettier_lib.get_info(filename)
+                if info.get("info", {}).get("ignored", False):
+                    continue
+                if not info.get("info", {}).get("inferredParser"):
+                    continue
+                prettier_config = info["config"]
+                prettier_config["parser"] = info["info"]["inferredParser"]
 
-                    if args.fix:
-                        if not prettier_lib.format(filename, prettier_config):
-                            success = False
-                    else:
-                        if not prettier_lib.check(filename, prettier_config):
-                            success = False
+                if args.fix:
+                    if not prettier_lib.format(filename, prettier_config):
+                        success = False
+                else:
+                    if not prettier_lib.check(filename, prettier_config):
+                        success = False
     return success
 
 
