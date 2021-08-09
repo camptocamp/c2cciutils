@@ -24,7 +24,7 @@ mypy = "==0.910"
 flake8 = "==3.8.0"
 types-requests = "==2.25.2"
 types-pyyaml = "==5.4.3"
-types-setuptools = "==57.0.0"
+types-setuptools = "==57.0.2"
 types-markdown = "==3.3.0"
 
 [requires]
