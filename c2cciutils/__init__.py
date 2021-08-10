@@ -240,7 +240,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
                 },
                 "classifiers": ["Typing :: Typed"],
             },
-            "prettier": {"ignore_patterns_re": []},
+            "prettier": {},
         },
         "audit": {
             "print_versions": {
