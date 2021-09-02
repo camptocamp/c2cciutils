@@ -404,8 +404,8 @@ def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, toke
             chart = yaml_.load(open_file)
         chart["version"] = version
         with open(os.path.join(folder, "Chart.yaml"), "w", encoding="utf-8") as open_file:
-            chart = yaml_.dump(chart, open_file)
-        for index, dependency in chart.get("dependencies", []):
+            yaml_.dump(chart, open_file)
+        for index, dependency in enumerate(chart.get("dependencies", [])):
             if dependency["repository"].startswith("https://"):
                 subprocess.run(["helm", "repo", "add", str(index), dependency["repository"]], check=True)
 
