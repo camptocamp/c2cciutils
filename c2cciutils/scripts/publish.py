@@ -177,7 +177,7 @@ def main() -> None:
     if docker_config:
         latest = False
         if os.path.exists("SECURITY.md") and docker_config["latest"] is True:
-            with open("SECURITY.md") as security_file:
+            with open("SECURITY.md", encoding="utf-8") as security_file:
                 security = c2cciutils.security.Security(security_file.read())
             version_index = security.headers.index("Version")
             latest = security.data[-1][version_index] == version
@@ -215,8 +215,8 @@ def main() -> None:
     if helm_config and helm_config["folders"] and version_type in helm_config.get("versions", []):
         url = "https://github.com/helm/chart-releaser/releases/download/v1.2.1/chart-releaser_1.2.1_linux_amd64.tar.gz"
         response = requests.get(url, stream=True)
-        file = tarfile.open(fileobj=response.raw, mode="r:gz")
-        file.extractall(path=os.path.expanduser("~/.local/bin"))
+        with tarfile.open(fileobj=response.raw, mode="r:gz") as file:
+            file.extractall(path=os.path.expanduser("~/.local/bin"))
 
         owner, repo = c2cciutils.get_repository().split("/")
         commit_sha = (

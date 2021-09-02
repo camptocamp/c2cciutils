@@ -72,7 +72,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
 
     config: c2cciutils.configuration.Configuration = {}
     if os.path.exists("ci/config.yaml"):
-        with open("ci/config.yaml") as open_file:
+        with open("ci/config.yaml", encoding="utf-8") as open_file:
             yaml_ = ruamel.yaml.YAML()  # type: ignore
             config = yaml_.load(open_file)
 
@@ -119,8 +119,8 @@ def get_config() -> c2cciutils.configuration.Configuration:
         master_branch = (
             default_branch_json["repository"]["defaultBranchRef"]["name"] if credentials else "master"
         )
-    except RuntimeError as error:
-        print(error)
+    except RuntimeError as runtime_error:
+        print(runtime_error)
         print("Failback to master")
 
     merge(
@@ -562,7 +562,7 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
     In case of error it throw an exception
     """
 
-    with open(os.path.join(os.path.dirname(__file__), query_file)) as query_open:
+    with open(os.path.join(os.path.dirname(__file__), query_file), encoding="utf-8") as query_open:
         query = query_open.read()
 
     http_response = requests.post(

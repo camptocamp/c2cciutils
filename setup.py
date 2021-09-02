@@ -13,7 +13,7 @@ site.ENABLE_USER_SITE = "--user" in sys.argv
 VERSION = os.environ.get("VERSION", "1.0")
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-with open("requirements.txt") as requirements:
+with open("requirements.txt", encoding="utf-8") as requirements:
     INSTALL_REQUIRES = [r for r in requirements.read().split("\n") if r]
 
 
@@ -22,7 +22,7 @@ def long_description() -> str:
     Get the long description from README.md file.
     """
     try:
-        with open("README.md") as readme_file:
+        with open("README.md", encoding="utf-8") as readme_file:
             return readme_file.read()
     except FileNotFoundError:
         return ""

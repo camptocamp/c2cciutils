@@ -13,7 +13,7 @@ INSTALL_REQUIRES = list(config["packages"].keys())
 
 def long_description() -> str:
     try:
-        with open("README.md") as readme_file:
+        with open("README.md", encoding="utf-8") as readme_file:
             return readme_file.read()
     except FileNotFoundError:
         return ""
