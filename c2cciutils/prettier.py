@@ -42,7 +42,7 @@ class PrettierModule:
             config: The Prettier config related to the file
         """
         try:
-            with open(filename) as the_file_to_check:
+            with open(filename, encoding="utf-8") as the_file_to_check:
                 data = the_file_to_check.read()
                 success = cast(bool, self.module.call_member("check", data, config))
             if not success:
@@ -110,9 +110,9 @@ class PrettierModule:
             config: The Prettier config related to the file
         """
         try:
-            with open(filename) as the_file_to_format:
+            with open(filename, encoding="utf-8") as the_file_to_format:
                 new_data = self.module.call_member("format", the_file_to_format.read(), config)
-            with open(filename, "w") as the_file_to_format:
+            with open(filename, "w", encoding="utf-8") as the_file_to_format:
                 the_file_to_format.write(new_data)
         except node_vm2.VMError as exception:
             print(
@@ -135,7 +135,7 @@ class Prettier:
         """
         Initialise.
         """
-        with open(os.path.join(os.path.dirname(__file__), "prettier.js")) as query_open:
+        with open(os.path.join(os.path.dirname(__file__), "prettier.js"), encoding="utf-8") as query_open:
             javascript = query_open.read()
 
         self.module = PrettierModule(
@@ -153,7 +153,7 @@ class Prettier:
         tpe: Optional[Type[BaseException]],
         value: Optional[BaseException],
         traceback: Optional[TracebackType],
-    ) -> Any:  # pylint: disable=redefined-builtin
+    ) -> Any:
         """
         Close.
         """

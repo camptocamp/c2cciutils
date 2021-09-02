@@ -63,7 +63,7 @@ def _python_ignores(directory: str) -> List[str]:
     for filename in ("pip-cve-ignore", "pipenv-cve-ignore"):
         cve_filename = os.path.join(directory, filename)
         if os.path.exists(cve_filename):
-            with open(cve_filename) as cve_file:
+            with open(cve_filename, encoding="utf-8") as cve_file:
                 ignores += [e.strip() for e in re.split(",|\n", cve_file.read()) if e.strip()]
     return ignores
 
@@ -127,7 +127,7 @@ def pip(
     del config, full_config, args
 
     def read_packages(filename: str) -> List[str]:
-        with open(filename) as file_:
+        with open(filename, encoding="utf-8") as file_:
             return list(safety.util.read_requirements(file_, resolve=True))
 
     return _safely("requirements.txt", read_packages)
@@ -189,7 +189,7 @@ def pipfile_lock(
 
     def read_packages(filename: str) -> List[str]:
         packages = []
-        with open(filename) as file_:
+        with open(filename, encoding="utf-8") as file_:
             data = json.load(file_)
             for section in config["sections"]:
                 for package, package_data in data[section].items():
@@ -259,7 +259,7 @@ def get_global_npm_cve() -> List[int]:
     """
     Get the CVE which were installed globally by GitHub.
     """
-    with open("/tmp/package.json", "w") as package:
+    with open("/tmp/package.json", "w", encoding="utf-8") as package:
         package.write("{}")
 
     subprocess.check_call(["npm", "install", "--package-lock-only"], cwd="/tmp")
@@ -315,7 +315,7 @@ def npm(
         all_ignores = []
         unused_ignores = []
         if os.path.exists(cve_file):
-            with open(cve_file) as cve_file_open:
+            with open(cve_file, encoding="utf-8") as cve_file_open:
                 all_ignores = [int(e) for e in cve_file_open.read().strip().split(",")]
                 unused_ignores = list(all_ignores)
 
@@ -417,7 +417,7 @@ def outdated_versions(
     if not os.path.exists("SECURITY.md"):
         return True
 
-    with open("SECURITY.md") as security_file:
+    with open("SECURITY.md", encoding="utf-8") as security_file:
         security = c2cciutils.security.Security(security_file.read())
 
     version_index = security.headers.index("Version")

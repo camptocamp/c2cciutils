@@ -77,7 +77,7 @@ def print_github_event(
     del config, full_config, args
 
     if "GITHUB_EVENT_PATH" in os.environ:
-        with open(os.environ["GITHUB_EVENT_PATH"]) as event:
+        with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as event:
             print(event.read())
     return True
 
@@ -211,7 +211,7 @@ def gitattribute(
             subprocess.check_output(["git", "--no-pager", "log", "--oneline"])
             .decode()
             .strip()
-            .split("\n")[-1]
+            .split("\n", maxsplit=1)[-1]
             .split(" ")[0]
         )
         subprocess.check_call(["git", "--no-pager", "diff", "--no-renames", "--check", git_ref])
@@ -224,7 +224,7 @@ def gitattribute(
         return False
 
 
-FNULL = open(os.devnull, "w")
+FNULL = open(os.devnull, "w", encoding="utf-8")  # pylint: disable=consider-using-with
 
 
 def eof(config: None, full_config: c2cciutils.configuration.Configuration, args: Namespace) -> bool:
@@ -255,11 +255,11 @@ def eof(config: None, full_config: c2cciutils.configuration.Configuration, args:
                 ):
                     size = os.stat(filename).st_size
                     if size != 0:
-                        with open(filename) as open_file:
+                        with open(filename, encoding="utf-8") as open_file:
                             open_file.seek(size - 1)
                             if ord(open_file.read()) != ord("\n"):
                                 if not args.fix:
-                                    with open(filename, "a") as open_file_write:
+                                    with open(filename, "a", encoding="utf-8") as open_file_write:
                                         open_file_write.write("\n")
                                 else:
                                     c2cciutils.error(
@@ -301,7 +301,7 @@ def workflows(
     files = glob.glob(".github/workflows/*.yaml")
     files += glob.glob(".github/workflows/*.yml")
     for filename in files:
-        with open(filename) as open_file:
+        with open(filename, encoding="utf-8") as open_file:
             workflow = yaml.load(open_file, yaml.SafeLoader)
 
         for name, job in workflow.get("jobs").items():
@@ -369,7 +369,7 @@ def required_workflows(
         if not isinstance(conf, dict):
             continue
 
-        with open(filename) as open_file:
+        with open(filename, encoding="utf-8") as open_file:
             workflow = yaml.load(open_file, yaml.SafeLoader)
 
         for name, job in workflow.get("jobs").items():
@@ -491,7 +491,7 @@ def versions(
         )
         return True
 
-    with open("SECURITY.md") as open_file:
+    with open("SECURITY.md", encoding="utf-8") as open_file:
         security = c2cciutils.security.Security(open_file.read())
 
     for col in ("Version", "Supported Until"):
@@ -564,7 +564,7 @@ def _versions_audit(all_versions: Set[str], full_config: c2cciutils.configuratio
         )
         success = False
     else:
-        with open(filename) as open_file:
+        with open(filename, encoding="utf-8") as open_file:
             workflow = yaml.load(open_file, yaml.SafeLoader)
 
         branch_to_version_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
@@ -614,7 +614,7 @@ def _versions_rebuild(
             )
             success = False
         else:
-            with open(filename) as open_file:
+            with open(filename, encoding="utf-8") as open_file:
                 workflow = yaml.load(open_file, yaml.SafeLoader)
 
             for _, job in workflow.get("jobs").items():
@@ -909,7 +909,7 @@ def dependabot_config(
         return False
 
     success = True
-    with open(".github/dependabot.yaml") as dependabot_file:
+    with open(".github/dependabot.yaml", encoding="utf-8") as dependabot_file:
         dependabot = ruamel.yaml.round_trip_load(dependabot_file)  # type: ignore
 
     # Check that c2cciutils has update rule

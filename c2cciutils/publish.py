@@ -400,10 +400,10 @@ def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, toke
 
     try:
         yaml_ = ruamel.yaml.YAML()  # type: ignore
-        with open(os.path.join(folder, "Chart.yaml")) as open_file:
+        with open(os.path.join(folder, "Chart.yaml"), encoding="utf-8") as open_file:
             chart = yaml_.load(open_file)
         chart["version"] = version
-        with open(os.path.join(folder, "Chart.yaml"), "w") as open_file:
+        with open(os.path.join(folder, "Chart.yaml"), "w", encoding="utf-8") as open_file:
             chart = yaml_.dump(chart, open_file)
         for index, dependency in chart.get("dependencies", []):
             if dependency["repository"].startswith("https://"):
