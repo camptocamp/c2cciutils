@@ -1007,8 +1007,9 @@ def dependabot_config(
                 success = False
             if update["ignore"][0] != {"dependency-name": "none"}:
                 c2cciutils.error(
-                    "dependabot_config3",
+                    "dependabot_config",
                     current_error,
+                    ".github/dependabot.yaml",
                     update["ignore"][0].lc.line + 1,
                     update["ignore"][0].lc.col + 1,
                 )
