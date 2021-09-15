@@ -25,7 +25,7 @@ def main() -> None:
     config = full_config.get("checks", {})
     success = True
     for key, conf in config.items():
-        if conf and (args.check is None or args.check == key):
+        if conf is not False and (args.check is None or args.check == key):
             check = getattr(c2cciutils.checks, key)
             print(f"::group::Run check {key}")
             if not check(conf, full_config, args):
