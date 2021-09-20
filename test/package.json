@@ -4,6 +4,6 @@
   "description": "Test",
   "license": "FreeBSD",
   "devDependencies": {
-    "@types/bootstrap": "5.1.4"
+    "@types/bootstrap": "5.1.6"
   }
 }
