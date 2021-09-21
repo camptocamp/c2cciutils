@@ -6,7 +6,7 @@ import datetime
 import json
 import os.path
 import re
-import subprocess
+import subprocess  # nosec
 import sys
 from argparse import Namespace
 from typing import Any, Callable, Dict, List

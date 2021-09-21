@@ -7,7 +7,7 @@ The publish script.
 import argparse
 import os
 import re
-import subprocess
+import subprocess  # nosec
 import sys
 import tarfile
 from typing import Match, Optional, cast

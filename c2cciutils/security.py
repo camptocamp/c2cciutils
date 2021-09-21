@@ -2,7 +2,7 @@
 Read the table of versions from SECURITY.md.
 """
 
-import xml.etree.ElementTree
+import xml.etree.ElementTree  # nosec
 from typing import List, Optional
 
 import markdown

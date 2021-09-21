@@ -7,7 +7,7 @@ import json
 import os.path
 import pkgutil
 import re
-import subprocess
+import subprocess  # nosec
 import sys
 from typing import Any, Dict, List, Match, Optional, Pattern, Tuple, TypedDict, cast
 

@@ -55,6 +55,14 @@
             "markers": "python_version >= '3.6'",
             "version": "==8.0.1"
         },
+        "defusedxml": {
+            "hashes": [
+                "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69",
+                "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"
+            ],
+            "index": "pypi",
+            "version": "==0.7.1"
+        },
         "dparse": {
             "hashes": [
                 "sha256:a1b5f169102e1c894f9a7d5ccf6f9402a836a5d24be80a986c7ce9eaed78f367",
@@ -626,7 +634,7 @@
         "prospector": {
             "extras": [
                 "with_bandit",
-                "with_pyroma"
+                "with_mypy"
             ],
             "hashes": [
                 "sha256:47f8ff3fd36ae276967eb392ca20b300a7bdea66c0d0252250a4d89a6c03ab15",

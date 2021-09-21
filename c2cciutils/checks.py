@@ -6,7 +6,7 @@ import configparser
 import glob
 import os
 import re
-import subprocess
+import subprocess  # nosec
 import sys
 from argparse import Namespace
 from io import StringIO
@@ -246,7 +246,7 @@ def eof(config: None, full_config: c2cciutils.configuration.Configuration, args:
                 if (
                     subprocess.call(
                         f"git check-attr -a '{filename}' | grep ' text: set'",
-                        shell=True,
+                        shell=True,  # nosec
                         stdout=FNULL,
                     )
                     == 0
@@ -300,7 +300,7 @@ def workflows(
     files += glob.glob(".github/workflows/*.yml")
     for filename in files:
         with open(filename, encoding="utf-8") as open_file:
-            workflow = yaml.load(open_file, yaml.SafeLoader)
+            workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
 
         for name, job in workflow.get("jobs").items():
             if job.get("runs-on") in config.get("images_blacklist", []):
@@ -367,7 +367,7 @@ def required_workflows(
             continue
 
         with open(filename, encoding="utf-8") as open_file:
-            workflow = yaml.load(open_file, yaml.SafeLoader)
+            workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
 
         for name, job in workflow.get("jobs").items():
             if "if" in conf:
@@ -557,7 +557,7 @@ def _versions_audit(all_versions: Set[str], full_config: c2cciutils.configuratio
         success = False
     else:
         with open(filename, encoding="utf-8") as open_file:
-            workflow = yaml.load(open_file, yaml.SafeLoader)
+            workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
 
         branch_to_version_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
 
@@ -603,7 +603,7 @@ def _versions_rebuild(
             success = False
         else:
             with open(filename, encoding="utf-8") as open_file:
-                workflow = yaml.load(open_file, yaml.SafeLoader)
+                workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
 
             for _, job in workflow.get("jobs").items():
                 rebuild_versions += _get_branch_matrix(job, branch_to_version_re)
