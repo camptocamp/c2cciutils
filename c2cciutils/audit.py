@@ -226,7 +226,7 @@ def pipenv(
         if os.path.basename(file) != "Pipfile":
             continue
         if not init:
-            print("::group::Init python versions: {}".format(", ".join(config.get("python_versions", []))))
+            print(f"::group::Init python versions: {', '.join(config.get('python_versions', []))}")
             sys.stdout.flush()
             sys.stderr.flush()
             for version in config.get("python_versions", []):
@@ -351,7 +351,7 @@ def npm(
                 if not first:
                     print("=======================================================")
                 print()
-                print("Title: [{}] {}".format(vunerability.get("id"), vunerability.get("title")))
+                print(f"Title: [{vunerability.get('id')}] {vunerability.get('title')}")
                 print("Severity: " + vunerability.get("severity"))
                 print("CWE: " + vunerability.get("cwe"))
                 print("Vulnarable versions: " + vunerability.get("vulnerable_versions"))
@@ -372,9 +372,8 @@ def npm(
         if len(unused_ignores) > 0:
             c2cciutils.error(
                 "npm",
-                "The following cve ignores are not present in the audit: {}".format(
-                    ", ".join([str(e) for e in unused_ignores])
-                ),
+                "The following cve ignores are not present in the audit: "
+                f"{', '.join([str(e) for e in unused_ignores])}",
                 file=cve_file,
             )
             success = False
@@ -430,8 +429,8 @@ def outdated_versions(
             if date < datetime.datetime.now():
                 c2cciutils.error(
                     "versions",
-                    "The version '{}' is outdated, it can be set to "
-                    "'Unsupported', 'Best effort' or 'To be defined'".format(row[version_index]),
+                    f"The version '{row[version_index]}' is outdated, it can be set to "
+                    "'Unsupported', 'Best effort' or 'To be defined'",
                     "SECURITY.md",
                 )
                 success = False

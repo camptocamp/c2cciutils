@@ -173,7 +173,7 @@ class GoogleCalendar:
         }
 
         event_result = self.service.events().insert(calendarId=self.calendar_id, body=body).execute()
-        print("created event with id: {}".format(event_result["id"]))
+        print(f"Created event with id: {event_result['id']}")
 
     def _print_credentials(self) -> None:
         """
@@ -256,7 +256,7 @@ def pip(
         package: The package configuration
     """
 
-    print("::group::{} '{}' to pypi".format("Publishing" if publish else "Checking", package.get("path")))
+    print(f"::group::{'Publishing' if publish else 'Checking'} '{package.get('path')}' to pypi")
     sys.stdout.flush()
     sys.stderr.flush()
 
@@ -305,14 +305,14 @@ def docker(
 
     Arguments:
         config: The publishing config
-        name: The reposotory name, just used to print messages
+        name: The repository name, just used to print messages
         image_config: The image config
         tag_src: The source tag (usually latest)
         tag_dst: The tag used for publication
         latest: Publish also the tag latest
     """
 
-    print("::group::Publishing {}:{} to {}".format(image_config["name"], tag_dst, name))
+    print(f"::group::Publishing {image_config['name']}:{tag_dst} to {name}")
     sys.stdout.flush()
     sys.stderr.flush()
 
@@ -322,8 +322,8 @@ def docker(
                 [
                     "docker",
                     "tag",
-                    "{}:{}".format(image_config["name"], tag_src),
-                    "{}/{}:{}".format(config["server"], image_config["name"], tag_dst),
+                    f"{image_config['name']}:{tag_src}",
+                    f"{config['server']}/{image_config['name']}:{tag_dst}",
                 ],
                 check=True,
             )
@@ -331,17 +331,13 @@ def docker(
                 [
                     "docker",
                     "push",
-                    "{}/{}:{}".format(config["server"], image_config["name"], tag_dst),
+                    f"{config['server']}/{image_config['name']}:{tag_dst}",
                 ],
                 check=True,
             )
             if latest:
                 subprocess.run(
-                    [
-                        "docker",
-                        "push",
-                        "{}/{}:{}".format(config["server"], image_config["name"], tag_src),
-                    ],
+                    ["docker", "push", f"{config['server']}/{image_config['name']}:{tag_src}"],
                     check=True,
                 )
         else:
@@ -350,17 +346,13 @@ def docker(
                     [
                         "docker",
                         "tag",
-                        "{}:{}".format(image_config["name"], tag_src),
-                        "{}:{}".format(image_config["name"], tag_dst),
+                        f"{image_config['name']}:{tag_src}",
+                        f"{image_config['name']}:{tag_dst}",
                     ],
                     check=True,
                 )
             subprocess.run(
-                [
-                    "docker",
-                    "push",
-                    "{}:{}".format(image_config["name"], tag_dst),
-                ],
+                ["docker", "push", f"{image_config['name']}:{tag_dst}"],
                 check=True,
             )
             if latest:
@@ -368,7 +360,7 @@ def docker(
                     [
                         "docker",
                         "push",
-                        "{}:{}".format(image_config["name"], tag_src),
+                        f"{image_config['name']}:{tag_src}",
                     ],
                     check=True,
                 )

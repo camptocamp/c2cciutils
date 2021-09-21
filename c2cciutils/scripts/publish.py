@@ -155,9 +155,8 @@ def main() -> None:
                 publish = version_type in pypi_config.get("versions", [])
                 if args.dry_run:
                     print(
-                        "{} '{}' to pypi, skipping (dry run)".format(
-                            "Publishing" if publish else "Checking", package.get("path")
-                        )
+                        f"{'Publishing' if publish else 'Checking'} "
+                        f"'{package.get('path')}' to pypi, skipping (dry run)"
                     )
                 else:
                     success &= c2cciutils.publish.pip(package, version, version_type, publish)
@@ -191,9 +190,8 @@ def main() -> None:
                         if version_type in conf.get("versions", []):
                             if args.dry_run:
                                 print(
-                                    "Publishing {}:{} to {}, skipping (dry run)".format(
-                                        image_conf["name"], tag_dst, name
-                                    )
+                                    f"Publishing {image_conf['name']}:{tag_dst} to {name}, "
+                                    "skipping (dry run)"
                                 )
                             else:
                                 success &= c2cciutils.publish.docker(
@@ -202,10 +200,12 @@ def main() -> None:
                     if version_type in google_calendar_config.get("on", []):
                         if not google_calendar:
                             google_calendar = GoogleCalendar()
-                        summary = "{}:{}".format(image_conf["name"], tag_dst)
-                        description = "Published on: {}\nFor version type: {}".format(
-                            ", ".join(docker_config["repository"].keys()), version_type
+                        summary = f"{image_conf['name']}:{tag_dst}"
+                        description = (
+                            f"Published on: {', '.join(docker_config['repository'].keys())}\n"
+                            f"For version type: {version_type}"
                         )
+
                         google_calendar.create_event(summary, description)
 
     helm_config = cast(

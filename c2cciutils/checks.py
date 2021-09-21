@@ -134,9 +134,8 @@ def black_config(
                 if configp.get("tool.black", key) != value:
                     c2cciutils.error(
                         "black_config",
-                        "The property '{}' should have the value, '{}', but is '{}'".format(
-                            key, value, configp.get("tool.black", key)
-                        ),
+                        f"The property '{key}' should have the value, '{value}', "
+                        f"but is '{configp.get('tool.black', key)}'",
                         "pyproject.toml",
                     )
     return True
@@ -172,9 +171,8 @@ def editorconfig(
                         if value is not None and (key not in properties or properties[key] != value):
                             c2cciutils.error(
                                 "editorconfig",
-                                "For pattern: {} the property '{}' is '{}' but should be '{}'.".format(
-                                    pattern, key, properties.get(key, ""), value
-                                ),
+                                f"For pattern: {pattern} the property '{key}' is "
+                                f"'{properties.get(key, '')}' but should be '{value}'.",
                                 ".editorconfig",
                             )
                             success = False
@@ -308,9 +306,8 @@ def workflows(
             if job.get("runs-on") in config.get("images_blacklist", []):
                 c2cciutils.error(
                     "workflows",
-                    "The workflow '{}', job '{}' runs on '{}' but it is blacklisted".format(
-                        filename, name, job.get("runs-on")
-                    ),
+                    f"The workflow '{filename}', job '{name}' runs on '{job.get('runs-on')}' "
+                    "but it is blacklisted",
                     filename,
                 )
                 success = False
@@ -377,9 +374,8 @@ def required_workflows(
                 if job.get("if") != conf["if"]:
                     c2cciutils.error(
                         "required_workflows",
-                        "The workflow '{}', job '{}' does not have the following if '{}'".format(
-                            filename, name, conf["if"]
-                        ),
+                        f"The workflow '{filename}', job '{name}' does not have "
+                        f"the following if '{conf['if']}'",
                         filename,
                     )
                     success = False
@@ -395,9 +391,8 @@ def required_workflows(
                 if job.get("strategy", {}).get("fail-fast") != conf["strategy-fail-fast"]:
                     c2cciutils.error(
                         "required_workflows",
-                        "The workflow '{}', job '{}' does not have the strategy/fail-fast as {}".format(
-                            filename, name, conf["strategy-fail-fast"]
-                        ),
+                        f"The workflow '{filename}', job '{name}' does not have the strategy/fail-fast as "
+                        f"{conf['strategy-fail-fast']}",
                         filename,
                     )
                     success = False
@@ -423,11 +418,8 @@ def required_workflows(
                 if not found:
                     c2cciutils.error(
                         "required_workflows",
-                        "The workflow '{}', job '{}' doesn't have the step for:\n{}".format(
-                            filename,
-                            name,
-                            yaml.dump(step_conf, default_flow_style=False, Dumper=yaml.SafeDumper).strip(),
-                        ),
+                        f"The workflow '{filename}', job '{name}' doesn't have the step for:\n"
+                        f"{yaml.dump(step_conf, default_flow_style=False, Dumper=yaml.SafeDumper).strip()}",
                         filename,
                     )
                     success = False
@@ -575,13 +567,9 @@ def _versions_audit(all_versions: Set[str], full_config: c2cciutils.configuratio
             if all_versions != set(audit_versions):
                 c2cciutils.error(
                     "versions",
-                    "The workflow '{}', job '{}' does not have a branch matrix with the right list of "
-                    "versions [{}] != [{}]".format(
-                        filename,
-                        name,
-                        ", ".join(sorted(audit_versions)),
-                        ", ".join(sorted(all_versions)),
-                    ),
+                    f"The workflow '{filename}', job '{name}' does not have a branch matrix with the "
+                    "right list of versions "
+                    f"[{', '.join(sorted(audit_versions))}] != [{', '.join(sorted(all_versions))}]",
                 )
                 success = False
     return success
@@ -624,7 +612,7 @@ def _versions_rebuild(
         c2cciutils.error(
             "versions",
             "The rebuild workflows does not have the right list of versions in the branch matrix "
-            "[{}] != [{}]".format(", ".join(sorted(rebuild_versions)), ", ".join(sorted(all_versions))),
+            f"[{', '.join(sorted(rebuild_versions))}] != [{', '.join(sorted(all_versions))}]",
         )
         success = False
     return success
@@ -661,9 +649,8 @@ def _versions_backport_labels(
         if all_versions != label_versions:
             c2cciutils.error(
                 "versions backport labels",
-                "The backport labels do not have the right list of versions [{}] != [{}]".format(
-                    ", ".join(sorted(label_versions)), ", ".join(sorted(all_versions))
-                ),
+                "The backport labels do not have the right list of versions "
+                f"[{', '.join(sorted(label_versions))}] != [{', '.join(sorted(all_versions))}]",
             )
             success = False
     except FileNotFoundError as exception:
@@ -690,9 +677,7 @@ def _versions_branches(all_versions: Set[str], full_config: c2cciutils.configura
 
         sys.stdout.flush()
         sys.stderr.flush()
-        url: Optional[str] = "https://api.github.com/repos/{repo}/branches".format(
-            repo=c2cciutils.get_repository()
-        )
+        url: Optional[str] = f"https://api.github.com/repos/{c2cciutils.get_repository()}/branches"
         while url:
             branches_response = requests.get(
                 url,
@@ -712,11 +697,7 @@ def _versions_branches(all_versions: Set[str], full_config: c2cciutils.configura
             except Exception as exception:  # pylint: disable=broad-except
                 c2cciutils.error(
                     "versions branches",
-                    (
-                        "error on reading Link header '{}': {}".format(
-                            branches_response.headers.get("Link"), exception
-                        )
-                    ),
+                    f"error on reading Link header '{branches_response.headers.get('Link')}': {exception}",
                     error_type="warning",
                 )
 
@@ -730,9 +711,8 @@ def _versions_branches(all_versions: Set[str], full_config: c2cciutils.configura
             c2cciutils.error(
                 "versions branches",
                 "The version from the protected branches does not correspond with "
-                "expected versions [{}] != [{}]".format(
-                    ", ".join(sorted(branch_versions)), ", ".join(sorted(all_versions))
-                ),
+                f"expected versions [{', '.join(sorted(branch_versions))}] != "
+                f"[{', '.join(sorted(all_versions))}]",
             )
             success = False
     except FileNotFoundError as exception:
