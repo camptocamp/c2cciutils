@@ -349,7 +349,8 @@ def validate_config(
     )
 
     if errors:
-        print("The config file is invalid:\n{}".format("\n".join(errors)))
+        formated_errors = "\n".join(errors)
+        print(f"The config file is invalid:\n{formated_errors}")
         if os.environ.get("IGNORE_CONFIG_ERROR", "FALSE").lower() != "true":
             sys.exit(1)
 
@@ -491,11 +492,11 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
             sys.stdout.flush()
             sys.stderr.flush()
             current_version = subprocess.check_output(version.get("cmd", [])).decode()
-            print("{}{}".format(version.get("prefix", ""), current_version))
+            print(f"{version.get('prefix', '')}{current_version}")
         except PermissionError as exception:
-            print("{}: not allowed cmd: {}".format(version.get("name"), exception))
+            print(f"{version.get('name')}: not allowed cmd: {exception}")
         except subprocess.CalledProcessError as exception:
-            print("{}: no present: ".format(version.get("name")), exception)
+            print(f"{version.get('name')}: no present: {exception}")
 
     return True
 
@@ -539,11 +540,12 @@ def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
     Return the headers (to be chained)
     """
     try:
-        headers["Authorization"] = "Bearer {}".format(
+        token = (
             os.environ["GITHUB_TOKEN"].strip()
             if "GITHUB_TOKEN" in os.environ
             else gopass("gs/ci/github/token/gopass")
         )
+        headers["Authorization"] = f"Bearer {token}"
         return headers
     except FileNotFoundError:
         return headers
@@ -585,7 +587,7 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
     json_response = http_response.json()
 
     if "errors" in json_response:
-        raise RuntimeError("GraphQL error: {}".format(json.dumps(json_response["errors"], indent=2)))
+        raise RuntimeError(f"GraphQL error: {json.dumps(json_response['errors'], indent=2)}")
     if "data" not in json_response:
         raise RuntimeError(f"GraphQL no data: {json.dumps(json_response, indent=2)}")
     return cast(Dict[str, Any], json_response["data"])

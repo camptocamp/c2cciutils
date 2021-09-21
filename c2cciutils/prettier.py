@@ -48,25 +48,20 @@ class PrettierModule:
             if not success:
                 new_data = self.module.call_member("format", data, config)
                 print()
-                print(
-                    "Wrong file formatting with config:\n{}{}".format(
-                        self.dump_yaml(config),
-                        "".join(
-                            difflib.unified_diff(
-                                data.splitlines(True),
-                                new_data.splitlines(True),
-                                filename,
-                                filename + "-formated",
-                            )
-                        ),
+                printable_diff = "".join(
+                    difflib.unified_diff(
+                        data.splitlines(True),
+                        new_data.splitlines(True),
+                        filename,
+                        filename + "-formated",
                     )
                 )
+                print(f"Wrong file formatting with config:\n{self.dump_yaml(config)}{printable_diff}")
             return success
         except node_vm2.VMError as exception:
             print(
-                "ERROR on check the file '{}' with config:\n{}\n{}".format(
-                    filename, self.dump_yaml(config), exception
-                )
+                f"ERROR on check the file '{filename}' with config:\n"
+                f"{self.dump_yaml(config)}\n{exception}"
             )
             return False
 
@@ -116,9 +111,8 @@ class PrettierModule:
                 the_file_to_format.write(new_data)
         except node_vm2.VMError as exception:
             print(
-                "ERROR on formatted the file '{}' with config:\n{}\n{}".format(
-                    filename, self.dump_yaml(config), exception
-                )
+                f"ERROR on formatted the file '{filename}' with config:\n"
+                f"{self.dump_yaml(config)}\n{exception}"
             )
             return False
         return True
