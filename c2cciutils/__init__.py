@@ -11,12 +11,12 @@ import subprocess  # nosec
 import sys
 from typing import Any, Dict, List, Match, Optional, Pattern, Tuple, TypedDict, cast
 
+import jsonschema_gentypes.validate
 import magic
 import requests
 import ruamel.yaml
 
 import c2cciutils.configuration
-import jsonschema_gentypes.validate
 
 
 def get_repository() -> str:
@@ -191,7 +191,16 @@ def get_config() -> c2cciutils.configuration.Configuration:
             "print_config": True,
             "print_environment_variables": True,
             "print_github_event": True,
-            "black_config": {"propertires": {"line-length": 110}},
+            "black_config": {"properties": {"line-length": 110}},
+            "prospector_config": {
+                "properties": {
+                    "strictness": "veryhigh",
+                    "max-line-length": 110,
+                    "doc-warnings": True,
+                    "mypy": {"run": True},
+                    "bandit": {"run": True},
+                }
+            },
             "editorconfig": {
                 "properties": editorconfig_full_properties,
             },

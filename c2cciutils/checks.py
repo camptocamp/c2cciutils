@@ -17,6 +17,7 @@ import requests
 import ruamel.yaml
 import yaml
 from editorconfig import EditorConfigError, get_properties
+from ruamel.yaml.comments import CommentedMap
 
 import c2cciutils.prettier
 import c2cciutils.security
@@ -139,6 +140,82 @@ def black_config(
                         "pyproject.toml",
                     )
     return True
+
+
+def _check_properties(
+    check: str, file: str, path: str, properties: CommentedMap, reference: Dict[str, Any]
+) -> bool:
+    if path:
+        path += "."
+
+    success = True
+
+    for key, value in reference.items():
+        if key not in properties:
+            c2cciutils.error(
+                check,
+                f"The property '{path}{key}' should be defined",
+                file,
+                properties.lc.line + 1,
+                properties.lc.col + 1,
+            )
+            success = False
+        if isinstance(value, dict):
+            if not isinstance(properties[key], dict):
+                c2cciutils.error(
+                    check,
+                    f"The property '{path}{key}' should be a dictionary",
+                    file,
+                    properties.lc.line + 1,
+                    properties.lc.col + 1,
+                )
+                success = False
+            else:
+                success |= _check_properties(check, file, path + key, properties[key], value)
+        else:
+            if properties[key] != value:
+                c2cciutils.error(
+                    check,
+                    f"The property '{path}{key}' should have the value, '{value}', "
+                    f"but is '{properties[key]}'",
+                    file,
+                    properties.lc.line + 1,
+                    properties.lc.col + 1,
+                )
+                success = False
+    return success
+
+
+def prospector_config(
+    config: c2cciutils.configuration.ChecksBlackConfigurationConfig,
+    full_config: c2cciutils.configuration.Configuration,
+    args: Namespace,
+) -> bool:
+    """
+    Check the prospector configuration.
+
+    config is like:
+        properties: # dictionary of properties to check
+
+    Arguments:
+        config: The check section config
+        full_config: All the CI config
+        args: The parsed command arguments
+    """
+    del full_config, args
+    success = True
+
+    # If there is no python file the check is disabled
+    for filename in (
+        subprocess.check_output(["git", "ls-files", ".prospector.yaml"]).decode().strip().split("\n")
+    ):
+        with open(filename, encoding="utf-8") as dependabot_file:
+            properties: CommentedMap = ruamel.yaml.round_trip_load(dependabot_file)  # type: ignore
+        success |= _check_properties(
+            "prospector_config", filename, "", properties, config.get("properties", {})
+        )
+
+    return success
 
 
 def editorconfig(
