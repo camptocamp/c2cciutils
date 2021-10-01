@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+import datetime
+from distutils.version import LooseVersion
+
+import requests
+
+
+def main() -> None:
+    url = "https://pypi.org/pypi/c2cciutils/json"
+    data = requests.get(url).json()
+    versions = [LooseVersion(v) for v in data["releases"].keys()]
+    versions = [v for v in versions if len(v.version) == 4]
+    versions = sorted(versions)
+    version = versions[-1].vstring
+
+    date_str = version.split(".dev")[1][:8]
+    date_obj = datetime.datetime.strptime(date_str, "%Y%m%d")
+    days = (datetime.datetime.now() - date_obj).days
+    required = "true" if days > 30 else "false"
+
+    print(f"days: {days}")
+    print(f"required: {required}")
+    print(f"##[set-output name=days;]{days}")
+    print(f"##[set-output name=required;]{required}")
+
+
+if __name__ == "__main__":
+    main()

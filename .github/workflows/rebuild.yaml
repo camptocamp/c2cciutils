@@ -48,6 +48,9 @@ jobs:
       - name: Build
         run: make
 
+      - id: release
+        run: ci/requires_release
       - run: sudo chmod go+rw -R *.egg-info
       - name: Publish
         run: c2cciutils-publish --type=rebuild --branch=${{ matrix.branch }}
+        if: steps.release.outputs.required == 'true'

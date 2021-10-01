@@ -11,17 +11,17 @@ import subprocess
 import sys
 from typing import Any, Dict, List, Match, Optional, Pattern, Tuple, TypedDict, cast
 
+import jsonschema_gentypes.validate
 import magic
 import requests
 import ruamel.yaml
 
 import c2cciutils.configuration
-import jsonschema_gentypes.validate
 
 
 def get_repository() -> str:
     """
-    Get the current GitHub repository like `organisation/project`.
+    Get the current GitHub repository like `organization/project`.
     """
 
     if "GITHUB_REPOSITORY" in os.environ:

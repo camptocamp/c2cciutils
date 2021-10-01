@@ -268,7 +268,7 @@ def pip(
         cmd = ["python3", "./setup.py", "egg_info", "--no-date"]
         cmd += (
             ["--tag-build=dev" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")]
-            if version_type == "version_branch"
+            if version_type in ("version_branch", "rebuild")
             else []
         )
         cmd.append("bdist_wheel")

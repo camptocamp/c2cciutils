@@ -19,3 +19,4 @@ publish:
     versions:
       - version_tag
       - version_branch
+      - rebuild
