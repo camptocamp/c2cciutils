@@ -21,7 +21,7 @@ import c2cciutils.configuration
 
 def get_repository() -> str:
     """
-    Get the current GitHub repository like `organisation/project`.
+    Get the current GitHub repository like `organization/project`.
     """
 
     if "GITHUB_REPOSITORY" in os.environ:
