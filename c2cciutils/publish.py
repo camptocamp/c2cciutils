@@ -6,8 +6,8 @@ import argparse
 import datetime
 import glob
 import os
-import pickle
-import subprocess
+import pickle  # nosec
+import subprocess  # nosec
 import sys
 import uuid
 from typing import Optional
@@ -68,7 +68,7 @@ class GoogleCalendar:
         # time.
         if os.path.exists(self.credentials_pickle_file):
             with open(self.credentials_pickle_file, "rb") as token:
-                creds = pickle.load(token)
+                creds = pickle.load(token)  # nosec
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:

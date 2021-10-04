@@ -17,9 +17,10 @@ google-auth-oauthlib = "==0.4.6"
 jsonschema = "==3.2.0"
 jsonschema-gentypes = "==0.9.4"
 node-vm2 = "==0.4.0"
+defusedxml = "==0.7.1"
 
 [dev-packages]
-prospector = {version = "==1.5.1", extras = ["with_bandit", "with_pyroma"]}
+prospector = {version = "==1.5.1", extras = ["with_bandit", "with_mypy"]}
 types-requests = "==2.25.6"
 types-pyyaml = "==5.4.10"
 types-setuptools = "==57.0.2"

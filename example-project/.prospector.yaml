@@ -27,5 +27,10 @@ mypy:
     check-untyped-defs: True
     skip-version-check: True
 
+bandit:
+  run: true
+  options:
+    config: .bandit.yaml
+
 mccabe:
   run: false
