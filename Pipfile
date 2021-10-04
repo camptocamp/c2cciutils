@@ -23,7 +23,7 @@ defusedxml = "==0.7.1"
 prospector = {version = "==1.5.1", extras = ["with_bandit", "with_mypy"]}
 types-requests = "==2.25.9"
 types-pyyaml = "==5.4.10"
-types-setuptools = "==57.0.2"
+types-setuptools = "==57.4.0"
 types-markdown = "==3.3.2"
 
 [requires]
