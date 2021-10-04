@@ -173,11 +173,11 @@ def _check_properties(
             else:
                 success |= _check_properties(check, file, path + key, properties[key], value)
         else:
-            if properties[key] != value:
+            if properties.get(key) != value:
                 c2cciutils.error(
                     check,
                     f"The property '{path}{key}' should have the value, '{value}', "
-                    f"but is '{properties[key]}'",
+                    f"but is '{properties.get(key)}'",
                     file,
                     properties.lc.line + 1,
                     properties.lc.col + 1,
