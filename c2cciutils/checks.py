@@ -209,11 +209,12 @@ def prospector_config(
     for filename in (
         subprocess.check_output(["git", "ls-files", ".prospector.yaml"]).decode().strip().split("\n")
     ):
-        with open(filename, encoding="utf-8") as dependabot_file:
-            properties: CommentedMap = ruamel.yaml.round_trip_load(dependabot_file)  # type: ignore
-        success |= _check_properties(
-            "prospector_config", filename, "", properties, config.get("properties", {})
-        )
+        if filename:
+            with open(filename, encoding="utf-8") as prospector_file:
+                properties: CommentedMap = ruamel.yaml.round_trip_load(prospector_file)  # type: ignore
+            success |= _check_properties(
+                "prospector_config", filename, "", properties, config.get("properties", {})
+            )
 
     return success
 
