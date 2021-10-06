@@ -132,13 +132,14 @@ def black_config(
 
         if isinstance(config, dict):
             for key, value in config.get("properties", {}).items():
-                if configp.get("tool.black", key) != value:
+                if configp.get("tool.black", key) != str(value):
                     c2cciutils.error(
                         "black_config",
                         f"The property '{key}' should have the value, '{value}', "
                         f"but is '{configp.get('tool.black', key)}'",
                         "pyproject.toml",
                     )
+                    return False
     return True
 
 
