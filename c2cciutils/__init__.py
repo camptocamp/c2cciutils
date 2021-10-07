@@ -484,8 +484,7 @@ def get_value(matched: Optional[Match[str]], config: Optional[VersionTransform],
 
     Return the value
     """
-    assert config
-    return matched.expand(config.get("to", r"\1")) if matched is not None else value
+    return matched.expand(config.get("to", r"\1")) if matched is not None and config is not None else value
 
 
 def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
