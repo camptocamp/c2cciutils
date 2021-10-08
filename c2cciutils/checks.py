@@ -171,7 +171,7 @@ def _check_properties(
                 )
                 success = False
             else:
-                success |= _check_properties(check, file, path + key, properties[key], value)
+                success &= _check_properties(check, file, path + key, properties[key], value)
         else:
             if properties.get(key) != value:
                 c2cciutils.error(
@@ -212,7 +212,7 @@ def prospector_config(
         if filename:
             with open(filename, encoding="utf-8") as prospector_file:
                 properties: CommentedMap = ruamel.yaml.round_trip_load(prospector_file)  # type: ignore
-            success |= _check_properties(
+            success &= _check_properties(
                 "prospector_config", filename, "", properties, config.get("properties", {})
             )
 
@@ -1173,8 +1173,6 @@ def setup(
                         filename,
                     )
                     success = False
-
-            # TODO prospector
 
     for filename in subprocess.check_output(["git", "ls-files", "setup.py"]).decode().split("\n"):
         if not filename or filename in config.get("ignore_file", []):
