@@ -142,7 +142,7 @@ def pipfile(
     Audit all the `Pipfile`.
 
     config is like:
-        sections: [...] # to select withch section we want to check
+        sections: [...] # to select witch section we want to check
 
     Arguments:
         config: The audit section config
@@ -178,7 +178,7 @@ def pipfile_lock(
     Audit all the `Pipfile.lock` files.
 
     config is like:
-        sections: [...] # to select withch section we want to check
+        sections: [...] # to select witch section we want to check
 
     Arguments:
         config: The audit section config
@@ -354,7 +354,7 @@ def npm(
                 print(f"Title: [{vunerability.get('id')}] {vunerability.get('title')}")
                 print("Severity: " + vunerability.get("severity"))
                 print("CWE: " + vunerability.get("cwe"))
-                print("Vulnarable versions: " + vunerability.get("vulnerable_versions"))
+                print("Vulnerable versions: " + vunerability.get("vulnerable_versions"))
                 print("Patched versions: " + vunerability.get("patched_versions"))
                 print("Recommendation: " + vunerability.get("recommendation"))
                 for find in vunerability.get("findings", []):
