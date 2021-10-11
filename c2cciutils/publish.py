@@ -186,7 +186,7 @@ class GoogleCalendar:
         """
         Save the calendar credentials to gopass.
         """
-        objs_to_save = {
+        objects_to_save = {
             "gs/ci/google_calendar/calendarId": self.calendar_id,
             "gs/ci/google_calendar/token": self.token,
             "gs/ci/google_calendar/token_uri": self.token_uri,
@@ -194,7 +194,7 @@ class GoogleCalendar:
             "gs/ci/google_calendar/client_id": self.client_id,
             "gs/ci/google_calendar/client_secret": self.client_secret,
         }
-        for key, secret in objs_to_save.items():
+        for key, secret in objects_to_save.items():
             assert secret is not None
             c2cciutils.gopass_put(secret, key)
 

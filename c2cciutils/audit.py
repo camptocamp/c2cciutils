@@ -83,7 +83,7 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
         ignores = _python_ignores(directory)
         packages = read_packages(file)
         try:
-            vulns = safety.safety.check(
+            vulnerabilities = safety.safety.check(
                 packages=packages,
                 key="",
                 db_mirror="",
@@ -91,10 +91,10 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
                 ignore_ids=ignores,
                 proxy={},
             )
-            if vulns:
+            if vulnerabilities:
                 success = False
                 output_report = safety.formatter.report(
-                    vulns=vulns,
+                    vulns=vulnerabilities,
                     full=True,
                     checked_packages=len(packages),
                 )
