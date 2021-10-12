@@ -347,8 +347,8 @@ def validate_config(
         config: The configuration to be validated
         config_file: The configuration file name, used to build the error messages
 
-    Return the configusation (used to be chained)
-    Print an message and evantually exit on vailidation error.
+    Return the configuration (used to be chained)
+    Print an message and eventually exit on validation error.
     """
     schema_data = pkgutil.get_data("c2cciutils", "schema.json")
     assert schema_data is not None
@@ -428,7 +428,7 @@ def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = 
     to be used with convert and match
 
     Arguments:
-        config: The treansform config
+        config: The transform config
         prefix: The version prefix
 
     Return the compiled transform config.
@@ -645,7 +645,7 @@ def get_based_on_master(
     and for each other branch (max 50) check if any commit in last 10 commits is the current one.
 
     Arguments:
-        repo: The repository [<organisation>, <name>]
+        repo: The repository [<organization>, <name>]
         master_branch: The master branch name
         config: The full configuration
     """

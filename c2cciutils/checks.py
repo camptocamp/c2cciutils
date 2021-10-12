@@ -120,9 +120,9 @@ def black_config(
             )
             return False
 
-        configp = configparser.ConfigParser()
-        configp.read("pyproject.toml")
-        if "tool.black" not in configp.sections():
+        config_parser = configparser.ConfigParser()
+        config_parser.read("pyproject.toml")
+        if "tool.black" not in config_parser.sections():
             c2cciutils.error(
                 "black_config",
                 "The 'tool.black' section is required in the 'pyproject.toml' file",
@@ -132,11 +132,11 @@ def black_config(
 
         if isinstance(config, dict):
             for key, value in config.get("properties", {}).items():
-                if configp.get("tool.black", key) != str(value):
+                if config_parser.get("tool.black", key) != str(value):
                     c2cciutils.error(
                         "black_config",
                         f"The property '{key}' should have the value, '{value}', "
-                        f"but is '{configp.get('tool.black', key)}'",
+                        f"but is '{config_parser.get('tool.black', key)}'",
                         "pyproject.toml",
                     )
                     return False
@@ -301,7 +301,7 @@ def gitattribute(
         return False
 
 
-FNULL = open(os.devnull, "w", encoding="utf-8")  # pylint: disable=consider-using-with
+F_NULL = open(os.devnull, "w", encoding="utf-8")  # pylint: disable=consider-using-with
 
 
 def eof(config: None, full_config: c2cciutils.configuration.Configuration, args: Namespace) -> bool:
@@ -326,7 +326,7 @@ def eof(config: None, full_config: c2cciutils.configuration.Configuration, args:
                     subprocess.call(
                         f"git check-attr -a '{filename}' | grep ' text: set'",
                         shell=True,  # nosec
-                        stdout=FNULL,
+                        stdout=F_NULL,
                     )
                     == 0
                 ):
@@ -414,11 +414,11 @@ def required_workflows(
         <filename>: # if set directly to `True` just check that the file is present, to `False`
                 check nothing.
             steps:
-              - run_re: # rebular expresiion that we should have in a run, on one of the jobs.
+              - run_re: # regular expression that we should have in a run, on one of the jobs.
                 env: # the list or required environment variable for this step
             strategy-fail-fast: False # If present check the value of the `fail-fast`, on all the jobs.
             if: # if present check the value of the `if`, on all the jobs.
-            noif: # if `True` theck that we don't have an `if`.
+            noif: # if `True` check that we don't have an `if`.
 
     Arguments:
         config: The check section config
@@ -533,7 +533,7 @@ def versions(
     """
     Verify various GitHub / CI tools versions or branches configurations.
 
-    Versions from audit workflow, rebuild workdlow(s), protected branches and backport labels
+    Versions from audit workflow, rebuild workflow(s), protected branches and backport labels
     match with versions from `SECURITY.md` file.
     The columns `Version` and `Supported Until` should be present.
     The `Supported Until` should contains dates formatted as `dd/mm/yyyy`, or `Unsupported`
@@ -1023,7 +1023,7 @@ def dependabot_config(
                 )
                 success = False
 
-    # update_ignore: True/False # Do a check that we ignoe everything on each rules to ignore all the
+    # update_ignore: True/False # Do a check that we ignore everything on each rules to ignore all the
     # `@dependabot ignore`.
     if config.get("update_ignore", True) is not False:
         update_ignores = [] if config.get("update_ignore", True) is True else config.get("update_ignore")
