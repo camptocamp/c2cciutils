@@ -186,6 +186,8 @@ def get_config() -> c2cciutils.configuration.Configuration:
                     {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
                     {"name": "docker", "cmd": ["docker", "--version"]},
                     {"name": "docker-compose", "cmd": ["docker-compose", "--version"]},
+                    {"name": "kubectl", "cmd": ["kubectl", "version"]},
+                    {"name": "k3d/k3s", "cmd": ["k3d", "--version"]},
                 ]
             },
             "print_config": True,
@@ -513,6 +515,12 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
                 f"{version.get('name')}: no present: {exception}",
                 error_type="warning",
             )
+        except FileNotFoundError as exception:
+            error(
+                "print_version",
+                f"{version.get('name')}: no present: {exception}",
+                error_type="warning",
+            )
 
     return True
 
@@ -619,7 +627,6 @@ def get_git_files_mime(
         mime_type: The considered MIME type
         ignore_patterns_re: A list of regular expressions of files that we should ignore
     """
-
     ignore_patterns_compiled = [re.compile(p) for p in ignore_patterns_re or []]
     result = []
 

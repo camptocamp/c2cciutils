@@ -16,6 +16,7 @@ pylint:
     - too-many-lines
     - too-few-public-methods
     - line-too-long # done by Black
+    - missing-module-docstring
 
 pep8:
   options:
@@ -26,6 +27,7 @@ pep8:
 
 pep257:
   disable:
+    - D100 # Missing docstring in public module
     - D105 # Missing docstring in magic method
     - D200 # One-line docstring should fit on one line with quotes
     - D202 # No blank lines allowed after function docstring
