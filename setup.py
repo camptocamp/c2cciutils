@@ -60,6 +60,10 @@ setup(
             "c2cciutils-publish = c2cciutils.scripts.publish:main",
             "c2cciutils-clean = c2cciutils.scripts.clean:main",
             "c2cciutils-google-calendar = c2cciutils.publish:main_calendar",
+            "c2cciutils-k8s-install = c2cciutils.scripts.k8s.install:main",
+            "c2cciutils-k8s-db = c2cciutils.scripts.k8s.db:main",
+            "c2cciutils-k8s-wait = c2cciutils.scripts.k8s.wait:main",
+            "c2cciutils-k8s-logs = c2cciutils.scripts.k8s.logs:main",
         ],
     },
     package_data={
