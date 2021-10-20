@@ -35,38 +35,39 @@ def main() -> None:
     for name in (
         subprocess.run(["kubectl", "get", "pods", "--output=name"], check=True, stdout=subprocess.PIPE)
         .stdout.decode()
-        .strip()
         .split("\n")
     ):
-        _print(f"::group::{name}: Describe")
-        subprocess.run(["kubectl", "describe", name], check=True)
-        _print("::endgroup::")
-
-        for container in (
-            subprocess.run(
-                ["kubectl", "get", name, "--output=jsonpath={.spec.initContainers[*].name}"],
-                check=True,
-                stdout=subprocess.PIPE,
-            )
-            .stdout.decode()
-            .split("\n")
-        ):
-            _print(f"::group::{name} {container}: Logs")
-            subprocess.run(["kubectl", "logs", name, container], check=False)
+        if name:
+            _print(f"::group::{name}: Describe")
+            subprocess.run(["kubectl", "describe", name], check=True)
             _print("::endgroup::")
 
-        for container in (
-            subprocess.run(
-                ["kubectl", "get", name, "--output=jsonpath={.spec.containers[*].name}"],
-                check=True,
-                stdout=subprocess.PIPE,
-            )
-            .stdout.decode()
-            .split("\n")
-        ):
-            _print(f"::group::{name} {container}: Logs")
-            subprocess.run(["kubectl", "logs", name, container], check=False)
-            _print("::endgroup::")
+            for container in (
+                subprocess.run(
+                    ["kubectl", "get", name, "--output=jsonpath={.spec.initContainers[*].name}"],
+                    check=True,
+                    stdout=subprocess.PIPE,
+                )
+                .stdout.decode()
+                .split("\n")
+            ):
+                if name:
+                    _print(f"::group::{name} {container}: Logs")
+                    subprocess.run(["kubectl", "logs", name, container], check=False)
+                    _print("::endgroup::")
+
+            for container in (
+                subprocess.run(
+                    ["kubectl", "get", name, "--output=jsonpath={.spec.containers[*].name}"],
+                    check=True,
+                    stdout=subprocess.PIPE,
+                )
+                .stdout.decode()
+                .split("\n")
+            ):
+                _print(f"::group::{name} {container}: Logs")
+                subprocess.run(["kubectl", "logs", name, container], check=False)
+                _print("::endgroup::")
 
 
 if __name__ == "__main__":
