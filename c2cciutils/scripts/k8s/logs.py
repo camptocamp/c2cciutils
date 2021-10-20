@@ -49,7 +49,7 @@ def main() -> None:
                     stdout=subprocess.PIPE,
                 )
                 .stdout.decode()
-                .split("\n")
+                .split()
             ):
                 if name:
                     _print(f"::group::{name} {container}: Logs")
@@ -63,7 +63,7 @@ def main() -> None:
                     stdout=subprocess.PIPE,
                 )
                 .stdout.decode()
-                .split("\n")
+                .split()
             ):
                 _print(f"::group::{name} {container}: Logs")
                 subprocess.run(["kubectl", "logs", name, container], check=False)
