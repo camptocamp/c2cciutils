@@ -14,8 +14,15 @@ def main() -> None:
     """Get some logs to from k8s."""
     parser = argparse.ArgumentParser(description="Get some logs to from k8s.")
     parser.add_argument("--script", help="The script used to initialise the database")
+    parser.add_argument("--cleanup", action="store_true", help="Drop the database")
 
     args = parser.parse_args()
+
+    if args.cleanup:
+        _print("::group::Cleanup the database")
+        subprocess.run(["helm", "uninstall", "test-pg"], check=False)
+        _print("::endgroup::")
+        sys.exit(0)
 
     _print("::group::Add repo")
     subprocess.run(["helm", "repo", "add", "bitnami", "https://charts.bitnami.com/bitnami"], check=True)
