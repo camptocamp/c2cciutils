@@ -32,7 +32,6 @@ def main() -> None:
             "--no-lb",
             "--no-hostip",
             "--no-rollback",
-            "--no-rollback",
             "--k3s-server-arg",
             "--no-deploy=traefik,servicelb,metrics-server",
         ],
