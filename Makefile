@@ -2,11 +2,11 @@ GITHUB_REPOSITORY ?= camptocamp/c2cciutils
 
 .PHONY: build
 build: checks
-	docker build --tag=$(GITHUB_REPOSITORY) .
+	DOCKER_BUILDKIT=1 docker build --tag=$(GITHUB_REPOSITORY) .
 
 .PHONY: build-checker
 build-checker:
-	docker build --target=checker --tag=$(GITHUB_REPOSITORY)-checker .
+	DOCKER_BUILDKIT=1 docker build --target=checker --tag=$(GITHUB_REPOSITORY)-checker .
 
 .PHONY: checks
 checks: prospector
