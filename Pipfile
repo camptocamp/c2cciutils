@@ -22,7 +22,7 @@ setuptools = "==45.2.0"
 
 [dev-packages]
 prospector = {version = "==1.5.1", extras = ["with_bandit", "with_mypy"]}
-types-requests = "==2.25.9"
+types-requests = "==2.26.0"
 types-pyyaml = "==6.0.1"
 types-setuptools = "==57.4.0"
 types-markdown = "==3.3.8"
