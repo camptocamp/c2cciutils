@@ -318,6 +318,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
 
     if config["publish"].get("docker", False):
         assert isinstance(config["publish"]["docker"], dict)
+        config["publish"]["docker"].setdefault("latest", True)
         for image in config["publish"]["docker"]["images"]:
             merge(
                 {

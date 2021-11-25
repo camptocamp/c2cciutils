@@ -5,6 +5,7 @@ The package setup.
 import os
 import site
 import sys
+import configparser
 
 from setuptools import find_packages, setup
 
@@ -13,8 +14,9 @@ site.ENABLE_USER_SITE = "--user" in sys.argv
 VERSION = os.environ.get("VERSION", "1.0")
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-with open("requirements.txt", encoding="utf-8") as requirements:
-    INSTALL_REQUIRES = [r for r in requirements.read().split("\n") if r]
+config = configparser.ConfigParser()
+config.read(os.path.join(HERE, "Pipfile"))
+INSTALL_REQUIRES = [pkg.strip('"') for pkg in config["packages"].keys()]
 
 
 def long_description() -> str:
