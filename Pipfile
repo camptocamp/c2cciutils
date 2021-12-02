@@ -23,7 +23,7 @@ pipenv = "==2021.11.23"
 black = "==21.11b1"
 click = "==7.1.2"
 isort = "==5.8.0"
-twine = "==3.6.0"
+twine = "==3.7.0"
 codespell = "==2.1.0"
 
 [dev-packages]
