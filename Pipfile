@@ -27,7 +27,7 @@ twine = "==3.7.0"
 codespell = "==2.1.0"
 
 [dev-packages]
-prospector = {version = "==1.5.2", extras = ["with_bandit", "with_mypy"]}
+prospector = {version = "==1.5.3", extras = ["with_bandit", "with_mypy"]}
 types-requests = "==2.26.1"
 types-pyyaml = "==6.0.1"
 types-setuptools = "==57.4.4"
