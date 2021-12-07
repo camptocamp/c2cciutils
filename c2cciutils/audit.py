@@ -341,6 +341,8 @@ def npm(
                 continue
             if vulnerability["id"] in global_cve:
                 continue
+            if "recommendation" not in vulnerability or vulnerability.get("recommendation") == "None":
+                continue
             if vulnerability["id"] not in all_ignores:
                 vulnerabilities[vulnerability["id"]] = vulnerability
             elif vulnerability["id"] in unused_ignores:
