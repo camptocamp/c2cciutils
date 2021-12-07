@@ -276,7 +276,8 @@ def get_global_npm_cve() -> List[int]:
         return []
 
     return [
-        vunerability["id"] for vunerability in audit.get("advisories", audit.get("vulnerabilities")).values()
+        vulnerability["id"]
+        for vulnerability in audit.get("advisories", audit.get("vulnerabilities")).values()
     ]
 
 
@@ -335,33 +336,33 @@ def npm(
             print("With error")
             return False
 
-        for vunerability in audit.get("advisories", audit.get("vulnerabilities")).values():
-            if vunerability["cwe"] in cwe_ignores:
+        for vulnerability in audit.get("advisories", audit.get("vulnerabilities")).values():
+            if vulnerability["cwe"] in cwe_ignores:
                 continue
-            if vunerability["id"] in global_cve:
+            if vulnerability["id"] in global_cve:
                 continue
-            if vunerability["id"] not in all_ignores:
-                vulnerabilities[vunerability["id"]] = vunerability
-            elif vunerability["id"] in unused_ignores:
-                unused_ignores.remove(vunerability["id"])
+            if vulnerability["id"] not in all_ignores:
+                vulnerabilities[vulnerability["id"]] = vulnerability
+            elif vulnerability["id"] in unused_ignores:
+                unused_ignores.remove(vulnerability["id"])
 
         if vulnerabilities:
             first = True
-            for vunerability in vulnerabilities.values():
+            for vulnerability in vulnerabilities.values():
                 if not first:
                     print("=======================================================")
                 print()
-                print(f"Title: [{vunerability.get('id')}] {vunerability.get('title')}")
-                print("Severity: " + vunerability.get("severity"))
-                print("CWE: " + vunerability.get("cwe"))
-                print("Vulnerable versions: " + vunerability.get("vulnerable_versions"))
-                print("Patched versions: " + vunerability.get("patched_versions"))
-                print("Recommendation: " + vunerability.get("recommendation"))
-                for find in vunerability.get("findings", []):
+                print(f"Title: [{vulnerability.get('id')}] {vulnerability.get('title')}")
+                print("Severity: " + vulnerability.get("severity"))
+                print("CWE: " + vulnerability.get("cwe"))
+                print("Vulnerable versions: " + vulnerability.get("vulnerable_versions"))
+                print("Patched versions: " + vulnerability.get("patched_versions"))
+                print("Recommendation: " + vulnerability.get("recommendation"))
+                for find in vulnerability.get("findings", []):
                     print("Version: " + find["version"])
                     for path in find.get("paths", []):
                         print("Path: " + " > ".join(path.split(">")))
-                print("More info: " + vunerability.get("url"))
+                print("More info: " + vulnerability.get("url"))
                 print()
 
             c2cciutils.error(
