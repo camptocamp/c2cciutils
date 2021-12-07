@@ -337,7 +337,7 @@ def npm(
             return False
 
         for vulnerability in audit.get("advisories", audit.get("vulnerabilities")).values():
-            if vulnerability["cwe"] in cwe_ignores:
+            if vulnerability.get("cwe") in cwe_ignores:
                 continue
             if vulnerability["id"] in global_cve:
                 continue
