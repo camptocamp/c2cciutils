@@ -143,7 +143,9 @@ def get_config() -> c2cciutils.configuration.Configuration:
         subprocess.run(["git", "ls-files", "*/Dockerfile*"], stdout=subprocess.PIPE, check=True).stdout
     )
     has_setup_py = bool(
-        subprocess.run(["git", "ls-files", "*/setup.py*"], stdout=subprocess.PIPE, check=True).stdout
+        subprocess.run(
+            ["git", "ls-files", "setup.py*", "*/setup.py*"], stdout=subprocess.PIPE, check=True
+        ).stdout
     )
 
     default_config = {
