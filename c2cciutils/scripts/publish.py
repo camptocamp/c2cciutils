@@ -193,6 +193,11 @@ def main() -> None:
                                     f"Publishing {image_conf['name']}:{tag_dst} to {name}, "
                                     "skipping (dry run)"
                                 )
+                                if latest:
+                                    print(
+                                        f"Publishing {image_conf['name']}:{tag_src} to {name}, "
+                                        "skipping (dry run)"
+                                    )
                             else:
                                 success &= c2cciutils.publish.docker(
                                     conf, name, image_conf, tag_src, tag_dst, latest
