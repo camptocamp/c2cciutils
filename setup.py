@@ -67,6 +67,7 @@ setup(
             "c2cciutils-k8s-wait = c2cciutils.scripts.k8s.wait:main",
             "c2cciutils-k8s-logs = c2cciutils.scripts.k8s.logs:main",
             "c2cciutils-pin-pipenv = c2cciutils.scripts.pin_pipenv:main",
+            "c2cciutils-docker-logs = c2cciutils.scripts.docker_logs:main",
         ],
     },
     package_data={
