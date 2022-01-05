@@ -2,10 +2,10 @@
 The package setup.
 """
 
+import configparser
 import os
 import site
 import sys
-import configparser
 
 from setuptools import find_packages, setup
 
@@ -66,6 +66,7 @@ setup(
             "c2cciutils-k8s-db = c2cciutils.scripts.k8s.db:main",
             "c2cciutils-k8s-wait = c2cciutils.scripts.k8s.wait:main",
             "c2cciutils-k8s-logs = c2cciutils.scripts.k8s.logs:main",
+            "c2cciutils-pin-pipenv = c2cciutils.scripts.pin_pipenv:main",
         ],
     },
     package_data={
