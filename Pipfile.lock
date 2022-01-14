@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cd215c7761b12d7220b39ed02202623d356a985684434ecf21076beb3e101817"
+            "sha256": "e374aae371d20e3586201c065478ccdddbc02c4d58532905e31fc06d502ef2b5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -284,7 +284,7 @@
                 "sha256:92a8b58ce734b2a4494878e0ecf7d79ccd7a128b5fc6014c401e0b61f006f0f6",
                 "sha256:b7cf7d3fef75f1e4c80a96ca660efbd51473d7e8f39b5ab9210febc7809012a4"
             ],
-            "markers": "python_version < '3.10'",
+            "markers": "python_version >= '3.7'",
             "version": "==4.10.0"
         },
         "importlib-resources": {
@@ -762,7 +762,7 @@
                 "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed",
                 "sha256:0e7c33d9a63e7ddfcb86780aac87befc2fbddf46c58dbb487e0855f7ceec283c"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==1.26.8"
         },
         "virtualenv": {
@@ -1151,11 +1151,11 @@
         },
         "types-requests": {
             "hashes": [
-                "sha256:5e0dc681e9bfadb5c1d17f63d29f6d13d29ef2897d30cb9c79285b34a1655fd7",
-                "sha256:8f8a3cf66c525247750b0a0e6ffef4a210d7c8637065a1e7a3cb5769b1eb82a4"
+                "sha256:2e0e100dd489f83870d4f61949d3a7eae4821e7bfbf46c57e463c38f92d473d4",
+                "sha256:f38bd488528cdcbce5b01dc953972f3cead0d060cfd9ee35b363066c25bab13c"
             ],
             "index": "pypi",
-            "version": "==2.27.6"
+            "version": "==2.27.7"
         },
         "types-setuptools": {
             "hashes": [
