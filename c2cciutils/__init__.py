@@ -275,7 +275,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
             "pipfile": {"sections": ["default", "develop"]},
             "pipfile_lock": {"sections": ["default"]},
             "pipenv": False,
-            "npm": {"cwe_ignore": []},
+            "npm": {"cwe_ignore": [], "package_ignore": []},
             "outdated_versions": True,
         },
     }
