@@ -321,6 +321,7 @@ def npm(
                 unused_ignores = list(all_ignores)
 
         cwe_ignores = config.get("cwe_ignore", [])
+        package_ignore = config.get("package_ignore", [])
 
         audit = json.loads(
             # Don't use check_output because audit will return an error on any vulnerabilities found
@@ -338,6 +339,21 @@ def npm(
 
         for vulnerability in audit.get("advisories", audit.get("vulnerabilities")).values():
             if vulnerability.get("cwe") in cwe_ignores:
+                continue
+
+            path_list_by_version: Dict[str, List[str]] = {}
+            completely_ignored = True
+            for find in vulnerability.get("findings", []):
+                for path in find.get("paths", []):
+                    path_splitted = path.split("/")
+                    ignored = False
+                    for package in package_ignore:
+                        if package in path_splitted:
+                            ignored = True
+                    if not ignored:
+                        path_list_by_version.setdefault(find["version"], []).append(path_splitted)
+                        completely_ignored = False
+            if completely_ignored:
                 continue
             if vulnerability["id"] in global_cve:
                 continue
@@ -361,9 +377,11 @@ def npm(
                 print("Patched versions: " + vulnerability.get("patched_versions"))
                 print("Recommendation: " + vulnerability.get("recommendation"))
                 for find in vulnerability.get("findings", []):
-                    print("Version: " + find["version"])
-                    for path in find.get("paths", []):
-                        print("Path: " + " > ".join(path.split(">")))
+                    paths = path_list_by_version.get(find["version"], [])
+                    if paths:
+                        print("Version: " + find["version"])
+                        for path in paths:
+                            print("Path: " + " > ".join(path))
                 print("More info: " + vulnerability.get("url"))
                 print()
 

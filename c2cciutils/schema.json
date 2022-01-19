@@ -19,6 +19,11 @@
               "description": "The list of CWE id to be ignored",
               "type": "array",
               "items": { "type": "string" }
+            },
+            "package_ignore": {
+              "description": "The list of package names to be ignored",
+              "type": "array",
+              "items": { "type": "string" }
             }
           }
         },

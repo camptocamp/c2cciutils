@@ -41,6 +41,8 @@ AuditNpmConfig = TypedDict(
     {
         # The list of CWE id to be ignored
         "cwe_ignore": List[str],
+        # The list of package names to be ignored
+        "package_ignore": List[str],
     },
     total=False,
 )
@@ -316,13 +318,13 @@ ChecksPrettierConfig = TypedDict(
 
 # Checks print config
 #
-# The print the auto-generated configuration
+# The print the configuration including the auto-generated parts
 ChecksPrintConfig = bool
 
 
 # Checks Prospector configuration
 #
-# The Black configuration check configuration
+# The Prospector configuration check configuration
 #
 # oneOf
 ChecksProspectorConfiguration = Union["ChecksProspectorConfigurationConfig", Literal[False]]
