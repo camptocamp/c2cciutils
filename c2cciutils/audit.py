@@ -345,7 +345,7 @@ def npm(
             completely_ignored = True
             for find in vulnerability.get("findings", []):
                 for path in find.get("paths", []):
-                    path_splitted = path.split("/")
+                    path_splitted = path.split(">")
                     ignored = False
                     for package in package_ignore:
                         if package in path_splitted:
