@@ -341,9 +341,9 @@ def npm(
             if vulnerability.get("cwe") in cwe_ignores:
                 continue
 
-            path_list_by_version: Dict[str, List[str]] = {}
             completely_ignored = True
             for find in vulnerability.get("findings", []):
+                valid_splitted_path = []
                 for path in find.get("paths", []):
                     path_splitted = path.split(">")
                     ignored = False
@@ -351,8 +351,9 @@ def npm(
                         if package in path_splitted:
                             ignored = True
                     if not ignored:
-                        path_list_by_version.setdefault(find["version"], []).append(path_splitted)
+                        valid_splitted_path.append(path_splitted)
                         completely_ignored = False
+                find["paths"] = valid_splitted_path
             if completely_ignored:
                 continue
             if vulnerability["id"] in global_cve:
@@ -377,7 +378,7 @@ def npm(
                 print("Patched versions: " + vulnerability.get("patched_versions"))
                 print("Recommendation: " + vulnerability.get("recommendation"))
                 for find in vulnerability.get("findings", []):
-                    paths = path_list_by_version.get(find["version"], [])
+                    paths = find["paths"]
                     if paths:
                         print("Version: " + find["version"])
                         for path in paths:
