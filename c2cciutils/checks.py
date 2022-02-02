@@ -106,7 +106,7 @@ def black_config(
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
         if (
             os.path.isfile(filename)
-            and magic.from_file(filename, mime=True) == "text/x-python"  # type: ignore
+            and magic.from_file(filename, mime=True) == "text/x-python"
         ):
             python = True
             break
