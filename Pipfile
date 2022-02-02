@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 safety = "==1.10.3"
 markdown-table = "==2020.12.3"
-python-magic = "==0.4.24"
+python-magic = "==0.4.25"
 requests = "==2.27.1"
 Markdown = "==3.3.6"
 EditorConfig = "==0.12.3"
