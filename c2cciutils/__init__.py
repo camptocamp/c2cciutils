@@ -634,7 +634,7 @@ def get_git_files_mime(
     result = []
 
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == mime_type:  # type: ignore
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == mime_type:
             accept = True
             for pattern in ignore_patterns_compiled:
                 if pattern.search(filename):
