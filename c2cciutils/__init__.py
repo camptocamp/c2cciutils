@@ -140,7 +140,9 @@ def get_config() -> c2cciutils.configuration.Configuration:
 
     based_on_master = get_based_on_master(repo, master_branch, config) if credentials else False
     has_docker_files = bool(
-        subprocess.run(["git", "ls-files", "*/Dockerfile*"], stdout=subprocess.PIPE, check=True).stdout
+        subprocess.run(
+            ["git", "ls-files", "*/Dockerfile*", "Dockerfile*"], stdout=subprocess.PIPE, check=True
+        ).stdout
     )
     has_setup_py = bool(
         subprocess.run(
