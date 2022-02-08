@@ -104,10 +104,7 @@ def black_config(
     # If there is no python file the check is disabled
     python = False
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if (
-            os.path.isfile(filename)
-            and magic.from_file(filename, mime=True) == "text/x-python"
-        ):
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == "text/x-python":
             python = True
             break
 
