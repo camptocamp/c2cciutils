@@ -32,7 +32,9 @@ def main() -> None:
         timestamp_file.write(datetime.utcnow().isoformat())
 
     for name in (
-        subprocess.run(["docker", "ps", "--format", "{{ .Names }}"], check=True, stdout=subprocess.PIPE)
+        subprocess.run(
+            ["docker", "ps", "--all", "--format", "{{ .Names }}"], check=True, stdout=subprocess.PIPE
+        )
         .stdout.decode()
         .split("\n")
     ):
