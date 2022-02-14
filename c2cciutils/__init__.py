@@ -60,6 +60,22 @@ def merge(default_config: Any, config: Any) -> Any:
     return config
 
 
+def get_master_branch(repo: List[str]) -> Tuple[str, bool]:
+    """Get the name of the master branch."""
+    master_branch = "master"
+    success = False
+    try:
+        default_branch_json = graphql(
+            "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False
+        )
+        success = default_branch_json is not False
+        master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"] if success else "master"
+    except RuntimeError as runtime_error:
+        print(runtime_error)
+        print("Failback to master")
+    return master_branch, success
+
+
 def get_config() -> c2cciutils.configuration.Configuration:
     """
     Get the configuration, with project and autodetections.
@@ -109,19 +125,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
 
     repository = get_repository()
     repo = repository.split("/")
-    master_branch = "master"
-    credentials = False
-    try:
-        default_branch_json = graphql(
-            "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False
-        )
-        credentials = default_branch_json is not False
-        master_branch = (
-            default_branch_json["repository"]["defaultBranchRef"]["name"] if credentials else "master"
-        )
-    except RuntimeError as runtime_error:
-        print(runtime_error)
-        print("Failback to master")
+    master_branch, credentials = get_master_branch(repo)
 
     merge(
         {
@@ -661,7 +665,6 @@ def get_based_on_master(
         master_branch: The master branch name
         config: The full configuration
     """
-
     if os.environ.get("GITHUB_REF", "").startswith("refs/tags/"):
         # The tags are never consider as based on master
         return False
