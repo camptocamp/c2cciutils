@@ -175,10 +175,11 @@ def main() -> None:
     )
     if docker_config:
         latest = False
-        full_repo = c2cciutils.get_repository().split("/")
-        master_branch, _ = c2cciutils.get_master_branch(full_repo)
+        full_repo = c2cciutils.get_repository()
+        full_repo_split = full_repo.split("/")
+        master_branch, _ = c2cciutils.get_master_branch(full_repo_split)
         security_response = requests.get(
-            f"https://raw.githubusercontent.com/camptocamp/c2cciutils/{master_branch}/SECURITY.md"
+            f"https://raw.githubusercontent.com/{full_repo}/{master_branch}/SECURITY.md"
         )
         if security_response.ok and docker_config["latest"] is True:
             security = c2cciutils.security.Security(security_response.text)
@@ -227,7 +228,7 @@ def main() -> None:
         with tarfile.open(fileobj=response.raw, mode="r:gz") as file:
             file.extractall(path=os.path.expanduser("~/.local/bin"))
 
-        owner, repo = full_repo
+        owner, repo = full_repo_split
         commit_sha = (
             subprocess.run(["git", "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE)
             .stdout.strip()
