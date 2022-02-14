@@ -3,6 +3,15 @@ entries:
   test:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2022-02-14T09:16:19.208056769Z"
+    description: A Helm chart for Kubernetes
+    digest: 9efaab83c5dacb3a28b1733b0ae27dc28e1cf91256a88cb472509cde7c95c09d
+    name: test
+    urls:
+    - https://github.com/camptocamp/c2cciutils/releases/download/1.1.1/test-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2022-02-09T07:53:01.78567608Z"
     description: A Helm chart for Kubernetes
     digest: b4ab22189ec7c36de6d363c8f9c29ef86809d1abfeb4b96e557d6f89beeef046
@@ -19,4 +28,4 @@ entries:
     urls:
     - https://github.com/camptocamp/c2cciutils/releases/download/0.1.0/test-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-09T07:53:01.78568388Z"
+generated: "2022-02-14T09:16:19.208066869Z"
