@@ -76,7 +76,7 @@ def get_master_branch(repo: List[str]) -> Tuple[str, bool]:
     return master_branch, success
 
 
-def get_config() -> c2cciutils.configuration.Configuration:
+def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configuration:
     """
     Get the configuration, with project and autodetections.
     """
@@ -142,7 +142,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
         config,
     )
 
-    based_on_master = get_based_on_master(repo, master_branch, config) if credentials else False
+    based_on_master = get_based_on_master(repo, branch, master_branch, config) if credentials else False
     has_docker_files = bool(
         subprocess.run(
             ["git", "ls-files", "*/Dockerfile*", "Dockerfile*"], stdout=subprocess.PIPE, check=True
@@ -302,7 +302,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
                 {
                     "clean.yaml": {"steps": [{"run_re": "c2cciutils-clean$"}]},
                     "audit.yaml": {
-                        "steps": [{"run_re": "c2cciutils-audit --branch=.*$", "env": ["GITHUB_TOKEN"]}],
+                        "steps": [{"run_re": "c2cciutils-audit.*$", "env": ["GITHUB_TOKEN"]}],
                         "strategy-fail-fast": False,
                     },
                 },
@@ -651,8 +651,28 @@ def get_git_files_mime(
     return result
 
 
+def get_branch(branch: Optional[str]) -> str:
+    """
+    Get the branch name.
+
+    Arguments:
+        branch: The forced to use branch name
+
+    Return the branch name
+    """
+
+    return branch or (
+        subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE)
+        .stdout.decode()
+        .strip()
+    )
+
+
 def get_based_on_master(
-    repo: List[str], master_branch: str, config: c2cciutils.configuration.Configuration
+    repo: List[str],
+    override_current_branch: Optional[str],
+    master_branch: str,
+    config: c2cciutils.configuration.Configuration,
 ) -> bool:
     """
     Check that we are not on a release branch (to avoid errors in versions check).
@@ -662,45 +682,42 @@ def get_based_on_master(
 
     Arguments:
         repo: The repository [<organization>, <name>]
+        override_current_branch: The branch to use instead of the current one
         master_branch: The master branch name
         config: The full configuration
     """
     if os.environ.get("GITHUB_REF", "").startswith("refs/tags/"):
         # The tags are never consider as based on master
         return False
-    if os.environ.get("GITHUB_REF", "").startswith("refs/heads/"):
-        current_branch = os.environ["GITHUB_REF"][len("refs/heads/") :]
-        if current_branch == master_branch:
-            return True
-        branches_re = compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/")
-        if match(current_branch, branches_re):
-            return False
-        commits_json = graphql(
-            "commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}
-        )["repository"]["ref"]["target"]["history"]["nodes"]
-        branches_json = [
-            branch
-            for branch in (
-                graphql("branches.graphql", {"name": repo[1], "owner": repo[0]})["repository"]["refs"][
-                    "nodes"
-                ]
-            )
-            if branch["name"] != current_branch and match(branch["name"], branches_re)
-        ]
-        based_branch = master_branch
-        found = False
-        for commit in commits_json:
-            for branch in branches_json:
-                commits = [
-                    branch_commit
-                    for branch_commit in branch["target"]["history"]["nodes"]
-                    if commit["oid"] == branch_commit["oid"]
-                ]
-                if commits:
-                    based_branch = branch["name"]
-                    found = True
-                    break
-            if found:
+    current_branch = get_branch(override_current_branch)
+    if current_branch == master_branch:
+        return True
+    branches_re = compile_re(config["version"].get("branch_to_version_re", []))
+    if match(current_branch, branches_re):
+        return False
+    commits_json = graphql("commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch})[
+        "repository"
+    ]["ref"]["target"]["history"]["nodes"]
+    branches_json = [
+        branch
+        for branch in (
+            graphql("branches.graphql", {"name": repo[1], "owner": repo[0]})["repository"]["refs"]["nodes"]
+        )
+        if branch["name"] != current_branch and match(branch["name"], branches_re)
+    ]
+    based_branch = master_branch
+    found = False
+    for commit in commits_json:
+        for branch in branches_json:
+            commits = [
+                branch_commit
+                for branch_commit in branch["target"]["history"]["nodes"]
+                if commit["oid"] == branch_commit["oid"]
+            ]
+            if commits:
+                based_branch = branch["name"]
+                found = True
                 break
-        return based_branch == master_branch
-    return True
+        if found:
+            break
+    return based_branch == master_branch
