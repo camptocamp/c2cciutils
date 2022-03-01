@@ -15,7 +15,7 @@ def main() -> None:
     Run the audit.
     """
     parser = argparse.ArgumentParser(description="Run the audit of c2cciutils.")
-    parser.add_argument("--branch", required=True, help="The audited branch")
+    parser.add_argument("--branch", help="The branch to audit, not defined means autodetect")
 
     args = parser.parse_args()
 

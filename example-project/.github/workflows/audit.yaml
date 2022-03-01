@@ -32,6 +32,6 @@ jobs:
       - run: python3 -m pip install --user --requirement=ci/requirements.txt
 
       - name: Audit
-        run: c2cciutils-audit --branch=${{ matrix.branch }}
+        run: c2cciutils-audit
         env:
           GITHUB_TOKEN: ${{ github.token }}
