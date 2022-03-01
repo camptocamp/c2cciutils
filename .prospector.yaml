@@ -18,14 +18,14 @@ pylint:
     - line-too-long # done by Black
     - missing-module-docstring
 
-pep8:
+pycodestyle:
   options:
     max-line-length: 110
   disable:
     - E203 # whitespace before ':'
     - E501 # line too long, Done by Black
 
-pep257:
+pydocstyle:
   disable:
     - D100 # Missing docstring in public module
     - D105 # Missing docstring in magic method
