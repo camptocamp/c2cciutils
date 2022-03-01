@@ -11,7 +11,7 @@ pylint:
     - too-many-nested-blocks
     - too-few-public-methods
 
-pep8:
+pycodestyle:
   options:
     max-line-length: 110
   disable:
