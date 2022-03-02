@@ -661,11 +661,17 @@ def get_branch(branch: Optional[str]) -> str:
     Return the branch name
     """
 
-    return branch or (
+    if branch is not None:
+        return branch
+    branch = (
         subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE)
         .stdout.decode()
         .strip()
     )
+    if branch == "HEAD":
+        branch = os.environ.get("GITHUB_HEAD_REF", "master")
+        assert branch is not None
+    return branch
 
 
 def get_based_on_master(
