@@ -430,7 +430,7 @@ def outdated_versions(
 
     if "errors" in json_response:
         raise RuntimeError(json.dumps(json_response["errors"], indent=2))
-    if json_response["repository"]["defaultBranchRef"]["name"] != args.branch:
+    if json_response["repository"]["defaultBranchRef"]["name"] != c2cciutils.get_branch(args.branch):
         return True
 
     success = True
