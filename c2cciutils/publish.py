@@ -329,7 +329,12 @@ def docker(
             )
             if latest:
                 subprocess.run(
-                    ["docker", "tag",  f"{image_config['name']}:{tag_src}", f"{config['server']}/{image_config['name']}:{tag_src}"],
+                    [
+                        "docker",
+                        "tag",
+                        f"{image_config['name']}:{tag_src}",
+                        f"{config['server']}/{image_config['name']}:{tag_src}",
+                    ],
                     check=True,
                 )
             subprocess.run(

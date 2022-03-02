@@ -18,10 +18,11 @@ def main() -> None:
     parser.add_argument("--fix", action="store_true", help="fix black and isort issues")
     parser.add_argument("--stop", action="store_true", help="stop on first error")
     parser.add_argument("--check", help="runs only the specified check")
+    parser.add_argument("--branch", help="The branch to check, not defined means autodetect")
 
     args = parser.parse_args()
 
-    full_config = c2cciutils.get_config()
+    full_config = c2cciutils.get_config(args.branch)
     config = full_config.get("checks", {})
     success = True
     for key, conf in config.items():

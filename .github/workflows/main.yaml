@@ -118,6 +118,6 @@ jobs:
       - run: python3 -m pip install --user --force-reinstall dist/*.whl
 
       - name: Audit
-        run: c2cciutils-audit --branch=master
+        run: c2cciutils-audit
         env:
           GITHUB_TOKEN: ${{ github.token }}
