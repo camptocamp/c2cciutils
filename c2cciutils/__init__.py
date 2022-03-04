@@ -651,25 +651,33 @@ def get_git_files_mime(
     return result
 
 
-def get_branch(branch: Optional[str]) -> str:
+def get_branch(branch: Optional[str], master_branch: str = "master") -> str:
     """
     Get the branch name.
 
     Arguments:
         branch: The forced to use branch name
+        master_branch: The master branch name, can be used as default value
 
     Return the branch name
     """
 
     if branch is not None:
         return branch
-    branch = (
-        subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE)
-        .stdout.decode()
-        .strip()
-    )
+    try:
+        branch = (
+            subprocess.run(
+                ["git", "rev-parse", "--abbrev-ref", "HEAD", "--"], check=True, stdout=subprocess.PIPE
+            )
+            .stdout.decode()
+            .strip()
+        )
+    except subprocess.CalledProcessError as exception:
+        print(f"Error getting branch: {exception}")
+        branch = "HEAD"
+
     if branch == "HEAD":
-        branch = os.environ.get("GITHUB_HEAD_REF", "master")
+        branch = os.environ.get("GITHUB_HEAD_REF", master_branch)
         assert branch is not None
     return branch
 
@@ -695,7 +703,7 @@ def get_based_on_master(
     if os.environ.get("GITHUB_REF", "").startswith("refs/tags/"):
         # The tags are never consider as based on master
         return False
-    current_branch = get_branch(override_current_branch)
+    current_branch = get_branch(override_current_branch, master_branch)
     if current_branch == master_branch:
         return True
     branches_re = compile_re(config["version"].get("branch_to_version_re", []))
