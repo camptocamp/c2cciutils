@@ -68,6 +68,7 @@ setup(
             "c2cciutils-k8s-logs = c2cciutils.scripts.k8s.logs:main",
             "c2cciutils-pin-pipenv = c2cciutils.scripts.pin_pipenv:main",
             "c2cciutils-docker-logs = c2cciutils.scripts.docker_logs:main",
+            "c2cciutils-trigger-image-update = c2cciutils.scripts.trigger_image_update:main",
         ],
     },
     package_data={
