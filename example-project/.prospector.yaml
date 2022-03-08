@@ -20,12 +20,13 @@ pycodestyle:
 mypy:
   run: true
   options:
-    python_version: 3.8
+    python-version: 3.8
     ignore-missing-imports: True
-    warn-redundant-casts: True
-    warn-unused-ignores: True
-    check-untyped-defs: True
-    skip-version-check: True
+    warn:
+      - redundant-casts
+      - unused-ignores
+    check:
+      - untyped-defs
 
 bandit:
   run: true
