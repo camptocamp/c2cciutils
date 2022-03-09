@@ -179,7 +179,8 @@ def main() -> None:
         full_repo_split = full_repo.split("/")
         master_branch, _ = c2cciutils.get_master_branch(full_repo_split)
         security_response = requests.get(
-            f"https://raw.githubusercontent.com/{full_repo}/{master_branch}/SECURITY.md"
+            f"https://raw.githubusercontent.com/{full_repo}/{master_branch}/SECURITY.md",
+            headers=c2cciutils.add_authorization_header({}),
         )
         if security_response.ok and docker_config["latest"] is True:
             security = c2cciutils.security.Security(security_response.text)
