@@ -401,7 +401,7 @@ def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, toke
     sys.stderr.flush()
 
     try:
-        yaml_ = ruamel.yaml.YAML()  # type: ignore
+        yaml_ = ruamel.yaml.YAML()
         with open(os.path.join(folder, "Chart.yaml"), encoding="utf-8") as open_file:
             chart = yaml_.load(open_file)
         chart["version"] = version
