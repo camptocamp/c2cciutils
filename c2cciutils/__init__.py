@@ -89,7 +89,7 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
     config: c2cciutils.configuration.Configuration = {}
     if os.path.exists("ci/config.yaml"):
         with open("ci/config.yaml", encoding="utf-8") as open_file:
-            yaml_ = ruamel.yaml.YAML()  # type: ignore
+            yaml_ = ruamel.yaml.YAML()
             config = yaml_.load(open_file)
 
     editorconfig_properties = {
