@@ -338,8 +338,18 @@ def npm(
             return False
 
         for vulnerability in audit.get("advisories", audit.get("vulnerabilities")).values():
-            if vulnerability.get("cwe") in cwe_ignores:
-                continue
+            cwe = vulnerability.get("cwe")
+            if isinstance(cwe, str):
+                if cwe in cwe_ignores:
+                    continue
+            else:
+                ignored = True
+                for cwe_elem in cwe:
+                    if cwe_elem not in cwe_ignores:
+                        ignored = False
+                        break
+                if ignored:
+                    continue
 
             completely_ignored = True
             for find in vulnerability.get("findings", []):
@@ -368,12 +378,15 @@ def npm(
         if vulnerabilities:
             first = True
             for vulnerability in vulnerabilities.values():
+                cwe = vulnerability.get("cwe")
+                if isinstance(cwe, list):
+                    cwe = ", ".join(cwe)
                 if not first:
                     print("=======================================================")
                 print()
                 print(f"Title: [{vulnerability.get('id')}] {vulnerability.get('title')}")
                 print("Severity: " + vulnerability.get("severity"))
-                print("CWE: " + vulnerability.get("cwe"))
+                print("CWE: " + cwe)
                 print("Vulnerable versions: " + vulnerability.get("vulnerable_versions"))
                 print("Patched versions: " + vulnerability.get("patched_versions"))
                 print("Recommendation: " + vulnerability.get("recommendation"))
