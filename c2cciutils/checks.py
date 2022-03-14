@@ -38,7 +38,7 @@ def print_config(
     """
     del config, args
 
-    yaml_ = ruamel.yaml.YAML()  # type: ignore
+    yaml_ = ruamel.yaml.YAML()
     yaml_.default_flow_style = False
     out = StringIO()
     yaml_.dump(full_config, out)
@@ -209,7 +209,7 @@ def prospector_config(
     ):
         if filename:
             with open(filename, encoding="utf-8") as prospector_file:
-                properties: CommentedMap = ruamel.yaml.round_trip_load(prospector_file)  # type: ignore
+                properties: CommentedMap = ruamel.yaml.round_trip_load(prospector_file)
             success &= _check_properties(
                 "prospector_config", filename, "", properties, config.get("properties", {})
             )
@@ -966,7 +966,7 @@ def dependabot_config(
 
     success = True
     with open(".github/dependabot.yaml", encoding="utf-8") as dependabot_file:
-        dependabot = ruamel.yaml.round_trip_load(dependabot_file)  # type: ignore
+        dependabot = ruamel.yaml.round_trip_load(dependabot_file)
 
     # Check that c2cciutils has update rule
     found = False
