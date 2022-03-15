@@ -174,6 +174,10 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                     },
                     "dockerhub": {"versions": ["version_tag", "version_branch", "rebuild", "feature_branch"]},
                 },
+                "dispatch": {
+                    "event-type": "image-update",
+                    "repository": "camptocamp/argocd-gs-platform-ch-development-apps",
+                },
             },
             "helm": {
                 "versions": ["version_tag"],

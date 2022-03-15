@@ -471,6 +471,21 @@ Configuration = TypedDict(
 )
 
 
+# dispatch config
+#
+# Send a dispatch event to an other repository
+DispatchConfig = TypedDict(
+    "DispatchConfig",
+    {
+        # The repository name to be triggered
+        "repository": str,
+        # The event type to be triggered
+        "event-type": str,
+    },
+    total=False,
+)
+
+
 # Print versions
 #
 # The print versions configuration
@@ -523,6 +538,10 @@ PublishDockerConfig = TypedDict(
         "images": List["PublishDockerImage"],
         # The repository where we should publish the images
         "repository": Dict[str, "PublishDockerRepository"],
+        # Send a dispatch event to an other repository
+        #
+        # oneOf
+        "dispatch": Union["DispatchConfig", Literal[False]],
     },
     total=False,
 )

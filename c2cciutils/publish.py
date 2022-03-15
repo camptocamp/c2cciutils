@@ -10,7 +10,7 @@ import pickle  # nosec
 import subprocess  # nosec
 import sys
 import uuid
-from typing import Optional
+from typing import List, Optional
 
 import ruamel.yaml
 from google.auth.transport.requests import Request
@@ -293,6 +293,7 @@ def docker(
     tag_src: str,
     tag_dst: str,
     latest: bool,
+    images_full: List[str],
 ) -> bool:
     """
     Publish to a Docker registry.
@@ -310,6 +311,7 @@ def docker(
         tag_src: The source tag (usually latest)
         tag_dst: The tag used for publication
         latest: Publish also the tag latest
+        images_full: The list of published images (with tag), used to build the dispatch event
     """
 
     print(f"::group::Publishing {image_config['name']}:{tag_dst} to {name}")
@@ -317,6 +319,7 @@ def docker(
     sys.stderr.flush()
 
     try:
+        new_images_full = []
         if "server" in config:
             subprocess.run(
                 [
@@ -327,6 +330,7 @@ def docker(
                 ],
                 check=True,
             )
+            new_images_full.append(f"{config['server']}/{image_config['name']}:{tag_dst}")
             if latest:
                 subprocess.run(
                     [
@@ -337,19 +341,7 @@ def docker(
                     ],
                     check=True,
                 )
-            subprocess.run(
-                [
-                    "docker",
-                    "push",
-                    f"{config['server']}/{image_config['name']}:{tag_dst}",
-                ],
-                check=True,
-            )
-            if latest:
-                subprocess.run(
-                    ["docker", "push", f"{config['server']}/{image_config['name']}:{tag_src}"],
-                    check=True,
-                )
+                new_images_full.append(f"{config['server']}/{image_config['name']}:{tag_src}")
         else:
             if tag_src != tag_dst:
                 subprocess.run(
@@ -361,19 +353,14 @@ def docker(
                     ],
                     check=True,
                 )
-            subprocess.run(
-                ["docker", "push", f"{image_config['name']}:{tag_dst}"],
-                check=True,
-            )
-            if latest:
-                subprocess.run(
-                    [
-                        "docker",
-                        "push",
-                        f"{image_config['name']}:{tag_src}",
-                    ],
-                    check=True,
-                )
+            new_images_full.append(f"{image_config['name']}:{tag_dst}")
+            if latest and tag_src != tag_dst:
+                new_images_full.append(f"{image_config['name']}:{tag_src}")
+
+        for image in new_images_full:
+            subprocess.run(["docker", "push", image], check=True)
+        images_full += new_images_full
+
         print("::endgroup::")
     except subprocess.CalledProcessError as exception:
         print(f"Error: {exception}")

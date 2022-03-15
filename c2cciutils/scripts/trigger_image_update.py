@@ -8,6 +8,7 @@ import argparse
 import os.path
 import subprocess  # nosec
 import sys
+from typing import List
 
 import requests
 import yaml
@@ -55,8 +56,16 @@ def main() -> None:
         for image_config in ci_config.get("publish", {}).get("docker", {}).get("images", []):
             images_full.append(image_config["name"])
 
+    dispatch(args.repository, args.event_type, [f"{image}:{version}" for image in images_full])
+
+
+def dispatch(repository: str, event_type: str, images_full: List[str]) -> None:
+    """
+    Trigger an image update on the argocd repository.
+    """
+
     response = requests.post(
-        f"https://api.github.com/repos/{args.repository}/dispatches",
+        f"https://api.github.com/repos/{repository}/dispatches",
         headers={
             "Content-Type": "application/json2",
             "Accept": "application/vnd.github.v3+json",
@@ -68,8 +77,8 @@ def main() -> None:
             .strip(),
         },
         json={
-            "event_type": args.event_type,
-            "client_payload": {"name": " ".join([f"{image}:{version}" for image in images_full])},
+            "event_type": event_type,
+            "client_payload": {"name": " ".join(images_full)},
         },
     )
     response.raise_for_status()
