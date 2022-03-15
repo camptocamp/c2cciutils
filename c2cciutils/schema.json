@@ -526,6 +526,27 @@
                   }
                 }
               }
+            },
+            "dispatch": {
+              "description": "Send a dispatch event to an other repository",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "title": "dispatch config",
+                  "description": "Send a dispatch event to an other repository",
+                  "properties": {
+                    "repository": {
+                      "description": "The repository name to be triggered",
+                      "type": "string"
+                    },
+                    "event-type": {
+                      "description": "The event type to be triggered",
+                      "type": "string"
+                    }
+                  }
+                },
+                { "const": false }
+              ]
             }
           }
         },
