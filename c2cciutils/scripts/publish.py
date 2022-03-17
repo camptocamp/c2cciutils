@@ -10,7 +10,7 @@ import re
 import subprocess  # nosec
 import sys
 import tarfile
-from typing import Match, Optional, cast
+from typing import List, Match, Optional, cast
 
 import requests
 
@@ -18,6 +18,7 @@ import c2cciutils.configuration
 import c2cciutils.publish
 import c2cciutils.security
 from c2cciutils.publish import GoogleCalendar
+from c2cciutils.scripts.trigger_image_update import dispatch
 
 
 def match(tpe: str, base_re: str) -> Optional[Match[str]]:
@@ -187,6 +188,7 @@ def main() -> None:
             version_index = security.headers.index("Version")
             latest = security.data[-1][version_index] == version
 
+        images_full: List[str] = []
         for image_conf in docker_config.get("images", []):
             if image_conf.get("group", "") == args.group:
                 for tag_config in image_conf.get("tags", []):
@@ -206,7 +208,7 @@ def main() -> None:
                                     )
                             else:
                                 success &= c2cciutils.publish.docker(
-                                    conf, name, image_conf, tag_src, tag_dst, latest
+                                    conf, name, image_conf, tag_src, tag_dst, latest, images_full
                                 )
                     if version_type in google_calendar_config.get("on", []):
                         if not google_calendar:
@@ -218,6 +220,10 @@ def main() -> None:
                         )
 
                         google_calendar.create_event(summary, description)
+
+        dispatch_config = docker_config.get("dispatch", False)
+        if dispatch_config:
+            dispatch(dispatch_config["repository"], dispatch_config["event-type"], images_full)
 
     helm_config = cast(
         c2cciutils.configuration.PublishHelmConfig,

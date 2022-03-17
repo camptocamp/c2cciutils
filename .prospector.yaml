@@ -23,6 +23,7 @@ pycodestyle:
     max-line-length: 110
   disable:
     - E203 # whitespace before ':'
+    - W293 # blank line contains whitespace
     - E501 # line too long, Done by Black
 
 pydocstyle:
