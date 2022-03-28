@@ -28,7 +28,7 @@ codespell = "==2.1.0"
 
 [dev-packages]
 prospector = {version = "==1.7.7", extras = ["with_bandit", "with_mypy"]}
-types-requests = "==2.27.14"
+types-requests = "==2.27.15"
 types-pyyaml = "==6.0.5"
 types-setuptools = "==57.4.11"
 types-markdown = "==3.3.12"
