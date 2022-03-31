@@ -631,7 +631,7 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
 
 
 def get_git_files_mime(
-    mime_type: str = "text/x-python", ignore_patterns_re: Optional[List[str]] = None
+    mime_type: Optional[List[str]] = None, ignore_patterns_re: Optional[List[str]] = None
 ) -> List[str]:
     """
     Get list of paths from git with all the files that have the specified mime type.
@@ -640,11 +640,13 @@ def get_git_files_mime(
         mime_type: The considered MIME type
         ignore_patterns_re: A list of regular expressions of files that we should ignore
     """
+    if mime_type is None:
+        mime_type = ["text/x-python", "text/x-script.python"]
     ignore_patterns_compiled = [re.compile(p) for p in ignore_patterns_re or []]
     result = []
 
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.isfile(filename) and magic.from_file(filename, mime=True) == mime_type:
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) in mime_type:
             accept = True
             for pattern in ignore_patterns_compiled:
                 if pattern.search(filename):
