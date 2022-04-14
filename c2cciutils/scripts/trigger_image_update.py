@@ -6,6 +6,7 @@ Trigger an image update on the argocd repository.
 
 import argparse
 import os.path
+import random
 import subprocess  # nosec
 import sys
 from typing import List
@@ -64,6 +65,9 @@ def dispatch(repository: str, event_type: str, images_full: List[str]) -> None:
     Trigger an image update on the argocd repository.
     """
 
+    id_ = random.randint(1, 100000)  # nosec
+    print(f"Triggering {event_type}:{id_} on {repository} with {','.join(images_full)}")
+
     response = requests.post(
         f"https://api.github.com/repos/{repository}/dispatches",
         headers={
@@ -76,10 +80,7 @@ def dispatch(repository: str, event_type: str, images_full: List[str]) -> None:
             .stdout.decode()
             .strip(),
         },
-        json={
-            "event_type": event_type,
-            "client_payload": {"name": " ".join(images_full)},
-        },
+        json={"event_type": event_type, "client_payload": {"name": " ".join(images_full), "id": id_}},
     )
     response.raise_for_status()
 
