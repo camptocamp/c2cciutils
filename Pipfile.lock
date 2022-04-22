@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "87ae9fb1a64d031787e79eb615d406842bef8f3c1fc739089f4d24fe2fac6a8d"
+            "sha256": "4ca9725795071704cadb30618e213ab945c2f4218aeee5354e92d492b74e2913"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -253,11 +253,11 @@
         },
         "google-auth": {
             "hashes": [
-                "sha256:04e224f241c0566477bb35a8a93be8c635210de743bde454d49393cfb605266d",
-                "sha256:9a88ee548f6fd49467e2e443dfbfe10344e5a270629a137a3a0b3437ec6b02a6"
+                "sha256:1ba4938e032b73deb51e59c4656a00e0939cf0b1112575099f136babb4563312",
+                "sha256:349ac49b18b01019453cc99c11c92ed772739778c92f184002b7ab3a5b7ac77d"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
-            "version": "==2.6.5"
+            "version": "==2.6.6"
         },
         "google-auth-httplib2": {
             "hashes": [
@@ -304,7 +304,7 @@
                 "sha256:1208431ca90a8cca1a6b8af391bb53c1a2db74e5d1cef6ddced95d4b2062edc6",
                 "sha256:ea4c597ebf37142f827b8f39299579e31685c31d3a438b59f469406afd0f2539"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_version < '3.10'",
             "version": "==4.11.3"
         },
         "importlib-resources": {
@@ -417,11 +417,11 @@
         },
         "pipenv": {
             "hashes": [
-                "sha256:3ac62c1121477b0758b0eef9e47643d5a2ba1b57e47a0789620ce5ef9bbc007e",
-                "sha256:53562bf69d9e5238f99a1e2101c356746b1c0aefa5dceb9b8a84a5a3e201de0d"
+                "sha256:e59387e904ed7642e2c01026545fe57f5df9cdb9468a7d32f21947748742b602",
+                "sha256:f9101d3f9a38e9296a33630a5ed29dee4d5f2661d199dd9a60071f0c49f2e432"
             ],
             "index": "pypi",
-            "version": "==2022.4.8"
+            "version": "==2022.4.20"
         },
         "pkginfo": {
             "hashes": [
@@ -645,7 +645,7 @@
                 "sha256:c50f3d253bc6a9bb9c79d61a26d510d74abdf1b16881260fab5edfc3edfb082f",
                 "sha256:ea74bc9dad9589d8eea3e3fd0b136d8bf6e428888955f215824c2894f0da8b47"
             ],
-            "markers": "python_version < '4.0' and python_full_version >= '3.6.3'",
+            "markers": "python_version < '4' and python_full_version >= '3.6.3'",
             "version": "==12.2.0"
         },
         "rsa": {
@@ -780,7 +780,7 @@
                 "sha256:44ece4d53fb1706f667c9bd1c648f5469a2ec925fcf3a776667042d645472c14",
                 "sha256:aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.9"
         },
         "virtualenv": {
