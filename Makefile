@@ -14,7 +14,7 @@ checks: prospector
 
 .PHONY: prospector
 prospector: build-checker
-	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --output=pylint
+	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --output=pylint --die-on-tool-error
 
 .PHONY: jsonschema
 jsonschema:
