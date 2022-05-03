@@ -484,6 +484,22 @@ def match(
     return None, None, value
 
 
+def does_match(
+    value: str, config: List[VersionTransform]
+) -> bool:
+    """
+    Check if the version match with the config patterns.
+
+    Arguments:
+        value: That we want to match with
+        config: The result of `compile`
+
+    Returns True it it does match else False
+    """
+    matched, _, _ = match(value, config)
+    return matched is not None
+
+
 def get_value(matched: Optional[Match[str]], config: Optional[VersionTransform], value: str) -> str:
     """
     Get the final value.
@@ -673,7 +689,7 @@ def get_branch(branch: Optional[str], master_branch: str = "master") -> str:
     try:
         branch = (
             subprocess.run(
-                ["git", "rev-parse", "--abbrev-ref", "HEAD", "--"], check=True, stdout=subprocess.PIPE
+                ["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE
             )
             .stdout.decode()
             .strip()
@@ -713,7 +729,7 @@ def get_based_on_master(
     if current_branch == master_branch:
         return True
     branches_re = compile_re(config["version"].get("branch_to_version_re", []))
-    if match(current_branch, branches_re):
+    if does_match(current_branch, branches_re):
         return False
     commits_json = graphql("commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch})[
         "repository"
@@ -723,7 +739,7 @@ def get_based_on_master(
         for branch in (
             graphql("branches.graphql", {"name": repo[1], "owner": repo[0]})["repository"]["refs"]["nodes"]
         )
-        if branch["name"] != current_branch and match(branch["name"], branches_re)
+        if branch["name"] != current_branch and does_match(branch["name"], branches_re)
     ]
     based_branch = master_branch
     found = False
