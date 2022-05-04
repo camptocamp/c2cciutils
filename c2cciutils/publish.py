@@ -265,13 +265,23 @@ def pip(
         env["VERSION"] = version
 
         cwd = os.path.abspath(package.get("path", "."))
-        cmd = ["python3", "./setup.py", "egg_info", "--no-date"]
-        cmd += (
-            ["--tag-build=dev" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")]
-            if version_type in ("version_branch", "rebuild")
-            else []
-        )
-        cmd.append("bdist_wheel")
+
+        dist = os.path.join(cwd, 'dist')
+        if not os.path.exists(dist):
+            os.mkdir(dist)
+        if os.path.exists("setup.py"):
+            cmd = ["python3", "./setup.py", "egg_info", "--no-date"]
+            cmd += (
+                ["--tag-build=dev" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")]
+                if version_type in ("version_branch", "rebuild")
+                else []
+            )
+            cmd.append("bdist_wheel")
+        else:
+            cwd = os.path.join(cwd, 'dist')
+            os.mkdir(cwd)
+            cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", '.']
+        cmd = package.get("build_command", cmd)
         subprocess.check_call(cmd, cwd=cwd, env=env)
         cmd = ["twine"]
         cmd += ["upload", "--verbose", "--disable-progress-bar"] if publish else ["check"]
