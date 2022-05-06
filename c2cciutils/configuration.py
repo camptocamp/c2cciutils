@@ -651,6 +651,8 @@ PublishPypiPackage = TypedDict(
         "group": str,
         # The path of the pypi package
         "path": str,
+        # The command used to do the build
+        "build_command": List[str],
     },
     total=False,
 )

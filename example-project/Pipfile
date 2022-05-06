@@ -5,7 +5,6 @@ verify_ssl = true
 
 [dev-packages]
 prospector = {extras = ["with_mypy", "with_bandit"],version = "==1.7.7"}
-requirements-detector = "==0.7"
 
 [packages]
 
