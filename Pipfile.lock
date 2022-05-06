@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1b308d1dcf6cc0d7c0aadb2dd46efdb09dc1af1d62d6aacef99eada64f5d7074"
+            "sha256": "6c9453eec11a60d800b60da54491f4299f8c0a1c6b530e2bdd446094c29246df"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -306,7 +306,7 @@
                 "sha256:1208431ca90a8cca1a6b8af391bb53c1a2db74e5d1cef6ddced95d4b2062edc6",
                 "sha256:ea4c597ebf37142f827b8f39299579e31685c31d3a438b59f469406afd0f2539"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_version < '3.10'",
             "version": "==4.11.3"
         },
         "importlib-resources": {
@@ -419,11 +419,11 @@
         },
         "pipenv": {
             "hashes": [
-                "sha256:30568d90a566148a630ce3382843d59beaede28d1c4e9045278972036ebd178c",
-                "sha256:e26ded6ab90a7900676a1db9955d5ee714115f443aecc072b09497153ed237c7"
+                "sha256:06e19a3a2ae7db14a317bdedc61030cdcd132a012410de1e5bdb0e19d0620465",
+                "sha256:71d510c20f99ea5cd3c951f8203140197bcc79fc21a0d74924f97c726a0f2bd3"
             ],
             "index": "pypi",
-            "version": "==2022.4.30"
+            "version": "==2022.5.2"
         },
         "pkginfo": {
             "hashes": [
