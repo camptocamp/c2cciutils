@@ -1,4 +1,5 @@
 GITHUB_REPOSITORY ?= camptocamp/c2cciutils
+export DOCKER_BUILDKIT = 1
 
 .PHONY: build
 build: checks

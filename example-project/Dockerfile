@@ -21,6 +21,7 @@ FROM base AS checker
 
 RUN \
     pipenv sync --system --clear --dev && \
+    pip install requirements-detector==0.7 && \
     rm --recursive --force /tmp/* /root/.cache/*
 
 
