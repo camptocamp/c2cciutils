@@ -731,9 +731,8 @@ def get_based_on_master(
     branches_re = compile_re(config["version"].get("branch_to_version_re", []))
     if does_match(current_branch, branches_re):
         return False
-    commits_json = graphql("commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch})[
-        "repository"
-    ]["ref"]["target"]["history"]["nodes"]
+    commits_json = graphql("commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}).get(
+        "repository", {}).get("ref", {}).get("target", {}).get("history", {}).get("nodes", [])
     branches_json = [
         branch
         for branch in (
