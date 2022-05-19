@@ -3,7 +3,11 @@ name: Continuous integration
 
 on:
   pull_request:
+    paths-ignore:
+      - 'example-project/**'
   push:
+    branches:
+      - master
     paths-ignore:
       - 'example-project/**'
 
@@ -102,22 +106,9 @@ jobs:
         if: always()
 
   audit:
-    runs-on: ubuntu-20.04
-    name: Audit
-    timeout-minutes: 10
-    if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user wheel
-      - run: python3 ./setup.py egg_info --no-date bdist_wheel
-      - run: python3 -m pip install --user --force-reinstall dist/*.whl
-
-      - name: Audit
-        run: c2cciutils-audit
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+    uses: ./.github/workflows/reusable-audit.yaml
+    with:
+      branches: "['master', '1.1']"
+    secrets:
+      CI_GPG_PRIVATE_KEY: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+      GOPASS_CI_GITHUB_TOKEN: ${{ secrets.GOPASS_CI_GITHUB_TOKEN }}
