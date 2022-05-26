@@ -15,6 +15,7 @@ from typing import Any, Dict, List, Optional, Set
 import magic
 import requests
 import ruamel.yaml
+import toml
 import yaml
 from editorconfig import EditorConfigError, get_properties
 from ruamel.yaml.comments import CommentedMap
@@ -117,9 +118,8 @@ def black_config(
             )
             return False
 
-        config_parser = configparser.ConfigParser()
-        config_parser.read("pyproject.toml")
-        if "tool.black" not in config_parser.sections():
+        pyproject = toml.load("pyproject.toml")
+        if "black" not in pyproject.get("tool", {}):
             c2cciutils.error(
                 "black_config",
                 "The 'tool.black' section is required in the 'pyproject.toml' file",
@@ -128,12 +128,13 @@ def black_config(
             return False
 
         if isinstance(config, dict):
+            pyproject_black = pyproject["tool"]["black"]
             for key, value in config.get("properties", {}).items():
-                if config_parser.get("tool.black", key) != str(value):
+                if pyproject_black.get(key) != value:
                     c2cciutils.error(
                         "black_config",
                         f"The property '{key}' should have the value, '{value}', "
-                        f"but is '{config_parser.get('tool.black', key)}'",
+                        f"but is '{pyproject_black.get(key)}'",
                         "pyproject.toml",
                     )
                     return False
