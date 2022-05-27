@@ -7,33 +7,10 @@ on:
 
 jobs:
   audit:
-    runs-on: ubuntu-20.04
     name: Audit
-    timeout-minutes: 10
-
-    strategy:
-      fail-fast: false
-      matrix:
-        branch:
-          - '1.1'
-          - master
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ matrix.branch }}
-
-      - uses: camptocamp/initialise-gopass-summon-action@v2
-        with:
-          ci-gpg-private-key: ${{secrets.CI_GPG_PRIVATE_KEY}}
-          github-gopass-ci-token: ${{secrets.GOPASS_CI_GITHUB_TOKEN}}
-
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user wheel
-      - run: python3 ./setup.py egg_info --no-date bdist_wheel
-      - run: python3 -m pip install --user --force-reinstall dist/*.whl
-
-      - name: Audit
-        run: c2cciutils-audit
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+    uses: camptocamp/c2cciutils/.github/workflows/reusable-audit.yaml@master
+    with:
+      branches: "['master', '1.1']"
+    secrets:
+      CI_GPG_PRIVATE_KEY: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+      GOPASS_CI_GITHUB_TOKEN: ${{ secrets.GOPASS_CI_GITHUB_TOKEN }}
