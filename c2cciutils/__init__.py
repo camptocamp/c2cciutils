@@ -148,9 +148,13 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             ["git", "ls-files", "*/Dockerfile*", "Dockerfile*"], stdout=subprocess.PIPE, check=True
         ).stdout
     )
-    has_setup_py = bool(
+    has_python_package = bool(
         subprocess.run(
-            ["git", "ls-files", "setup.py*", "*/setup.py*"], stdout=subprocess.PIPE, check=True
+            ["git", "ls-files", "setup.py", "*/setup.py"], stdout=subprocess.PIPE, check=True
+        ).stdout
+    ) or bool(
+        subprocess.run(
+            ["git", "ls-files", "pyproject.toml", "*/pyproject.toml"], stdout=subprocess.PIPE, check=True
         ).stdout
     )
 
@@ -164,7 +168,7 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                     {"name": "docker", "cmd": ["docker", "--version"]},
                 ]
             },
-            "pypi": {"versions": ["version_tag"], "packages": [{"path": "."}] if has_setup_py else []},
+            "pypi": {"versions": ["version_tag"], "packages": [{"path": "."}] if has_python_package else []},
             "docker": {
                 "images": [{"name": get_repository()}] if has_docker_files else [],
                 "repository": {
@@ -484,9 +488,7 @@ def match(
     return None, None, value
 
 
-def does_match(
-    value: str, config: List[VersionTransform]
-) -> bool:
+def does_match(value: str, config: List[VersionTransform]) -> bool:
     """
     Check if the version match with the config patterns.
 
@@ -688,9 +690,7 @@ def get_branch(branch: Optional[str], master_branch: str = "master") -> str:
         return branch
     try:
         branch = (
-            subprocess.run(
-                ["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE
-            )
+            subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE)
             .stdout.decode()
             .strip()
         )
