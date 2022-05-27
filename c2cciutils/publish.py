@@ -266,7 +266,7 @@ def pip(
 
         cwd = os.path.abspath(package.get("path", "."))
 
-        dist = os.path.join(cwd, 'dist')
+        dist = os.path.join(cwd, "dist")
         if not os.path.exists(dist):
             os.mkdir(dist)
         if os.path.exists(os.path.join(cwd, "setup.py")):
@@ -278,8 +278,9 @@ def pip(
             )
             cmd.append("bdist_wheel")
         else:
-            os.mkdir(dist)
-            cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", '.']
+            if not os.path.exists(dist):
+                os.mkdir(dist)
+            cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", "."]
         cmd = package.get("build_command", cmd)
         subprocess.check_call(cmd, cwd=cwd, env=env)
         cmd = ["twine"]
