@@ -32,7 +32,7 @@ prospector = {version = "==1.7.7", extras = ["with_bandit", "with_mypy"]}
 types-requests = "==2.27.29"
 types-pyyaml = "==6.0.7"
 types-setuptools = "==57.4.15"
-types-markdown = "==3.3.24"
+types-markdown = "==3.3.25"
 types-toml = "==0.10.7"
 
 [requires]
