@@ -731,8 +731,16 @@ def get_based_on_master(
     branches_re = compile_re(config["version"].get("branch_to_version_re", []))
     if does_match(current_branch, branches_re):
         return False
-    commits_json = graphql("commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}).get(
-        "repository", {}).get("ref", {}).get("target", {}).get("history", {}).get("nodes", [])
+    if os.environ.get("GITHUB_BASE_REF"):
+        return os.environ.get("GITHUB_BASE_REF") == master_branch
+    commits_repository_json = graphql(
+        "commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}
+    ).get("repository", {})
+    commits_json = (
+        commits_repository_json.get("ref", {}).get("target", {}).get("history", {}).get("nodes", [])
+        if commits_repository_json.get("ref")
+        else []
+    )
     branches_json = [
         branch
         for branch in (
