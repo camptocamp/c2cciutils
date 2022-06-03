@@ -132,7 +132,6 @@ Checks = TypedDict(
         "black_config": "ChecksBlackConfiguration",
         "prospector_config": "ChecksProspectorConfiguration",
         "codespell": "ChecksCodespell",
-        "dependabot_config": "ChecksDependabotConfiguration",
         "editorconfig": "ChecksEditorconfig",
         "eof": "ChecksEof",
         "gitattribute": "ChecksGitattribute",
@@ -212,31 +211,6 @@ ChecksCodespellConfig = TypedDict(
         "arguments": List[str],
         # List of regular expression that should be ignored
         "ignore_re": List[str],
-    },
-    total=False,
-)
-
-
-# Checks Dependabot configuration
-#
-# The Dependabot configuration check configuration
-#
-# oneOf
-ChecksDependabotConfiguration = Union["ChecksDependabotConfigurationConfig", Literal[False]]
-
-
-# Checks Dependabot configuration config
-#
-# The Dependabot configuration check configuration
-ChecksDependabotConfigurationConfig = TypedDict(
-    "ChecksDependabotConfigurationConfig",
-    {
-        # List of files to be ignored
-        "ignore_version_files": List[str],
-        # List of check that should be present in the Dependabot config
-        "types": List["_ChecksDependabotConfigurationConfigTypesItem"],
-        # List of files to be ignored
-        "update_ignore": List["_ChecksDependabotConfigurationConfigUpdateIgnoreItem"],
     },
     total=False,
 )
@@ -675,30 +649,6 @@ Version = TypedDict(
 #
 # A version transformer definition
 VersionTransform = List["_VersionTransformItem"]
-
-
-_ChecksDependabotConfigurationConfigTypesItem = TypedDict(
-    "_ChecksDependabotConfigurationConfigTypesItem",
-    {
-        # The use ecosystem
-        "ecosystem": str,
-        # The use filename
-        "filename": str,
-    },
-    total=False,
-)
-
-
-_ChecksDependabotConfigurationConfigUpdateIgnoreItem = TypedDict(
-    "_ChecksDependabotConfigurationConfigUpdateIgnoreItem",
-    {
-        # The use ecosystem
-        "package-ecosystem": str,
-        # The use directory
-        "directory": str,
-    },
-    total=False,
-)
 
 
 # oneOf

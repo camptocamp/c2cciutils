@@ -193,59 +193,6 @@
         { "const": false }
       ]
     },
-    "checks_dependabot_config": {
-      "title": "Checks Dependabot configuration",
-      "description": "The Dependabot configuration check configuration",
-      "oneOf": [
-        {
-          "title": "Checks Dependabot configuration config",
-          "description": "The Dependabot configuration check configuration",
-          "type": "object",
-          "properties": {
-            "ignore_version_files": {
-              "description": "List of files to be ignored",
-              "type": "array",
-              "items": { "type": "string" }
-            },
-            "types": {
-              "description": "List of check that should be present in the Dependabot config",
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "ecosystem": {
-                    "description": "The use ecosystem",
-                    "type": "string"
-                  },
-                  "filename": {
-                    "description": "The use filename",
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "update_ignore": {
-              "description": "List of files to be ignored",
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "package-ecosystem": {
-                    "description": "The use ecosystem",
-                    "type": "string"
-                  },
-                  "directory": {
-                    "description": "The use directory",
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        { "const": false }
-      ]
-    },
     "checks_editorconfig": {
       "title": "Checks editorconfig",
       "description": "The editorconfig configuration check configuration",
@@ -723,7 +670,6 @@
         "black_config": { "$ref": "#/definitions/checks_black_config" },
         "prospector_config": { "$ref": "#/definitions/checks_prospector_config" },
         "codespell": { "$ref": "#/definitions/checks_codespell" },
-        "dependabot_config": { "$ref": "#/definitions/checks_dependabot_config" },
         "editorconfig": { "$ref": "#/definitions/checks_editorconfig" },
         "eof": { "$ref": "#/definitions/checks_eof" },
         "gitattribute": { "$ref": "#/definitions/checks_gitattribute" },

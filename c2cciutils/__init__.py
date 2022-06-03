@@ -231,9 +231,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                 **(
                     {
                         "backport.yaml": True,
-                        "dependabot-auto-merge.yaml": {"on": {"workflow_run": {"types": ["completed"]}}}
-                        if config.get("checks", {}).get("dependabot_config", True)
-                        else False,
                     }
                     if based_on_master
                     else {}
@@ -256,17 +253,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                 "ignore_re": [],
                 "arguments": ["--quiet-level=2", "--check-filenames"],
             },
-            "dependabot_config": {
-                "ignore_version_files": [],
-                "update_ignore": [],
-                "types": [
-                    {"filename": "Pipfile", "ecosystem": "pip"},
-                    {"filename": "Dockerfile", "ecosystem": "docker"},
-                    {"filename": "package.json", "ecosystem": "npm"},
-                ],
-            }
-            if based_on_master
-            else False,
             "setup": {
                 "cfg": {
                     "mypy": {"warn_redundant_casts": "True", "warn_unused_ignores": "True", "strict": "True"}
