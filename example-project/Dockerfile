@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 AS base
+FROM ubuntu:22.04 AS base
 
 RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends python3-pip binutils && \
