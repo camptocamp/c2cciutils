@@ -34,6 +34,7 @@ types-pyyaml = "==6.0.8"
 types-setuptools = "==57.4.15"
 types-markdown = "==3.3.27"
 types-toml = "==0.10.7"
+typing-extensions = "==4.2.0"
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"
