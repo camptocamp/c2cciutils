@@ -27,7 +27,7 @@ jobs:
               echo ::endgroup::
           done
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ matrix.branch }}
 
