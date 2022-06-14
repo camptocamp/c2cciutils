@@ -379,41 +379,6 @@
         { "const": false }
       ]
     },
-    "checks_setup": {
-      "title": "checks setup",
-      "description": "Check the typing options in setup.cfg and in setup.py",
-      "oneOf": [
-        {
-          "title": "checks setup config",
-          "description": "Check the typing options in setup.cfg and in setup.py",
-          "type": "object",
-          "properties": {
-            "ignore_file": {
-              "description": "list of files to be ignored",
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "cfg": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "object",
-                "additionalProperties": { "type": "string" }
-              }
-            },
-            "classifiers": {
-              "description": "list of required classifiers",
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        { "const": false }
-      ]
-    },
     "publish_docker": {
       "title": "Publish Docker",
       "description": "The configuration used to publish on Docker",
@@ -678,7 +643,6 @@
         "required_workflows": { "$ref": "#/definitions/checks_required_workflows" },
         "versions": { "$ref": "#/definitions/checks_versions" },
         "workflows": { "$ref": "#/definitions/checks_workflows" },
-        "setup": { "$ref": "#/definitions/checks_setup" },
         "prettier": { "$ref": "#/definitions/checks_prettier" },
         "print_versions": { "$ref": "#/definitions/print_versions" }
       }

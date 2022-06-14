@@ -1,26 +1,39 @@
-FROM ubuntu:22.04 AS base
+FROM ubuntu:22.04 AS base-all
 
 RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
     apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends python3-pip binutils
 
+# Used to convert the locked packages by poetry to pip requirements format
+# We don't directly use `poetry install` because it force to use a virtual environment.
+FROM base-all as poetry
+
+# Install poetry
+WORKDIR /tmp
+COPY requirements.txt ./
+RUN --mount=type=cache,target=/root/.cache \
+    python3 -m pip install --disable-pip-version-check --requirement=requirements.txt \
+    && rm requirements.txt
+
+# Do the conversion
+COPY poetry.lock pyproject.toml ./
+RUN poetry export --output=requirements.txt \
+    && poetry export --dev --output=requirements-dev.txt
+
+# Base, the biggest thing is to install the Python packages
+FROM base-all as base
+
 WORKDIR /app
 
-COPY requirements-pipenv.txt /tmp/
 RUN --mount=type=cache,target=/root/.cache \
-    python3 -m pip install --disable-pip-version-check --requirement=/tmp/requirements-pipenv.txt \
-    && rm --recursive --force /tmp/*
-
-COPY Pipfile Pipfile.lock ./
-RUN --mount=type=cache,target=/root/.cache \
-    pipenv sync --system \
-    && rm --recursive --force /usr/local/lib/python3.*/dist-packages/tests/ /tmp/* /root/.cache/*
+    --mount=type=bind,from=poetry,source=/tmp,target=/poetry \
+    python3 -m pip install --disable-pip-version-check --no-deps --requirement=/poetry/requirements.txt
 
 FROM base AS checker
 
 RUN --mount=type=cache,target=/root/.cache \
-    pipenv sync --system --dev \
-    && rm --recursive --force /tmp/* /root/.cache/*
+    --mount=type=bind,from=poetry,source=/tmp,target=/poetry \
+    python3 -m pip install --disable-pip-version-check --no-deps --requirement=/poetry/requirements-dev.txt
 
 FROM base AS run
 
@@ -36,10 +49,10 @@ RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/
     && apt-get update \
     && apt-get install --assume-yes --no-install-recommends nodejs
 
-RUN python3 -m compileall -q \
-    -x '/usr/local/lib/python3.*/site-packages/pipenv/' -- *
+RUN python3 -m compileall -q -- *
 
 COPY . ./
-RUN cd c2cciutils && npm install && cd - \
-    && python3 -m pip install --disable-pip-version-check --no-deps --no-cache-dir --no-deps --editable=. \
+RUN --mount=type=cache,target=/root/.cache \
+    cd c2cciutils && npm install && cd - \
+    && python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
     && python3 -m compileall -q /app/c2cciutils

@@ -1,5 +1,5 @@
 *
 !requirements.txt
-!Pipfile*
 !project/
-!setup.py
+!pyproject.toml
+!poetry.lock

@@ -197,7 +197,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                     {"name": "java", "cmd": ["java", "-version"]},
                     {"name": "python", "cmd": ["python3", "--version"]},
                     {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
-                    {"name": "pipenv", "cmd": ["pipenv", "--version"]},
                     {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
                     {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
                     {"name": "docker", "cmd": ["docker", "--version"]},
@@ -250,14 +249,8 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "black": {"ignore_patterns_re": []},
             "isort": {"ignore_patterns_re": []},
             "codespell": {
-                "ignore_re": [],
+                "ignore_re": [r"(.*/)?poetry\.lock"],
                 "arguments": ["--quiet-level=2", "--check-filenames"],
-            },
-            "setup": {
-                "cfg": {
-                    "mypy": {"warn_redundant_casts": "True", "warn_unused_ignores": "True", "strict": "True"}
-                },
-                "classifiers": ["Typing :: Typed"],
             },
             "prettier": {},
         },

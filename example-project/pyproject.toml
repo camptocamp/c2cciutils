@@ -8,3 +8,65 @@ include_trailing_comma = true
 force_grid_wrap = false
 use_parentheses = true
 line_length = 110
+
+[tool.mypy]
+python_version = 3.8
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+strict = true
+
+[tool.poetry]
+name = "project"
+version = "0.1.0"
+description = "project description"
+readme = "README.md"
+authors = ["Camptocamp <info@camptocamp.com>"]
+repository = "https://github.com/camptocamp/project"
+license = "FreeBSD"
+packages = [{ include = "project" }]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Typing :: Typed",
+]
+include = ["project/py.typed"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+
+[tool.poetry.dev-dependencies]
+prospector = { version = "==1.7.7", extras = [
+    "with_bandit",
+    "with_mypy",
+    "with_pyorama"
+] }
+pylint = "2.14.1"
+mypy = "0.961"
+flake8 = "4.0.1"
+
+[build-system]
+requires = [
+    "poetry-core>=1.0.0",
+    "poetry-dynamic-versioning",
+    "poetry-plugin-tweak-dependencies-version"
+]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
+
+[tool.poetry-plugin-tweak-dependencies-version]
+default = "major"

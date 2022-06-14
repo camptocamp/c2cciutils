@@ -176,10 +176,8 @@ def pipfile_lock(
 ) -> bool:
     """
     Audit all the `Pipfile.lock` files.
-
     config is like:
         sections: [...] # to select witch section we want to check
-
     Arguments:
         config: The audit section config
         full_config: All the CI config
@@ -208,11 +206,9 @@ def pipenv(
 ) -> bool:
     """
     Audit all the `Pipfile`.
-
     config is like:
         `python_versions`: []  # Python version of asdf environment the we should setup to be able to do
             the check
-
     Arguments:
         config: The audit section config
         full_config: All the CI config
