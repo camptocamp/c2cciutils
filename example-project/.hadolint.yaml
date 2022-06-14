@@ -1,2 +1,5 @@
 ignored:
-  - DL3027 # warning: Do not use apt as it is meant to be a end-user tool, use apt-get or apt-cache instead
+  - DL3003 # Use WORKDIR to switch to a directory
+  - DL3008 # Pin versions in apt get install. Instead of `apt-get install <package>` use `apt-get install <package>=<version>`
+  - DL3042 # Avoid use of cache directory with pip. Use `pip install --no-cache-dir <package>`
+  - SC1091 # Not following: File not included in mock.
