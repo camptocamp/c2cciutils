@@ -85,6 +85,7 @@ setup(
             "node_modules/*/src/*/*.js",
             "node_modules/*/src/*/*/*.js",
             "node_modules/*/lib/*.js",
+            "node_modules/*/lib/*.cjs",
         ]
     },
 )

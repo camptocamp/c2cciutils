@@ -92,6 +92,8 @@ The IDE should be configured as:
 
 - Recommend extensions to work well with c2cciutils:
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) And use EditorConfig
+  - [shell-format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format) With the configuration
+    `"shellformat.flag": "--binary-next-line"`.
 - Other recommend extensions:
   - [hadolint](https://marketplace.visualstudio.com/items?itemName=exiasr.hadolint)
   - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
