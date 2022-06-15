@@ -19,7 +19,7 @@ strict = true
 
 [tool.poetry]
 name = "c2cciutils"
-version = "1.0.24"
+version = "0.0.0"
 description = "Common utilities for Camptocamp CI"
 readme = "README.md"
 authors = ["Camptocamp <info@camptocamp.com>"]
@@ -117,6 +117,7 @@ enable = true
 vcs = "git"
 style = "semver"
 pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
+# format = "{base}.dev{timestamp}" # for dev version
 
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "major"
