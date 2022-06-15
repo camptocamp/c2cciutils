@@ -140,7 +140,6 @@ Checks = TypedDict(
         "required_workflows": "ChecksRequiredWorkflows",
         "versions": "ChecksVersions",
         "workflows": "ChecksWorkflows",
-        "setup": "ChecksSetup",
         "prettier": "ChecksPrettier",
         # WARNING: The required are not correctly taken in account,
         # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
@@ -329,30 +328,6 @@ ChecksRequiredWorkflows = Union["ChecksRequiredWorkflowsConfig", Literal[False]]
 #
 # The required workflow check configuration
 ChecksRequiredWorkflowsConfig = Dict[str, "_ChecksRequiredWorkflowsConfigAdditionalproperties"]
-
-
-# checks setup
-#
-# Check the typing options in setup.cfg and in setup.py
-#
-# oneOf
-ChecksSetup = Union["ChecksSetupConfig", Literal[False]]
-
-
-# checks setup config
-#
-# Check the typing options in setup.cfg and in setup.py
-ChecksSetupConfig = TypedDict(
-    "ChecksSetupConfig",
-    {
-        # list of files to be ignored
-        "ignore_file": List[str],
-        "cfg": Dict[str, Dict[str, str]],
-        # list of required classifiers
-        "classifiers": List[str],
-    },
-    total=False,
-)
 
 
 # checks versions

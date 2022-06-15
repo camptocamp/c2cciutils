@@ -1,7 +1,6 @@
 *
 !requirements.txt
-!requirements-pipenv.txt
-!Pipfile*
+!pyproject.toml
+!poetry.lock
 !c2cciutils/
 c2cciutils/node_modules
-!setup.py

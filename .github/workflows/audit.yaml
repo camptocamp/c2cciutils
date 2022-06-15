@@ -29,8 +29,8 @@ jobs:
           github-gopass-ci-token: ${{secrets.GOPASS_CI_GITHUB_TOKEN}}
 
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user wheel
-      - run: python3 ./setup.py egg_info --no-date bdist_wheel
+      - run: python3 -m pip install --user --requirement=requirements.txt
+      - run: poetry build
       - run: python3 -m pip install --user --force-reinstall dist/*.whl
 
       - name: Audit
