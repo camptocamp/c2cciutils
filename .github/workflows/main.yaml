@@ -23,6 +23,11 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
+      - name: Event
+        run: echo "$GITHUB_EVENT" | python3 -m json.tool
+        env:
+          GITHUB_EVENT: ${{ toJson(github) }}
+
       - run: |
           for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
           do
@@ -57,6 +62,12 @@ jobs:
       - name: Build example
         run: (cd example-project/; make)
 
+      - name: Prepare publish
+        run: |
+          sed --in-place 's/^style/# style/g' pyproject.toml
+          sed --in-place 's/^# format/# format/g' pyproject.toml
+          cat pyproject.toml
+        if: env.HAS_SECRETS == 'HAS_SECRETS' && github.event_name == 'push'
       - name: Publish
         run: c2cciutils-publish
         if: env.HAS_SECRETS == 'HAS_SECRETS'
