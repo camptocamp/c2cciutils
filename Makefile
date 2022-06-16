@@ -10,7 +10,7 @@ help: ## Display this help message
 		awk 'BEGIN {FS = ":.*?## "}; {printf "	%-20s%s\n", $$1, $$2}'
 
 .PHONY: build
-build: checks ## Build the Docker images
+build: ## Build the Docker images
 	docker build --tag=$(GITHUB_REPOSITORY) .
 
 .PHONY: build-checker
