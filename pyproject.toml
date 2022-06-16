@@ -96,7 +96,7 @@ toml = "0.10.2"
 prospector = { version = "1.7.7", extras = [
     "with_bandit",
     "with_mypy",
-    "with_pyorama"
+    "with_pyroma"
 ] }
 pylint = "2.14.1"
 mypy = "0.961"
@@ -113,9 +113,8 @@ requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning", "poetry-plugin-tw
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry-dynamic-versioning]
-enable = true
+enable = true # disable on Docker
 vcs = "git"
-style = "semver"
 pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
 # format = "{base}.dev{timestamp}" # for dev version
 

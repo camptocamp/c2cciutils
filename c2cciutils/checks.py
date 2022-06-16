@@ -2,7 +2,6 @@
 The checking functions.
 """
 
-import configparser
 import glob
 import os
 import re

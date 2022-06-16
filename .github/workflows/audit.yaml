@@ -29,9 +29,7 @@ jobs:
           github-gopass-ci-token: ${{secrets.GOPASS_CI_GITHUB_TOKEN}}
 
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user --requirement=requirements.txt
-      - run: poetry build
-      - run: python3 -m pip install --user --force-reinstall dist/*.whl
+      - run: python3 -m pip install --user --pre c2cciutils
 
       - name: Audit
         run: c2cciutils-audit

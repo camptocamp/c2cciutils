@@ -45,8 +45,9 @@ bandit:
   options:
     config: .bandit.yaml
 
-pyroma:
-  run: true
+# Not working withy current Pyroma version
+#pyroma:
+#  run: true
 
 mccabe:
   run: false

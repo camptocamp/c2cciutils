@@ -54,5 +54,6 @@ RUN python3 -m compileall -q -- *
 COPY . ./
 RUN --mount=type=cache,target=/root/.cache \
     cd c2cciutils && npm install && cd - \
+    && sed --in-place 's/enable = true # disable on Docker/enable = false/g' pyproject.toml \
     && python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
     && python3 -m compileall -q /app/c2cciutils

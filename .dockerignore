@@ -1,6 +1,7 @@
 *
 !requirements.txt
 !pyproject.toml
+!README.md
 !poetry.lock
 !c2cciutils/
 c2cciutils/node_modules

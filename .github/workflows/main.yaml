@@ -58,14 +58,15 @@ jobs:
         run: c2cciutils-checks
 
       - name: Build
-        run: make
+        run: make build
+      - name: Check
+        run: make checks
       - name: Build example
         run: (cd example-project/; make)
 
       - name: Prepare publish
         run: |
-          sed --in-place 's/^style/# style/g' pyproject.toml
-          sed --in-place 's/^# format/# format/g' pyproject.toml
+          sed --in-place 's/^# format/format/g' pyproject.toml
           cat pyproject.toml
         if: env.HAS_SECRETS == 'HAS_SECRETS' && github.event_name == 'push'
       - name: Publish
