@@ -22,7 +22,7 @@ checks: prospector ## Do the checks
 
 .PHONY: prospector
 prospector: build-checker ## Run Prospector
-	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --output=pylint --die-on-tool-error
+	docker run --rm --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --output=pylint --die-on-tool-error
 
 .PHONY: jsonschema
 jsonschema: ## Generate files depends on the JSON schema
