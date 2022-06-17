@@ -22,4 +22,4 @@ checks: prospector ## Do the checks
 
 .PHONY: prospector
 prospector: build-checker ## Run Prospector
-	docker run --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --output=pylint --die-on-tool-error
+	docker run --rm --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --output=pylint --die-on-tool-error
