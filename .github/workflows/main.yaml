@@ -68,7 +68,10 @@ jobs:
         run: |
           sed --in-place 's/^# format/format/g' pyproject.toml
           cat pyproject.toml
-        if: env.HAS_SECRETS == 'HAS_SECRETS' && github.event_name == 'push'
+        if: |
+          env.HAS_SECRETS == 'HAS_SECRETS'
+          && github.event_name == 'push'
+          && github.event.ref_type != 'tag'
       - name: Publish
         run: c2cciutils-publish
         if: env.HAS_SECRETS == 'HAS_SECRETS'
