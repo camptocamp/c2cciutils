@@ -10,11 +10,13 @@ import re
 import subprocess  # nosec
 import sys
 import tarfile
-from typing import List, Match, Optional, cast
+from typing import List, Match, Optional, Set, cast
 
 import requests
+import yaml
 
 import c2cciutils.configuration
+import c2cciutils.lib.docker
 import c2cciutils.publish
 import c2cciutils.security
 from c2cciutils.publish import GoogleCalendar
@@ -188,11 +190,13 @@ def main() -> None:
             version_index = security.headers.index("Version")
             latest = security.data[-1][version_index] == version
 
+        images_src: Set[str] = set()
         images_full: List[str] = []
         for image_conf in docker_config.get("images", []):
             if image_conf.get("group", "") == args.group:
                 for tag_config in image_conf.get("tags", []):
                     tag_src = tag_config.format(version="latest")
+                    images_src.add(f"{image_conf['name']}:{tag_src}")
                     tag_dst = tag_config.format(version=version)
                     for name, conf in docker_config.get("repository", {}).items():
                         if version_type in conf.get("versions", []):
@@ -224,6 +228,13 @@ def main() -> None:
         dispatch_config = docker_config.get("dispatch", False)
         if dispatch_config and images_full:
             dispatch(dispatch_config["repository"], dispatch_config["event-type"], images_full)
+
+        versions_config = c2cciutils.lib.docker.get_versions_config()
+        for image in images_src:
+            success |= c2cciutils.lib.docker.check_version(versions_config, image)
+
+        print("New config file:")
+        print(yaml.dump(versions_config, Dumper=yaml.SafeDumper, default_flow_style=False))
 
     helm_config = cast(
         c2cciutils.configuration.PublishHelmConfig,
