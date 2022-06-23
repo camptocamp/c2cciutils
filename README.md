@@ -75,7 +75,7 @@ For compatibility with `c2cciutils` it should contain an array with at least the
 The `Supported Until` will contains the date of end of support `dd/mm/yyyy`.
 It can also contain the following sentences:
 
-- `Unsupported`: no longer supported => no audit, no rebuild.
+- `Unsupported`: no longer supported => no audit.
 - `Best effort`: the support is ended, it is still rebuilt and audited but this can be can stopped without any notice.
 - `To be defined`: not yet released or the date will be set related of an other project release date (like for GeoMapFish).
 
@@ -120,7 +120,6 @@ The config is like this:
 ```yaml
 versions:
   # List of kinds of versions you want to publish, that can be:
-  # rebuild (specified with --type),
   # version_tag, version_branch, feature_branch, feature_tag (for pull request)
 ```
 
@@ -135,13 +134,13 @@ images:
 repository:
     <internal_name>:
         'server': # The fqdn name of the server if not Docker hub
-        'version':# List of kinds of versions you want to publish, that can be: rebuild (specified using --type),
+        'version': # List of kinds of versions you want to publish,
             # version_tag, version_branch, feature_branch, feature_tag (for pull request)
-        'tags':# List of tags we want to publish interpreted with `template(version=version)`
+        'tags': # List of tags we want to publish interpreted with `template(version=version)`
             # e.g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
             # (that should be built by the application build) is `latest-lite`, and it will be published
             # with the tag `1.2.3-lite`.
-        'group':# If your images are published by different jobs you can separate them in different groups
+        'group': # If your images are published by different jobs you can separate them in different groups
             # and publish them with `c2cciutils-publish --group=<group>`
 ```
 

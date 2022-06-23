@@ -330,24 +330,6 @@
               "description": "Versions that are not in the `SECURITY.md` but should still be considered",
               "type": "array",
               "items": { "type": "string" }
-            },
-            "rebuild": {
-              "description": "Check the versions in the rebuild workflows",
-              "oneOf": [
-                {
-                  "title": "checks versions rebuild",
-                  "description": "Check the versions in the rebuild workflows",
-                  "type": "object",
-                  "properties": {
-                    "files": {
-                      "description": "The workflows files name",
-                      "type": "array",
-                      "items": { "type": "string" }
-                    }
-                  }
-                },
-                { "const": false }
-              ]
             }
           }
         },

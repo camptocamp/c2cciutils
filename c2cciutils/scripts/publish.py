@@ -69,7 +69,7 @@ def main() -> None:
     parser.add_argument(
         "--type",
         help="The type of version, if no argument provided autodeterminated, can be: "
-        "rebuild (in case of rebuild), version_tag, version_branch, feature_branch, feature_tag "
+        "version_tag, version_branch, feature_branch, feature_tag "
         "(for pull request)",
     )
     args = parser.parse_args()
@@ -81,7 +81,7 @@ def main() -> None:
         c2cciutils.print_versions(config.get("publish", {}).get("print_versions", {}))
         print("::endgroup::")
 
-    # Describe the kind of release we do: rebuild (specified with --type), version_tag, version_branch,
+    # Describe the kind of release we do: version_tag, version_branch,
     # feature_branch, feature_tag (for pull request)
     version: str = ""
     ref = os.environ["GITHUB_REF"]

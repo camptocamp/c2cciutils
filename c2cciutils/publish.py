@@ -250,7 +250,7 @@ def pip(
 
     Arguments:
         version: The version that will be published
-        version_type: Describe the kind of release we do: rebuild (specified using --type), version_tag,
+        version_type: Describe the kind of release we do: version_tag,
                     version_branch, feature_branch, feature_tag (for pull request)
         publish: If False only check the package
         package: The package configuration
@@ -273,7 +273,7 @@ def pip(
             cmd = ["python3", "./setup.py", "egg_info", "--no-date"]
             cmd += (
                 ["--tag-build=dev" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")]
-                if version_type in ("version_branch", "rebuild")
+                if version_type in ("version_branch")
                 else []
             )
             cmd.append("bdist_wheel")
