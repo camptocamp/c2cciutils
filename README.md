@@ -1,6 +1,46 @@
 # C2C CI utils
 
-Commands:
+The goals of C2C CI utils are:
+
+- Have some global checks that's didn't request any dependency related to the application:
+  this commands return 3 types of results:
+  - Print some useful information:
+    - The version of some packages
+    - The used configuration (with default and autodetect)
+    - The environment variables
+    - The GitHub event file
+  - Check that some configuration where correct:
+    - Black configuration
+    - Prospector configuration
+    - Editor config
+    - Git attributes
+    - The GitHub workflow files
+    - That the stabilization version (get from the Security.md) are used everywhere it's needed
+  - Check the code style:
+    - End of files
+    - Black
+    - Isort
+    - Code spell
+    - Prettier
+
+Every check can be disabled with the following config (the configuration is `ci/config.yaml`):
+
+```yaml
+checks:
+  <check name>: false
+```
+
+It make easier to place the following workflows:
+
+- `audit.yaml`: Audit the stabilization branches of the application against vulnerabilities in the python and node dependency
+- `auto-review.yaml`: Auto review the Renovate pull requests
+- `backport.yaml`: Trigger the backports (work with labels)
+- `clean.yaml`: Clean the Docker images related on a deleted feature branch
+- `codeql.yaml`: Run a GitHub CodeQL check
+- `main.yaml`: Main workflow especially with the c2cciutils-checks command
+- `rebuild.yaml`: Daily rebuild of the Docker images on the stabilization branches.
+
+All the provided commands:
 
 - `c2cciutils`: some generic tools.
 - `c2cciutils-checks`: Run the checks on the code (those checks don't need any project dependencies).
@@ -8,12 +48,19 @@ Commands:
 - `c2cciutils-publish`: Publish the project.
 - `c2cciutils-clean`: Delete Docker images on Docker Hub after corresponding branch have been deleted.
 - `c2cciutils-google-calendar`: Tool to test the google credentials for calendar API and refresh them if needed. See `c2cciutils-google-calendar -h` for more information.
+- `c2cciutils-k8s-install`: Install a k3d / k3s cluster.
+- `c2cciutils-k8s-db`: Create a database in the k8s cluster.
+- `c2cciutils-k8s-wait`: Wait that the application started correctly in the cluster.
+- `c2cciutils-k8s-logs`: Display the logs of the application in the k8s cluster.
+- `c2cciutils-pin-pipenv`: Display all the dependencies that's in the `Pipenv.lock` but not in the `Pipenv` to be able to pin them.
+- `c2cciutils-docker-logs`: Display the logs of the application in Docker (compose).
+- `c2cciutils-trigger-image-update`: Trigger the ArgoCD repository about image update on the CI (automatically done in the publish).
 
-# New project
+## New project
 
 The content of `example-project` can be a good base for a new project.
 
-# Secrets
+## Secrets
 
 In the CI we needs to have the following secrets::
 
@@ -23,13 +70,13 @@ In the CI we needs to have the following secrets::
   the secrets axists in the camptocamp organisation but not shared on all project, then you should add
   your project to the shared list.
 
-# Use locally, in the projects that use c2cciutils
+## Use locally, in the projects that use c2cciutils
 
 Install it: `python3 -m pip install --user --requirement ci/requirements.txt`
 Run the checkers: `c2cciutils-checks [--fix] [--stop] [--check CHECK]`
 Dry run publish: `GITHUB_REF=... c2cciutils-publish --dry-run ...`
 
-# Configuration
+## Configuration
 
 You can get the current configuration with `c2cciutils --get-config`, the default configuration depends on your project.
 
@@ -44,7 +91,7 @@ At the base of the configuration you have:
 
 Many actions can be disabled by setting the corresponding configuration part to `False`.
 
-# Checks
+## Checks
 
 The configuration profile considers we use a project with:
 
@@ -65,7 +112,7 @@ It will check that:
 - The `gitattributes` are valid.
 - All text files end with an empty line.
 
-# SECURITY.md
+## SECURITY.md
 
 The `SECURITY.md` file should contains the security policy of the repository, espessially the end of
 support dates.
@@ -81,14 +128,14 @@ It can also contain the following sentences:
 
 See also [GitHub Documentation](https://docs.github.com/en/github/managing-security-vulnerabilities/adding-a-security-policy-to-your-repository)
 
-# IDE
+## IDE
 
 The IDE should be configured as:
 
 - using `black` and `isort` without any arguments,
 - using the `editorconfig` configuration.
 
-## VScode
+### VScode
 
 - Recommend extensions to work well with c2cciutils:
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) And use EditorConfig
@@ -105,9 +152,9 @@ Select a formatter:
 - Configure Default Formatter...
 - Select the formatter
 
-# Publishing
+## Publishing
 
-## To pypi
+### To pypi
 
 When publishing, the version computed from arguments or `GITHUB_REF` is put in environment variable `VERSION`, thus you should use it in `setup.py`, example:
 
@@ -124,7 +171,7 @@ versions:
   # version_tag, version_branch, feature_branch, feature_tag (for pull request)
 ```
 
-## To Docker registry
+### To Docker registry
 
 The config is like this:
 
