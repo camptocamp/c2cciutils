@@ -74,7 +74,10 @@ jobs:
           && github.event.ref_type != 'tag'
       - name: Publish
         run: c2cciutils-publish
-        if: env.HAS_SECRETS == 'HAS_SECRETS'
+        if: |
+          env.HAS_SECRETS == 'HAS_SECRETS'
+          && github.event_name == 'push'
+          && ( github.event.ref_type == 'tag' || github.event.ref_name == 'master' )
 
   k8s:
     runs-on: ubuntu-20.04
