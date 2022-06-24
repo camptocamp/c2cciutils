@@ -4,6 +4,7 @@
 The clean main function.
 """
 
+import argparse
 import json
 import os
 import sys
@@ -51,6 +52,14 @@ def main() -> None:
     """
     Run the main function.
     """
+    parser = argparse.ArgumentParser(
+        description=(
+            "Clean the Docker images on Docker Hub for the branch we delete "
+            "(get from the GitHub event information)."
+        )
+    )
+    parser.parse_args()
+
     username = (
         os.environ["DOCKERHUB_USERNAME"]
         if "DOCKERHUB_USERNAME" in os.environ
