@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 import subprocess  # nosec
 import sys
@@ -13,6 +14,11 @@ def _print(message: str) -> None:
 
 def main() -> None:
     """Print the list of running docker containers and their logs formatted for GitHub CI."""
+    parser = argparse.ArgumentParser(
+        description=("Print the list of running docker containers and their logs formatted for GitHub CI.")
+    )
+    parser.parse_args()
+
     if os.path.exists("docker-compose.yaml"):
         _print("::group::Docker Compose ps")
         subprocess.run(["docker-compose", "ps"], check=False)
