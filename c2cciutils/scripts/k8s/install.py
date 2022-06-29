@@ -4,7 +4,8 @@ import argparse
 import subprocess  # nosec
 import sys
 
-import requests
+import c2cciutils
+import c2cciutils.scripts.download_applications
 
 
 def _print(message: str) -> None:
@@ -17,26 +18,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Install k3d/k3s and create a cluster.")
     _ = parser.parse_args()
 
+    config = c2cciutils.get_config()
+
     _print("::group::Install")
-    response = requests.get("https://raw.githubusercontent.com/rancher/k3d/main/install.sh")
-    subprocess.run(["bash"], env={"TAG": "v4.4.8"}, check=True, input=response.content)
+    c2cciutils.scripts.download_applications.download_c2cciutils_applications()
     _print("::endgroup::")
 
     _print("::group::Create cluster")
-    subprocess.run(
-        [
-            "k3d",
-            "cluster",
-            "create",
-            "test-cluster",
-            "--no-lb",
-            "--no-hostip",
-            "--no-rollback",
-            "--k3s-server-arg",
-            "--no-deploy=traefik,servicelb,metrics-server",
-        ],
-        check=True,
-    )
+    for cmd in config["k8s"]["k3d"]["install-commands"]:
+        subprocess.run(cmd, check=True)
     _print("::endgroup::")
 
 

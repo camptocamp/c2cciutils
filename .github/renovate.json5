@@ -6,6 +6,15 @@
   separateMajorMinor: true,
   separateMinorPatch: true,
   lockFileMaintenance: { enabled: true, automerge: true },
+  regexManagers: [
+    {
+      fileMatch: ['^c2cciutils/applications-versions.yaml$'],
+      matchStrings: [
+        '(?<depName>[^ ]+): (?<currentValue>[^ ]+) # (?<datasource>[^ ]+) - (?<registryUrl>[^ ]+)',
+        '(?<depName>[^ ]+): (?<currentValue>[^ ]+) # (?<datasource>[^ ]+)',
+      ],
+    },
+  ],
   packageRules: [
     /** Automerge the patch, the minor and the dev dependency */
     {
