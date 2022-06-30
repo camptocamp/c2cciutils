@@ -951,12 +951,14 @@ def prettier(
     with c2cciutils.prettier.Prettier() as prettier_lib:
         for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
             if os.path.isfile(filename):
-                print(f"Checking {filename}")
                 info = prettier_lib.get_info(filename)
                 if info.get("info", {}).get("ignored", False):
                     continue
                 if not info.get("info", {}).get("inferredParser"):
                     continue
+
+                print(f"Checking {filename}")
+
                 prettier_config = info["config"]
                 if not prettier_config:
                     prettier_config = {}
