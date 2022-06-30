@@ -530,7 +530,7 @@ def versions(
     """
     Verify various GitHub / CI tools versions or branches configurations.
 
-    Versions from audit workflow, rebuild workflow(s), protected branches and backport labels
+    Versions from audit workflow, protected branches and backport labels
     match with versions from `SECURITY.md` file.
     The columns `Version` and `Supported Until` should be present.
     The `Supported Until` should contains dates formatted as `dd/mm/yyyy`, or `Unsupported`
@@ -541,8 +541,6 @@ def versions(
         audit: # if `True` check that the audit workflow run on the right branches
         backport_labels: # if `True` check the required backport labels exists
         branches: # if `True` check that the required branches exists
-        rebuild: # if `False` not runs this check
-          files: [] # list of workflow files to run to rebuild all the required branches
 
     Arguments:
         config: The check section config
@@ -584,10 +582,6 @@ def versions(
 
     if config.get("audit", False):
         if not _versions_audit(all_versions, full_config):
-            success = False
-    if config.get("rebuild", False):
-        assert isinstance(config["rebuild"], dict)
-        if not _versions_rebuild(all_versions, config["rebuild"], full_config):
             success = False
     if config.get("backport_labels", False):
         if not _versions_backport_labels(all_versions, full_config):
@@ -648,49 +642,6 @@ def _versions_audit(all_versions: Set[str], full_config: c2cciutils.configuratio
                     f"[{', '.join(sorted(audit_versions))}] != [{', '.join(sorted(all_versions))}]",
                 )
                 success = False
-    return success
-
-
-def _versions_rebuild(
-    all_versions: Set[str],
-    config: c2cciutils.configuration.ChecksVersionsRebuild,
-    full_config: c2cciutils.configuration.Configuration,
-) -> bool:
-    """
-    Check the rebuild branches match with the versions from the Security.md.
-
-    Arguments:
-        all_versions: All the required versions
-        config: The check section configuration
-        full_config: All the CI configuration
-    """
-    success = True
-    rebuild_versions = []
-    branch_to_version_re = c2cciutils.compile_re(full_config["version"].get("branch_to_version_re", []))
-
-    for filename_ in config.get("files", []):
-        filename = os.path.join(".github/workflows", filename_)
-        if not os.path.exists(filename):
-            c2cciutils.error(
-                "versions",
-                f"The rebuild file '{filename}' does not exists",
-                filename,
-            )
-            success = False
-        else:
-            with open(filename, encoding="utf-8") as open_file:
-                workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
-
-            for _, job in workflow.get("jobs").items():
-                rebuild_versions += _get_branch_matrix(job, branch_to_version_re)
-
-    if all_versions != set(rebuild_versions):
-        c2cciutils.error(
-            "versions",
-            "The rebuild workflows does not have the right list of versions in the branch matrix "
-            f"[{', '.join(sorted(rebuild_versions))}] != [{', '.join(sorted(all_versions))}]",
-        )
-        success = False
     return success
 
 

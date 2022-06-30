@@ -352,23 +352,6 @@ ChecksVersionsConfig = TypedDict(
         "branches": bool,
         # Versions that are not in the `SECURITY.md` but should still be considered
         "extra_versions": List[str],
-        # Check the versions in the rebuild workflows
-        #
-        # oneOf
-        "rebuild": Union["ChecksVersionsRebuild", Literal[False]],
-    },
-    total=False,
-)
-
-
-# checks versions rebuild
-#
-# Check the versions in the rebuild workflows
-ChecksVersionsRebuild = TypedDict(
-    "ChecksVersionsRebuild",
-    {
-        # The workflows files name
-        "files": List[str],
     },
     total=False,
 )
