@@ -45,12 +45,15 @@ include = [
     "c2cciutils/*.json",
     "c2cciutils/*.js",
     "c2cciutils/node_modules/*/package.json",
+    "c2cciutils/node_modules/*/*/package.json",
     "c2cciutils/node_modules/*/*.js",
     "c2cciutils/node_modules/*/src/*.js",
     "c2cciutils/node_modules/*/src/*/*.js",
     "c2cciutils/node_modules/*/src/*/*/*.js",
     "c2cciutils/node_modules/*/lib/*.js",
     "c2cciutils/node_modules/*/lib/*.cjs",
+    "c2cciutils/node_modules/*/*/lib/*.js",
+    "c2cciutils/node_modules/*/lib/src/**/*.js",
 ]
 
 [tool.poetry.scripts]
@@ -93,11 +96,7 @@ codespell = "2.1.0"
 toml = "0.10.2"
 
 [tool.poetry.dev-dependencies]
-prospector = { version = "1.7.7", extras = [
-    "with_bandit",
-    "with_mypy",
-    "with_pyroma"
-] }
+prospector = { version = "1.7.7", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
 pylint = "2.14.1"
 mypy = "0.961"
 flake8 = "4.0.1"
@@ -116,8 +115,8 @@ build-backend = "poetry.core.masonry.api"
 enable = true # disable on Docker
 vcs = "git"
 pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
-# format = "{base}.dev{timestamp}" # for dev version
 
+# format = "{base}.dev{timestamp}" # for dev version
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "major"
 black = "full"
