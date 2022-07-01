@@ -141,6 +141,7 @@ The IDE should be configured as:
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) And use EditorConfig
   - [shell-format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format) With the configuration
     `"shellformat.flag": "-bn"`.
+  - [Better TOML](https://marketplace.visualstudio.com/items?itemName=bodil.prettier-toml)
 - Other recommend extensions:
   - [hadolint](https://marketplace.visualstudio.com/items?itemName=exiasr.hadolint)
   - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
