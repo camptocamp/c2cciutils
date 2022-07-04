@@ -10,8 +10,8 @@
     {
       fileMatch: ['^c2cciutils/applications-versions.yaml$'],
       matchStrings: [
-        '(?<depName>[^ ]+): (?<currentValue>[^ ]+) # (?<datasource>[^ ]+) - (?<registryUrl>[^ ]+)',
-        '(?<depName>[^ ]+): (?<currentValue>[^ ]+) # (?<datasource>[^ ]+)',
+        '(?<depName>[^\\s]+): (?<currentValue>[^\\s]+) # (?<datasource>[^\\s]+) - (?<registryUrl>[^\\s]+)',
+        '(?<depName>[^\\s]+): (?<currentValue>[^\\s]+) # (?<datasource>[^\\s]+)',
       ],
     },
   ],

@@ -204,7 +204,7 @@ With the `c2cciutils-clean` the images on Docker hub for `feature_branch` will b
 
 In case some executables or applications from GitHub releases or any other URLs are required on the CI host
 and are not handled by any dependency manager, we provide a set of tools to install them and manage upgrades
-through Revovate.
+through Renovate.
 
 Create an application file (e.-g. `applications.yaml`) with:
 
@@ -251,7 +251,7 @@ Add in your Renovate configuration:
     {
       fileMatch: ['^applications-versions.yaml$'],
       matchStrings: [
-        '(?<depName>[^ ]+): (?<currentValue>[^ ]+) # (?<datasource>[^ ]+)',
+        '(?<depName>[^\\s]+): (?<currentValue>[^\\s]+) # (?<datasource>[^\\s]+)',
       ],
     },
   ],
