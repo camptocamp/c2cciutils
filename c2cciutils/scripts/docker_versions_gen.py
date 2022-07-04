@@ -16,13 +16,13 @@ def _main() -> None:
 
     versions_config = c2cciutils.lib.docker.get_versions_config()
     for image in args.images:
-        c2cciutils.lib.docker.check_version(
-            versions_config,
+
+        _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(
             image,
-            check=False,
             default_distribution=args.distribution,
             default_release=args.release,
         )
+        versions_config[image] = versions_image
 
     with open("ci/dpkg-versions.yaml", "w", encoding="utf-8") as versions_file:
         versions_file.write("# See repository list: https://repology.org/repositories/statistics\n\n")

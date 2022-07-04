@@ -77,7 +77,6 @@ def get_versions_config() -> Dict[str, Dict[str, str]]:
 def check_versions(
     versions_config: Dict[str, str],
     image: str,
-    check: bool = True,
     default_distribution: Optional[str] = None,
     default_release: Optional[str] = None,
 ) -> bool:
@@ -94,16 +93,14 @@ def check_versions(
 
     for package, version in versions_image.items():
         if package not in versions_config:
-            if check:
-                print(f"Package {package} is not in the config file for the image {image}")
-                return False
+            print(f"Package {package} is not in the config file for the image {image}")
+            return False
 
         if Version.from_string(versions_config[package]) > version:
-            if check:
-                print(
-                    f"Package {package} is older than the config file for the image {image}: "
-                    f"{versions_config[package]} > {version}."
-                )
-                return False
+            print(
+                f"Package {package} is older than the config file for the image {image}: "
+                f"{versions_config[package]} > {version}."
+            )
+            return False
 
     return True

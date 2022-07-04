@@ -231,7 +231,7 @@ def main() -> None:
 
         versions_config = c2cciutils.lib.docker.get_versions_config()
         for image in images_src:
-            success |= c2cciutils.lib.docker.check_version(versions_config.get(image, {}), image)
+            success |= c2cciutils.lib.docker.check_versions(versions_config.get(image, {}), image)
 
         if not success:
             current_versions_in_images = {}
