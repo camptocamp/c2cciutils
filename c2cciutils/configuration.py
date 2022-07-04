@@ -415,6 +415,21 @@ Configuration = TypedDict(
         # WARNING: The required are not correctly taken in account,
         # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "version": "Version",
+        # WARNING: The required are not correctly taken in account,
+        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
+        "k8s": "K8SConfiguration",
+    },
+    total=False,
+)
+
+
+# DB configuration
+#
+# Database configuration
+DbConfiguration = TypedDict(
+    "DbConfiguration",
+    {
+        "chart-options": Dict[str, str],
     },
     total=False,
 )
@@ -430,6 +445,32 @@ DispatchConfig = TypedDict(
         "repository": str,
         # The event type to be triggered
         "event-type": str,
+    },
+    total=False,
+)
+
+
+# K3d configuration
+K3DConfiguration = TypedDict(
+    "K3DConfiguration",
+    {
+        # Install commands
+        "install-commands": List[List[str]],
+    },
+    total=False,
+)
+
+
+# K8s configuration
+K8SConfiguration = TypedDict(
+    "K8SConfiguration",
+    {
+        # WARNING: The required are not correctly taken in account,
+        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
+        "k3d": "K3DConfiguration",
+        # WARNING: The required are not correctly taken in account,
+        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
+        "db": "DbConfiguration",
     },
     total=False,
 )

@@ -667,6 +667,41 @@
         "branch_to_version_re": { "$ref": "#/definitions/version_transform" },
         "tag_to_version_re": { "$ref": "#/definitions/version_transform" }
       }
+    },
+    "k8s": {
+      "title": "K8s configuration",
+      "type": "object",
+      "properties": {
+        "k3d": {
+          "title": "K3d configuration",
+          "type": "object",
+          "properties": {
+            "install-commands": {
+              "title": "Install commands",
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "db": {
+          "title": "DB configuration",
+          "description": "Database configuration",
+          "type": "object",
+          "properties": {
+            "chart-options": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

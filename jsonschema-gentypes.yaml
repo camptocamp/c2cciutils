@@ -11,3 +11,6 @@ generate:
     root_name: Configuration
     api_arguments:
       additional_properties: Only explicit
+  - source: c2cciutils/schema-applications.json
+    destination: c2cciutils/applications_definition.py
+    root_name: ApplicationsConfiguration

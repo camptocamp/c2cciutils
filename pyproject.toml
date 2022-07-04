@@ -42,6 +42,7 @@ classifiers = [
 include = [
     "c2cciutils/py.typed",
     "c2cciutils/*.graphql",
+    "c2cciutils/*.yaml",
     "c2cciutils/*.json",
     "c2cciutils/*.js",
     "c2cciutils/node_modules/*/package.json",
@@ -70,6 +71,7 @@ c2cciutils-k8s-logs = "c2cciutils.scripts.k8s.logs:main"
 c2cciutils-pin-pipenv = "c2cciutils.scripts.pin_pipenv:main"
 c2cciutils-docker-logs = "c2cciutils.scripts.docker_logs:main"
 c2cciutils-trigger-image-update = "c2cciutils.scripts.trigger_image_update:main"
+c2cciutils-download-applications = "download_applications:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"

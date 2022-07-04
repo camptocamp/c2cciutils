@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/camptocamp/tilecloud-chain/master/tilecloud_chain/schema.json",
+  "title": "Applications configuration",
+  "description": "All the applications configuration",
+  "type": "object",
+  "definitions": {},
+  "additionalProperties": {
+    "title": "Application configuration",
+    "description": "An application configuration",
+    "type": "object",
+    "properties": {
+      "url-pattern": {
+        "title": "URL pattern",
+        "description": "URL pattern, to be used for files that didn't come from GitHub release, available arguments: {version}",
+        "type": "string"
+      },
+      "type": {
+        "title": "The type of file",
+        "description": "The type of file",
+        "type": "string",
+        "enum": ["tar"]
+      },
+      "get-file-name": {
+        "title": "The filename to get",
+        "description": "The filename to get in the GitHub release",
+        "type": "string"
+      },
+      "to-file-name": {
+        "title": "The created tile name",
+        "description": "The name of the final tile name we will create",
+        "type": "string"
+      },
+      "tar-file-name": {
+        "title": "The tile name to get in the tar file",
+        "type": "string"
+      },
+      "finish-commands": {
+        "title": "The commands to run after the tile creation",
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
