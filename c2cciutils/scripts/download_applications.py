@@ -15,7 +15,9 @@ import yaml
 from c2cciutils import applications_definition
 
 
-def _main() -> None:
+def main() -> None:
+    """Download applications from GitHub releases or any other URLs to the ~/.local/bin folder."""
+
     argparser = argparse.ArgumentParser(
         description="""Download applications from GitHub releases or any other URLs to the ~/.local/bin folder.
             Based on tow files, the first contains the information about from where to download the applications,
@@ -103,4 +105,4 @@ def download_applications(
 
 
 if __name__ == "__main__":
-    _main()
+    main()
