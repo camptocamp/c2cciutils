@@ -237,9 +237,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "versions": {
                 "extra_versions": [master_branch],
                 "backport_labels": True,
-                "rebuild": {
-                    "files": [f for f in os.listdir(".github/workflows") if re.match(r"rebuild.*\.yaml", f)]
-                },
                 "audit": True,
                 "branches": True,
             }
@@ -296,15 +293,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
     }
     merge(default_config, config)
 
-    check_version_config = cast(
-        c2cciutils.configuration.ChecksVersionsConfig,
-        config["checks"]["versions"] if config["checks"].get("versions", False) else {},
-    )
-    check_version_config_rebuild = cast(
-        c2cciutils.configuration.ChecksVersionsRebuild,
-        check_version_config["rebuild"] if check_version_config.get("rebuild", False) else {},
-    )
-
     if docker:
         if isinstance(config.get("checks", {}).get("required_workflows", {}), dict):
             merge(
@@ -317,21 +305,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                 },
                 config.get("checks", {}).get("required_workflows", {}),
             )
-    elif len(check_version_config_rebuild.get("files", [])) == 0:
-        if isinstance(config["checks"]["versions"], dict):
-            config["checks"]["versions"]["rebuild"] = False
-            check_version_config_rebuild = {}
-
-    if check_version_config.get("rebuild", False):
-        required_workflows = {
-            rebuild: {
-                "noif": True,
-                "steps": [{"run_re": r"^c2cciutils-publish .*--type.*$"}],
-                "strategy-fail-fast": False,
-            }
-            for rebuild in check_version_config_rebuild.get("files", ["rebuild.yaml"])
-        }
-        merge(required_workflows, config["checks"]["required_workflows"])
 
     if config["publish"].get("docker", False):
         assert isinstance(config["publish"]["docker"], dict)

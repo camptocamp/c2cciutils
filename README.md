@@ -56,6 +56,7 @@ All the provided commands:
 - `c2cciutils-docker-logs`: Display the logs of the application in Docker (compose).
 - `c2cciutils-trigger-image-update`: Trigger the ArgoCD repository about image update on the CI (automatically done in the publishing).
 - `c2cciutils-download-applications`: Download the applications with version managed by Renovate, see below.
+- `c2cciutils-docker-versions-gen`: Generate the Docker package versions file (`ci/dpkg-versions.yaml`), see below.
 
 ## New project
 
@@ -180,18 +181,18 @@ The config is like this:
 ```yaml
 latest: True
 images:
-    - name: # The base name of the image we want to publish
+  - name: # The base name of the image we want to publish
 repository:
-    <internal_name>:
-        'server': # The fqdn name of the server if not Docker hub
-        'version':# List of kinds of versions you want to publish, that can be: rebuild (specified using --type),
-            # version_tag, version_branch, feature_branch, feature_tag (for pull request)
-        'tags':# List of tags we want to publish interpreted with `template(version=version)`
-            # e.g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
-            # (that should be built by the application build) is `latest-lite`, and it will be published
-            # with the tag `1.2.3-lite`.
-        'group':# If your images are published by different jobs you can separate them in different groups
-            # and publish them with `c2cciutils-publish --group=<group>`
+  <internal_name>:
+    'server': # The fqdn name of the server if not Docker hub
+    'version':# List of kinds of versions you want to publish, that can be: rebuild (specified using --type),
+      # version_tag, version_branch, feature_branch, feature_tag (for pull request)
+    'tags':# List of tags we want to publish interpreted with `template(version=version)`
+      # e.g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
+      # (that should be built by the application build) is `latest-lite`, and it will be published
+      # with the tag `1.2.3-lite`.
+    'group':# If your images are published by different jobs you can separate them in different groups
+      # and publish them with `c2cciutils-publish --group=<group>`
 ```
 
 By default, the last line of the `SECURITY.md` file will be published (`docker`) with the tag
@@ -258,3 +259,25 @@ Add in your Renovate configuration:
 
 Now you need to call `c2cciutils-download-applications --applications-file=applications.yaml --versions-file=applications-version.yaml`
 to install required applications on CI host before using them (an already installed application is installed only if needed).
+
+## Use Renovate to trigger a new build instead of the legacy rebuild
+
+Run the command `c2cciutils-docker-versions-gen camptocamp/image[:tag]` to generate a file that is a kind of package lock of the Debian packages in the file `ci/dpkg-versions.yaml`.
+
+Add in your renovate configuration:
+
+```javascript
+  regexManagers: [
+    {
+      fileMatch: ['^ci/dpkg-versions.yaml$'],
+      matchStrings: [" *(?<depName>[^'\\s]+): '?(?<currentValue>[^'\\s/]*[0-9][^'\\s/]*)'?"],
+      datasourceTemplate: 'repology',
+      versioningTemplate: 'loose',
+    },
+  ],
+```
+
+When a new version of a Debian package will be available:
+
+- Renovate will automatically open a pull request to update the file `ci/dpkg-versions.yaml`.
+- And the continuous integration will build a new fresh Docker image with latest versions of all Debian packages.

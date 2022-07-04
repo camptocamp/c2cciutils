@@ -72,6 +72,7 @@ c2cciutils-pin-pipenv = "c2cciutils.scripts.pin_pipenv:main"
 c2cciutils-docker-logs = "c2cciutils.scripts.docker_logs:main"
 c2cciutils-trigger-image-update = "c2cciutils.scripts.trigger_image_update:main"
 c2cciutils-download-applications = "download_applications:main"
+c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
@@ -96,6 +97,7 @@ isort = "5.10.1"
 twine = "4.0.1"
 codespell = "2.1.0"
 toml = "0.10.2"
+debian-inspector = "30.0.0"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
