@@ -13,6 +13,7 @@ from typing import Any, Callable, Dict, List
 
 import safety.errors
 import safety.formatter
+import safety.formatters.text
 import safety.safety
 import safety.util
 import yaml
@@ -83,21 +84,25 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
         ignores = _python_ignores(directory)
         packages = read_packages(file)
         try:
-            vulnerabilities = safety.safety.check(
+            announcements = safety.safety.get_announcements('', {})
+            vulnerabilities, db_full = safety.safety.check(
                 packages=packages,
                 key="",
                 db_mirror="",
                 cached=True,
-                ignore_ids=ignores,
+                ignore_vulns={ignored_id: {"reason": "ignored", "expires": None} for ignored_id in ignores},
                 proxy={},
             )
+            remediations = safety.safety.calculate_remediations(vulnerabilities, db_full)
             if vulnerabilities:
                 success = False
-                output_report = safety.formatter.report(
-                    vulns=vulnerabilities,
-                    full=True,
-                    checked_packages=len(packages),
+                reporter = safety.formatters.text.TextReport()
+                output_report = reporter.render_vulnerabilities(
+                    announcements, vulnerabilities, remediations, False, packages
                 )
+
+                if announcements and (not sys.stdout.isatty() and os.environ.get("SAFETY_OS_DESCRIPTION", None) != 'run'):
+                    output_report += "\n\n" + reporter.render_announcements(announcements)
                 print(output_report)
                 print("::endgroup::")
                 print("With error")
