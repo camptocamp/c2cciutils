@@ -7,7 +7,9 @@
 **Merged pull requests:**
 
 - Fix the changelog [\#648](https://github.com/camptocamp/c2cciutils/pull/648) ([sbrunner](https://github.com/sbrunner))
+- Update the changelog [\#646](https://github.com/camptocamp/c2cciutils/pull/646) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update dependency types-setuptools to v62 [\#645](https://github.com/camptocamp/c2cciutils/pull/645) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency safety to v2 [\#644](https://github.com/camptocamp/c2cciutils/pull/644) ([renovate[bot]](https://github.com/apps/renovate))
 - Update all minor versions \(minor\) [\#643](https://github.com/camptocamp/c2cciutils/pull/643) ([renovate[bot]](https://github.com/apps/renovate))
 - Lock file maintenance [\#642](https://github.com/camptocamp/c2cciutils/pull/642) ([renovate[bot]](https://github.com/apps/renovate))
 - Update all patch versions \(patch\) [\#640](https://github.com/camptocamp/c2cciutils/pull/640) ([renovate[bot]](https://github.com/apps/renovate))
@@ -23,7 +25,7 @@
 
 - Fix Docker publish with version check [\#637](https://github.com/camptocamp/c2cciutils/pull/637) ([sbrunner](https://github.com/sbrunner))
 - Lock file maintenance [\#635](https://github.com/camptocamp/c2cciutils/pull/635) ([renovate[bot]](https://github.com/apps/renovate))
-- Add a TOML prettier formatter  [\#634](https://github.com/camptocamp/c2cciutils/pull/634) ([sbrunner](https://github.com/sbrunner))
+- Add a TOML prettier formatter [\#634](https://github.com/camptocamp/c2cciutils/pull/634) ([sbrunner](https://github.com/sbrunner))
 - Update k3d/k3s [\#633](https://github.com/camptocamp/c2cciutils/pull/633) ([sbrunner](https://github.com/sbrunner))
 - \[Backport master\] Add a help on script that didn't have any arguments [\#632](https://github.com/camptocamp/c2cciutils/pull/632) ([c2c-bot-gis-ci](https://github.com/c2c-bot-gis-ci))
 - Lock file maintenance [\#631](https://github.com/camptocamp/c2cciutils/pull/631) ([renovate[bot]](https://github.com/apps/renovate))
@@ -338,7 +340,7 @@
 - Bump c2cciutils from 1.1.dev20211008145734 to 1.1.dev20211012114625 in /example-project [\#298](https://github.com/camptocamp/c2cciutils/pull/298) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix spell [\#297](https://github.com/camptocamp/c2cciutils/pull/297) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.1.dev20211007121148 to 1.1.dev20211008145734 in /example-project [\#296](https://github.com/camptocamp/c2cciutils/pull/296) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Add warning on print\_version error [\#295](https://github.com/camptocamp/c2cciutils/pull/295) ([sbrunner](https://github.com/sbrunner))
+- Add warning on print_version error [\#295](https://github.com/camptocamp/c2cciutils/pull/295) ([sbrunner](https://github.com/sbrunner))
 - Some spelling fix [\#294](https://github.com/camptocamp/c2cciutils/pull/294) ([sbrunner](https://github.com/sbrunner))
 - Fix prospector config check [\#293](https://github.com/camptocamp/c2cciutils/pull/293) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.1.dev20211006140719 to 1.1.dev20211007121148 in /example-project [\#292](https://github.com/camptocamp/c2cciutils/pull/292) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -478,7 +480,7 @@
 - Bump google-api-python-client from 2.2.0 to 2.3.0 [\#149](https://github.com/camptocamp/c2cciutils/pull/149) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump c2cciutils from 1.1.dev20210427101151 to 1.1.dev20210428132049 in /example-project [\#148](https://github.com/camptocamp/c2cciutils/pull/148) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump @types/bootstrap from 5.0.12 to 5.0.13 in /test [\#147](https://github.com/camptocamp/c2cciutils/pull/147) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Don't check the version on a tag  [\#146](https://github.com/camptocamp/c2cciutils/pull/146) ([sbrunner](https://github.com/sbrunner))
+- Don't check the version on a tag [\#146](https://github.com/camptocamp/c2cciutils/pull/146) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.1.dev20210426091625 to 1.1.dev20210427101151 in /example-project [\#145](https://github.com/camptocamp/c2cciutils/pull/145) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump black from 20.8b1 to 21.4b1 [\#144](https://github.com/camptocamp/c2cciutils/pull/144) ([dependabot[bot]](https://github.com/apps/dependabot))
 - The argument --apply is deprecated in isort 5.x [\#143](https://github.com/camptocamp/c2cciutils/pull/143) ([sbrunner](https://github.com/sbrunner))
@@ -518,7 +520,7 @@
 - Use pattern in editorconfig, add json, css, scss, html, add it in exa… [\#100](https://github.com/camptocamp/c2cciutils/pull/100) ([sbrunner](https://github.com/sbrunner))
 - Generalise to use Pipfile [\#99](https://github.com/camptocamp/c2cciutils/pull/99) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.0.dev20210217133842 to 1.0.dev20210302092543 in /example-project [\#98](https://github.com/camptocamp/c2cciutils/pull/98) ([dependabot[bot]](https://github.com/apps/dependabot))
-- all\_ignores should not be None [\#97](https://github.com/camptocamp/c2cciutils/pull/97) ([sbrunner](https://github.com/sbrunner))
+- all_ignores should not be None [\#97](https://github.com/camptocamp/c2cciutils/pull/97) ([sbrunner](https://github.com/sbrunner))
 - Fix error message [\#96](https://github.com/camptocamp/c2cciutils/pull/96) ([sbrunner](https://github.com/sbrunner))
 - Bump markdown from 3.3.3 to 3.3.4 [\#95](https://github.com/camptocamp/c2cciutils/pull/95) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump mypy from 0.800 to 0.812 in /example-project [\#94](https://github.com/camptocamp/c2cciutils/pull/94) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -544,7 +546,7 @@
 - Bump c2cciutils from 1.0.dev20210108163130 to 1.0.dev20210111121829 in /example-project [\#74](https://github.com/camptocamp/c2cciutils/pull/74) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Force install resent version of httplib2 [\#73](https://github.com/camptocamp/c2cciutils/pull/73) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.0.dev20210107153221 to 1.0.dev20210108163130 in /example-project [\#72](https://github.com/camptocamp/c2cciutils/pull/72) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Be able to configure google\_calendar event published on [\#71](https://github.com/camptocamp/c2cciutils/pull/71) ([sbrunner](https://github.com/sbrunner))
+- Be able to configure google_calendar event published on [\#71](https://github.com/camptocamp/c2cciutils/pull/71) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.0.dev20201224081728 to 1.0.dev20210107153221 in /example-project [\#70](https://github.com/camptocamp/c2cciutils/pull/70) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add google calendar support for publish events [\#69](https://github.com/camptocamp/c2cciutils/pull/69) ([danduk82](https://github.com/danduk82))
 - Little help about running in the project [\#68](https://github.com/camptocamp/c2cciutils/pull/68) ([sbrunner](https://github.com/sbrunner))
@@ -562,7 +564,7 @@
 - Don't follow renames [\#56](https://github.com/camptocamp/c2cciutils/pull/56) ([sbrunner](https://github.com/sbrunner))
 - Better npm audit [\#55](https://github.com/camptocamp/c2cciutils/pull/55) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.0.dev20201221104733 to 1.0.dev20201222122805 in /example-project [\#54](https://github.com/camptocamp/c2cciutils/pull/54) ([dependabot[bot]](https://github.com/apps/dependabot))
-- The config can be None if we set required\_workflow to None [\#53](https://github.com/camptocamp/c2cciutils/pull/53) ([sbrunner](https://github.com/sbrunner))
+- The config can be None if we set required_workflow to None [\#53](https://github.com/camptocamp/c2cciutils/pull/53) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.0.dev20201217141839 to 1.0.dev20201221104733 in /example-project [\#52](https://github.com/camptocamp/c2cciutils/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump safety from 1.9.0 to 1.10.0 [\#51](https://github.com/camptocamp/c2cciutils/pull/51) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix the audit [\#50](https://github.com/camptocamp/c2cciutils/pull/50) ([sbrunner](https://github.com/sbrunner))
@@ -668,6 +670,4 @@
 
 [Full Changelog](https://github.com/camptocamp/c2cciutils/compare/43fcda83b08d851a87cc696a8d033202d9499ed9...0.1.0)
 
-
-
-\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
+\* _This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)_
