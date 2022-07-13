@@ -14,6 +14,7 @@ from typing import Any, Callable, Dict, List
 import safety.errors
 import safety.formatter
 import safety.formatters.text
+import safety.models
 import safety.safety
 import safety.util
 import yaml
@@ -168,7 +169,7 @@ def pipfile(
                             safety.util.Package(key=package, version=version["version"].lstrip("="))
                         )
                 else:
-                    packages.append(safety.util.Package(key=package, version=version.lstrip("=")))
+                    packages.append(safety.models.Package(name=package, version=version.lstrip("=")))
         return packages
 
     return _safely("Pipfile", read_packages)
