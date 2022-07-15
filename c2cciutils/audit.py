@@ -200,7 +200,7 @@ def pipfile_lock(
             for section in config["sections"]:
                 for package, package_data in data[section].items():
                     packages.append(
-                        safety.util.Package(key=package, version=package_data["version"].lstrip("="))
+                        safety.util.Package(name=package, version=package_data["version"].lstrip("="))
                     )
         return packages
 
