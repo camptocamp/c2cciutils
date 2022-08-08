@@ -41,22 +41,7 @@ def print_versions(
     print("::group::Versions")
     c2cciutils.print_versions(config)
     print("::endgroup::")
-    print("::group::Simplified list of available python for asdf")
-    try:
-        all_versions: Dict[str, List[int]] = {}
-        version_re = re.compile(r"^([0-9]+)\.([0-9]+)\.([0-9]+)$")
-        for version in (
-            subprocess.check_output(["asdf", "list", "all", "python"]).decode().strip().split("\n")
-        ):
-            version_match = version_re.match(version)
-            if version_match is not None:
-                full_minor_version = f"{version_match.group(1)}.{version_match.group(2)}"
-                all_versions.setdefault(full_minor_version, []).append(int(version_match.group(3)))
-        for full_minor in sorted(all_versions.keys()):
-            print(f"{full_minor}.{max(all_versions[full_minor])}")
-    except FileNotFoundError as error:
-        print(error)
-    print("::endgroup::")
+
     return True
 
 
