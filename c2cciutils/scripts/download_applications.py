@@ -70,7 +70,7 @@ def download_applications(
         if not os.path.exists(version_file):
             print(f"Download {app['to-file-name']} version {versions[key]}")
             version = versions[key]
-            version_quote = urllib.parse.quote_plus(version)  # type: ignore
+            version_quote = urllib.parse.quote_plus(version)
             params = {
                 "version": version,
                 "version_quote": version_quote,
