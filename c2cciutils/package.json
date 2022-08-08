@@ -5,7 +5,7 @@
   "author": "",
   "dependencies": {
     "prettier": "2.7.1",
-    "prettier-plugin-sh": "0.12.6",
+    "prettier-plugin-sh": "0.12.8",
     "prettier-plugin-toml": "0.3.1"
   }
 }

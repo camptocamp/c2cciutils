@@ -714,7 +714,7 @@ def _versions_branches(all_versions: Set[str], full_config: c2cciutils.configura
             branches_response.raise_for_status()
             url = None
             try:
-                links = requests.utils.parse_header_links(  # type: ignore
+                links = requests.utils.parse_header_links(
                     branches_response.headers.get("Link", "")
                 )
                 if isinstance(links, list):
