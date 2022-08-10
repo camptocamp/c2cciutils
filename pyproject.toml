@@ -99,6 +99,7 @@ twine = "4.0.1"
 codespell = "2.1.0"
 toml = "0.10.2"
 debian-inspector = "30.0.0"
+PyYAML = "6.0"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
