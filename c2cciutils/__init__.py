@@ -227,6 +227,13 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "codespell": True,
             "prettier": True,
         },
+        "pr-checks": {
+            "commits_messages": True,
+            "commits_spell": True,
+            "pull_request_spell": True,
+            "pull_request_labels": True,
+            "add_issue_link": True,
+        },
         "audit": {
             "print_versions": {
                 "versions": [
@@ -255,6 +262,9 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                     "audit.yaml": {
                         "steps": [{"run_re": "c2cciutils-audit.*$", "env": ["GITHUB_TOKEN"]}],
                         "strategy-fail-fast": False,
+                    },
+                    "pr-checks.yaml": {
+                        "steps": [{"run_re": "c2cciutils-pull-request-checks$", "env": ["GITHUB_EVENT"]}],
                     },
                 },
                 config.get("checks", {}).get("required_workflows", {}),
@@ -699,3 +709,27 @@ def get_based_on_master(
         if found:
             break
     return based_branch == master_branch
+
+
+def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: bool = False) -> List[str]:
+    """
+    Get the codespell command.
+
+    Arguments:
+        config: The full configuration
+        fix: If we should fix the errors
+    """
+    codespell_config = config.get("checks", {}).get("codespell", {})
+    codespell_config = codespell_config if isinstance(codespell_config, dict) else {}
+    command = ["codespell"]
+    if fix:
+        command.append("--write-changes")
+    if os.path.exists("spell-ignore-words.txt"):
+        command.append("--ignore-words=spell-ignore-words.txt")
+    dictionaries = codespell_config.get(
+        "internal_dictionaries", c2cciutils.configuration.CODESPELL_DICTIONARIES_DEFAULT
+    )
+    if dictionaries:
+        command.append("--builtin=" + ",".join(dictionaries))
+    command += codespell_config.get("arguments", c2cciutils.configuration.CODESPELL_ARGUMENTS_DEFAULT)
+    return command

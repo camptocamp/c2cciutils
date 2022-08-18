@@ -191,7 +191,7 @@
       "description": "The codespell check configuration",
       "oneOf": [
         {
-          "title": "Checks codespell config",
+          "title": "Checks codespell config ",
           "description": "The codespell check configuration",
           "type": "object",
           "properties": {
@@ -389,6 +389,106 @@
         },
         { "const": false }
       ]
+    },
+    "pr_checks_print_event": {
+      "title": "pull request checks print event",
+      "description": "Print the GitHub event object",
+      "type": "boolean"
+    },
+    "pr_checks_commits_messages": {
+      "title": "pull request checks commits messages",
+      "description": "Check the pull request commits messages",
+      "oneOf": [
+        {
+          "title": "pull request checks commits messages configuration",
+          "description": "The commit message check configuration",
+          "type": "object",
+          "properties": {
+            "check_fixup": {
+              "title": "pull request checks commits messages fixup",
+              "description": "Check that we don't have one fixup commit in the pull request",
+              "default": true,
+              "type": "boolean"
+            },
+            "check_squash": {
+              "title": "pull request checks commits messages squash",
+              "description": "Check that we don't have one squash commit in the pull request",
+              "default": true,
+              "type": "boolean"
+            },
+            "check_first_capital": {
+              "title": "pull request checks commits messages first capital",
+              "description": "Check that the all the commits message starts with a capital letter",
+              "default": true,
+              "type": "boolean"
+            },
+            "min_head_length": {
+              "title": "pull request checks commits messages min head length",
+              "description": "Check that the commits message head is at least this long, use 0 to disable",
+              "default": 20,
+              "type": "integer"
+            },
+            "check_no_merge_commits": {
+              "title": "pull request checks commits messages no merge commits",
+              "description": "Check that we don't have merge commits in the pull request",
+              "default": true,
+              "type": "boolean"
+            },
+            "check_no_own_revert": {
+              "title": "pull request checks commits messages no own revert",
+              "description": "Check that we don't have reverted one of our commits in the pull request",
+              "default": true,
+              "type": "boolean"
+            }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    },
+    "pr_checks_commits_spell": {
+      "title": "pull request checks commits spelling",
+      "oneOf": [
+        {
+          "title": "pull request checks commits spelling configuration",
+          "description": "Configuration used to check the spelling of the commits",
+          "type": "object",
+          "properties": {
+            "only_head": {
+              "title": "pull request checks commits messages only head",
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    },
+    "pr_checks_pull_request_spell": {
+      "title": "pull request checks pull request spelling",
+      "oneOf": [
+        {
+          "title": "pull request checks pull request spelling configuration",
+          "description": "Configuration used to check the spelling of the title and body of the pull request",
+          "type": "object",
+          "properties": {
+            "only_head": {
+              "title": "pull request checks only head",
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    },
+    "pr_checks_pull_request_labels": {
+      "title": "pull request checks request labels",
+      "description": "According the create changelog configuration",
+      "type": "boolean"
+    },
+    "pr_checks_add_issue_link": {
+      "title": "pull request checks add issue link",
+      "type": "boolean"
     },
     "publish_docker": {
       "title": "Publish Docker",
@@ -673,6 +773,19 @@
         "workflows": { "$ref": "#/definitions/checks_workflows" },
         "prettier": { "$ref": "#/definitions/checks_prettier" },
         "print_versions": { "$ref": "#/definitions/print_versions" }
+      }
+    },
+    "pr-checks": {
+      "title": "Pull request checks",
+      "description": "The PR check configuration",
+      "type": "object",
+      "properties": {
+        "print_event": { "$ref": "#/definitions/pr_checks_print_event" },
+        "commits_messages": { "$ref": "#/definitions/pr_checks_commits_messages" },
+        "commits_spell": { "$ref": "#/definitions/pr_checks_commits_spell" },
+        "pull_request_spell": { "$ref": "#/definitions/pr_checks_pull_request_spell" },
+        "pull_request_labels": { "$ref": "#/definitions/pr_checks_pull_request_labels" },
+        "add_issue_link": { "$ref": "#/definitions/pr_checks_add_issue_link" }
       }
     },
     "publish": {

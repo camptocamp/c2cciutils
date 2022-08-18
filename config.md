@@ -27,6 +27,13 @@ _C2C CI utils configuration file_
   - **`workflows`**: Refer to _#/definitions/checks_workflows_.
   - **`prettier`**: Refer to _#/definitions/checks_prettier_.
   - **`print_versions`**: Refer to _#/definitions/print_versions_.
+- **`pr-checks`** _(object)_: The PR check configuration.
+  - **`print_event`**: Refer to _#/definitions/pr_checks_print_event_.
+  - **`commits_messages`**: Refer to _#/definitions/pr_checks_commits_messages_.
+  - **`commits_spell`**: Refer to _#/definitions/pr_checks_commits_spell_.
+  - **`pull_request_spell`**: Refer to _#/definitions/pr_checks_pull_request_spell_.
+  - **`pull_request_labels`**: Refer to _#/definitions/pr_checks_pull_request_labels_.
+  - **`add_issue_link`**: Refer to _#/definitions/pr_checks_add_issue_link_.
 - **`publish`** _(object)_: The publishing configurations.
   - **`docker`**: Refer to _#/definitions/publish_docker_.
   - **`pypi`**: Refer to _#/definitions/publish_pypi_.
@@ -66,6 +73,12 @@ _C2C CI utils configuration file_
 - **`checks_required_workflows`**: The required workflow check configuration.
 - **`checks_versions`**: The version check configuration.
 - **`checks_workflows`**: The workflows checks configuration.
+- **`pr_checks_print_event`** _(boolean)_: Print the GitHub event object.
+- **`pr_checks_commits_messages`**: Check the pull request commits messages.
+- **`pr_checks_commits_spell`**
+- **`pr_checks_pull_request_spell`**
+- **`pr_checks_pull_request_labels`** _(boolean)_: According the create changelog configuration.
+- **`pr_checks_add_issue_link`** _(boolean)_
 - **`publish_docker`**: The configuration used to publish on Docker.
 - **`publish_google_calendar`**: The configuration to publish on Google Calendar. Default: `{}`.
 - **`publish_pypi`**: Configuration to publish on pypi. Default: `{}`.
