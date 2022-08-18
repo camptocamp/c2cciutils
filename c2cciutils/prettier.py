@@ -127,7 +127,7 @@ class Prettier:
 
     def __enter__(self) -> PrettierModule:
         """
-        Initialise.
+        Initialize.
         """
         with open(os.path.join(os.path.dirname(__file__), "prettier.js"), encoding="utf-8") as query_open:
             javascript = query_open.read()

@@ -195,10 +195,17 @@
           "description": "The codespell check configuration",
           "type": "object",
           "properties": {
+            "internal_dictionaries": {
+              "title": "codespell dictionaries",
+              "description": "List of argument that will be added to the codespell command",
+              "default": ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"],
+              "type": "array",
+              "items": { "type": "string" }
+            },
             "arguments": {
               "title": "codespell arguments",
               "description": "List of argument that will be added to the codespell command",
-              "default": ["--quiet-level=2", "--check-filenames"],
+              "default": ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"],
               "type": "array",
               "items": { "type": "string" }
             },

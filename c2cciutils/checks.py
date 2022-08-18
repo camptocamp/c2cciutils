@@ -863,6 +863,11 @@ def codespell(
             cmd.append("--write-changes")
         if os.path.exists("spell-ignore-words.txt"):
             cmd.append("--ignore-words=spell-ignore-words.txt")
+        dictionaries = config.get(
+            "internal_dictionaries", c2cciutils.configuration.CODESPELL_DICTIONARIES_DEFAULT
+        )
+        if dictionaries:
+            cmd.append("--builtin=" + ",".join(dictionaries))
         cmd += config.get("arguments", c2cciutils.configuration.CODESPELL_ARGUMENTS_DEFAULT)
         cmd.append("--")
         ignore_res = [
