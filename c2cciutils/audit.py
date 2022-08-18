@@ -145,7 +145,7 @@ def pipfile(
     def read_packages(filename: str) -> List[str]:
         packages = []
         project = pipfile_lib.Pipfile.load(filename)
-        for section in config["sections"]:
+        for section in config.get("sections", c2cciutils.configuration.PIPFILE_SECTIONS_DEFAULT):
             for package, version in project.data[section].items():
                 if isinstance(version, dict):
                     # We can have an path without any version

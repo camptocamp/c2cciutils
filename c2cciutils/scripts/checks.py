@@ -29,7 +29,7 @@ def main() -> None:
         if conf is not False and (args.check is None or args.check == key):
             check = getattr(c2cciutils.checks, key)
             print(f"::group::Run check {key}")
-            if not check(conf, full_config, args):
+            if not check({} if conf is True else conf, full_config, args):
                 success = False
                 print("::endgroup::")
                 if args.stop:

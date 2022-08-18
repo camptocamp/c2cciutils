@@ -23,10 +23,10 @@ def main() -> None:
     config = full_config.get("audit", {})
     success = True
     for key, conf in config.items():
-        if conf:
+        if conf is not False:
             audit = getattr(c2cciutils.audit, key)
             print(f"Run audit {key}")
-            success &= audit(conf, full_config, args)
+            success &= audit({} if conf is True else conf, full_config, args)
     if not success:
         sys.exit(1)
 
