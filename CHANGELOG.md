@@ -2,10 +2,29 @@
 
 ## [Unreleased](https://github.com/camptocamp/c2cciutils/tree/HEAD)
 
-[Full Changelog](https://github.com/camptocamp/c2cciutils/compare/1.3.dev1...HEAD)
+[Full Changelog](https://github.com/camptocamp/c2cciutils/compare/1.2.1...HEAD)
+
+**Implemented enhancements:**
+
+- Remove no more needed and not always working ASDF versions [\#657](https://github.com/camptocamp/c2cciutils/pull/657) ([sbrunner](https://github.com/sbrunner))
+
+**Fixed bugs:**
+
+- \[Backport master\] Pin codespell version [\#665](https://github.com/camptocamp/c2cciutils/pull/665) ([c2c-bot-gis-ci](https://github.com/c2c-bot-gis-ci))
+- Fix package for Safety version 2 [\#653](https://github.com/camptocamp/c2cciutils/pull/653) ([sbrunner](https://github.com/sbrunner))
+- Fix package for Safety version 2 [\#652](https://github.com/camptocamp/c2cciutils/pull/652) ([sbrunner](https://github.com/sbrunner))
 
 **Merged pull requests:**
 
+- Consider all files with .py extension as Python [\#666](https://github.com/camptocamp/c2cciutils/pull/666) ([sbrunner](https://github.com/sbrunner))
+- Simplify the `__init__.py` by moving the default to the schema [\#663](https://github.com/camptocamp/c2cciutils/pull/663) ([sbrunner](https://github.com/sbrunner))
+- Update all minor versions \(minor\) [\#662](https://github.com/camptocamp/c2cciutils/pull/662) ([renovate[bot]](https://github.com/apps/renovate))
+- Lock file maintenance [\#659](https://github.com/camptocamp/c2cciutils/pull/659) ([renovate[bot]](https://github.com/apps/renovate))
+- Add missing PyYAML [\#658](https://github.com/camptocamp/c2cciutils/pull/658) ([sbrunner](https://github.com/sbrunner))
+- Update all minor versions \(minor\) [\#656](https://github.com/camptocamp/c2cciutils/pull/656) ([renovate[bot]](https://github.com/apps/renovate))
+- Update all patch versions \(patch\) [\#655](https://github.com/camptocamp/c2cciutils/pull/655) ([renovate[bot]](https://github.com/apps/renovate))
+- Lock file maintenance [\#654](https://github.com/camptocamp/c2cciutils/pull/654) ([renovate[bot]](https://github.com/apps/renovate))
+- Update the changelog [\#650](https://github.com/camptocamp/c2cciutils/pull/650) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update the changelog [\#649](https://github.com/camptocamp/c2cciutils/pull/649) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Fix the changelog [\#648](https://github.com/camptocamp/c2cciutils/pull/648) ([sbrunner](https://github.com/sbrunner))
 - Update the changelog [\#646](https://github.com/camptocamp/c2cciutils/pull/646) ([github-actions[bot]](https://github.com/apps/github-actions))
@@ -17,6 +36,10 @@
 - Add generated changelog [\#639](https://github.com/camptocamp/c2cciutils/pull/639) ([sbrunner](https://github.com/sbrunner))
 - Fix Renovate configuration [\#638](https://github.com/camptocamp/c2cciutils/pull/638) ([sbrunner](https://github.com/sbrunner))
 - Add Kubernetes documentations [\#636](https://github.com/camptocamp/c2cciutils/pull/636) ([sbrunner](https://github.com/sbrunner))
+
+## [1.2.1](https://github.com/camptocamp/c2cciutils/tree/1.2.1) (2022-08-18)
+
+[Full Changelog](https://github.com/camptocamp/c2cciutils/compare/1.3.dev1...1.2.1)
 
 ## [1.3.dev1](https://github.com/camptocamp/c2cciutils/tree/1.3.dev1) (2022-07-04)
 
@@ -519,7 +542,7 @@
 - Bump google-auth-httplib2 from 0.0.4 to 0.1.0 [\#102](https://github.com/camptocamp/c2cciutils/pull/102) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump c2cciutils from 1.0.dev20210302092543 to 1.0.dev20210304083613 in /example-project [\#101](https://github.com/camptocamp/c2cciutils/pull/101) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Use pattern in editorconfig, add json, css, scss, html, add it in exa… [\#100](https://github.com/camptocamp/c2cciutils/pull/100) ([sbrunner](https://github.com/sbrunner))
-- Generalise to use Pipfile [\#99](https://github.com/camptocamp/c2cciutils/pull/99) ([sbrunner](https://github.com/sbrunner))
+- Generalize to use Pipfile [\#99](https://github.com/camptocamp/c2cciutils/pull/99) ([sbrunner](https://github.com/sbrunner))
 - Bump c2cciutils from 1.0.dev20210217133842 to 1.0.dev20210302092543 in /example-project [\#98](https://github.com/camptocamp/c2cciutils/pull/98) ([dependabot[bot]](https://github.com/apps/dependabot))
 - all_ignores should not be None [\#97](https://github.com/camptocamp/c2cciutils/pull/97) ([sbrunner](https://github.com/sbrunner))
 - Fix error message [\#96](https://github.com/camptocamp/c2cciutils/pull/96) ([sbrunner](https://github.com/sbrunner))
