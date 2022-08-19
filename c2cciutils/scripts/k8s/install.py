@@ -5,6 +5,7 @@ import subprocess  # nosec
 import sys
 
 import c2cciutils
+import c2cciutils.configuration
 import c2cciutils.scripts.download_applications
 
 
@@ -25,7 +26,11 @@ def main() -> None:
     _print("::endgroup::")
 
     _print("::group::Create cluster")
-    for cmd in config["k8s"]["k3d"]["install-commands"]:
+    for cmd in (
+        config.get("k8s", {})
+        .get("k3d", {})
+        .get("install-commands", c2cciutils.configuration.K3D_INSTALL_COMMANDS_DEFAULT)
+    ):
         subprocess.run(cmd, check=True)
     _print("::endgroup::")
 

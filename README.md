@@ -81,6 +81,7 @@ Dry run publish: `GITHUB_REF=... c2cciutils-publish --dry-run ...`
 ## Configuration
 
 You can get the current configuration with `c2cciutils --get-config`, the default configuration depends on your project.
+Note that it didn't contain the default defined the schema and visible in the [generated documentation](./config.md).
 
 You can override the configuration with the file `ci/config.yaml`.
 

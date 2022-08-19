@@ -30,7 +30,7 @@ Audit = TypedDict(
 # The npm audit configuration
 #
 # oneOf
-AuditNpm = Union["AuditNpmConfig", Literal[False]]
+AuditNpm = Union["AuditNpmConfig", bool]
 
 
 # audit npm config
@@ -40,8 +40,14 @@ AuditNpmConfig = TypedDict(
     "AuditNpmConfig",
     {
         # The list of CWE id to be ignored
+        #
+        # default:
+        #   []
         "cwe_ignore": List[str],
         # The list of package names to be ignored
+        #
+        # default:
+        #   []
         "package_ignore": List[str],
     },
     total=False,
@@ -85,7 +91,7 @@ AuditPipenvConfig = TypedDict(
 # The audit Pipfile configuration
 #
 # oneOf
-AuditPipfile = Union["AuditPipfileConfig", Literal[False]]
+AuditPipfile = Union["AuditPipfileConfig", bool]
 
 
 # Audit pipfile config
@@ -94,7 +100,13 @@ AuditPipfile = Union["AuditPipfileConfig", Literal[False]]
 AuditPipfileConfig = TypedDict(
     "AuditPipfileConfig",
     {
+        # Pipfile sections
+        #
         # The section to be audited
+        #
+        # default:
+        #   - default
+        #   - develop
         "sections": List[str],
     },
     total=False,
@@ -106,7 +118,7 @@ AuditPipfileConfig = TypedDict(
 # The audit Pipfile.lock configuration
 #
 # oneOf
-AuditPipfileLock = Union["AuditPipfileLockConfig", Literal[False]]
+AuditPipfileLock = Union["AuditPipfileLockConfig", bool]
 
 
 # Audit pipfile lock config
@@ -115,11 +127,28 @@ AuditPipfileLock = Union["AuditPipfileLockConfig", Literal[False]]
 AuditPipfileLockConfig = TypedDict(
     "AuditPipfileLockConfig",
     {
+        # Pipfile.lock sections
+        #
         # The section to be audited
+        #
+        # default:
+        #   - default
         "sections": List[str],
     },
     total=False,
 )
+
+
+# Default value of the field path 'Checks black configuration config properties'
+BLACK_CONFIGURATION_PROPERTIES_DEFAULT = {"line-length": 110}
+
+
+# Default value of the field path 'Checks codespell config arguments'
+CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames"]
+
+
+# Default value of the field path 'Checks codespell config ignore_re'
+CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock"]
 
 
 # Checks
@@ -154,7 +183,7 @@ Checks = TypedDict(
 # The Black check configuration
 #
 # oneOf
-ChecksBlack = Union["ChecksBlackConfig", Literal[False]]
+ChecksBlack = Union["ChecksBlackConfig", bool]
 
 
 # Checks black config
@@ -165,6 +194,9 @@ ChecksBlackConfig = TypedDict(
     {
         "properties": Dict[str, Any],
         # List of regular expression that should be ignored
+        #
+        # default:
+        #   []
         "ignore_patterns_re": List[str],
     },
     total=False,
@@ -176,7 +208,7 @@ ChecksBlackConfig = TypedDict(
 # The Black configuration check configuration
 #
 # oneOf
-ChecksBlackConfiguration = Union["ChecksBlackConfigurationConfig", Literal[False]]
+ChecksBlackConfiguration = Union["ChecksBlackConfigurationConfig", bool]
 
 
 # Checks black configuration config
@@ -185,7 +217,12 @@ ChecksBlackConfiguration = Union["ChecksBlackConfigurationConfig", Literal[False
 ChecksBlackConfigurationConfig = TypedDict(
     "ChecksBlackConfigurationConfig",
     {
+        # Black configuration properties
+        #
         # The properties key = value that should be present
+        #
+        # default:
+        #   line-length: 110
         "properties": Dict[str, Union[Union[int, float], str]],
     },
     total=False,
@@ -197,7 +234,7 @@ ChecksBlackConfigurationConfig = TypedDict(
 # The codespell check configuration
 #
 # oneOf
-ChecksCodespell = Union["ChecksCodespellConfig", Literal[False]]
+ChecksCodespell = Union["ChecksCodespellConfig", bool]
 
 
 # Checks codespell config
@@ -206,9 +243,20 @@ ChecksCodespell = Union["ChecksCodespellConfig", Literal[False]]
 ChecksCodespellConfig = TypedDict(
     "ChecksCodespellConfig",
     {
+        # codespell arguments
+        #
         # List of argument that will be added to the codespell command
+        #
+        # default:
+        #   - --quiet-level=2
+        #   - --check-filenames
         "arguments": List[str],
+        # codespell ignore regular expression
+        #
         # List of regular expression that should be ignored
+        #
+        # default:
+        #   - (.*/)?poetry\.lock
         "ignore_re": List[str],
     },
     total=False,
@@ -253,7 +301,7 @@ ChecksGitattribute = bool
 # The isort check configuration
 #
 # oneOf
-ChecksIsort = Union["ChecksIsortConfig", Literal[False]]
+ChecksIsort = Union["ChecksIsortConfig", bool]
 
 
 # checks isort config
@@ -263,6 +311,9 @@ ChecksIsortConfig = TypedDict(
     "ChecksIsortConfig",
     {
         # List of regular expression that should be ignored
+        #
+        # default:
+        #   []
         "ignore_patterns_re": List[str],
     },
     total=False,
@@ -274,7 +325,7 @@ ChecksIsortConfig = TypedDict(
 # The Prettier check configuration
 #
 # oneOf
-ChecksPrettier = Union["ChecksPrettierConfig", Literal[False]]
+ChecksPrettier = Union["ChecksPrettierConfig", bool]
 
 
 # Checks Prettier config
@@ -300,7 +351,7 @@ ChecksPrintConfig = bool
 # The Prospector configuration check configuration
 #
 # oneOf
-ChecksProspectorConfiguration = Union["ChecksProspectorConfigurationConfig", Literal[False]]
+ChecksProspectorConfiguration = Union["ChecksProspectorConfigurationConfig", bool]
 
 
 # Checks prospector configuration config
@@ -309,7 +360,18 @@ ChecksProspectorConfiguration = Union["ChecksProspectorConfigurationConfig", Lit
 ChecksProspectorConfigurationConfig = TypedDict(
     "ChecksProspectorConfigurationConfig",
     {
+        # Prospector configuration properties
+        #
         # The properties key = value that should be present
+        #
+        # default:
+        #   bandit:
+        #     run: true
+        #   doc-warnings: true
+        #   max-line-length: 110
+        #   mypy:
+        #     run: true
+        #   strictness: veryhigh
         "properties": Dict[str, Any],
     },
     total=False,
@@ -406,12 +468,42 @@ Configuration = TypedDict(
 )
 
 
+# Default value of the field path 'K8s configuration db'
+DB_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
+
+
+# Default value of the field path 'dispatch config event-type'
+DOCKER_DISPATCH_EVENT_TYPE_DEFAULT = "image-update"
+
+
+# Default value of the field path 'dispatch config repository'
+DOCKER_DISPATCH_REPOSITORY_DEFAULT = "camptocamp/argocd-gs-platform-ch-development-apps"
+
+
+# Default value of the field path 'Publish Docker config repository'
+DOCKER_REPOSITORY_DEFAULT = {
+    "github": {"server": "ghcr.io", "versions": ["version_tag", "version_branch", "rebuild"]},
+    "dockerhub": {"versions": ["version_tag", "version_branch", "rebuild", "feature_branch"]},
+}
+
+
 # DB configuration
 #
 # Database configuration
+#
+# default:
+#   {}
 DbConfiguration = TypedDict(
     "DbConfiguration",
     {
+        # K8S DB chart options
+        #
+        # default:
+        #   persistence.enabled: 'false'
+        #   postgresqlPassword: mySuperTestingPassword
+        #   tls.autoGenerated: 'true'
+        #   tls.enabled: 'true'
+        #   volumePermissions.enabled: 'true'
         "chart-options": Dict[str, str],
     },
     total=False,
@@ -424,9 +516,17 @@ DbConfiguration = TypedDict(
 DispatchConfig = TypedDict(
     "DispatchConfig",
     {
+        # Docker dispatch repository
+        #
         # The repository name to be triggered
+        #
+        # default: camptocamp/argocd-gs-platform-ch-development-apps
         "repository": str,
+        # Docker dispatch event type
+        #
         # The event type to be triggered
+        #
+        # default: image-update
         "event-type": str,
     },
     total=False,
@@ -434,17 +534,39 @@ DispatchConfig = TypedDict(
 
 
 # K3d configuration
+#
+# default:
+#   {}
 K3DConfiguration = TypedDict(
     "K3DConfiguration",
     {
-        # Install commands
+        # K3D install commands
+        #
+        # default:
+        #   - - k3d
+        #     - cluster
+        #     - create
+        #     - test-cluster
+        #     - --no-lb
+        #     - --no-rollback
         "install-commands": List[List[str]],
     },
     total=False,
 )
 
 
+# Default value of the field path 'K8s configuration k3d'
+K3D_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
+
+
+# Default value of the field path 'K3d configuration install-commands'
+K3D_INSTALL_COMMANDS_DEFAULT = [["k3d", "cluster", "create", "test-cluster", "--no-lb", "--no-rollback"]]
+
+
 # K8s configuration
+#
+# default:
+#   {}
 K8SConfiguration = TypedDict(
     "K8SConfiguration",
     {
@@ -457,6 +579,50 @@ K8SConfiguration = TypedDict(
     },
     total=False,
 )
+
+
+# Default value of the field path 'configuration k8s'
+K8S_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
+
+
+# Default value of the field path 'DB configuration chart-options'
+K8S_DB_CHART_OPTIONS_DEFAULT = {
+    "persistence.enabled": "false",
+    "tls.enabled": "true",
+    "tls.autoGenerated": "true",
+    "postgresqlPassword": "mySuperTestingPassword",
+    "volumePermissions.enabled": "true",
+}
+
+
+# Default value of the field path 'Audit pipfile lock config sections'
+PIPFILE_FULL_STOP_LOCK_SECTIONS_DEFAULT = ["default"]
+
+
+# Default value of the field path 'Audit pipfile config sections'
+PIPFILE_SECTIONS_DEFAULT = ["default", "develop"]
+
+
+# Default value of the field path 'Checks prospector configuration config properties'
+PROSPECTOR_CONFIGURATION_PROPERTIES_DEFAULT = {
+    "strictness": "veryhigh",
+    "max-line-length": 110,
+    "doc-warnings": True,
+    "mypy": {"run": True},
+    "bandit": {"run": True},
+}
+
+
+# Default value of the field path 'Publish google_calendar'
+PUBLISH_GOOGLE_CALENDAR_DEFAULT: Dict[str, Any] = {}
+
+
+# Default value of the field path 'Publish Google calendar config on'
+PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT = ["version_branch", "version_tag", "rebuild"]
+
+
+# Default value of the field path 'Publish pypi'
+PUBLISH_PYPI_DEFAULT: Dict[str, Any] = {}
 
 
 # Print versions
@@ -509,9 +675,28 @@ PublishDockerConfig = TypedDict(
         "latest": bool,
         # List of images to be published
         "images": List["PublishDockerImage"],
+        # Docker repository
+        #
         # The repository where we should publish the images
+        #
+        # default:
+        #   dockerhub:
+        #     versions:
+        #     - version_tag
+        #     - version_branch
+        #     - rebuild
+        #     - feature_branch
+        #   github:
+        #     server: ghcr.io
+        #     versions:
+        #     - version_tag
+        #     - version_branch
+        #     - rebuild
         "repository": Dict[str, "PublishDockerRepository"],
         # Send a dispatch event to an other repository
+        #
+        # default:
+        #   {}
         #
         # oneOf
         "dispatch": Union["DispatchConfig", Literal[False]],
@@ -552,6 +737,9 @@ PublishDockerRepository = TypedDict(
 #
 # The configuration to publish on Google Calendar
 #
+# default:
+#   {}
+#
 # oneOf
 PublishGoogleCalendar = Union["PublishGoogleCalendarConfig", Literal[False]]
 
@@ -562,6 +750,12 @@ PublishGoogleCalendar = Union["PublishGoogleCalendarConfig", Literal[False]]
 PublishGoogleCalendarConfig = TypedDict(
     "PublishGoogleCalendarConfig",
     {
+        # Publish Google calendar on
+        #
+        # default:
+        #   - version_branch
+        #   - version_tag
+        #   - rebuild
         "on": List[str],
     },
     total=False,
@@ -594,6 +788,9 @@ PublishHelmConfig = TypedDict(
 # publish pypi
 #
 # Configuration to publish on pypi
+#
+# default:
+#   {}
 #
 # oneOf
 PublishPypi = Union["PublishPypiConfig", Literal[False]]
@@ -650,6 +847,22 @@ Version = TypedDict(
 VersionTransform = List["_VersionTransformItem"]
 
 
+# Default value of the field path 'audit npm config cwe_ignore'
+_AUDIT_NPM_CONFIG_CWE_IGNORE_DEFAULT: List[Any] = []
+
+
+# Default value of the field path 'audit npm config package_ignore'
+_AUDIT_NPM_CONFIG_PACKAGE_IGNORE_DEFAULT: List[Any] = []
+
+
+# Default value of the field path 'Checks black config ignore_patterns_re'
+_CHECKS_BLACK_CONFIG_IGNORE_PATTERNS_RE_DEFAULT: List[Any] = []
+
+
+# Default value of the field path 'checks isort config ignore_patterns_re'
+_CHECKS_ISORT_CONFIG_IGNORE_PATTERNS_RE_DEFAULT: List[Any] = []
+
+
 # oneOf
 _ChecksRequiredWorkflowsConfigAdditionalproperties = Union[
     "_ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0", bool
@@ -684,6 +897,14 @@ _ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0StepsItem = TypedDict(
     },
     total=False,
 )
+
+
+# Default value of the field path 'Publish Docker config dispatch'
+_PUBLISH_DOCKER_CONFIG_DISPATCH_DEFAULT: Dict[str, Any] = {}
+
+
+# Default value of the field path 'Publish Docker config latest'
+_PUBLISH_DOCKER_CONFIG_LATEST_DEFAULT = True
 
 
 _PrintVersionsVersionsItem = TypedDict(

@@ -126,17 +126,18 @@ def black_config(
             )
             return False
 
-        if isinstance(config, dict):
-            pyproject_black = pyproject["tool"]["black"]
-            for key, value in config.get("properties", {}).items():
-                if pyproject_black.get(key) != value:
-                    c2cciutils.error(
-                        "black_config",
-                        f"The property '{key}' should have the value, '{value}', "
-                        f"but is '{pyproject_black.get(key)}'",
-                        "pyproject.toml",
-                    )
-                    return False
+        pyproject_black = pyproject["tool"]["black"]
+        for key, value in config.get(
+            "properties", c2cciutils.configuration.BLACK_CONFIGURATION_PROPERTIES_DEFAULT
+        ).items():
+            if pyproject_black.get(key) != value:
+                c2cciutils.error(
+                    "black_config",
+                    f"The property '{key}' should have the value, '{value}', "
+                    f"but is '{pyproject_black.get(key)}'",
+                    "pyproject.toml",
+                )
+                return False
     return True
 
 
@@ -190,7 +191,7 @@ def prospector_config(
     args: Namespace,
 ) -> bool:
     """
-    Check the prospector configuration.
+    Check the Prospector configuration.
 
     config is like:
         properties: # dictionary of properties to check
@@ -211,7 +212,13 @@ def prospector_config(
             with open(filename, encoding="utf-8") as prospector_file:
                 properties: CommentedMap = ruamel.yaml.round_trip_load(prospector_file)
             success &= _check_properties(
-                "prospector_config", filename, "", properties, config.get("properties", {})
+                "prospector_config",
+                filename,
+                "",
+                properties,
+                config.get(
+                    "properties", c2cciutils.configuration.PROSPECTOR_CONFIGURATION_PROPERTIES_DEFAULT
+                ),
             )
 
     return success
@@ -714,9 +721,7 @@ def _versions_branches(all_versions: Set[str], full_config: c2cciutils.configura
             branches_response.raise_for_status()
             url = None
             try:
-                links = requests.utils.parse_header_links(
-                    branches_response.headers.get("Link", "")
-                )
+                links = requests.utils.parse_header_links(branches_response.headers.get("Link", ""))
                 if isinstance(links, list):
                     next_links = [link["url"] for link in links if link["rel"] == "next"]
                     if len(next_links) >= 1:
@@ -855,9 +860,9 @@ def codespell(
             cmd.append("--write-changes")
         if os.path.exists("spell-ignore-words.txt"):
             cmd.append("--ignore-words=spell-ignore-words.txt")
-        cmd += config.get("arguments", [])
+        cmd += config.get("arguments", c2cciutils.configuration.CODESPELL_ARGUMENTS_DEFAULT)
         cmd.append("--")
-        ignore_res = [re.compile(r) for r in config.get("ignore_re", [])]
+        ignore_res = [re.compile(r) for r in config.get("ignore_re", c2cciutils.configuration.CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT)]
         for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
             if os.path.isfile(filename):
                 include = True

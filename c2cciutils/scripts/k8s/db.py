@@ -9,6 +9,7 @@ from typing import Dict, cast
 import yaml
 
 import c2cciutils
+import c2cciutils.configuration
 
 
 def _print(message: str) -> None:
@@ -64,7 +65,13 @@ def main() -> None:
             "test-pg",
             f"--version={versions['bitnami/postgresql']}",
         ]
-        + [f"--set={k}={v}" for k, v in config["k8s"]["db"]["chart-options"].items()]
+        + [
+            f"--set={k}={v}"
+            for k, v in config.get("k8s", {})
+            .get("db", {})
+            .get("chart-options", c2cciutils.configuration.K8S_DB_CHART_OPTIONS_DEFAULT)
+            .items()
+        ]
         + ["bitnami/postgresql"],
         check=True,
     )

@@ -10,7 +10,7 @@ import re
 import subprocess  # nosec
 import sys
 import tarfile
-from typing import List, Match, Optional, Set, cast
+from typing import Dict, List, Match, Optional, Set, cast
 
 import requests
 import yaml
@@ -165,11 +165,10 @@ def main() -> None:
                     success &= c2cciutils.publish.pip(package, version, version_type, publish)
 
     google_calendar = None
+    google_calendar_publish = config.get("publish", {}).get("google_calendar", False) is not False
     google_calendar_config = cast(
         c2cciutils.configuration.PublishGoogleCalendarConfig,
-        config.get("publish", {}).get("google_calendar", {})
-        if config.get("publish", {}).get("google_calendar", False)
-        else {},
+        config.get("publish", {}).get("google_calendar", {}),
     )
 
     docker_config = cast(
@@ -198,7 +197,13 @@ def main() -> None:
                     tag_src = tag_config.format(version="latest")
                     images_src.add(f"{image_conf['name']}:{tag_src}")
                     tag_dst = tag_config.format(version=version)
-                    for name, conf in docker_config.get("repository", {}).items():
+                    for name, conf in docker_config.get(
+                        "repository",
+                        cast(
+                            Dict[str, c2cciutils.configuration.PublishDockerRepository],
+                            c2cciutils.configuration.DOCKER_REPOSITORY_DEFAULT,
+                        ),
+                    ).items():
                         if version_type in conf.get("versions", []):
                             if args.dry_run:
                                 print(
@@ -214,20 +219,31 @@ def main() -> None:
                                 success &= c2cciutils.publish.docker(
                                     conf, name, image_conf, tag_src, tag_dst, latest, images_full
                                 )
-                    if version_type in google_calendar_config.get("on", []):
-                        if not google_calendar:
-                            google_calendar = GoogleCalendar()
-                        summary = f"{image_conf['name']}:{tag_dst}"
-                        description = (
-                            f"Published on: {', '.join(docker_config['repository'].keys())}\n"
-                            f"For version type: {version_type}"
-                        )
+                    if google_calendar_publish:
+                        if version_type in google_calendar_config.get(
+                            "on", c2cciutils.configuration.PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT
+                        ):
+                            if not google_calendar:
+                                google_calendar = GoogleCalendar()
+                            summary = f"{image_conf['name']}:{tag_dst}"
+                            description = (
+                                f"Published on: {', '.join(docker_config['repository'].keys())}\n"
+                                f"For version type: {version_type}"
+                            )
 
-                        google_calendar.create_event(summary, description)
+                            google_calendar.create_event(summary, description)
 
-        dispatch_config = docker_config.get("dispatch", False)
+        dispatch_config = docker_config.get("dispatch", {})
         if dispatch_config and images_full:
-            dispatch(dispatch_config["repository"], dispatch_config["event-type"], images_full)
+            dispatch(
+                dispatch_config.get(
+                    "repository", c2cciutils.configuration.DOCKER_DISPATCH_REPOSITORY_DEFAULT
+                ),
+                dispatch_config.get(
+                    "event-type", c2cciutils.configuration.DOCKER_DISPATCH_EVENT_TYPE_DEFAULT
+                ),
+                images_full,
+            )
 
         versions_config = c2cciutils.lib.docker.get_versions_config()
         for image in images_src:

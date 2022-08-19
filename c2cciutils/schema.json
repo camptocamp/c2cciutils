@@ -17,17 +17,19 @@
           "properties": {
             "cwe_ignore": {
               "description": "The list of CWE id to be ignored",
+              "default": [],
               "type": "array",
               "items": { "type": "string" }
             },
             "package_ignore": {
               "description": "The list of package names to be ignored",
+              "default": [],
               "type": "array",
               "items": { "type": "string" }
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "audit_outdated_versions": {
@@ -65,13 +67,15 @@
           "type": "object",
           "properties": {
             "sections": {
+              "title": "Pipfile sections",
               "description": "The section to be audited",
+              "default": ["default", "develop"],
               "type": "array",
               "items": { "type": "string" }
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "audit_pipfile_lock": {
@@ -84,13 +88,15 @@
           "type": "object",
           "properties": {
             "sections": {
+              "title": "Pipfile.lock sections",
               "description": "The section to be audited",
+              "default": ["default"],
               "type": "array",
               "items": { "type": "string" }
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "checks_black": {
@@ -107,12 +113,13 @@
             },
             "ignore_patterns_re": {
               "description": "List of regular expression that should be ignored",
+              "default": [],
               "type": "array",
               "items": { "type": "string" }
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "checks_prettier": {
@@ -129,7 +136,7 @@
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "checks_black_config": {
@@ -142,13 +149,15 @@
           "type": "object",
           "properties": {
             "properties": {
+              "title": "Black configuration properties",
               "description": "The properties key = value that should be present",
+              "default": { "line-length": 110 },
               "type": "object",
               "additionalProperties": { "type": ["number", "string"] }
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "checks_prospector_config": {
@@ -161,12 +170,20 @@
           "type": "object",
           "properties": {
             "properties": {
+              "title": "Prospector configuration properties",
               "description": "The properties key = value that should be present",
+              "default": {
+                "strictness": "veryhigh",
+                "max-line-length": 110,
+                "doc-warnings": true,
+                "mypy": { "run": true },
+                "bandit": { "run": true }
+              },
               "type": "object"
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "checks_codespell": {
@@ -179,18 +196,22 @@
           "type": "object",
           "properties": {
             "arguments": {
+              "title": "codespell arguments",
               "description": "List of argument that will be added to the codespell command",
+              "default": ["--quiet-level=2", "--check-filenames"],
               "type": "array",
               "items": { "type": "string" }
             },
             "ignore_re": {
+              "title": "codespell ignore regular expression",
               "description": "List of regular expression that should be ignored",
+              "default": ["(.*/)?poetry\\.lock"],
               "type": "array",
               "items": { "type": "string" }
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "checks_editorconfig": {
@@ -236,12 +257,13 @@
           "properties": {
             "ignore_patterns_re": {
               "description": "List of regular expression that should be ignored",
+              "default": [],
               "type": "array",
               "items": { "type": "string" }
             }
           }
         },
-        { "const": false }
+        { "type": "boolean" }
       ]
     },
     "checks_print_config": {
@@ -401,7 +423,15 @@
               }
             },
             "repository": {
+              "title": "Docker repository",
               "description": "The repository where we should publish the images",
+              "default": {
+                "github": {
+                  "server": "ghcr.io",
+                  "versions": ["version_tag", "version_branch", "rebuild"]
+                },
+                "dockerhub": { "versions": ["version_tag", "version_branch", "rebuild", "feature_branch"] }
+              },
               "type": "object",
               "additionalProperties": {
                 "title": "Publish Docker repository",
@@ -423,6 +453,7 @@
             },
             "dispatch": {
               "description": "Send a dispatch event to an other repository",
+              "default": {},
               "oneOf": [
                 {
                   "type": "object",
@@ -430,11 +461,15 @@
                   "description": "Send a dispatch event to an other repository",
                   "properties": {
                     "repository": {
+                      "title": "Docker dispatch repository",
                       "description": "The repository name to be triggered",
+                      "default": "camptocamp/argocd-gs-platform-ch-development-apps",
                       "type": "string"
                     },
                     "event-type": {
+                      "title": "Docker dispatch event type",
                       "description": "The event type to be triggered",
+                      "default": "image-update",
                       "type": "string"
                     }
                   }
@@ -450,6 +485,7 @@
     "publish_google_calendar": {
       "title": "Publish Google calendar",
       "description": "The configuration to publish on Google Calendar",
+      "default": {},
       "oneOf": [
         {
           "title": "Publish Google calendar config",
@@ -457,6 +493,8 @@
           "type": "object",
           "properties": {
             "on": {
+              "title": "Publish Google calendar on",
+              "default": ["version_branch", "version_tag", "rebuild"],
               "type": "array",
               "items": {
                 "type": "string"
@@ -470,6 +508,7 @@
     "publish_pypi": {
       "title": "publish pypi",
       "description": "Configuration to publish on pypi",
+      "default": {},
       "oneOf": [
         {
           "title": "publish pypi config",
@@ -652,14 +691,17 @@
     },
     "k8s": {
       "title": "K8s configuration",
+      "default": {},
       "type": "object",
       "properties": {
         "k3d": {
           "title": "K3d configuration",
+          "default": {},
           "type": "object",
           "properties": {
             "install-commands": {
-              "title": "Install commands",
+              "title": "K3D install commands",
+              "default": [["k3d", "cluster", "create", "test-cluster", "--no-lb", "--no-rollback"]],
               "type": "array",
               "items": {
                 "type": "array",
@@ -673,9 +715,18 @@
         "db": {
           "title": "DB configuration",
           "description": "Database configuration",
+          "default": {},
           "type": "object",
           "properties": {
             "chart-options": {
+              "title": "K8S DB chart options",
+              "default": {
+                "persistence.enabled": "false",
+                "tls.enabled": "true",
+                "tls.autoGenerated": "true",
+                "postgresqlPassword": "mySuperTestingPassword",
+                "volumePermissions.enabled": "true"
+              },
               "type": "object",
               "additionalProperties": {
                 "type": "string"
