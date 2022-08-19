@@ -70,7 +70,7 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
         ignores = _python_ignores(directory)
         packages = read_packages(file)
         try:
-            announcements = safety.safety.get_announcements('', {})
+            announcements = safety.safety.get_announcements("", {})
             vulnerabilities, db_full = safety.safety.check(
                 packages=packages,
                 key="",
@@ -87,7 +87,9 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
                     announcements, vulnerabilities, remediations, False, packages
                 )
 
-                if announcements and (not sys.stdout.isatty() and os.environ.get("SAFETY_OS_DESCRIPTION", None) != 'run'):
+                if announcements and (
+                    not sys.stdout.isatty() and os.environ.get("SAFETY_OS_DESCRIPTION", None) != "run"
+                ):
                     output_report += "\n\n" + reporter.render_announcements(announcements)
                 print(output_report)
                 print("::endgroup::")
