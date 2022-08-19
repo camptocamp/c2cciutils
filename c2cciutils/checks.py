@@ -104,7 +104,10 @@ def black_config(
     # If there is no python file the check is disabled
     python = False
     for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.isfile(filename) and magic.from_file(filename, mime=True) in ["text/x-python", "text/x-script.python"]:
+        if os.path.isfile(filename) and magic.from_file(filename, mime=True) in [
+            "text/x-python",
+            "text/x-script.python",
+        ]:
             python = True
             break
 
@@ -862,7 +865,12 @@ def codespell(
             cmd.append("--ignore-words=spell-ignore-words.txt")
         cmd += config.get("arguments", c2cciutils.configuration.CODESPELL_ARGUMENTS_DEFAULT)
         cmd.append("--")
-        ignore_res = [re.compile(r) for r in config.get("ignore_re", c2cciutils.configuration.CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT)]
+        ignore_res = [
+            re.compile(r)
+            for r in config.get(
+                "ignore_re", c2cciutils.configuration.CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT
+            )
+        ]
         for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
             if os.path.isfile(filename):
                 include = True
