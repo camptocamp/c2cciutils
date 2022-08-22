@@ -21,6 +21,7 @@ import yaml
 from pipenv.patched import pipfile as pipfile_lib
 
 import c2cciutils.checks
+import c2cciutils.configuration
 
 
 def print_versions(
@@ -184,7 +185,9 @@ def pipfile_lock(
         packages = []
         with open(filename, encoding="utf-8") as file_:
             data = json.load(file_)
-            for section in config["sections"]:
+            for section in config.get(
+                "sections", c2cciutils.configuration.PIPFILE_FULL_STOP_LOCK_SECTIONS_DEFAULT
+            ):
                 for package, package_data in data[section].items():
                     packages.append(
                         safety.util.Package(name=package, version=package_data["version"].lstrip("="))
