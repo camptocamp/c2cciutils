@@ -103,9 +103,6 @@ PyYAML = "6.0"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
-pylint = "2.14.5"
-mypy = "0.971"
-flake8 = "4.0.1"
 types-requests = "2.28.8"
 types-pyyaml = "6.0.11"
 types-setuptools = "65.1.0"
