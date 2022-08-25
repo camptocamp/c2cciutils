@@ -19,6 +19,7 @@ import yaml
 from editorconfig import EditorConfigError, get_properties
 from ruamel.yaml.comments import CommentedMap
 
+import c2cciutils.configuration
 import c2cciutils.prettier
 import c2cciutils.security
 
@@ -855,20 +856,9 @@ def codespell(
         full_config: All the CI config
         args: The parsed command arguments
     """
-    del full_config
 
     try:
-        cmd = ["codespell"]
-        if args.fix:
-            cmd.append("--write-changes")
-        if os.path.exists("spell-ignore-words.txt"):
-            cmd.append("--ignore-words=spell-ignore-words.txt")
-        dictionaries = config.get(
-            "internal_dictionaries", c2cciutils.configuration.CODESPELL_DICTIONARIES_DEFAULT
-        )
-        if dictionaries:
-            cmd.append("--builtin=" + ",".join(dictionaries))
-        cmd += config.get("arguments", c2cciutils.configuration.CODESPELL_ARGUMENTS_DEFAULT)
+        cmd = c2cciutils.get_codespell_command(full_config, args.fix)
         cmd.append("--")
         ignore_res = [
             re.compile(r)

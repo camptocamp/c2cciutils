@@ -143,15 +143,15 @@ AuditPipfileLockConfig = TypedDict(
 BLACK_CONFIGURATION_PROPERTIES_DEFAULT = {"line-length": 110}
 
 
-# Default value of the field path 'Checks codespell config arguments'
+# Default value of the field path 'Checks codespell config  arguments'
 CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]
 
 
-# Default value of the field path 'Checks codespell config internal_dictionaries'
+# Default value of the field path 'Checks codespell config  internal_dictionaries'
 CODESPELL_DICTIONARIES_DEFAULT = ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]
 
 
-# Default value of the field path 'Checks codespell config ignore_re'
+# Default value of the field path 'Checks codespell config  ignore_re'
 CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock"]
 
 
@@ -473,6 +473,9 @@ Configuration = TypedDict(
         "checks": "Checks",
         # WARNING: The required are not correctly taken in account,
         # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
+        "pr-checks": "PullRequestChecks",
+        # WARNING: The required are not correctly taken in account,
+        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "publish": "Publish",
         # WARNING: The required are not correctly taken in account,
         # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
@@ -640,6 +643,38 @@ PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT = ["version_branch", "version_tag", "rebuild"
 
 # Default value of the field path 'Publish pypi'
 PUBLISH_PYPI_DEFAULT: Dict[str, Any] = {}
+
+
+# Default value of the field path 'pull request checks commits messages configuration check_first_capital'
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIRST_CAPITAL_DEFAULT = True
+
+
+# Default value of the field path 'pull request checks commits messages configuration check_fixup'
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIXUP_DEFAULT = True
+
+
+# Default value of the field path 'pull request checks commits messages configuration min_head_length'
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_MIN_HEAD_LENGTH_DEFAULT = 20
+
+
+# Default value of the field path 'pull request checks commits messages configuration check_no_merge_commits'
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_MERGE_COMMITS_DEFAULT = True
+
+
+# Default value of the field path 'pull request checks commits messages configuration check_no_own_revert'
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_OWN_REVERT_DEFAULT = True
+
+
+# Default value of the field path 'pull request checks commits spelling configuration only_head'
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_ONLY_HEAD_DEFAULT = False
+
+
+# Default value of the field path 'pull request checks commits messages configuration check_squash'
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_SQUASH_DEFAULT = True
+
+
+# Default value of the field path 'pull request checks pull request spelling configuration only_head'
+PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT = False
 
 
 # Print versions
@@ -843,6 +878,136 @@ PublishPypiPackage = TypedDict(
     },
     total=False,
 )
+
+
+# Pull request checks
+#
+# The PR check configuration
+PullRequestChecks = TypedDict(
+    "PullRequestChecks",
+    {
+        "print_event": "PullRequestChecksPrintEvent",
+        "commits_messages": "PullRequestChecksCommitsMessages",
+        "commits_spell": "PullRequestChecksCommitsSpelling",
+        "pull_request_spell": "PullRequestChecksPullRequestSpelling",
+        "pull_request_labels": "PullRequestChecksRequestLabels",
+        "add_issue_link": "PullRequestChecksAddIssueLink",
+    },
+    total=False,
+)
+
+
+# pull request checks add issue link
+PullRequestChecksAddIssueLink = bool
+
+
+# pull request checks commits messages
+#
+# Check the pull request commits messages
+#
+# oneOf
+PullRequestChecksCommitsMessages = Union["PullRequestChecksCommitsMessagesConfiguration", bool]
+
+
+# pull request checks commits messages configuration
+#
+# The commit message check configuration
+PullRequestChecksCommitsMessagesConfiguration = TypedDict(
+    "PullRequestChecksCommitsMessagesConfiguration",
+    {
+        # pull request checks commits messages fixup
+        #
+        # Check that we don't have one fixup commit in the pull request
+        #
+        # default: True
+        "check_fixup": bool,
+        # pull request checks commits messages squash
+        #
+        # Check that we don't have one squash commit in the pull request
+        #
+        # default: True
+        "check_squash": bool,
+        # pull request checks commits messages first capital
+        #
+        # Check that the all the commits message starts with a capital letter
+        #
+        # default: True
+        "check_first_capital": bool,
+        # pull request checks commits messages min head length
+        #
+        # Check that the commits message head is at least this long, use 0 to disable
+        #
+        # default: 20
+        "min_head_length": int,
+        # pull request checks commits messages no merge commits
+        #
+        # Check that we don't have merge commits in the pull request
+        #
+        # default: True
+        "check_no_merge_commits": bool,
+        # pull request checks commits messages no own revert
+        #
+        # Check that we don't have reverted one of our commits in the pull request
+        #
+        # default: True
+        "check_no_own_revert": bool,
+    },
+    total=False,
+)
+
+
+# pull request checks commits spelling
+#
+# oneOf
+PullRequestChecksCommitsSpelling = Union["PullRequestChecksCommitsSpellingConfiguration", bool]
+
+
+# pull request checks commits spelling configuration
+#
+# Configuration used to check the spelling of the commits
+PullRequestChecksCommitsSpellingConfiguration = TypedDict(
+    "PullRequestChecksCommitsSpellingConfiguration",
+    {
+        # pull request checks commits messages only head
+        #
+        # default: False
+        "only_head": bool,
+    },
+    total=False,
+)
+
+
+# pull request checks print event
+#
+# Print the GitHub event object
+PullRequestChecksPrintEvent = bool
+
+
+# pull request checks pull request spelling
+#
+# oneOf
+PullRequestChecksPullRequestSpelling = Union["PullRequestChecksPullRequestSpellingConfiguration", bool]
+
+
+# pull request checks pull request spelling configuration
+#
+# Configuration used to check the spelling of the title and body of the pull request
+PullRequestChecksPullRequestSpellingConfiguration = TypedDict(
+    "PullRequestChecksPullRequestSpellingConfiguration",
+    {
+        # pull request checks only head
+        #
+        # default: False
+        "only_head": bool,
+    },
+    total=False,
+)
+
+
+# pull request checks request labels
+#
+# According the create changelog configuration
+PullRequestChecksRequestLabels = bool
 
 
 # Version
