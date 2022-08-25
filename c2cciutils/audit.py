@@ -21,6 +21,7 @@ import yaml
 from pipenv.patched import pipfile as pipfile_lib
 
 import c2cciutils.configuration
+import c2cciutils.security
 
 
 def print_versions(
