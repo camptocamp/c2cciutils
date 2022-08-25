@@ -29,7 +29,7 @@ def main() -> None:
     password: mySuperTestingPassword
     database name: postgres""",
     )
-    parser.add_argument("--script", help="The script used to initialise the database")
+    parser.add_argument("--script", help="The script used to initialize the database")
     parser.add_argument("--cleanup", action="store_true", help="Drop the database")
 
     config = c2cciutils.get_config()

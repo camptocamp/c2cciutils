@@ -144,7 +144,11 @@ BLACK_CONFIGURATION_PROPERTIES_DEFAULT = {"line-length": 110}
 
 
 # Default value of the field path 'Checks codespell config arguments'
-CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames"]
+CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]
+
+
+# Default value of the field path 'Checks codespell config internal_dictionaries'
+CODESPELL_DICTIONARIES_DEFAULT = ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]
 
 
 # Default value of the field path 'Checks codespell config ignore_re'
@@ -243,6 +247,18 @@ ChecksCodespell = Union["ChecksCodespellConfig", bool]
 ChecksCodespellConfig = TypedDict(
     "ChecksCodespellConfig",
     {
+        # codespell dictionaries
+        #
+        # List of argument that will be added to the codespell command
+        #
+        # default:
+        #   - clear
+        #   - rare
+        #   - informal
+        #   - code
+        #   - names
+        #   - en-GB_to_en-US
+        "internal_dictionaries": List[str],
         # codespell arguments
         #
         # List of argument that will be added to the codespell command
@@ -250,6 +266,7 @@ ChecksCodespellConfig = TypedDict(
         # default:
         #   - --quiet-level=2
         #   - --check-filenames
+        #   - --ignore-words-list=ro
         "arguments": List[str],
         # codespell ignore regular expression
         #
