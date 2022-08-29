@@ -175,7 +175,10 @@ def pull_request_spell(
     with NamedTemporaryFile("w+t") as temp_file:
         temp_file.write(github_event["event"]["pull_request"]["title"])
         temp_file.write("\n")
-        if not config.get("only_head", c2cciutils.configuration.PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT):
+        if (
+            not config.get("only_head", c2cciutils.configuration.PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT)
+            and github_event["event"]["pull_request"]["body"]
+        ):
             temp_file.write("\n")
             temp_file.write(github_event["event"]["pull_request"]["body"])
             temp_file.write("\n")

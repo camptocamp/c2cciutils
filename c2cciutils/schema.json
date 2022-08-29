@@ -425,7 +425,7 @@
             "min_head_length": {
               "title": "pull request checks commits messages min head length",
               "description": "Check that the commits message head is at least this long, use 0 to disable",
-              "default": 20,
+              "default": 5,
               "type": "integer"
             },
             "check_no_merge_commits": {

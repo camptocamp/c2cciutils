@@ -6,6 +6,7 @@ The checker main function.
 
 import argparse
 import sys
+import traceback
 
 import c2cciutils.checks
 
@@ -29,20 +30,28 @@ def main() -> None:
         if conf is not False and (args.check is None or args.check == key):
             check = getattr(c2cciutils.checks, key)
             print(f"::group::Run check {key}")
-            if not check({} if conf is True else conf, full_config, args):
+            try:
+                if not check({} if conf is True else conf, full_config, args):
+                    success = False
+                    print("::endgroup::")
+                    if args.stop:
+                        sys.exit(1)
+                    print("With error")
+                    if key in ("black", "isort", "prettier", "codespell"):
+                        print("Can be fixed with:")
+                        print("python3 -m pip install --requirement=ci/requirements.txt")
+                        print(f"c2cciutils-checks --fix --check={key}")
+                    if key in ("black", "isort", "prettier"):
+                        print("See also documentation for IDE: https://github.com/camptocamp/c2cciutils#ide")
+                else:
+                    print("::endgroup::")
+            except Exception:  # pylint: disable=broad-except
+                traceback.print_exc()
                 success = False
                 print("::endgroup::")
                 if args.stop:
                     sys.exit(1)
                 print("With error")
-                if key in ("black", "isort", "prettier", "codespell"):
-                    print("Can be fixed with:")
-                    print("python3 -m pip install --requirement=ci/requirements.txt")
-                    print(f"c2cciutils-checks --fix --check={key}")
-                if key in ("black", "isort", "prettier"):
-                    print("See also documentation for IDE: https://github.com/camptocamp/c2cciutils#ide")
-            else:
-                print("::endgroup::")
     if not success:
         sys.exit(1)
 

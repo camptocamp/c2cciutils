@@ -654,7 +654,7 @@ PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIXUP_DEFAULT = True
 
 
 # Default value of the field path 'pull request checks commits messages configuration min_head_length'
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_MIN_HEAD_LENGTH_DEFAULT = 20
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_MIN_HEAD_LENGTH_DEFAULT = 5
 
 
 # Default value of the field path 'pull request checks commits messages configuration check_no_merge_commits'
@@ -937,7 +937,7 @@ PullRequestChecksCommitsMessagesConfiguration = TypedDict(
         #
         # Check that the commits message head is at least this long, use 0 to disable
         #
-        # default: 20
+        # default: 5
         "min_head_length": int,
         # pull request checks commits messages no merge commits
         #
