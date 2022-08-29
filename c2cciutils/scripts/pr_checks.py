@@ -8,6 +8,7 @@ import argparse
 import json
 import os
 import sys
+import traceback
 
 import requests
 
@@ -45,14 +46,22 @@ def main() -> None:
         if conf is not False and (args.check is None or args.check == key):
             check = getattr(c2cciutils.pr_checks, key)
             print(f"::group::Run check {key}")
-            if not check(config={} if conf is True else conf, **check_args):
+            try:
+                if not check(config={} if conf is True else conf, **check_args):
+                    success = False
+                    print("::endgroup::")
+                    if args.stop:
+                        sys.exit(1)
+                    print("With error")
+                else:
+                    print("::endgroup::")
+            except Exception:  # pylint: disable=broad-except
+                traceback.print_exc()
                 success = False
                 print("::endgroup::")
                 if args.stop:
                     sys.exit(1)
                 print("With error")
-            else:
-                print("::endgroup::")
     if not success:
         sys.exit(1)
 
