@@ -24,7 +24,7 @@ def main() -> None:
             default_distribution=args.distribution,
             default_release=args.release,
         )
-        versions_config[image] = versions_image
+        versions_config[image] = {k: str(v) for k, v in versions_image.items()}
 
     with open("ci/dpkg-versions.yaml", "w", encoding="utf-8") as versions_file:
         versions_file.write("# See repository list: https://repology.org/repositories/statistics\n\n")
