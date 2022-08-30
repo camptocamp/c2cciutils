@@ -80,7 +80,8 @@ def download_applications(
                 app.get(
                     "url-pattern",
                     f"https://github.com/{key}/releases/download/{version_quote}/{app.get('get-file-name', '')}",
-                ).format(**params)
+                ).format(**params),
+                timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
             )
             response.raise_for_status()
 

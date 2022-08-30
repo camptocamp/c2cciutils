@@ -81,6 +81,7 @@ def dispatch(repository: str, event_type: str, images_full: List[str]) -> None:
             .strip(),
         },
         json={"event_type": event_type, "client_payload": {"name": " ".join(images_full), "id": id_}},
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
     response.raise_for_status()
 

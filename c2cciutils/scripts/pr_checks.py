@@ -27,7 +27,10 @@ def main() -> None:
 
     github_event = json.loads(os.environ["GITHUB_EVENT"])
 
-    commits_response = requests.get(github_event["event"]["pull_request"]["_links"]["commits"]["href"])
+    commits_response = requests.get(
+        github_event["event"]["pull_request"]["_links"]["commits"]["href"],
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
+    )
     commits_response.raise_for_status()
     commits = commits_response.json()
 

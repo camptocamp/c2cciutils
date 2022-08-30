@@ -675,6 +675,7 @@ def _versions_backport_labels(
         labels_response = requests.get(
             f"https://api.github.com/repos/{c2cciutils.get_repository()}/labels",
             headers=c2cciutils.add_authorization_header({"Accept": "application/vnd.github.v3+json"}),
+            timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
         )
         labels_response.raise_for_status()
 
@@ -721,6 +722,7 @@ def _versions_branches(all_versions: Set[str], full_config: c2cciutils.configura
                 url,
                 params={"protected": "true"},
                 headers=c2cciutils.add_authorization_header({"Accept": "application/vnd.github.v3+json"}),
+                timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
             )
             branches_response.raise_for_status()
             url = None

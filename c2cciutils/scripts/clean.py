@@ -30,6 +30,7 @@ def clean(image: str, tag: str, token: str) -> None:
     response = requests.head(
         f"https://hub.docker.com/v2/repositories/{image}/tags/{tag}/",
         headers={"Authorization": "JWT " + token},
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
     if response.status_code == 404:
         return
@@ -41,6 +42,7 @@ def clean(image: str, tag: str, token: str) -> None:
     response = requests.delete(
         f"https://hub.docker.com/v2/repositories/{image}/tags/{tag}/",
         headers={"Authorization": "JWT " + token},
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
     if not response.ok:
         print("Error on deleting tag: " + tag)
@@ -79,6 +81,7 @@ def main() -> None:
                 "password": password,
             }
         ),
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     ).json()["token"]
 
     with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as event_file:
