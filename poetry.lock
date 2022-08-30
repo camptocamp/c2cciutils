@@ -729,7 +729,7 @@ flake8-polyfill = ">=1.0.2,<2"
 
 [[package]]
 name = "pipenv"
-version = "2022.8.19"
+version = "2022.8.24"
 description = "Python Development Workflow for Humans."
 category = "main"
 optional = true
@@ -1411,7 +1411,7 @@ publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "29d32b81699fd5a19571f0302abad1761a8af3033d66f1d953a08c1f64f62dc1"
+content-hash = "c5b9aba5386e9efe3f8e076a366842910edea2b2534d0972e2271c7476061e9c"
 
 [metadata.files]
 astroid = [
@@ -1808,8 +1808,8 @@ pep8-naming = [
     {file = "pep8_naming-0.10.0-py2.py3-none-any.whl", hash = "sha256:5d9f1056cb9427ce344e98d1a7f5665710e2f20f748438e308995852cfa24164"},
 ]
 pipenv = [
-    {file = "pipenv-2022.8.19-py2.py3-none-any.whl", hash = "sha256:e74e63123d01146b8a810e26c8b4b5325169625d31d68ed635d405a963a528d8"},
-    {file = "pipenv-2022.8.19.tar.gz", hash = "sha256:44013256601acf66f3cbb68c922804a67a8d1b328fe01884851f16e49898852f"},
+    {file = "pipenv-2022.8.24-py2.py3-none-any.whl", hash = "sha256:f05d87a4fd76fc02f8cf3b0b179f00889e82d6d7204a4ea9ebcf534965956ecc"},
+    {file = "pipenv-2022.8.24.tar.gz", hash = "sha256:edbff81766d4328115b28738df0e5240cb2299a34ff0c60d524ad2855df18c69"},
 ]
 pkginfo = [
     {file = "pkginfo-1.8.3-py2.py3-none-any.whl", hash = "sha256:848865108ec99d4901b2f7e84058b6e7660aae8ae10164e015a6dcf5b242a594"},
