@@ -254,7 +254,10 @@ def add_issue_link(github_event: Dict[str, Any], **kwargs: Any) -> bool:
     if issue_number in github_event["event"]["pull_request"]["body"]:
         return True
 
-    comments_response = requests.get(github_event["event"]["pull_request"]["_links"]["comments"]["href"])
+    comments_response = requests.get(
+        github_event["event"]["pull_request"]["_links"]["comments"]["href"],
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
+    )
     comments_response.raise_for_status()
     comments = comments_response.json()
 
@@ -269,6 +272,7 @@ def add_issue_link(github_event: Dict[str, Any], **kwargs: Any) -> bool:
             "Authorization": f"Bearer {github_event['token']}",
         },
         json={"body": f"See also: [{issue_number}](https://jira.camptocamp.com/browse/{issue_number})"},
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
 
     print(response.text)

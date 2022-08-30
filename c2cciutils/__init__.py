@@ -573,6 +573,7 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
                 "Content-Type": "application/json",
             }
         ),
+        timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
     if http_response.status_code == 401 and default is not None:
         return default
