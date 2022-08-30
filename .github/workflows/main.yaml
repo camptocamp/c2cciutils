@@ -54,7 +54,7 @@ jobs:
 
       - name: Build
         run: make build
-      - name: Check
+      - name: Checks
         run: make checks
       - name: Build example
         run: (cd example-project/; make)
