@@ -22,19 +22,27 @@ def get_dpkg_packages_versions(
     from https://repology.org/repositories/statistics
     """
 
-    os_release_process = subprocess.run(
-        ["docker", "run", "--rm", "--entrypoint=", image, "cat", "/etc/os-release"],
-        stdout=subprocess.PIPE,
-        check=True,
-    )
-    os_release = dict([e.split("=") for e in os_release_process.stdout.decode().split("\n") if e])
+    os_release = {}
+    try:
+        os_release_process = subprocess.run(
+            ["docker", "run", "--rm", "--entrypoint=", image, "cat", "/etc/os-release"],
+            stdout=subprocess.PIPE,
+            check=True,
+        )
+        os_release = dict([e.split("=") for e in os_release_process.stdout.decode().split("\n") if e])
+    except subprocess.CalledProcessError:
+        print("INFO: /etc/os-release not found in the image")
 
-    lsb_release_process = subprocess.run(
-        ["docker", "run", "--rm", "--entrypoint=", image, "cat", "/etc/lsb-release"],
-        stdout=subprocess.PIPE,
-        check=True,
-    )
-    lsb_release = dict([e.split("=") for e in lsb_release_process.stdout.decode().split("\n") if e])
+    lsb_release = {}
+    try:
+        lsb_release_process = subprocess.run(
+            ["docker", "run", "--rm", "--entrypoint=", image, "cat", "/etc/lsb-release"],
+            stdout=subprocess.PIPE,
+            check=True,
+        )
+        lsb_release = dict([e.split("=") for e in lsb_release_process.stdout.decode().split("\n") if e])
+    except subprocess.CalledProcessError:
+        print("Info: /etc/lsb-release not found in the image")
 
     distribution = os_release.get("ID", lsb_release.get("DISTRIB_ID", default_distribution))
     release = os_release.get("VERSION_ID", lsb_release.get("DISTRIB_RELEASE", default_release))
@@ -47,21 +55,47 @@ def get_dpkg_packages_versions(
 
     prefix = distribution.strip('"').lower() + "_" + release.strip('"').replace(".", "_") + "/"
 
-    result: Dict[str, Version] = {}
-    list_process = subprocess.run(
-        ["docker", "run", "--rm", "--entrypoint=", image, "dpkg", "--list"],
+    package_version: Dict[str, Version] = {}
+    packages_status_process = subprocess.run(
+        ["docker", "run", "--rm", "--entrypoint=", image, "dpkg", "--status"],
         stdout=subprocess.PIPE,
         check=True,
     )
-    for line in list_process.stdout.decode().split("\n"):
-        ls = line.split()
-        if len(ls) < 3 or ls[0] != "ii":
-            continue
-        name = ls[1]
-        if name.endswith(":amd64"):
-            name = name[:-6]
-        result[f"{prefix}{name}"] = Version.from_string(ls[2])
-    return True, result
+    packages_status_1 = packages_status_process.stdout.decode().split("\n")
+    packages_status_2 = [e.split(": ", maxsplit=1) for e in packages_status_1]
+    packages_status = [e for e in packages_status_2 if len(e) == 2]
+    package = None
+    version = None
+    for name, value in packages_status:
+        if name == "Package":
+            if package is not None:
+                if version is None:
+                    print(f"Error: Missing version for package {package}")
+                else:
+                    if package in package_version and version != package_version[package]:
+                        print(
+                            f"The package {package} has different version ({package_version[package]} != {version})"
+                        )
+                    if package != "base-files":
+                        package_version[package] = version
+            package = value
+        if name == "Source":
+            package = value.split(" ")[0]
+        if name == "Version":
+            version = Version.from_string(value)
+
+    return True, {f"{prefix}{k}": v for k, v in package_version.items()}
+
+
+pkg_details_process = (
+    subprocess.run(
+        ["docker", "run", "--rm", "--entrypoint=", "python:3.10", "dpkg", "--status", "libstdc++6"],
+        stdout=subprocess.PIPE,
+        check=True,
+    )
+    .stdout.decode()
+    .split("\n")
+)
 
 
 def get_versions_config() -> Dict[str, Dict[str, str]]:
