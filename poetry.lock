@@ -680,7 +680,7 @@ python-versions = "*"
 
 [[package]]
 name = "node-vm2"
-version = "0.4.4"
+version = "0.4.5"
 description = "A binding to Node.js + vm2, helps you execute JavaScript safely."
 category = "main"
 optional = false
@@ -758,7 +758,7 @@ flake8-polyfill = ">=1.0.2,<2"
 
 [[package]]
 name = "pipenv"
-version = "2022.8.24"
+version = "2022.8.31"
 description = "Python Development Workflow for Humans."
 category = "main"
 optional = true
@@ -1468,7 +1468,7 @@ publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "483c8b06cc1551f4bf9303b47695f32bf0d8a2aab33ddc07309f605dac435b29"
+content-hash = "8906a1ec8f6c83da9eac8d59867c3b6619751ef6541e49f49d47726993147880"
 
 [metadata.files]
 astroid = [
@@ -1841,8 +1841,8 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
 node-vm2 = [
-    {file = "node_vm2-0.4.4-py3-none-any.whl", hash = "sha256:c62da6fc6792d6b7a81c8bbf5f13500b359f35d984d837cae3be5cbf676a0169"},
-    {file = "node_vm2-0.4.4.tar.gz", hash = "sha256:e129c2a7a7eee9ccbcae27182d000e70a4d87081e2050723a3e2cf8ffe721211"},
+    {file = "node_vm2-0.4.5-py3-none-any.whl", hash = "sha256:bc8582aeb8c0ad19b60df10c595779ca438e4b311cbc948f68ec049e27835b84"},
+    {file = "node_vm2-0.4.5.tar.gz", hash = "sha256:127ca3eb9f252228e3a317e2cada2e3520308660ceea9466a5070625106a8c8b"},
 ]
 oauthlib = [
     {file = "oauthlib-3.2.0-py3-none-any.whl", hash = "sha256:6db33440354787f9b7f3a6dbd4febf5d0f93758354060e802f6c06cb493022fe"},
@@ -1873,8 +1873,8 @@ pep8-naming = [
     {file = "pep8_naming-0.10.0-py2.py3-none-any.whl", hash = "sha256:5d9f1056cb9427ce344e98d1a7f5665710e2f20f748438e308995852cfa24164"},
 ]
 pipenv = [
-    {file = "pipenv-2022.8.24-py2.py3-none-any.whl", hash = "sha256:f05d87a4fd76fc02f8cf3b0b179f00889e82d6d7204a4ea9ebcf534965956ecc"},
-    {file = "pipenv-2022.8.24.tar.gz", hash = "sha256:edbff81766d4328115b28738df0e5240cb2299a34ff0c60d524ad2855df18c69"},
+    {file = "pipenv-2022.8.31-py2.py3-none-any.whl", hash = "sha256:5cb7368143d7fefe58509b10b227cb5f97d5455c21c21d47554cc9e3d74ff51b"},
+    {file = "pipenv-2022.8.31.tar.gz", hash = "sha256:9f26e90e694aa6346f9b09149dc086ea69ea294846e0eccf8191c148c99bf38d"},
 ]
 pkginfo = [
     {file = "pkginfo-1.8.3-py2.py3-none-any.whl", hash = "sha256:848865108ec99d4901b2f7e84058b6e7660aae8ae10164e015a6dcf5b242a594"},
