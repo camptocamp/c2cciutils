@@ -6,16 +6,34 @@
 
 **Implemented enhancements:**
 
+- Move pull request check internally [\#661](https://github.com/camptocamp/c2cciutils/pull/661) ([sbrunner](https://github.com/sbrunner))
+- Use more dictionaries, ignore ro [\#660](https://github.com/camptocamp/c2cciutils/pull/660) ([sbrunner](https://github.com/sbrunner))
 - Remove no more needed and not always working ASDF versions [\#657](https://github.com/camptocamp/c2cciutils/pull/657) ([sbrunner](https://github.com/sbrunner))
 
 **Fixed bugs:**
 
+- Accept shorter commit messages [\#679](https://github.com/camptocamp/c2cciutils/pull/679) ([sbrunner](https://github.com/sbrunner))
+- Fix the audit on Pipfile.lock [\#673](https://github.com/camptocamp/c2cciutils/pull/673) ([sbrunner](https://github.com/sbrunner))
 - \[Backport master\] Pin codespell version [\#665](https://github.com/camptocamp/c2cciutils/pull/665) ([c2c-bot-gis-ci](https://github.com/c2c-bot-gis-ci))
 - Fix package for Safety version 2 [\#653](https://github.com/camptocamp/c2cciutils/pull/653) ([sbrunner](https://github.com/sbrunner))
 - Fix package for Safety version 2 [\#652](https://github.com/camptocamp/c2cciutils/pull/652) ([sbrunner](https://github.com/sbrunner))
 
 **Merged pull requests:**
 
+- Update the Renovate configuration [\#684](https://github.com/camptocamp/c2cciutils/pull/684) ([sbrunner](https://github.com/sbrunner))
+- Update all minor versions \(minor\) [\#683](https://github.com/camptocamp/c2cciutils/pull/683) ([renovate[bot]](https://github.com/apps/renovate))
+- Update all patch versions \(patch\) [\#682](https://github.com/camptocamp/c2cciutils/pull/682) ([renovate[bot]](https://github.com/apps/renovate))
+- Lock file maintenance [\#681](https://github.com/camptocamp/c2cciutils/pull/681) ([renovate[bot]](https://github.com/apps/renovate))
+- Use the source package names [\#680](https://github.com/camptocamp/c2cciutils/pull/680) ([sbrunner](https://github.com/sbrunner))
+- Lock file maintenance [\#678](https://github.com/camptocamp/c2cciutils/pull/678) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency debian-inspector to v31 [\#677](https://github.com/camptocamp/c2cciutils/pull/677) ([renovate[bot]](https://github.com/apps/renovate))
+- Update all minor versions \(minor\) [\#676](https://github.com/camptocamp/c2cciutils/pull/676) ([renovate[bot]](https://github.com/apps/renovate))
+- Update all patch versions \(patch\) [\#675](https://github.com/camptocamp/c2cciutils/pull/675) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency poetry to v1.1.15 [\#674](https://github.com/camptocamp/c2cciutils/pull/674) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency types-setuptools to v65 [\#672](https://github.com/camptocamp/c2cciutils/pull/672) ([renovate[bot]](https://github.com/apps/renovate))
+- Update dependency jsonschema to v4.14.0 [\#670](https://github.com/camptocamp/c2cciutils/pull/670) ([renovate[bot]](https://github.com/apps/renovate))
+- Update all patch versions \(patch\) [\#669](https://github.com/camptocamp/c2cciutils/pull/669) ([renovate[bot]](https://github.com/apps/renovate))
+- Lock file maintenance [\#668](https://github.com/camptocamp/c2cciutils/pull/668) ([renovate[bot]](https://github.com/apps/renovate))
 - Consider all files with .py extension as Python [\#666](https://github.com/camptocamp/c2cciutils/pull/666) ([sbrunner](https://github.com/sbrunner))
 - Simplify the `__init__.py` by moving the default to the schema [\#663](https://github.com/camptocamp/c2cciutils/pull/663) ([sbrunner](https://github.com/sbrunner))
 - Update all minor versions \(minor\) [\#662](https://github.com/camptocamp/c2cciutils/pull/662) ([renovate[bot]](https://github.com/apps/renovate))
@@ -24,6 +42,7 @@
 - Update all minor versions \(minor\) [\#656](https://github.com/camptocamp/c2cciutils/pull/656) ([renovate[bot]](https://github.com/apps/renovate))
 - Update all patch versions \(patch\) [\#655](https://github.com/camptocamp/c2cciutils/pull/655) ([renovate[bot]](https://github.com/apps/renovate))
 - Lock file maintenance [\#654](https://github.com/camptocamp/c2cciutils/pull/654) ([renovate[bot]](https://github.com/apps/renovate))
+- Update the changelog [\#651](https://github.com/camptocamp/c2cciutils/pull/651) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update the changelog [\#650](https://github.com/camptocamp/c2cciutils/pull/650) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update the changelog [\#649](https://github.com/camptocamp/c2cciutils/pull/649) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Fix the changelog [\#648](https://github.com/camptocamp/c2cciutils/pull/648) ([sbrunner](https://github.com/sbrunner))
@@ -692,6 +711,10 @@
 
 ## [0.1.0](https://github.com/camptocamp/c2cciutils/tree/0.1.0) (2021-07-28)
 
-[Full Changelog](https://github.com/camptocamp/c2cciutils/compare/43fcda83b08d851a87cc696a8d033202d9499ed9...0.1.0)
+[Full Changelog](https://github.com/camptocamp/c2cciutils/compare/1.0.0...0.1.0)
+
+## [1.0.0](https://github.com/camptocamp/c2cciutils/tree/1.0.0) (2021-03-02)
+
+[Full Changelog](https://github.com/camptocamp/c2cciutils/compare/43fcda83b08d851a87cc696a8d033202d9499ed9...1.0.0)
 
 \* _This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)_
