@@ -27,7 +27,7 @@ jobs:
           for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
           do
               echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
+              sudo python3 -m pip uninstall $package || true
               echo ::endgroup::
           done
 
@@ -85,7 +85,7 @@ jobs:
           for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
           do
               echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
+              sudo python3 -m pip uninstall $package || true
               echo ::endgroup::
           done
 
