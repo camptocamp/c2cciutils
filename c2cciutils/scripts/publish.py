@@ -247,17 +247,21 @@ def main() -> None:
             )
 
         versions_config = c2cciutils.lib.docker.get_versions_config()
+        dpkg_success = True
         for image in images_src:
-            success |= c2cciutils.lib.docker.check_versions(versions_config.get(image, {}), image)
+            dpkg_success |= c2cciutils.lib.docker.check_versions(versions_config.get(image, {}), image)
 
-        if not success:
+        if not dpkg_success:
             current_versions_in_images = {}
             for image in images_src:
                 _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(image)
-                current_versions_in_images[image] = str(versions_image)
+                current_versions_in_images[image] = {k: str(v) for k, v in versions_image.items()}
             print("ERROR: some packages are have a greater version in the config raster then in the image.")
             print("Current versions of the Debian packages in Docker images:")
             print(yaml.dump(current_versions_in_images, Dumper=yaml.SafeDumper, default_flow_style=False))
+
+            if versions_config:
+                success = False
 
     helm_config = cast(
         c2cciutils.configuration.PublishHelmConfig,

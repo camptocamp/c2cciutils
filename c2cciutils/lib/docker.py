@@ -76,7 +76,7 @@ def get_dpkg_packages_versions(
                         print(
                             f"The package {package} has different version ({package_version[package]} != {version})"
                         )
-                    if package not in ("base-files", "adduser"):
+                    if package not in ("base-files",):
                         package_version[package] = version
             package = value
         if name == "Source":
@@ -87,17 +87,6 @@ def get_dpkg_packages_versions(
             version = Version(upstream=version.upstream, revision=version.revision)
 
     return True, {f"{prefix}{k}": v for k, v in package_version.items()}
-
-
-pkg_details_process = (
-    subprocess.run(
-        ["docker", "run", "--rm", "--entrypoint=", "python:3.10", "dpkg", "--status", "libstdc++6"],
-        stdout=subprocess.PIPE,
-        check=True,
-    )
-    .stdout.decode()
-    .split("\n")
-)
 
 
 def get_versions_config() -> Dict[str, Dict[str, str]]:
