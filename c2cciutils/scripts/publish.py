@@ -254,7 +254,7 @@ def main() -> None:
             current_versions_in_images = {}
             for image in images_src:
                 _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(image)
-                current_versions_in_images[image] = versions_image
+                current_versions_in_images[image] = str(versions_image)
             print("ERROR: some packages are have a greater version in the config raster then in the image.")
             print("Current versions of the Debian packages in Docker images:")
             print(yaml.dump(current_versions_in_images, Dumper=yaml.SafeDumper, default_flow_style=False))
