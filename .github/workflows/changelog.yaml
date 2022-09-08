@@ -49,7 +49,7 @@ jobs:
 
       - id: status
         run: echo ::set-output name=status::$(git status --short)
-      - run: >
+      - run: |
           c2cciutils-checks --fix --check=prettier
           git add CHANGELOG.md
           git config --global user.email "ci@example.com"
