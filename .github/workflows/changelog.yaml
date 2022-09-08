@@ -47,6 +47,8 @@ jobs:
           cacheFile: .github/changelog-generator-cache
           unreleased: false
 
+      - run: git status
+      - run: git diff
       - id: status
         run: echo ::set-output name=status::$(git status --short)
       - run: c2cciutils-checks --fix --check=prettier
