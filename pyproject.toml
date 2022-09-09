@@ -101,6 +101,7 @@ codespell = { version = "2.2.1", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0"
+pyOpenSSL = "22.0.0"
 
 [tool.poetry.extras]
 audit = ["pipenv"]
