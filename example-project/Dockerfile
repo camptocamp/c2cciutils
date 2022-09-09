@@ -45,4 +45,5 @@ RUN python3 -m compileall -q /usr/local/lib/python3.*
 COPY . ./
 RUN --mount=type=cache,target=/root/.cache \
     python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
+    && python3 -m pip freeze > /requirements.txt \
     && python3 -m compileall -q /app/
