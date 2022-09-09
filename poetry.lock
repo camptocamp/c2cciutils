@@ -758,7 +758,7 @@ flake8-polyfill = ">=1.0.2,<2"
 
 [[package]]
 name = "pipenv"
-version = "2022.9.4"
+version = "2022.9.8"
 description = "Python Development Workflow for Humans."
 category = "main"
 optional = true
@@ -1348,7 +1348,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.28.9"
+version = "2.28.10"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
@@ -1483,7 +1483,7 @@ publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "bc31af6822dfadebb2c645e2a5c893c359f9316b8b6a0e7a87b7a3853760efe0"
+content-hash = "221f7a7d0fbbc774be80bb5fcd73d4b6bed0450b6aafae7d8ce7c15520abd46b"
 
 [metadata.files]
 astroid = [
@@ -1892,8 +1892,8 @@ pep8-naming = [
     {file = "pep8_naming-0.10.0-py2.py3-none-any.whl", hash = "sha256:5d9f1056cb9427ce344e98d1a7f5665710e2f20f748438e308995852cfa24164"},
 ]
 pipenv = [
-    {file = "pipenv-2022.9.4-py2.py3-none-any.whl", hash = "sha256:7bbfcf49628c6be01a1c2d0fbb3439a3878bcdf0a59cead2cf3688b386839b56"},
-    {file = "pipenv-2022.9.4.tar.gz", hash = "sha256:923a1c06ff70b1486ad6e7bd8279dfb3c599f560b0e392e5b7a98dfafa97115f"},
+    {file = "pipenv-2022.9.8-py2.py3-none-any.whl", hash = "sha256:e02642085a160516c49df34fa939a99cea306aa04bef8a5610392aacbfb03574"},
+    {file = "pipenv-2022.9.8.tar.gz", hash = "sha256:b6dfff06dea56e3bade92fc267c2da1f0807c5c7b0903eef6115fdb899c2b4b6"},
 ]
 pkginfo = [
     {file = "pkginfo-1.8.3-py2.py3-none-any.whl", hash = "sha256:848865108ec99d4901b2f7e84058b6e7660aae8ae10164e015a6dcf5b242a594"},
@@ -2197,8 +2197,8 @@ types-PyYAML = [
     {file = "types_PyYAML-6.0.11-py3-none-any.whl", hash = "sha256:8f890028123607379c63550179ddaec4517dc751f4c527a52bb61934bf495989"},
 ]
 types-requests = [
-    {file = "types-requests-2.28.9.tar.gz", hash = "sha256:feaf581bd580497a47fe845d506fa3b91b484cf706ff27774e87659837de9962"},
-    {file = "types_requests-2.28.9-py3-none-any.whl", hash = "sha256:86cb66d3de2f53eac5c09adc42cf6547eefbd0c7e1210beca1ee751c35d96083"},
+    {file = "types-requests-2.28.10.tar.gz", hash = "sha256:97d8f40aa1ffe1e58c3726c77d63c182daea9a72d9f1fa2cafdea756b2a19f2c"},
+    {file = "types_requests-2.28.10-py3-none-any.whl", hash = "sha256:45b485725ed58752f2b23461252f1c1ad9205b884a1e35f786bb295525a3e16a"},
 ]
 types-setuptools = [
     {file = "types-setuptools-65.3.0.tar.gz", hash = "sha256:c26779cbba3947823c260354adaab4e91ca8c18888aa2b740f503844b88f1813"},
