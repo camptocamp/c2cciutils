@@ -24,7 +24,7 @@ jobs:
     steps:
       - run: docker system prune --all --force
       - run: python3 -m pip freeze
-      - run: python3 -m pip uninstall pyOpenSSL
+      - run: sudo python3 -m pip uninstall pyOpenSSL
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
