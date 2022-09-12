@@ -13,6 +13,7 @@ import uuid
 from typing import List, Optional
 
 import ruamel.yaml
+import tomlkit
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -280,6 +281,11 @@ def pip(
         else:
             if not os.path.exists(dist):
                 os.mkdir(dist)
+            if os.path.exists(os.path.join(cwd, "pyproject.py")):
+                with open(os.path.join(cwd, "pyproject.py"), encoding="utf-8") as project_file:
+                    pyproject = tomlkit.load(project_file)
+                for requirement in pyproject.get("build-system", {}).get("requires", []):
+                    subprocess.run(["pip", "install", requirement], check=True)
             cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", "."]
         cmd = package.get("build_command", cmd)
         subprocess.check_call(cmd, cwd=cwd, env=env)
