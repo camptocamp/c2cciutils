@@ -279,6 +279,7 @@ def pip(
             )
             cmd.append("bdist_wheel")
         else:
+            subprocess.run(["poetry", "--version"], check=True)
             if not os.path.exists(dist):
                 os.mkdir(dist)
             if os.path.exists(os.path.join(cwd, "pyproject.toml")):
