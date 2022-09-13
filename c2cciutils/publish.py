@@ -281,8 +281,8 @@ def pip(
         else:
             if not os.path.exists(dist):
                 os.mkdir(dist)
-            if os.path.exists(os.path.join(cwd, "pyproject.py")):
-                with open(os.path.join(cwd, "pyproject.py"), encoding="utf-8") as project_file:
+            if os.path.exists(os.path.join(cwd, "pyproject.toml")):
+                with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
                     pyproject = tomlkit.load(project_file)
                 for requirement in pyproject.get("build-system", {}).get("requires", []):
                     subprocess.run(["pip", "install", requirement], check=True)
