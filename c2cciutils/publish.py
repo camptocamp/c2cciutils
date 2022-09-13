@@ -285,7 +285,7 @@ def pip(
                 with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
                     pyproject = tomlkit.load(project_file)
                 for requirement in pyproject.get("build-system", {}).get("requires", []):
-                    subprocess.run(["pip", "install", requirement], check=True)
+                    subprocess.run(["poetry", "self", "add", requirement], check=True)
             cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", "."]
         cmd = package.get("build_command", cmd)
         subprocess.check_call(cmd, cwd=cwd, env=env)
