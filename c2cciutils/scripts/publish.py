@@ -86,7 +86,7 @@ def main() -> None:
     # Describe the kind of release we do: rebuild (specified with --type), version_tag, version_branch,
     # feature_branch, feature_tag (for pull request)
     version: str = ""
-    ref = os.environ["GITHUB_REF"]
+    ref = os.environ.get("GITHUB_REF", "refs/heads/fake-local")
 
     if len([e for e in [args.version, args.branch, args.tag] if e is not None]) > 1:
         print("ERROR: you specified more than one of the arguments --version, --branch or --tag")
@@ -100,6 +100,11 @@ def main() -> None:
         ref,
         c2cciutils.compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/"),
     )
+    if branch_match[0] is None:
+        ref_match = re.match(r"refs/pull/(.*)/merge", ref)
+        if ref_match is not None:
+            branch_match = (ref_match, {}, ref)
+
     version_type = args.type
     if args.version is not None:
         version = args.version

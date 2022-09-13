@@ -9,6 +9,7 @@ import os
 import pickle  # nosec
 import subprocess  # nosec
 import sys
+import tempfile
 import uuid
 from typing import List, Optional
 
@@ -279,17 +280,30 @@ def pip(
             )
             cmd.append("bdist_wheel")
         else:
-            subprocess.run(["poetry", "--version"], check=True)
             if not os.path.exists(dist):
                 os.mkdir(dist)
-            if os.path.exists(os.path.join(cwd, "pyproject.toml")):
-                with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
-                    pyproject = tomlkit.load(project_file)
-                for requirement in pyproject.get("build-system", {}).get("requires", []):
-                    subprocess.run(["poetry", "self", "add", requirement], check=True)
             cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", "."]
-        cmd = package.get("build_command", cmd)
-        subprocess.check_call(cmd, cwd=cwd, env=env)
+            if os.path.exists(os.path.join(cwd, "pyproject.toml")):
+                if "build_command" not in package:
+                    with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
+                        pyproject = tomlkit.load(project_file)
+                    for requirement in pyproject.get("build-system", {}).get("requires", []):
+                        requirement_split = requirement.split(">=")
+                        if requirement_split[0] == "poetry-core":
+                            use_poetry = True
+                if use_poetry:
+                    with tempfile.TemporaryDirectory(prefix="c2cciutils-publish-venv") as venv:
+                        subprocess.run(["python3", "-m", "venv", venv], check=True)
+                        subprocess.run([f"{venv}/bin/pip", "install", "poetry"], check=True)
+                        for requirement in pyproject.get("build-system", {}).get("requires", []):
+                            print(f"Install requirement {requirement}")
+                            subprocess.run([f"{venv}/bin/pip", "install", requirement], check=True)
+                        subprocess.run(["poetry", "--version"], check=True)
+                        subprocess.run([f"{venv}/bin/poetry", "build"], cwd=cwd, env=env, check=True)
+                        cmd = []
+        if cmd:
+            cmd = package.get("build_command", cmd)
+            subprocess.check_call(cmd, cwd=cwd, env=env)
         cmd = ["twine"]
         cmd += ["upload", "--verbose", "--disable-progress-bar"] if publish else ["check"]
         cmd += glob.glob(os.path.join(cwd, "dist/*.whl"))
