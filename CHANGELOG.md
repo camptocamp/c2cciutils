@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0](https://github.com/camptocamp/c2cciutils/tree/1.3.0) (2022-09-14)
+
+[Full Changelog](https://github.com/camptocamp/c2cciutils/compare/1.2.1...1.3.0)
+
 ## [1.2.1](https://github.com/camptocamp/c2cciutils/tree/1.2.1) (2022-08-18)
 
 [Full Changelog](https://github.com/camptocamp/c2cciutils/compare/1.3.dev1...1.2.1)
