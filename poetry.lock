@@ -1332,7 +1332,7 @@ urllib3 = ">=1.26.0"
 
 [[package]]
 name = "types-Markdown"
-version = "3.4.1"
+version = "3.4.2"
 description = "Typing stubs for Markdown"
 category = "dev"
 optional = false
@@ -1483,7 +1483,7 @@ publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "358652ea2e37d5635724a5d5e8139100d3c1d74c6cab12021c3b21639ac64feb"
+content-hash = "b2d80d0314e8de8a97985b65dc28355a84b68ef582f264598b4d28e9d2eb7e66"
 
 [metadata.files]
 astroid = [
@@ -2174,8 +2174,8 @@ twine = [
     {file = "twine-4.0.1.tar.gz", hash = "sha256:96b1cf12f7ae611a4a40b6ae8e9570215daff0611828f5fe1f37a16255ab24a0"},
 ]
 types-Markdown = [
-    {file = "types-Markdown-3.4.1.tar.gz", hash = "sha256:cda9bfd1fcb11e8133a037f8a184e3059ae7389a5f5cc0b53117bf2902aca10d"},
-    {file = "types_Markdown-3.4.1-py3-none-any.whl", hash = "sha256:2d1e5bfff192c78d6644bc3820fea9c7c7cb42dc87558020728ec5b728448ce2"},
+    {file = "types-Markdown-3.4.2.tar.gz", hash = "sha256:7c5b2346873ae12d548de684a25920009f2446f0ea42ce8c5559eb9a3ac10072"},
+    {file = "types_Markdown-3.4.2-py3-none-any.whl", hash = "sha256:7dd9fe8bd2645ec984f438b255f42b795507b5cd2a998cc1970ec13f443dc832"},
 ]
 types-PyYAML = [
     {file = "types-PyYAML-6.0.11.tar.gz", hash = "sha256:7f7da2fd11e9bc1e5e9eb3ea1be84f4849747017a59fc2eee0ea34ed1147c2e0"},
