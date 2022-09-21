@@ -133,7 +133,6 @@ enable = true # disable on Docker
 vcs = "git"
 pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
 
-# format = "{base}.dev{timestamp}" # for dev version
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "major"
 black = "full"
