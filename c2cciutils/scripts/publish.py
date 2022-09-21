@@ -92,6 +92,8 @@ def main() -> None:
         print("ERROR: you specified more than one of the arguments --version, --branch or --tag")
         sys.exit(1)
 
+    version_type = args.type
+
     tag_match = c2cciutils.match(
         ref,
         c2cciutils.compile_re(config["version"].get("tag_to_version_re", []), "refs/tags/"),
@@ -104,8 +106,9 @@ def main() -> None:
         ref_match = re.match(r"refs/pull/(.*)/merge", ref)
         if ref_match is not None:
             branch_match = (ref_match, {}, ref)
+            if version_type is None:
+                version_type = "feature_branch"
 
-    version_type = args.type
     if args.version is not None:
         version = args.version
     elif args.branch is not None:
