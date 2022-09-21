@@ -103,11 +103,19 @@ debian-inspector = "31.0.0"
 PyYAML = "6.0"
 pyOpenSSL = "22.0.0"
 tomlkit = { version = "0.11.4", optional = true }
+poetry = { version = "1.2.1", optional = true }
 
 [tool.poetry.extras]
 audit = ["pipenv"]
 checks = ["black", "isort", "codespell", "EditorConfig"]
-publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit"]
+publish = [
+    "twine",
+    "google-api-python-client",
+    "google-auth-httplib2",
+    "google-auth-oauthlib",
+    "tomlkit",
+    "poetry"
+]
 pr_checks = ["codespell"]
 
 [tool.poetry.dev-dependencies]
