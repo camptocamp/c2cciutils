@@ -135,6 +135,7 @@ pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
 
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "major"
+pipenv = "full"
 black = "full"
 isort = "full"
 codespell = "full"
