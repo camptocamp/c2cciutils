@@ -85,7 +85,9 @@ def main() -> None:
     ).json()["token"]
 
     with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as event_file:
-        ref = json.loads(event_file.read())["ref"]
+        event = json.loads(event_file.read())
+        print(event)
+        ref = event["ref"]
 
     ref = ref.replace("/", "_")
 

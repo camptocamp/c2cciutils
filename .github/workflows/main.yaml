@@ -53,12 +53,6 @@ jobs:
       - name: Build example
         run: (cd example-project/; make)
 
-      - name: Prepare publish
-        run: |
-          sed --in-place 's/^# format/format/g' pyproject.toml
-          cat pyproject.toml
-        if: |
-          env.HAS_SECRETS == 'HAS_SECRETS'
       - name: Publish
         run: c2cciutils-publish
         if: |

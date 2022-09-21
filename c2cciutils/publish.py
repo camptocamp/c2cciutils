@@ -297,6 +297,7 @@ def pip(
                         subprocess.run([f"{venv}/bin/pip", "install", "poetry"], check=True)
                         for requirement in pyproject.get("build-system", {}).get("requires", []):
                             print(f"Install requirement {requirement}")
+                            sys.stdout.flush()
                             subprocess.run([f"{venv}/bin/pip", "install", requirement], check=True)
                         subprocess.run(["poetry", "--version"], check=True)
                         subprocess.run([f"{venv}/bin/poetry", "build"], cwd=cwd, env=env, check=True)

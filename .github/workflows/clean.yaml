@@ -1,7 +1,11 @@
 ---
 name: Clean docker hub tags
 
-on: delete
+on:
+  delete:
+  pull_request:
+    types:
+      - closed
 
 jobs:
   clean:
