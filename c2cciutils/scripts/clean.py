@@ -11,6 +11,7 @@ import sys
 from typing import cast
 
 import requests
+import yaml
 
 import c2cciutils
 
@@ -86,8 +87,11 @@ def main() -> None:
 
     with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as event_file:
         event = json.loads(event_file.read())
-        print(event)
-        ref = event["ref"]
+        print(yaml.dump(event))
+        if "pull_request" in event:
+            ref = str(event["number"])
+        else:
+            ref = event["ref"]
 
     ref = ref.replace("/", "_")
 
