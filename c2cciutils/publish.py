@@ -292,6 +292,17 @@ def pip(
                         if requirement_split[0] == "poetry-core":
                             use_poetry = True
                 if use_poetry:
+                    if version_type == "version_tag":
+                        pyproject.get("tool", {})["poetry"]["version"] = version
+                        pyproject.get("tool", {})["poetry-dynamic-versioning"]["enable"] = False
+                    elif version_type in ("version_branch", "feature_branch"):
+                        pyproject.get("tool", {})["poetry-dynamic-versioning"][
+                            "format-jinja"
+                        ] = pyproject.get("tool", {})["poetry-dynamic-versioning"].get(
+                            "format-jinja-dev", "{{bump_version(base)}}.dev{{timestamp}}"
+                        )
+                    with open(os.path.join(cwd, "pyproject.toml"), "w", encoding="utf-8") as project_file:
+                        project_file.write(tomlkit.dumps(pyproject))
                     with tempfile.TemporaryDirectory(prefix="c2cciutils-publish-venv") as venv:
                         subprocess.run(["python3", "-m", "venv", venv], check=True)
                         subprocess.run([f"{venv}/bin/pip", "install", "poetry"], check=True)
