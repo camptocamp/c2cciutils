@@ -19,6 +19,7 @@ RUN --mount=type=cache,target=/root/.cache \
 
 # Do the conversion
 COPY poetry.lock pyproject.toml ./
+ENV POETRY_DYNAMIC_VERSIONING_BYPASS=dev
 RUN poetry export --output=requirements.txt \
     && poetry export --dev --output=requirements-dev.txt
 
@@ -43,7 +44,8 @@ FROM base AS run
 RUN python3 -m compileall -q /usr/local/lib/python3.*
 
 COPY . ./
+ARG VERSION=dev
 RUN --mount=type=cache,target=/root/.cache \
-    python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
+    POETRY_DYNAMIC_VERSIONING_BYPASS=${VERSION} python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
     && python3 -m pip freeze > /requirements.txt \
     && python3 -m compileall -q /app/

@@ -160,12 +160,6 @@ Select a formatter:
 
 ### To pypi
 
-When publishing, the version computed from arguments or `GITHUB_REF` is put in environment variable `VERSION`, thus you should use it in `setup.py`, example:
-
-```python
-VERSION = os.environ.get("VERSION", "1.0.0")
-```
-
 The config is like this:
 
 ```yaml
@@ -173,6 +167,69 @@ versions:
   # List of kinds of versions you want to publish, that can be:
   # rebuild (specified with --type),
   # version_tag, version_branch, feature_branch, feature_tag (for pull request)
+```
+
+It we have a `setup.py` file, we will be in legacy mode:
+When publishing, the version computed from arguments or `GITHUB_REF` is put in environment variable `VERSION`, thus you should use it in `setup.py`, example:
+
+```python
+VERSION = os.environ.get("VERSION", "1.0.0")
+```
+
+Also we consider that we use `poetry` with [poetry-dynamic-versioning](https://pypi.org/project/poetry-dynamic-versioning/) to manage the version, and [poetry-plugin-tweak-dependencies-version](https://pypi.org/project/poetry-plugin-tweak-dependencies-version/) to manage the dependencies versions.
+
+Example of configuration:
+
+```toml
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+pattern = "^(?P<base>\\d+(\\.\\d+)*)"
+format-jinja = """
+{%- if env.get("VERSION_TYPE") == "version_branch" -%}
+{{serialize_pep440(bump_version(base, 1 if env.get("IS_MASTER") == "TRUE" else 2), dev=distance)}}
+{%- elif distance == 0 -%}
+{{serialize_pep440(base)}}
+{%- else -%}
+{{serialize_pep440(bump_version(base), dev=distance)}}
+{%- endif -%}
+"""
+
+```
+
+Note that we can access to the environment variables `VERSION`,`VERSION_TYPE` and `IS_MASTER`.
+
+Then by default:
+
+- Tag with `1.2.3` => release `1.2.3`
+- Commit on feature branch just do a validation
+- Commit on `master` branch after the tag 1.3.0 => release `1.4.0.dev1`
+- Commit on `1.3` branch after the tag 1.3.0 => release `1.3.1.dev1`
+
+To make it working in the `Dockerfile` you should have in the `poetry` stage:
+
+```Dockerfile
+ENV POETRY_DYNAMIC_VERSIONING_BYPASS=dev
+RUN poetry export --extras=checks --extras=publish --extras=audit --output=requirements.txt \
+    && poetry export --dev --output=requirements-dev.txt
+```
+
+And in the `run` stage
+
+```Dockerfile
+ARG VERSION=dev
+RUN --mount=type=cache,target=/root/.cache \
+    POETRY_DYNAMIC_VERSIONING_BYPASS=${VERSION} python3 -m pip install --disable-pip-version-check --no-deps --editable=.
+```
+
+And in the `Makefile`:
+
+```Makefile
+VERSION = $(strip $(shell poetry version --short))
+
+.PHONY: build
+build: ## Build the Docker images
+	docker build --build-arg=VERSION=$(VERSION) --tag=$(GITHUB_REPOSITORY) .
 ```
 
 ### To Docker registry
