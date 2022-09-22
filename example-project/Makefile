@@ -1,5 +1,6 @@
 GITHUB_REPOSITORY ?= camptocamp/project
 export DOCKER_BUILDKIT = 1
+VERSION = $(strip $(shell poetry version --short))
 
 .PHONY: help
 help: ## Display this help message
@@ -11,7 +12,7 @@ help: ## Display this help message
 
 .PHONY: build
 build: checks ## Build the Docker images
-		docker build --tag=$(GITHUB_REPOSITORY) .
+		docker build --build-arg=VERSION=$(VERSION) --tag=$(GITHUB_REPOSITORY) .
 
 .PHONY: build-checker
 build-checker: ## Build the checker Docker images
