@@ -18,6 +18,7 @@ RUN --mount=type=cache,target=/root/.cache \
 
 # Do the conversion
 COPY poetry.lock pyproject.toml ./
+ENV POETRY_DYNAMIC_VERSIONING_BYPASS=dev
 RUN poetry export --extras=checks --extras=publish --extras=audit --output=requirements.txt \
     && poetry export --dev --output=requirements-dev.txt
 
@@ -53,9 +54,9 @@ RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/
 RUN python3 -m compileall -q -- *
 
 COPY . ./
+ARG VERSION=dev
 RUN --mount=type=cache,target=/root/.cache \
     cd c2cciutils && npm install && cd - \
-    && sed --in-place 's/enable = true # disable on Docker/enable = false/g' pyproject.toml \
-    && python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
+    && POETRY_DYNAMIC_VERSIONING_BYPASS=${VERSION} python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
     && python3 -m pip freeze > /requirements.txt \
     && python3 -m compileall -q /app/c2cciutils
