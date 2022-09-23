@@ -30,6 +30,7 @@ def main() -> None:
     commits_response = requests.get(
         github_event["event"]["pull_request"]["_links"]["commits"]["href"],
         timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
+        headers=c2cciutils.add_authorization_header({}),
     )
     commits_response.raise_for_status()
     commits = commits_response.json()
