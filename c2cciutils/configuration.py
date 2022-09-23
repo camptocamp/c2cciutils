@@ -152,7 +152,7 @@ CODESPELL_DICTIONARIES_DEFAULT = ["clear", "rare", "informal", "code", "names", 
 
 
 # Default value of the field path 'Checks codespell config  ignore_re'
-CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock"]
+CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]
 
 
 # Checks
@@ -274,6 +274,7 @@ ChecksCodespellConfig = TypedDict(
         #
         # default:
         #   - (.*/)?poetry\.lock
+        #   - (.*/)?package-lock\.json
         "ignore_re": List[str],
     },
     total=False,
