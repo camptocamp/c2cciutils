@@ -323,7 +323,7 @@ python-versions = "*"
 
 [[package]]
 name = "dparse"
-version = "0.6.0"
+version = "0.6.2"
 description = "A parser for Python dependency files"
 category = "main"
 optional = false
@@ -441,7 +441,7 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0dev)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.61.0"
+version = "2.62.0"
 description = "Google API Client Library for Python"
 category = "main"
 optional = true
@@ -1382,7 +1382,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "safety"
-version = "2.1.1"
+version = "2.2.0"
 description = "Checks installed dependencies for known vulnerabilities and licenses."
 category = "main"
 optional = false
@@ -1390,7 +1390,7 @@ python-versions = "*"
 
 [package.dependencies]
 Click = ">=8.0.2"
-dparse = ">=0.5.1"
+dparse = ">=0.6.2"
 packaging = ">=21.0"
 requests = "*"
 "ruamel.yaml" = ">=0.17.21"
@@ -1682,7 +1682,7 @@ publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "b2d80d0314e8de8a97985b65dc28355a84b68ef582f264598b4d28e9d2eb7e66"
+content-hash = "7b61d55afdf4ec7b5ec1266cc7ec46d4c9b0d61204ba45776d52d922378f6b88"
 
 [metadata.files]
 astroid = [
@@ -1897,8 +1897,8 @@ dodgy = [
     {file = "dodgy-0.2.1.tar.gz", hash = "sha256:28323cbfc9352139fdd3d316fa17f325cc0e9ac74438cbba51d70f9b48f86c3a"},
 ]
 dparse = [
-    {file = "dparse-0.6.0-py3-none-any.whl", hash = "sha256:3cb489bd06bfa8d285c85f7dec69d9ee8f89c29dd5f4ab48e159746dc13b78b2"},
-    {file = "dparse-0.6.0.tar.gz", hash = "sha256:57068bb61859b1676c6beb10f399906eecb41a75b5d3fbc99d0311059cb67213"},
+    {file = "dparse-0.6.2-py3-none-any.whl", hash = "sha256:8097076f1dd26c377f30d4745e6ec18fef42f3bf493933b842ac5bafad8c345f"},
+    {file = "dparse-0.6.2.tar.gz", hash = "sha256:d45255bda21f998bc7ddf2afd5e62505ba6134756ba2d42a84c56b0826614dfe"},
 ]
 dulwich = [
     {file = "dulwich-0.20.46-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:6676196e9cf377cde62aa2f5d741e93207437343e0c62368bd0d784c322a3c49"},
@@ -1962,8 +1962,8 @@ google-api-core = [
     {file = "google_api_core-2.10.1-py3-none-any.whl", hash = "sha256:92d17123cfe399b5ef7e026c63babf978d8475e1ac877919eb7933e25dea2273"},
 ]
 google-api-python-client = [
-    {file = "google-api-python-client-2.61.0.tar.gz", hash = "sha256:de0a0cb7bb18ebff5cf7dc782b48a488a14bd7684b538799f31bedab7de2b83f"},
-    {file = "google_api_python_client-2.61.0-py2.py3-none-any.whl", hash = "sha256:8b5ab5bc3301c88fd4aab12927246bb31355946686b89c4dc9e53b400c070111"},
+    {file = "google-api-python-client-2.62.0.tar.gz", hash = "sha256:8307b85f0b8f84252747326de50eda279220cc1a3966d6b82e94486618275637"},
+    {file = "google_api_python_client-2.62.0-py2.py3-none-any.whl", hash = "sha256:7b3295ee5f165726da1dbce9ed139fcf605efce634c94e586606e7b66b54a852"},
 ]
 google-auth = [
     {file = "google-auth-2.11.0.tar.gz", hash = "sha256:ed65ecf9f681832298e29328e1ef0a3676e3732b2e56f41532d45f70a22de0fb"},
@@ -2460,8 +2460,8 @@ rsa = [
     {file = "ruamel.yaml.clib-0.2.6.tar.gz", hash = "sha256:4ff604ce439abb20794f05613c374759ce10e3595d1867764dd1ae675b85acbd"},
 ]
 safety = [
-    {file = "safety-2.1.1-py3-none-any.whl", hash = "sha256:05ba551fb61ef24c864835d21089f75bc8b37292680047b9f29693a6552e2fc7"},
-    {file = "safety-2.1.1.tar.gz", hash = "sha256:dbc5dffa2e47da76cc43dfe8cbbbfca99d29118d0c6c54dfcfa11c2bd349dff6"},
+    {file = "safety-2.2.0-py3-none-any.whl", hash = "sha256:b1a0f4c34fb41c502a7a5c54774c18376da382bc9d866ee26b39b2c747c0de40"},
+    {file = "safety-2.2.0.tar.gz", hash = "sha256:6745de12acbd60a58001fe66cb540355187d7b991b30104d9ef14ff4e4826073"},
 ]
 SecretStorage = [
     {file = "SecretStorage-3.3.3-py3-none-any.whl", hash = "sha256:f356e6628222568e3af06f2eba8df495efa13b3b63081dafd4f7d9a7b7bc9f99"},
