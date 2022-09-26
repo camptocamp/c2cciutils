@@ -9,7 +9,6 @@ import os
 import pickle  # nosec
 import subprocess  # nosec
 import sys
-import tempfile
 import uuid
 from typing import List, Optional
 
@@ -265,6 +264,12 @@ def pip(
     try:
         env = dict(os.environ)
         env["VERSION"] = version
+        env["VERSION_TYPE"] = version_type
+        full_repo = c2cciutils.get_repository()
+        full_repo_split = full_repo.split("/")
+        master_branch, _ = c2cciutils.get_master_branch(full_repo_split)
+        is_master = master_branch == version
+        env["IS_MASTER"] = "TRUE" if is_master else "FALSE"
 
         cwd = os.path.abspath(package.get("path", "."))
 
@@ -292,27 +297,9 @@ def pip(
                         if requirement_split[0] == "poetry-core":
                             use_poetry = True
                 if use_poetry:
-                    if version_type == "version_tag":
-                        pyproject.get("tool", {})["poetry"]["version"] = version
-                        pyproject.get("tool", {})["poetry-dynamic-versioning"]["enable"] = False
-                    elif version_type in ("version_branch", "feature_branch"):
-                        pyproject.get("tool", {})["poetry-dynamic-versioning"][
-                            "format-jinja"
-                        ] = pyproject.get("tool", {})["poetry-dynamic-versioning"].get(
-                            "format-jinja-dev", "{{bump_version(base)}}.dev{{timestamp}}"
-                        )
-                    with open(os.path.join(cwd, "pyproject.toml"), "w", encoding="utf-8") as project_file:
-                        project_file.write(tomlkit.dumps(pyproject))
-                    with tempfile.TemporaryDirectory(prefix="c2cciutils-publish-venv") as venv:
-                        subprocess.run(["python3", "-m", "venv", venv], check=True)
-                        subprocess.run([f"{venv}/bin/pip", "install", "poetry"], check=True)
-                        for requirement in pyproject.get("build-system", {}).get("requires", []):
-                            print(f"Install requirement {requirement}")
-                            sys.stdout.flush()
-                            subprocess.run([f"{venv}/bin/pip", "install", requirement], check=True)
-                        subprocess.run(["poetry", "--version"], check=True)
-                        subprocess.run([f"{venv}/bin/poetry", "build"], cwd=cwd, env=env, check=True)
-                        cmd = []
+                    subprocess.run(["poetry", "--version"], check=True)
+                    subprocess.run(["poetry", "build"], cwd=cwd, env=env, check=True)
+                    cmd = []
         if cmd:
             cmd = package.get("build_command", cmd)
             subprocess.check_call(cmd, cwd=cwd, env=env)

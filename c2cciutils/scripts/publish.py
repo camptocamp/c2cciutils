@@ -70,7 +70,7 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="Don't do the publish")
     parser.add_argument(
         "--type",
-        help="The type of version, if no argument provided autodeterminated, can be: "
+        help="The type of version, if no argument provided auto-determinate, can be: "
         "rebuild (in case of rebuild), version_tag, version_branch, feature_branch, feature_tag "
         "(for pull request)",
     )
