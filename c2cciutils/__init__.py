@@ -72,7 +72,7 @@ def get_master_branch(repo: List[str]) -> Tuple[str, bool]:
         master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"] if success else "master"
     except RuntimeError as runtime_error:
         print(runtime_error)
-        print("Failback to master")
+        print("Fallback to master")
     return master_branch, success
 
 
