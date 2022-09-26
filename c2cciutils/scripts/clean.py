@@ -21,7 +21,7 @@ def clean(image: str, tag: str, token: str) -> None:
     Delete an image from Docker hub.
 
     Arguments:
-        image: The image name that should be deleted (<organistation>/<name>)
+        image: The image name that should be deleted (<organization>/<name>)
         tag: The tag that should be deleted
         token: The token used to be authenticated on Docker hub
     """
