@@ -229,7 +229,7 @@ VERSION = $(strip $(shell poetry version --short))
 
 .PHONY: build
 build: ## Build the Docker images
-	docker build --build-arg=VERSION=$(VERSION) --tag=$(GITHUB_REPOSITORY) .
+    docker build --build-arg=VERSION=$(VERSION) --tag=$(GITHUB_REPOSITORY) .
 ```
 
 ### To Docker registry
