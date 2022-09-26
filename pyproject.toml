@@ -78,7 +78,7 @@ c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-pipenv = { version = "2022.9.8", optional = true }
+pipenv = { version = "2022.9.24", optional = true }
 safety = "2.2.0"
 markdown-table = "2020.12.3"
 python-magic = "0.4.27"
@@ -120,7 +120,7 @@ pr_checks = ["codespell"]
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
-types-requests = "2.28.10"
+types-requests = "2.28.11"
 types-pyyaml = "6.0.11"
 types-setuptools = "65.3.0"
 types-markdown = "3.4.2"
