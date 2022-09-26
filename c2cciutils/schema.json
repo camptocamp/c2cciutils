@@ -212,7 +212,7 @@
             "ignore_re": {
               "title": "codespell ignore regular expression",
               "description": "List of regular expression that should be ignored",
-              "default": ["(.*/)?poetry\\.lock"],
+              "default": ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"],
               "type": "array",
               "items": { "type": "string" }
             }
