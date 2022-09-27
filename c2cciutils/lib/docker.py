@@ -79,9 +79,13 @@ def get_dpkg_packages_versions(
                     if package not in ("base-files",):
                         package_version[package] = version
             package = value
+            version = None
         if name == "Source":
-            package = value.split(" ")[0]
-        if name == "Version":
+            source_split = value.split(" ")
+            package = source_split[0]
+            if len(source_split) > 1:
+                version = Version.from_string(source_split[1].strip("()"))
+        if name == "Version" and version is None:
             version = Version.from_string(value)
             # Don't take care on the epoch
             version = Version(upstream=version.upstream, revision=version.revision)
