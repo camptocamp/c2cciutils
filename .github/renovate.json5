@@ -38,12 +38,10 @@
     {
       matchUpdateTypes: ['patch'],
       groupName: 'all patch versions',
-      automerge: true,
     },
     {
       matchUpdateTypes: ['minor'],
       groupName: 'all minor versions',
-      automerge: true,
     },
     /** Group Poetry packages */
     {
@@ -52,6 +50,11 @@
       automerge: true,
       separateMajorMinor: false,
       separateMinorPatch: false,
+    },
+    /** No update for pipenv */
+    {
+      matchPackageNames: ['pipenv'],
+      enabled: false,
     },
     /** Update dpkg versions every day */
     {
