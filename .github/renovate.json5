@@ -51,10 +51,15 @@
       separateMajorMinor: false,
       separateMinorPatch: false,
     },
-    /** No update for pipenv */
+    /** Ungroup pipenv and safety */
     {
       matchPackageNames: ['pipenv'],
-      enabled: false,
+      groupName: 'pipenv',
+    },
+    {
+      matchPackageNames: ['safety'],
+      matchUpdateTypes: ['minor'],
+      groupName: 'safety',
     },
     /** Update dpkg versions every day */
     {

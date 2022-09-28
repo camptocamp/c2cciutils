@@ -69,7 +69,7 @@
             "sections": {
               "title": "Pipfile sections",
               "description": "The section to be audited",
-              "default": ["default", "develop"],
+              "default": ["packages", "dev-packages"],
               "type": "array",
               "items": { "type": "string" }
             }

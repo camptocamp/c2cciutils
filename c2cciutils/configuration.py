@@ -105,8 +105,8 @@ AuditPipfileConfig = TypedDict(
         # The section to be audited
         #
         # default:
-        #   - default
-        #   - develop
+        #   - packages
+        #   - dev-packages
         "sections": List[str],
     },
     total=False,
@@ -621,7 +621,7 @@ PIPFILE_FULL_STOP_LOCK_SECTIONS_DEFAULT = ["default"]
 
 
 # Default value of the field path 'Audit pipfile config sections'
-PIPFILE_SECTIONS_DEFAULT = ["default", "develop"]
+PIPFILE_SECTIONS_DEFAULT = ["packages", "dev-packages"]
 
 
 # Default value of the field path 'Checks prospector configuration config properties'
