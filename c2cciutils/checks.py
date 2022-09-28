@@ -19,6 +19,7 @@ import yaml
 from editorconfig import EditorConfigError, get_properties
 from ruamel.yaml.comments import CommentedMap
 
+import c2cciutils
 import c2cciutils.configuration
 import c2cciutils.prettier
 import c2cciutils.security
@@ -932,6 +933,102 @@ def prettier(
                     if not prettier_lib.check(filename, prettier_config):
                         success = False
     return success
+
+
+def snyk(
+    config: c2cciutils.configuration.ChecksSnykConfiguration,
+    full_config: c2cciutils.configuration.Configuration,
+    args: Namespace,
+) -> bool:
+    """
+    Run Snyk check.
+    """
+    del full_config, args
+
+    snyk_exec, env = c2cciutils.snyk_exec()
+    command = [snyk_exec, "test"] + config.get(
+        "arguments", c2cciutils.configuration.CHECKS_SNYK_ARGUMENTS_DEFAULT
+    )
+
+    print(f"Running Snyk: {' '.join(command)}")
+    sys.stdout.flush()
+    sys.stderr.flush()
+    test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+    print(f"Snyk exit code: {test_proc.returncode}")
+    # For the moment we don't return an error
+    # return test_proc.returncode == 0
+    return True
+
+
+def snyk_code(
+    config: c2cciutils.configuration.ChecksSnykCodeConfiguration,
+    full_config: c2cciutils.configuration.Configuration,
+    args: Namespace,
+) -> bool:
+    """
+    Run Snyk code check.
+    """
+    del full_config, args
+
+    snyk_exec, env = c2cciutils.snyk_exec()
+    command = [snyk_exec, "code", "test"] + config.get(
+        "arguments", c2cciutils.configuration.CHECKS_SNYK_CODE_ARGUMENTS_DEFAULT
+    )
+    print(f"Running Snyk: {' '.join(command)}")
+    sys.stdout.flush()
+    sys.stderr.flush()
+    test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+    print(f"Snyk exit code: {test_proc.returncode}")
+    # For the moment we don't return an error
+    # return test_proc.returncode == 0
+    return True
+
+
+def snyk_iac(
+    config: c2cciutils.configuration.ChecksSnykIacConfiguration,
+    full_config: c2cciutils.configuration.Configuration,
+    args: Namespace,
+) -> bool:
+    """
+    Run Snyk iac check.
+    """
+    del full_config, args
+
+    snyk_exec, env = c2cciutils.snyk_exec()
+    command = [snyk_exec, "iac", "test"] + config.get(
+        "arguments", c2cciutils.configuration.CHECKS_SNYK_IAC_ARGUMENTS_DEFAULT
+    )
+    print(f"Running Snyk: {' '.join(command)}")
+    sys.stdout.flush()
+    sys.stderr.flush()
+    test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+    print(f"Snyk exit code: {test_proc.returncode}")
+    return test_proc.returncode == 0
+
+
+def snyk_fix(
+    config: c2cciutils.configuration.ChecksSnykFixConfiguration,
+    full_config: c2cciutils.configuration.Configuration,
+    args: Namespace,
+) -> bool:
+    """
+    Run Snyk fix.
+    """
+    del full_config, args
+
+    snyk_exec, env = c2cciutils.snyk_exec()
+    command = [snyk_exec, "fix"] + config.get(
+        "arguments", c2cciutils.configuration.CHECKS_SNYK_FIX_ARGUMENTS_DEFAULT
+    )
+    print(f"Running Snyk: {' '.join(command)}")
+    sys.stdout.flush()
+    sys.stderr.flush()
+    test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+    print(f"Snyk exit code: {test_proc.returncode}")
+    sys.stdout.flush()
+    sys.stderr.flush()
+    test_proc = subprocess.run(["git", "diff"])  # pylint: disable=subprocess-run-check
+    return True
 
 
 def print_versions(

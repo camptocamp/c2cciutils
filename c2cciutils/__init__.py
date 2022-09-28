@@ -226,6 +226,10 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "isort": True,
             "codespell": True,
             "prettier": True,
+            "snyk": True,
+            "snyk_code": False,
+            "snyk_iac": False,
+            "snyk_fix": False,
         },
         "pr-checks": {
             "commits_messages": True,
@@ -249,6 +253,7 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "pipfile_lock": True,
             "pipenv": False,
             "npm": True,
+            "snyk": True,
             "outdated_versions": True,
         },
     }
@@ -734,3 +739,17 @@ def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: b
         command.append("--builtin=" + ",".join(dictionaries))
     command += codespell_config.get("arguments", c2cciutils.configuration.CODESPELL_ARGUMENTS_DEFAULT)
     return command
+
+
+def snyk_exec() -> Tuple[str, Dict[str, str]]:
+    """Get the Snyk cli executable path."""
+    env = {**os.environ}
+    env["FORCE_COLOR"] = "true"
+    if "SNYK_TOKEN" not in env:
+        token = gopass("gs/ci/snyk/token")
+        if token is not None:
+            env["SNYK_TOKEN"] = token
+    if "SNYK_ORG" in env:
+        subprocess.run(["snyk", "config", "set", f"org={env['SNYK_ORG']}"], check=True, env=env)
+
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "node_modules/snyk/bin/snyk"), env

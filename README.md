@@ -22,6 +22,11 @@ The goals of C2C CI utils are:
     - Isort
     - Code spell
     - Prettier
+  - Snyk tests
+    - Test (never failed)
+    - Code test (never failed, disabled by default)
+    - Iac Test (never failed, disabled by default)
+    - Fix (For information only, disabled by default)
 
 Every check can be disabled with the following config (the configuration is `ci/config.yaml`):
 

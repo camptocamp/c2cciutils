@@ -37,6 +37,34 @@
       "description": "Audit of outdated version",
       "type": "boolean"
     },
+    "audit_snyk": {
+      "title": "Audit with snyk",
+      "description": "The audit snyk configuration",
+      "oneOf": [
+        {
+          "title": "Audit snyk config",
+          "description": "The audit Pipfile configuration",
+          "type": "object",
+          "properties": {
+            "test_arguments": {
+              "description": "The snyk test arguments",
+              "title": "snyk test arguments",
+              "default": ["--all-projects", "--fail-on=all", "--severity-threshold=medium"],
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "monitor_arguments": {
+              "description": "The snyk monitor arguments",
+              "title": "snyk monitor arguments",
+              "default": ["--all-projects"],
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    },
     "audit_pip": {
       "title": "Audit pip",
       "description": "Audit the requirements.txt files",
@@ -388,6 +416,86 @@
           }
         },
         { "const": false }
+      ]
+    },
+    "checks_snyk": {
+      "title": "Checks snyk",
+      "description": "The check snyk configuration",
+      "oneOf": [
+        {
+          "title": "Checks snyk configuration",
+          "type": "object",
+          "properties": {
+            "arguments": {
+              "description": "The snyk code test arguments",
+              "title": "checks snyk arguments",
+              "default": ["--severity-threshold=medium"],
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    },
+    "checks_snyk_code": {
+      "title": "Checks snyk code",
+      "description": "The check snyk code configuration",
+      "oneOf": [
+        {
+          "title": "Checks snyk code configuration",
+          "type": "object",
+          "properties": {
+            "arguments": {
+              "description": "The snyk code test arguments",
+              "title": "checks snyk code arguments",
+              "default": ["--all-projects", "--severity-threshold=medium"],
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    },
+    "checks_snyk_iac": {
+      "title": "Checks with snyk iac",
+      "description": "The check snyk iac configuration",
+      "oneOf": [
+        {
+          "title": "Checks snyk iac configuration",
+          "type": "object",
+          "properties": {
+            "arguments": {
+              "description": "The snyk code test arguments",
+              "title": "checks snyk iac arguments",
+              "default": ["--severity-threshold=medium"],
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    },
+    "checks_snyk_fix": {
+      "title": "Checks with snyk fix",
+      "description": "The check snyk fix configuration",
+      "oneOf": [
+        {
+          "title": "Checks snyk fix configuration",
+          "type": "object",
+          "properties": {
+            "arguments": {
+              "description": "The snyk code test arguments",
+              "title": "checks snyk fix arguments",
+              "default": [],
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        { "type": "boolean" }
       ]
     },
     "pr_checks_print_event": {
@@ -747,6 +855,7 @@
       "properties": {
         "npm": { "$ref": "#/definitions/audit_npm" },
         "outdated_versions": { "$ref": "#/definitions/audit_outdated_versions" },
+        "snyk": { "$ref": "#/definitions/audit_snyk" },
         "pip": { "$ref": "#/definitions/audit_pip" },
         "pipenv": { "$ref": "#/definitions/audit_pipenv" },
         "pipfile": { "$ref": "#/definitions/audit_pipfile" },
@@ -771,6 +880,10 @@
         "required_workflows": { "$ref": "#/definitions/checks_required_workflows" },
         "versions": { "$ref": "#/definitions/checks_versions" },
         "workflows": { "$ref": "#/definitions/checks_workflows" },
+        "snyk": { "$ref": "#/definitions/checks_snyk" },
+        "snyk_code": { "$ref": "#/definitions/checks_snyk_code" },
+        "snyk_iac": { "$ref": "#/definitions/checks_snyk_iac" },
+        "snyk_fix": { "$ref": "#/definitions/checks_snyk_fix" },
         "prettier": { "$ref": "#/definitions/checks_prettier" },
         "print_versions": { "$ref": "#/definitions/print_versions" }
       }
