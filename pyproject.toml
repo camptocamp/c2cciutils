@@ -155,6 +155,7 @@ format-jinja = """
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "major"
 pipenv = "full"
+safety = "full"
 black = "full"
 isort = "full"
 codespell = "full"

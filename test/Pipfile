@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+PyYAML = "==6.0"
+inotify = "==0.2.10"
+c2cwsgiutils = {version = "==5.0.0", extras = ["broadcast", "standard"]}
+setuptools = "==59.8.0"
+
+[dev-packages]
+pytest-cov = "==3.0.0"
+prospector = {extras = ["with_mypy", "with_bandit", "with_pyroma"],version = "==1.7.6"}
+types-pyyaml = "==6.0.4"
+types-requests = "==2.27.11"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

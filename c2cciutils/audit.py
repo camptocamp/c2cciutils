@@ -18,7 +18,8 @@ import safety.models
 import safety.safety
 import safety.util
 import yaml
-from pipenv.patched import pipfile as pipfile_lib
+from pipenv.vendor.plette import pipfiles as pipfiles_lib
+from safety.util import Package, SafetyContext
 
 import c2cciutils.configuration
 import c2cciutils.security
@@ -80,6 +81,22 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
                 ignore_vulns={ignored_id: {"reason": "ignored", "expires": None} for ignored_id in ignores},
                 proxy={},
             )
+
+            # Patch Safety packages
+            context = SafetyContext()
+
+            def fix_pkg(pkg: Package) -> Package:
+                if not isinstance(pkg, Package):
+                    return pkg
+                if pkg.found is not None:
+                    return pkg
+                package_dict = pkg.to_dict()
+                package_dict["found"] = pkg.name
+                return Package(**package_dict)
+
+            context.packages = [fix_pkg(pkg) for pkg in context.packages]
+            # End patch
+
             remediations = safety.safety.calculate_remediations(vulnerabilities, db_full)
             if vulnerabilities:
                 success = False
@@ -147,18 +164,24 @@ def pipfile(
 
     def read_packages(filename: str) -> List[str]:
         packages = []
-        project = pipfile_lib.Pipfile.load(filename)
-        for section in config.get("sections", c2cciutils.configuration.PIPFILE_SECTIONS_DEFAULT):
-            for package, version in project.data[section].items():
-                if isinstance(version, dict):
-                    # We can have an path without any version
-                    if "version" in version:
+        with open(filename, encoding="utf-8") as file_:
+            project = pipfiles_lib.Pipfile.load(file_)
+            for section in config.get("sections", c2cciutils.configuration.PIPFILE_SECTIONS_DEFAULT):
+                for package, version in project.get(section, {}).items():
+                    if isinstance(version, dict):
+                        # We can have an path without any version
+                        if "version" in version:
+                            packages.append(
+                                safety.util.Package(name=package, version=version["version"].lstrip("="))
+                            )
+                    else:
                         packages.append(
-                            safety.util.Package(name=package, version=version["version"].lstrip("="))
+                            safety.models.Package(
+                                name=package,
+                                version=str(version._data).lstrip("="),  # pylint: disable=protected-access
+                            )
                         )
-                else:
-                    packages.append(safety.models.Package(name=package, version=version.lstrip("=")))
-        return packages
+            return packages
 
     return _safely("Pipfile", read_packages)
 
