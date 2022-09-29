@@ -19,6 +19,7 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
+      - run: pip install pyOpenSSL --upgrade
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -56,6 +57,7 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
+      - run: pip install pyOpenSSL --upgrade
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
