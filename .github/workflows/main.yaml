@@ -9,6 +9,7 @@ on:
 
 env:
   HAS_SECRETS: ${{ secrets.HAS_SECRETS }}
+  PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
 
 jobs:
   main:
@@ -18,14 +19,7 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
-      - run: |
-          for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
-          do
-              echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
-              echo ::endgroup::
-          done
-
+      - run: pip install pyOpenSSL --upgrade
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -63,14 +57,7 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
-      - run: |
-          for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
-          do
-              echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
-              echo ::endgroup::
-          done
-
+      - run: pip install pyOpenSSL --upgrade
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -100,24 +87,3 @@ jobs:
       - name: Clean the database
         run: c2cciutils-k8s-db --cleanup
         if: always()
-
-  audit:
-    runs-on: ubuntu-20.04
-    name: Audit
-    timeout-minutes: 10
-    if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user wheel
-      - run: python3 ./setup.py egg_info --no-date bdist_wheel
-      - run: python3 -m pip install --user --force-reinstall dist/*.whl
-
-      - name: Audit
-        run: c2cciutils-audit
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
