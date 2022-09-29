@@ -19,14 +19,6 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
-      - run: |
-          for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
-          do
-              echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
-              echo ::endgroup::
-          done
-
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -64,14 +56,6 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
-      - run: |
-          for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
-          do
-              echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
-              echo ::endgroup::
-          done
-
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
