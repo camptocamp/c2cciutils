@@ -504,7 +504,7 @@ DOCKER_DISPATCH_REPOSITORY_DEFAULT = "camptocamp/argocd-gs-platform-ch-developme
 # Default value of the field path 'Publish Docker config repository'
 DOCKER_REPOSITORY_DEFAULT = {
     "github": {"server": "ghcr.io", "versions": ["version_tag", "version_branch", "rebuild"]},
-    "dockerhub": {"versions": ["version_tag", "version_branch", "rebuild", "feature_branch"]},
+    "dockerhub": {},
 }
 
 
@@ -634,12 +634,32 @@ PROSPECTOR_CONFIGURATION_PROPERTIES_DEFAULT = {
 }
 
 
+# Default value of the field path 'Publish Docker image group'
+PUBLISH_DOCKER_IMAGE_GROUP_DEFAULT = "default"
+
+
+# Default value of the field path 'Publish Docker image tags'
+PUBLISH_DOCKER_IMAGE_TAGS_DEFAULT = ["{version}"]
+
+
+# Default value of the field path 'Publish Docker config latest'
+PUBLISH_DOCKER_LATEST_DEFAULT = True
+
+
+# Default value of the field path 'Publish Docker repository versions'
+PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT = ["version_tag", "version_branch", "rebuild", "feature_branch"]
+
+
 # Default value of the field path 'Publish google_calendar'
 PUBLISH_GOOGLE_CALENDAR_DEFAULT: Dict[str, Any] = {}
 
 
 # Default value of the field path 'Publish Google calendar config on'
 PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT = ["version_branch", "version_tag", "rebuild"]
+
+
+# Default value of the field path 'publish pypi package group'
+PUBLISH_PIP_PACKAGE_GROUP_DEFAULT = "default"
 
 
 # Default value of the field path 'Publish pypi'
@@ -722,6 +742,8 @@ PublishDocker = Union["PublishDockerConfig", Literal[False]]
 PublishDockerConfig = TypedDict(
     "PublishDockerConfig",
     {
+        # Publish Docker latest
+        #
         # Publish the latest version on tag latest
         #
         # default: True
@@ -733,12 +755,7 @@ PublishDockerConfig = TypedDict(
         # The repository where we should publish the images
         #
         # default:
-        #   dockerhub:
-        #     versions:
-        #     - version_tag
-        #     - version_branch
-        #     - rebuild
-        #     - feature_branch
+        #   dockerhub: {}
         #   github:
         #     server: ghcr.io
         #     versions:
@@ -762,11 +779,20 @@ PublishDockerConfig = TypedDict(
 PublishDockerImage = TypedDict(
     "PublishDockerImage",
     {
+        # Publish Docker image group
+        #
         # The image is in the group, should be used with the --group option of c2cciutils-publish script
+        #
+        # default: default
         "group": str,
         # The image name
         "name": str,
+        # publish docker image tags
+        #
         # The tag name, will be formatted with the version=<the version>, the image with version=latest should be present when we call the c2cciutils-publish script
+        #
+        # default:
+        #   - '{version}'
         "tags": List[str],
     },
     total=False,
@@ -779,7 +805,15 @@ PublishDockerRepository = TypedDict(
     {
         # The server URL
         "server": str,
+        # Publish Docker repository versions
+        #
         # The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script
+        #
+        # default:
+        #   - version_tag
+        #   - version_branch
+        #   - rebuild
+        #   - feature_branch
         "versions": List[str],
     },
     total=False,
@@ -870,7 +904,11 @@ PublishPypiConfig = TypedDict(
 PublishPypiPackage = TypedDict(
     "PublishPypiPackage",
     {
+        # Publish pip package group
+        #
         # The image is in the group, should be used with the --group option of c2cciutils-publish script
+        #
+        # default: default
         "group": str,
         # The path of the pypi package
         "path": str,
@@ -1084,10 +1122,6 @@ _ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0StepsItem = TypedDict(
 
 # Default value of the field path 'Publish Docker config dispatch'
 _PUBLISH_DOCKER_CONFIG_DISPATCH_DEFAULT: Dict[str, Any] = {}
-
-
-# Default value of the field path 'Publish Docker config latest'
-_PUBLISH_DOCKER_CONFIG_LATEST_DEFAULT = True
 
 
 _PrintVersionsVersionsItem = TypedDict(

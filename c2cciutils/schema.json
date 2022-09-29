@@ -501,6 +501,7 @@
           "properties": {
             "latest": {
               "description": "Publish the latest version on tag latest",
+              "title": "Publish Docker latest",
               "default": true,
               "type": "boolean"
             },
@@ -513,6 +514,8 @@
                 "properties": {
                   "group": {
                     "description": "The image is in the group, should be used with the --group option of c2cciutils-publish script",
+                    "title": "Publish Docker image group",
+                    "default": "default",
                     "type": "string"
                   },
                   "name": {
@@ -521,7 +524,9 @@
                   },
                   "tags": {
                     "description": "The tag name, will be formatted with the version=<the version>, the image with version=latest should be present when we call the c2cciutils-publish script",
+                    "title": "publish docker image tags",
                     "type": "array",
+                    "default": ["{version}"],
                     "items": {
                       "type": "string"
                     }
@@ -537,7 +542,7 @@
                   "server": "ghcr.io",
                   "versions": ["version_tag", "version_branch", "rebuild"]
                 },
-                "dockerhub": { "versions": ["version_tag", "version_branch", "rebuild", "feature_branch"] }
+                "dockerhub": {}
               },
               "type": "object",
               "additionalProperties": {
@@ -550,7 +555,9 @@
                   },
                   "versions": {
                     "description": "The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script",
+                    "title": "Publish Docker repository versions",
                     "type": "array",
+                    "default": ["version_tag", "version_branch", "rebuild", "feature_branch"],
                     "items": {
                       "type": "string"
                     }
@@ -632,6 +639,8 @@
                 "properties": {
                   "group": {
                     "description": "The image is in the group, should be used with the --group option of c2cciutils-publish script",
+                    "title": "Publish pip package group",
+                    "default": "default",
                     "type": "string"
                   },
                   "path": {
