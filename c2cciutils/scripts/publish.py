@@ -162,7 +162,7 @@ def main() -> None:
     )
     if pypi_config:
         for package in pypi_config["packages"]:
-            if package.get("group") == args.group:
+            if package.get("group", c2cciutils.configuration.PUBLISH_PIP_PACKAGE_GROUP_DEFAULT) == args.group:
                 publish = version_type in pypi_config.get("versions", [])
                 if args.dry_run:
                     print(
@@ -193,7 +193,10 @@ def main() -> None:
             headers=c2cciutils.add_authorization_header({}),
             timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
         )
-        if security_response.ok and docker_config["latest"] is True:
+        if (
+            security_response.ok
+            and docker_config.get("latest", c2cciutils.configuration.PUBLISH_DOCKER_LATEST_DEFAULT) is True
+        ):
             security = c2cciutils.security.Security(security_response.text)
             version_index = security.headers.index("Version")
             latest = security.data[-1][version_index] == version
@@ -201,8 +204,13 @@ def main() -> None:
         images_src: Set[str] = set()
         images_full: List[str] = []
         for image_conf in docker_config.get("images", []):
-            if image_conf.get("group", "") == args.group:
-                for tag_config in image_conf.get("tags", []):
+            if (
+                image_conf.get("group", c2cciutils.configuration.PUBLISH_DOCKER_IMAGE_GROUP_DEFAULT)
+                == args.group
+            ):
+                for tag_config in image_conf.get(
+                    "tags", c2cciutils.configuration.PUBLISH_DOCKER_IMAGE_TAGS_DEFAULT
+                ):
                     tag_src = tag_config.format(version="latest")
                     images_src.add(f"{image_conf['name']}:{tag_src}")
                     tag_dst = tag_config.format(version=version)
@@ -213,7 +221,9 @@ def main() -> None:
                             c2cciutils.configuration.DOCKER_REPOSITORY_DEFAULT,
                         ),
                     ).items():
-                        if version_type in conf.get("versions", []):
+                        if version_type in conf.get(
+                            "versions", c2cciutils.configuration.PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT
+                        ):
                             if args.dry_run:
                                 print(
                                     f"Publishing {image_conf['name']}:{tag_dst} to {name}, "
@@ -241,6 +251,9 @@ def main() -> None:
                             )
 
                             google_calendar.create_event(summary, description)
+
+        if args.dry_run:
+            sys.exit(0)
 
         dispatch_config = docker_config.get("dispatch", {})
         if dispatch_config and images_full:
