@@ -270,27 +270,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                 config.get("checks", {}).get("required_workflows", {}),
             )
 
-    if config["publish"].get("docker", False):
-        assert isinstance(config["publish"]["docker"], dict)
-        config["publish"]["docker"].setdefault("latest", True)
-        for image in config["publish"]["docker"]["images"]:
-            merge(
-                {
-                    "tags": ["{version}"],
-                    "group": "default",
-                },
-                image,
-            )
-    if config["publish"].get("pypi", False):
-        assert isinstance(config["publish"]["pypi"], dict)
-        for package in config["publish"]["pypi"]["packages"]:
-            merge(
-                {
-                    "group": "default",
-                },
-                package,
-            )
-
     return validate_config(config, "ci/config.yaml")
 
 
