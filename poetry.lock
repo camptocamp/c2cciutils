@@ -452,7 +452,7 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0dev)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.62.0"
+version = "2.63.0"
 description = "Google API Client Library for Python"
 category = "main"
 optional = true
@@ -1234,17 +1234,17 @@ pylint = ">=1.7"
 
 [[package]]
 name = "pyOpenSSL"
-version = "22.0.0"
+version = "22.1.0"
 description = "Python wrapper module around the OpenSSL library"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-cryptography = ">=35.0"
+cryptography = ">=38.0.0,<39"
 
 [package.extras]
-docs = ["sphinx", "sphinx-rtd-theme"]
+docs = ["sphinx (!=5.2.0,!=5.2.0.post0)", "sphinx-rtd-theme"]
 test = ["flaky", "pretend", "pytest (>=3.0.1)"]
 
 [[package]]
@@ -1608,7 +1608,7 @@ types-urllib3 = "<1.27"
 
 [[package]]
 name = "types-setuptools"
-version = "65.3.0"
+version = "65.4.0.0"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
@@ -1743,7 +1743,7 @@ publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "ae55f33db806b3b0868f759182a317084ef8ce9adfb02b61c1ff6a8da036cca4"
+content-hash = "b7c925446641d043619f198c60049d95d2c9367fd65cdaa32edc46ea056cd551"
 
 [metadata.files]
 astroid = [
@@ -2027,8 +2027,8 @@ google-api-core = [
     {file = "google_api_core-2.10.1-py3-none-any.whl", hash = "sha256:92d17123cfe399b5ef7e026c63babf978d8475e1ac877919eb7933e25dea2273"},
 ]
 google-api-python-client = [
-    {file = "google-api-python-client-2.62.0.tar.gz", hash = "sha256:8307b85f0b8f84252747326de50eda279220cc1a3966d6b82e94486618275637"},
-    {file = "google_api_python_client-2.62.0-py2.py3-none-any.whl", hash = "sha256:7b3295ee5f165726da1dbce9ed139fcf605efce634c94e586606e7b66b54a852"},
+    {file = "google-api-python-client-2.63.0.tar.gz", hash = "sha256:5cc828499a2cfec5845e095d32f68265c344eb32969f07a8e3774564153178bd"},
+    {file = "google_api_python_client-2.63.0-py2.py3-none-any.whl", hash = "sha256:ccb198e11a60324693f8eaff4bee09502e5f35a6c829a7a1ef41a654c8fc2561"},
 ]
 google-auth = [
     {file = "google-auth-2.11.1.tar.gz", hash = "sha256:516e6623038b81430dd062a1a25ecd24f173d7c15cdf4e48a9e78bc87e97aeec"},
@@ -2426,8 +2426,8 @@ pylint-plugin-utils = [
     {file = "pylint_plugin_utils-0.7-py3-none-any.whl", hash = "sha256:b3d43e85ab74c4f48bb46ae4ce771e39c3a20f8b3d56982ab17aa73b4f98d535"},
 ]
 pyOpenSSL = [
-    {file = "pyOpenSSL-22.0.0-py2.py3-none-any.whl", hash = "sha256:ea252b38c87425b64116f808355e8da644ef9b07e429398bfece610f893ee2e0"},
-    {file = "pyOpenSSL-22.0.0.tar.gz", hash = "sha256:660b1b1425aac4a1bea1d94168a85d99f0b3144c869dd4390d27629d0087f1bf"},
+    {file = "pyOpenSSL-22.1.0-py3-none-any.whl", hash = "sha256:b28437c9773bb6c6958628cf9c3bebe585de661dba6f63df17111966363dd15e"},
+    {file = "pyOpenSSL-22.1.0.tar.gz", hash = "sha256:7a83b7b272dd595222d672f5ce29aa030f1fb837630ef229f62e72e395ce8968"},
 ]
 pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
@@ -2642,8 +2642,8 @@ types-requests = [
     {file = "types_requests-2.28.11-py3-none-any.whl", hash = "sha256:af5f55e803cabcfb836dad752bd6d8a0fc8ef1cd84243061c0e27dee04ccf4fd"},
 ]
 types-setuptools = [
-    {file = "types-setuptools-65.3.0.tar.gz", hash = "sha256:c26779cbba3947823c260354adaab4e91ca8c18888aa2b740f503844b88f1813"},
-    {file = "types_setuptools-65.3.0-py3-none-any.whl", hash = "sha256:f69210049580939c70386252b776eb75ff4b6de488e7d766b9398669b7de68af"},
+    {file = "types-setuptools-65.4.0.0.tar.gz", hash = "sha256:d9021d6a70690b34e7bd2947e7ab10167c646fbf062508cb56581be2e2a1615e"},
+    {file = "types_setuptools-65.4.0.0-py3-none-any.whl", hash = "sha256:ce178b3f7dbd6c0e67f8eee7ae29c1be280ade7e5188bdd9e620843de4060d85"},
 ]
 types-toml = [
     {file = "types-toml-0.10.8.tar.gz", hash = "sha256:b7e7ea572308b1030dc86c3ba825c5210814c2825612ec679eb7814f8dd9295a"},
