@@ -903,7 +903,7 @@ ptyprocess = ">=0.5"
 
 [[package]]
 name = "pipenv"
-version = "2022.9.8"
+version = "2022.9.24"
 description = "Python Development Workflow for Humans."
 category = "main"
 optional = true
@@ -1743,7 +1743,7 @@ publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "3a3aab5267bf43b0d2ed33cb49ee1f018a7186670204e1d5bd3c2a16ce2bc0e8"
+content-hash = "ae55f33db806b3b0868f759182a317084ef8ce9adfb02b61c1ff6a8da036cca4"
 
 [metadata.files]
 astroid = [
@@ -2317,8 +2317,8 @@ pexpect = [
     {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
 ]
 pipenv = [
-    {file = "pipenv-2022.9.8-py2.py3-none-any.whl", hash = "sha256:e02642085a160516c49df34fa939a99cea306aa04bef8a5610392aacbfb03574"},
-    {file = "pipenv-2022.9.8.tar.gz", hash = "sha256:b6dfff06dea56e3bade92fc267c2da1f0807c5c7b0903eef6115fdb899c2b4b6"},
+    {file = "pipenv-2022.9.24-py2.py3-none-any.whl", hash = "sha256:22dd3601ab86b2d1caa36a422c4ec6505e2484e71e3b733554c3c3bb8dbe9606"},
+    {file = "pipenv-2022.9.24.tar.gz", hash = "sha256:d682375d6a6edd2f1ed2f76085b7191de149ff8381bce6c1aaf7f55061b04457"},
 ]
 pkginfo = [
     {file = "pkginfo-1.8.3-py2.py3-none-any.whl", hash = "sha256:848865108ec99d4901b2f7e84058b6e7660aae8ae10164e015a6dcf5b242a594"},
