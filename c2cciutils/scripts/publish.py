@@ -15,6 +15,7 @@ from typing import Dict, List, Match, Optional, Set, cast
 import requests
 import yaml
 
+import c2cciutils
 import c2cciutils.configuration
 import c2cciutils.lib.docker
 import c2cciutils.publish
@@ -202,6 +203,7 @@ def main() -> None:
             latest = security.data[-1][version_index] == version
 
         images_src: Set[str] = set()
+        images_tag: Set[str] = set()
         images_full: List[str] = []
         for image_conf in docker_config.get("images", []):
             if (
@@ -214,6 +216,7 @@ def main() -> None:
                     tag_src = tag_config.format(version="latest")
                     images_src.add(f"{image_conf['name']}:{tag_src}")
                     tag_dst = tag_config.format(version=version)
+                    images_tag.add(f"{image_conf['name']}:{tag_dst}")
                     for name, conf in docker_config.get(
                         "repository",
                         cast(
@@ -265,6 +268,20 @@ def main() -> None:
                     "event-type", c2cciutils.configuration.DOCKER_DISPATCH_EVENT_TYPE_DEFAULT
                 ),
                 images_full,
+            )
+
+        snyk_exec, env = c2cciutils.snyk_exec()
+        for image in images_tag:
+            if version_type in ("version_branch", "version_tag"):
+                subprocess.run([snyk_exec, "container", "monitor", image], check=True, env=env)
+            # Currently just for information
+            subprocess.run(  # pylint: disable=subprocess-run-check
+                [snyk_exec, "container", "test", "--app-vulns", "--severity-threshold=high", image], env=env
+            )
+            subprocess.run(
+                [snyk_exec, "container", "test", "--app-vulns", "--severity-threshold=critical", image],
+                check=True,
+                env=env,
             )
 
         versions_config = c2cciutils.lib.docker.get_versions_config()

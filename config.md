@@ -7,6 +7,7 @@ _C2C CI utils configuration file_
 - **`audit`** _(object)_: The audit configuration.
   - **`npm`**: Refer to _#/definitions/audit_npm_.
   - **`outdated_versions`**: Refer to _#/definitions/audit_outdated_versions_.
+  - **`snyk`**: Refer to _#/definitions/audit_snyk_.
   - **`pip`**: Refer to _#/definitions/audit_pip_.
   - **`pipenv`**: Refer to _#/definitions/audit_pipenv_.
   - **`pipfile`**: Refer to _#/definitions/audit_pipfile_.
@@ -25,6 +26,10 @@ _C2C CI utils configuration file_
   - **`required_workflows`**: Refer to _#/definitions/checks_required_workflows_.
   - **`versions`**: Refer to _#/definitions/checks_versions_.
   - **`workflows`**: Refer to _#/definitions/checks_workflows_.
+  - **`snyk`**: Refer to _#/definitions/checks_snyk_.
+  - **`snyk_code`**: Refer to _#/definitions/checks_snyk_code_.
+  - **`snyk_iac`**: Refer to _#/definitions/checks_snyk_iac_.
+  - **`snyk_fix`**: Refer to _#/definitions/checks_snyk_fix_.
   - **`prettier`**: Refer to _#/definitions/checks_prettier_.
   - **`print_versions`**: Refer to _#/definitions/print_versions_.
 - **`pr-checks`** _(object)_: The PR check configuration.
@@ -56,6 +61,7 @@ _C2C CI utils configuration file_
 
 - **`audit_npm`**: The npm audit configuration.
 - **`audit_outdated_versions`** _(boolean)_: Audit of outdated version.
+- **`audit_snyk`**: The audit snyk configuration.
 - **`audit_pip`** _(boolean)_: Audit the requirements.txt files.
 - **`audit_pipenv`**: The audit Pipfile and Pipfile.lock configuration (old version).
 - **`audit_pipfile`**: The audit Pipfile configuration.
@@ -73,6 +79,10 @@ _C2C CI utils configuration file_
 - **`checks_required_workflows`**: The required workflow check configuration.
 - **`checks_versions`**: The version check configuration.
 - **`checks_workflows`**: The workflows checks configuration.
+- **`checks_snyk`**: The check snyk configuration.
+- **`checks_snyk_code`**: The check snyk code configuration.
+- **`checks_snyk_iac`**: The check snyk iac configuration.
+- **`checks_snyk_fix`**: The check snyk fix configuration.
 - **`pr_checks_print_event`** _(boolean)_: Print the GitHub event object.
 - **`pr_checks_commits_messages`**: Check the pull request commits messages.
 - **`pr_checks_commits_spell`**

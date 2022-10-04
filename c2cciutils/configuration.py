@@ -13,6 +13,7 @@ Audit = TypedDict(
     {
         "npm": "AuditNpm",
         "outdated_versions": "AuditOutdatedVersions",
+        "snyk": "AuditWithSnyk",
         "pip": "AuditPip",
         "pipenv": "AuditPipenv",
         "pipfile": "AuditPipfile",
@@ -139,8 +140,59 @@ AuditPipfileLockConfig = TypedDict(
 )
 
 
+# Audit snyk config
+#
+# The audit Pipfile configuration
+AuditSnykConfig = TypedDict(
+    "AuditSnykConfig",
+    {
+        # snyk test arguments
+        #
+        # The snyk test arguments
+        #
+        # default:
+        #   - --all-projects
+        #   - --fail-on=all
+        #   - --severity-threshold=medium
+        "test_arguments": List[str],
+        # snyk monitor arguments
+        #
+        # The snyk monitor arguments
+        #
+        # default:
+        #   - --all-projects
+        "monitor_arguments": List[str],
+    },
+    total=False,
+)
+
+
+# Audit with snyk
+#
+# The audit snyk configuration
+#
+# oneOf
+AuditWithSnyk = Union["AuditSnykConfig", bool]
+
+
 # Default value of the field path 'Checks black configuration config properties'
 BLACK_CONFIGURATION_PROPERTIES_DEFAULT = {"line-length": 110}
+
+
+# Default value of the field path 'Checks snyk configuration arguments'
+CHECKS_SNYK_ARGUMENTS_DEFAULT = ["--severity-threshold=medium"]
+
+
+# Default value of the field path 'Checks snyk code configuration arguments'
+CHECKS_SNYK_CODE_ARGUMENTS_DEFAULT = ["--all-projects", "--severity-threshold=medium"]
+
+
+# Default value of the field path 'Checks snyk fix configuration arguments'
+CHECKS_SNYK_FIX_ARGUMENTS_DEFAULT: List[Any] = []
+
+
+# Default value of the field path 'Checks snyk iac configuration arguments'
+CHECKS_SNYK_IAC_ARGUMENTS_DEFAULT = ["--severity-threshold=medium"]
 
 
 # Default value of the field path 'Checks codespell config  arguments'
@@ -173,6 +225,10 @@ Checks = TypedDict(
         "required_workflows": "ChecksRequiredWorkflows",
         "versions": "ChecksVersions",
         "workflows": "ChecksWorkflows",
+        "snyk": "ChecksSnyk",
+        "snyk_code": "ChecksSnykCode",
+        "snyk_iac": "ChecksWithSnykIac",
+        "snyk_fix": "ChecksWithSnykFix",
         "prettier": "ChecksPrettier",
         # WARNING: The required are not correctly taken in account,
         # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
@@ -410,6 +466,87 @@ ChecksRequiredWorkflows = Union["ChecksRequiredWorkflowsConfig", Literal[False]]
 ChecksRequiredWorkflowsConfig = Dict[str, "_ChecksRequiredWorkflowsConfigAdditionalproperties"]
 
 
+# Checks snyk
+#
+# The check snyk configuration
+#
+# oneOf
+ChecksSnyk = Union["ChecksSnykConfiguration", bool]
+
+
+# Checks snyk code
+#
+# The check snyk code configuration
+#
+# oneOf
+ChecksSnykCode = Union["ChecksSnykCodeConfiguration", bool]
+
+
+# Checks snyk code configuration
+ChecksSnykCodeConfiguration = TypedDict(
+    "ChecksSnykCodeConfiguration",
+    {
+        # checks snyk code arguments
+        #
+        # The snyk code test arguments
+        #
+        # default:
+        #   - --all-projects
+        #   - --severity-threshold=medium
+        "arguments": List[str],
+    },
+    total=False,
+)
+
+
+# Checks snyk configuration
+ChecksSnykConfiguration = TypedDict(
+    "ChecksSnykConfiguration",
+    {
+        # checks snyk arguments
+        #
+        # The snyk code test arguments
+        #
+        # default:
+        #   - --severity-threshold=medium
+        "arguments": List[str],
+    },
+    total=False,
+)
+
+
+# Checks snyk fix configuration
+ChecksSnykFixConfiguration = TypedDict(
+    "ChecksSnykFixConfiguration",
+    {
+        # checks snyk fix arguments
+        #
+        # The snyk code test arguments
+        #
+        # default:
+        #   []
+        "arguments": List[str],
+    },
+    total=False,
+)
+
+
+# Checks snyk iac configuration
+ChecksSnykIacConfiguration = TypedDict(
+    "ChecksSnykIacConfiguration",
+    {
+        # checks snyk iac arguments
+        #
+        # The snyk code test arguments
+        #
+        # default:
+        #   - --severity-threshold=medium
+        "arguments": List[str],
+    },
+    total=False,
+)
+
+
 # checks versions
 #
 # The version check configuration
@@ -435,6 +572,22 @@ ChecksVersionsConfig = TypedDict(
     },
     total=False,
 )
+
+
+# Checks with snyk fix
+#
+# The check snyk fix configuration
+#
+# oneOf
+ChecksWithSnykFix = Union["ChecksSnykFixConfiguration", bool]
+
+
+# Checks with snyk iac
+#
+# The check snyk iac configuration
+#
+# oneOf
+ChecksWithSnykIac = Union["ChecksSnykIacConfiguration", bool]
 
 
 # checks workflows
@@ -1047,6 +1200,14 @@ PullRequestChecksPullRequestSpellingConfiguration = TypedDict(
 #
 # According the create changelog configuration
 PullRequestChecksRequestLabels = bool
+
+
+# Default value of the field path 'Audit snyk config monitor_arguments'
+SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
+
+
+# Default value of the field path 'Audit snyk config test_arguments'
+SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
 
 
 # Version
