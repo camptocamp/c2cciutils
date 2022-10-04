@@ -175,10 +175,6 @@ AuditSnykConfig = TypedDict(
 AuditWithSnyk = Union["AuditSnykConfig", bool]
 
 
-# Default value of the field path 'Checks black configuration config properties'
-BLACK_CONFIGURATION_PROPERTIES_DEFAULT = {"line-length": 110}
-
-
 # Default value of the field path 'Checks snyk configuration arguments'
 CHECKS_SNYK_ARGUMENTS_DEFAULT = ["--severity-threshold=medium"]
 
@@ -214,15 +210,11 @@ Checks = TypedDict(
     "Checks",
     {
         "black": "ChecksBlack",
-        "black_config": "ChecksBlackConfiguration",
-        "prospector_config": "ChecksProspectorConfiguration",
         "codespell": "ChecksCodespell",
-        "editorconfig": "ChecksEditorconfig",
         "eof": "ChecksEof",
         "gitattribute": "ChecksGitattribute",
         "isort": "ChecksIsort",
         "print_config": "ChecksPrintConfig",
-        "required_workflows": "ChecksRequiredWorkflows",
         "versions": "ChecksVersions",
         "workflows": "ChecksWorkflows",
         "snyk": "ChecksSnyk",
@@ -258,32 +250,6 @@ ChecksBlackConfig = TypedDict(
         # default:
         #   []
         "ignore_patterns_re": List[str],
-    },
-    total=False,
-)
-
-
-# Checks Black configuration
-#
-# The Black configuration check configuration
-#
-# oneOf
-ChecksBlackConfiguration = Union["ChecksBlackConfigurationConfig", bool]
-
-
-# Checks black configuration config
-#
-# The Black configuration check configuration
-ChecksBlackConfigurationConfig = TypedDict(
-    "ChecksBlackConfigurationConfig",
-    {
-        # Black configuration properties
-        #
-        # The properties key = value that should be present
-        #
-        # default:
-        #   line-length: 110
-        "properties": Dict[str, Union[Union[int, float], str]],
     },
     total=False,
 )
@@ -332,27 +298,6 @@ ChecksCodespellConfig = TypedDict(
         #   - (.*/)?poetry\.lock
         #   - (.*/)?package-lock\.json
         "ignore_re": List[str],
-    },
-    total=False,
-)
-
-
-# Checks editorconfig
-#
-# The editorconfig configuration check configuration
-#
-# oneOf
-ChecksEditorconfig = Union["ChecksEditorconfigConfig", Literal[False]]
-
-
-# Checks editorconfig config
-#
-# The editorconfig configuration check configuration
-ChecksEditorconfigConfig = TypedDict(
-    "ChecksEditorconfigConfig",
-    {
-        # The key = value that should be present in the configuration
-        "properties": Dict[str, Dict[str, str]],
     },
     total=False,
 )
@@ -418,52 +363,6 @@ ChecksPrettierConfig = TypedDict(
 #
 # The print the configuration including the auto-generated parts
 ChecksPrintConfig = bool
-
-
-# Checks Prospector configuration
-#
-# The Prospector configuration check configuration
-#
-# oneOf
-ChecksProspectorConfiguration = Union["ChecksProspectorConfigurationConfig", bool]
-
-
-# Checks prospector configuration config
-#
-# The Prospector configuration check configuration
-ChecksProspectorConfigurationConfig = TypedDict(
-    "ChecksProspectorConfigurationConfig",
-    {
-        # Prospector configuration properties
-        #
-        # The properties key = value that should be present
-        #
-        # default:
-        #   bandit:
-        #     run: true
-        #   doc-warnings: true
-        #   max-line-length: 110
-        #   mypy:
-        #     run: true
-        #   strictness: veryhigh
-        "properties": Dict[str, Any],
-    },
-    total=False,
-)
-
-
-# checks required workflows
-#
-# The required workflow check configuration
-#
-# oneOf
-ChecksRequiredWorkflows = Union["ChecksRequiredWorkflowsConfig", Literal[False]]
-
-
-# checks required workflows config
-#
-# The required workflow check configuration
-ChecksRequiredWorkflowsConfig = Dict[str, "_ChecksRequiredWorkflowsConfigAdditionalproperties"]
 
 
 # Checks snyk
@@ -593,24 +492,7 @@ ChecksWithSnykIac = Union["ChecksSnykIacConfiguration", bool]
 # checks workflows
 #
 # The workflows checks configuration
-#
-# oneOf
-ChecksWorkflows = Union["ChecksWorkflowsConfig", Literal[False]]
-
-
-# checks workflows config
-#
-# The workflows checks configuration
-ChecksWorkflowsConfig = TypedDict(
-    "ChecksWorkflowsConfig",
-    {
-        # The images that shouldn't be used
-        "images_blacklist": List[str],
-        # A timeout should be present
-        "timeout": bool,
-    },
-    total=False,
-)
+ChecksWorkflows = bool
 
 
 # configuration
@@ -777,16 +659,6 @@ PIPFILE_FULL_STOP_LOCK_SECTIONS_DEFAULT = ["default"]
 PIPFILE_SECTIONS_DEFAULT = ["packages", "dev-packages"]
 
 
-# Default value of the field path 'Checks prospector configuration config properties'
-PROSPECTOR_CONFIGURATION_PROPERTIES_DEFAULT = {
-    "strictness": "veryhigh",
-    "max-line-length": 110,
-    "doc-warnings": True,
-    "mypy": {"run": True},
-    "bandit": {"run": True},
-}
-
-
 # Default value of the field path 'Publish Docker image group'
 PUBLISH_DOCKER_IMAGE_GROUP_DEFAULT = "default"
 
@@ -840,7 +712,7 @@ PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_OWN_REVERT_DEFAULT = True
 
 
 # Default value of the field path 'pull request checks commits spelling configuration only_head'
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_ONLY_HEAD_DEFAULT = False
+PULL_REQUEST_CHECKS_COMMITS_MESSAGES_ONLY_HEAD_DEFAULT = True
 
 
 # Default value of the field path 'pull request checks commits messages configuration check_squash'
@@ -848,7 +720,7 @@ PULL_REQUEST_CHECKS_COMMITS_MESSAGES_SQUASH_DEFAULT = True
 
 
 # Default value of the field path 'pull request checks pull request spelling configuration only_head'
-PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT = False
+PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT = True
 
 
 # Print versions
@@ -1162,7 +1034,7 @@ PullRequestChecksCommitsSpellingConfiguration = TypedDict(
     {
         # pull request checks commits messages only head
         #
-        # default: False
+        # default: True
         "only_head": bool,
     },
     total=False,
@@ -1189,7 +1061,7 @@ PullRequestChecksPullRequestSpellingConfiguration = TypedDict(
     {
         # pull request checks only head
         #
-        # default: False
+        # default: True
         "only_head": bool,
     },
     total=False,
@@ -1243,42 +1115,6 @@ _CHECKS_BLACK_CONFIG_IGNORE_PATTERNS_RE_DEFAULT: List[Any] = []
 
 # Default value of the field path 'checks isort config ignore_patterns_re'
 _CHECKS_ISORT_CONFIG_IGNORE_PATTERNS_RE_DEFAULT: List[Any] = []
-
-
-# oneOf
-_ChecksRequiredWorkflowsConfigAdditionalproperties = Union[
-    "_ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0", bool
-]
-
-
-_ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0 = TypedDict(
-    "_ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0",
-    {
-        # The required steps configuration
-        "steps": List["_ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0StepsItem"],
-        # Should we have a fail fast configuration
-        "strategy-fail-fast": bool,
-        # The if that we should have
-        "if": str,
-        # We shouldn't have any if
-        "noif": bool,
-        # The on configuration that we should have
-        "on": Dict[str, Any],
-    },
-    total=False,
-)
-
-
-_ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0StepsItem = TypedDict(
-    "_ChecksRequiredWorkflowsConfigAdditionalpropertiesOneof0StepsItem",
-    {
-        # The required environment variable
-        "env": List[str],
-        # The required regular expression of the run part
-        "run_re": str,
-    },
-    total=False,
-)
 
 
 # Default value of the field path 'Publish Docker config dispatch'

@@ -10,11 +10,8 @@ The goals of C2C CI utils are:
     - The environment variables
     - The GitHub event file
   - Check that some configuration where correct:
-    - Black configuration
-    - Prospector configuration
-    - Editor config
     - Git attributes
-    - The GitHub workflow files
+    - That the timeout is present in the GitHub workflow files
     - That the stabilization version (get from the Security.md) are used everywhere it's needed
   - Check the code style:
     - End of files
@@ -98,27 +95,6 @@ At the base of the configuration you have:
 - `publish`: The publishing configuration, see `c2cciutils/publish.py` for more information.
 
 Many actions can be disabled by setting the corresponding configuration part to `False`.
-
-## Checks
-
-The configuration profile considers we use a project with:
-
-- The following workflows:
-  - `Continuous integration`,
-  - `Rebuild` on all supported branch,
-  - `Audit` for security issues on all supported branches,
-  - `Backport` between all supported branches,
-  - `Clean Docker hub tags`,
-  - `Auto review`.
-- A `SECURITY.md` file.
-
-It will check that:
-
-- All the workflows are conformed on what we expect,
-- All the workflows are completely configured for all the versions present in `SECURITY.md` file.
-- The code is conformed with the `black` and `isort` rules.
-- The `gitattributes` are valid.
-- All text files end with an empty line.
 
 ## SECURITY.md
 

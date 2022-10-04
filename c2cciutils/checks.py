@@ -11,12 +11,9 @@ from argparse import Namespace
 from io import StringIO
 from typing import Any, Dict, List, Optional, Set
 
-import magic
 import requests
 import ruamel.yaml
-import toml
 import yaml
-from editorconfig import EditorConfigError, get_properties
 from ruamel.yaml.comments import CommentedMap
 
 import c2cciutils
@@ -85,67 +82,6 @@ def print_github_event(
     return True
 
 
-def black_config(
-    config: c2cciutils.configuration.ChecksBlackConfigurationConfig,
-    full_config: c2cciutils.configuration.Configuration,
-    args: Namespace,
-) -> bool:
-    """
-    Check the black configuration.
-
-    config is like:
-        properties: # dictionary of properties to check
-
-    Arguments:
-        config: The check section config
-        full_config: All the CI config
-        args: The parsed command arguments
-    """
-    del full_config, args
-
-    # If there is no python file the check is disabled
-    python = False
-    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.isfile(filename) and magic.from_file(filename, mime=True) in [
-            "text/x-python",
-            "text/x-script.python",
-        ]:
-            python = True
-            break
-
-    if python:
-        if not os.path.exists("pyproject.toml"):
-            c2cciutils.error(
-                "black_config",
-                "The file 'pyproject.toml' with a section tool.black is required",
-                "pyproject.toml",
-            )
-            return False
-
-        pyproject = toml.load("pyproject.toml")
-        if "black" not in pyproject.get("tool", {}):
-            c2cciutils.error(
-                "black_config",
-                "The 'tool.black' section is required in the 'pyproject.toml' file",
-                "pyproject.toml",
-            )
-            return False
-
-        pyproject_black = pyproject["tool"]["black"]
-        for key, value in config.get(
-            "properties", c2cciutils.configuration.BLACK_CONFIGURATION_PROPERTIES_DEFAULT
-        ).items():
-            if pyproject_black.get(key) != value:
-                c2cciutils.error(
-                    "black_config",
-                    f"The property '{key}' should have the value, '{value}', "
-                    f"but is '{pyproject_black.get(key)}'",
-                    "pyproject.toml",
-                )
-                return False
-    return True
-
-
 def _check_properties(
     check: str, file: str, path: str, properties: CommentedMap, reference: Dict[str, Any]
 ) -> bool:
@@ -187,91 +123,6 @@ def _check_properties(
                     properties.lc.col + 1,
                 )
                 success = False
-    return success
-
-
-def prospector_config(
-    config: c2cciutils.configuration.ChecksBlackConfigurationConfig,
-    full_config: c2cciutils.configuration.Configuration,
-    args: Namespace,
-) -> bool:
-    """
-    Check the Prospector configuration.
-
-    config is like:
-        properties: # dictionary of properties to check
-
-    Arguments:
-        config: The check section config
-        full_config: All the CI config
-        args: The parsed command arguments
-    """
-    del full_config, args
-    success = True
-
-    # If there is no python file the check is disabled
-    for filename in (
-        subprocess.check_output(["git", "ls-files", ".prospector.yaml"]).decode().strip().split("\n")
-    ):
-        if filename:
-            with open(filename, encoding="utf-8") as prospector_file:
-                properties: CommentedMap = ruamel.yaml.round_trip_load(prospector_file)
-            success &= _check_properties(
-                "prospector_config",
-                filename,
-                "",
-                properties,
-                config.get(
-                    "properties", c2cciutils.configuration.PROSPECTOR_CONFIGURATION_PROPERTIES_DEFAULT
-                ),
-            )
-
-    return success
-
-
-def editorconfig(
-    config: c2cciutils.configuration.ChecksEditorconfigConfig,
-    full_config: c2cciutils.configuration.Configuration,
-    args: Namespace,
-) -> bool:
-    """
-    Check the editorconfig configuration.
-
-    config is like:
-        properties:
-          <file_pattern>: {} # dictionary of properties to check
-
-    Arguments:
-        config: The check section config
-        full_config: All the CI config
-        args: The parsed command arguments
-    """
-    del full_config, args
-
-    success = True
-    for pattern, wanted_properties in config.get("properties", {}).items():
-        try:
-            for filename in subprocess.check_output(["git", "ls-files", pattern]).decode().split("\n"):
-                if os.path.isfile(filename):
-                    properties = get_properties(os.path.abspath(filename))
-
-                    for key, value in wanted_properties.items():
-                        if value is not None and (key not in properties or properties[key] != value):
-                            c2cciutils.error(
-                                "editorconfig",
-                                f"For pattern: {pattern} the property '{key}' is "
-                                f"'{properties.get(key, '')}' but should be '{value}'.",
-                                ".editorconfig",
-                            )
-                            success = False
-                    break
-        except EditorConfigError:
-            c2cciutils.error(
-                "editorconfig",
-                "Error occurred while getting EditorConfig properties",
-                ".editorconfig",
-            )
-            return False
     return success
 
 
@@ -365,23 +216,19 @@ def eof(config: None, full_config: c2cciutils.configuration.Configuration, args:
 
 
 def workflows(
-    config: c2cciutils.configuration.ChecksWorkflowsConfig,
+    config: None,
     full_config: c2cciutils.configuration.Configuration,
     args: Namespace,
 ) -> bool:
     """
     Check each workflow have a timeout and/or do not use blacklisted images.
 
-    config is like:
-        images_blacklist: [] # list of `runs-on` images to blacklist
-        timeout: True # check that all the workflow have a timeout
-
     Arguments:
         config: The check section config
         full_config: All the CI config
         args: The parsed command arguments
     """
-    del full_config, args
+    del config, full_config, args
 
     success = True
     files = glob.glob(".github/workflows/*.yaml")
@@ -391,15 +238,6 @@ def workflows(
             workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
 
         for name, job in workflow.get("jobs").items():
-            if job.get("runs-on") in config.get("images_blacklist", []):
-                c2cciutils.error(
-                    "workflows",
-                    f"The workflow '{filename}', job '{name}' runs on '{job.get('runs-on')}' "
-                    "but it is blacklisted",
-                    filename,
-                )
-                success = False
-
             if job.get("timeout-minutes") is None:
                 c2cciutils.error(
                     "workflows",
@@ -408,129 +246,6 @@ def workflows(
                 )
                 success = False
 
-    return success
-
-
-def required_workflows(
-    config: c2cciutils.configuration.ChecksRequiredWorkflowsConfig,
-    full_config: c2cciutils.configuration.Configuration,
-    args: Namespace,
-) -> bool:
-    """
-    Test we have the required workflow with the required properties.
-
-    config is like:
-        <filename>: # if set directly to `True` just check that the file is present, to `False`
-                check nothing.
-            steps:
-              - run_re: # regular expression that we should have in a run, on one of the jobs.
-                env: # the list or required environment variable for this step
-            strategy-fail-fast: False # If present check the value of the `fail-fast`, on all the jobs.
-            if: # if present check the value of the `if`, on all the jobs.
-            noif: # if `True` check that we don't have an `if`.
-
-    Arguments:
-        config: The check section config
-        full_config: All the CI config
-        args: The parsed command arguments
-    """
-    del full_config, args
-
-    success = True
-    for file_, conf in config.items():
-        if conf is False:
-            continue
-
-        filename = os.path.join(".github/workflows", file_)
-        if not os.path.exists(filename):
-            c2cciutils.error(
-                "required_workflows",
-                f"The workflow '{filename}' is required",
-                filename,
-            )
-            success = False
-            continue
-
-        if not isinstance(conf, dict):
-            continue
-
-        with open(filename, encoding="utf-8") as open_file:
-            workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
-
-        for name, job in workflow.get("jobs").items():
-            if "if" in conf:
-                if job.get("if") != conf["if"]:
-                    c2cciutils.error(
-                        "required_workflows",
-                        f"The workflow '{filename}', job '{name}' does not have "
-                        f"the following if '{conf['if']}'",
-                        filename,
-                    )
-                    success = False
-            if conf.get("noif", False):
-                if "if" in job:
-                    c2cciutils.error(
-                        "required_workflows",
-                        f"The workflow '{filename}', job '{name}' should not have a if",
-                        filename,
-                    )
-                    success = False
-            if "strategy-fail-fast" in conf:
-                if job.get("strategy", {}).get("fail-fast") != conf["strategy-fail-fast"]:
-                    c2cciutils.error(
-                        "required_workflows",
-                        f"The workflow '{filename}', job '{name}' does not have the strategy/fail-fast as "
-                        f"{conf['strategy-fail-fast']}",
-                        filename,
-                    )
-                    success = False
-            for step_conf in conf.get("steps", []):
-                run_re = re.compile(step_conf["run_re"]) if "run_re" in step_conf else None
-                found = False
-                for step in job["steps"]:
-                    current_ok = True
-                    if run_re is not None and run_re.match(step.get("run", "")) is None:
-                        current_ok = False
-                    elif "env" in step_conf:
-                        # Verify that all the env specified in the config is present in the step of
-                        # the workflow
-                        conf_env = set(step_conf["env"])
-                        for env in step.get("env", {}).keys():
-                            if env in conf_env:
-                                conf_env.remove(env)
-                        if len(conf_env) != 0:
-                            current_ok = False
-                    if current_ok:
-                        found = True
-                        break
-                if not found:
-                    c2cciutils.error(
-                        "required_workflows",
-                        f"The workflow '{filename}', job '{name}' doesn't have the step for:\n"
-                        f"{yaml.dump(step_conf, default_flow_style=False, Dumper=yaml.SafeDumper).strip()}",
-                        filename,
-                    )
-                    success = False
-        if conf.get("on", False):
-            for workflow_on, on_config in conf["on"].items():
-                # 'on' become True
-                if workflow_on not in workflow.get(True, {}):
-                    c2cciutils.error(
-                        "required_workflows",
-                        f"The workflow '{filename}', does not have the 'on' as '{workflow_on}'",
-                        filename,
-                    )
-                    success = False
-                elif isinstance(on_config, dict) and "types" in on_config:
-                    for on_type in on_config["types"]:
-                        if on_type not in workflow.get(True, {})[workflow_on].get("types", []):
-                            c2cciutils.error(
-                                "required_workflows",
-                                f"The workflow '{filename}', does not have the on '{workflow_on}' should "
-                                f"have the type '{on_type}'",
-                                filename,
-                            )
-                            success = False
     return success
 
 
