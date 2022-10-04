@@ -686,8 +686,8 @@ generate = ["PyYAML", "requests"]
 tools = ["black", "isort", "pyupgrade"]
 
 [[package]]
-name = "jsonschema2md"
-version = "0.4.0"
+name = "jsonschema2md2"
+version = "0.6.0"
 description = "Convert JSON Schema to human-readable Markdown documentation"
 category = "dev"
 optional = false
@@ -2089,9 +2089,9 @@ jsonschema = [
 jsonschema-gentypes = [
     {file = "jsonschema_gentypes-1.3.1-py3-none-any.whl", hash = "sha256:5f461eb923aa5e9fe4fbe3ebfbeb2e5415674d82fb626c06a2062a55368ca693"},
 ]
-jsonschema2md = [
-    {file = "jsonschema2md-0.4.0-py3-none-any.whl", hash = "sha256:506d7012f44b487f3b4e6447b322fe9f6a8a2161c548d4d90e7b1aeb27f01d9d"},
-    {file = "jsonschema2md-0.4.0.tar.gz", hash = "sha256:b0502b12085b286d79532657291d3ad2769193c4a81459f0644c79f166f6e411"},
+jsonschema2md2 = [
+    {file = "jsonschema2md2-0.6.0-py3-none-any.whl", hash = "sha256:d71fe2c8418a93821597bfe151636e25eccedc41afa29e9ca875951f4966e451"},
+    {file = "jsonschema2md2-0.6.0.tar.gz", hash = "sha256:9c397bf3977290267dde4293e88f33feee41f90d9f77c61857447be7ce16d15b"},
 ]
 keyring = [
     {file = "keyring-23.9.3-py3-none-any.whl", hash = "sha256:69732a15cb1433bdfbc3b980a8a36a04878a6cfd7cb99f497b573f31618001c0"},
