@@ -3,7 +3,8 @@ LABEL maintainer Camptocamp "info@camptocamp.com"
 SHELL ["/bin/bash", "-o", "pipefail", "-cux"]
 
 RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
-    apt-get update \
+    sed -i '/-backports /d' /etc/apt/sources.list \
+    && apt-get update \
     && apt-get install --yes --no-install-recommends python3-pip binutils
 
 # Used to convert the locked packages by poetry to pip requirements format
