@@ -91,6 +91,9 @@ isort = "5.10.1"
 twine = "4.0.1"
 codespell = "2.1.0"
 toml = "0.10.2"
+dparse = "0.5.2"
+oauthlib = "3.2.1"
+protobuf = "3.20.2"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = [
