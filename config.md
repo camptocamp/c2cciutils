@@ -75,6 +75,8 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
       - **`monitor_arguments`** _(array)_: The snyk monitor arguments. Default: `["--all-projects"]`.
         - **Items** _(string)_
+      - **`fix_arguments`** _(array)_: The snyk fix arguments. Default: `["--all-projects"]`.
+        - **Items** _(string)_
     - _boolean_
 - <a id="definitions/audit_pip"></a>**`audit_pip`** _(boolean)_: Audit the requirements.txt files.
 - <a id="definitions/audit_pipenv"></a>**`audit_pipenv`**: The audit Pipfile and Pipfile.lock configuration (old version).
