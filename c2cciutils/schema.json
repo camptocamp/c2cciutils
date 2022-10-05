@@ -48,14 +48,21 @@
           "properties": {
             "test_arguments": {
               "description": "The snyk test arguments",
-              "title": "snyk test arguments",
+              "title": "audit snyk test arguments",
               "default": ["--all-projects", "--fail-on=all", "--severity-threshold=medium"],
               "type": "array",
               "items": { "type": "string" }
             },
             "monitor_arguments": {
               "description": "The snyk monitor arguments",
-              "title": "snyk monitor arguments",
+              "title": "audit snyk monitor arguments",
+              "default": ["--all-projects"],
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "fix_arguments": {
+              "description": "The snyk fix arguments",
+              "title": "audit snyk fix arguments",
               "default": ["--all-projects"],
               "type": "array",
               "items": { "type": "string" }

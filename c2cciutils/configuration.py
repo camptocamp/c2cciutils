@@ -5,6 +5,18 @@ Automatically generated file from a JSON schema.
 
 from typing import Any, Dict, List, Literal, TypedDict, Union
 
+# Default value of the field path 'Audit snyk config fix_arguments'
+AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
+
+
+# Default value of the field path 'Audit snyk config monitor_arguments'
+AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
+
+
+# Default value of the field path 'Audit snyk config test_arguments'
+AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
+
+
 # Audit
 #
 # The audit configuration
@@ -146,7 +158,7 @@ AuditPipfileLockConfig = TypedDict(
 AuditSnykConfig = TypedDict(
     "AuditSnykConfig",
     {
-        # snyk test arguments
+        # audit snyk test arguments
         #
         # The snyk test arguments
         #
@@ -155,13 +167,20 @@ AuditSnykConfig = TypedDict(
         #   - --fail-on=all
         #   - --severity-threshold=medium
         "test_arguments": List[str],
-        # snyk monitor arguments
+        # audit snyk monitor arguments
         #
         # The snyk monitor arguments
         #
         # default:
         #   - --all-projects
         "monitor_arguments": List[str],
+        # audit snyk fix arguments
+        #
+        # The snyk fix arguments
+        #
+        # default:
+        #   - --all-projects
+        "fix_arguments": List[str],
     },
     total=False,
 )
@@ -1200,14 +1219,6 @@ PullRequestChecksPullRequestSpellingConfiguration = TypedDict(
 #
 # According the create changelog configuration
 PullRequestChecksRequestLabels = bool
-
-
-# Default value of the field path 'Audit snyk config monitor_arguments'
-SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
-
-
-# Default value of the field path 'Audit snyk config test_arguments'
-SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
 
 
 # Version

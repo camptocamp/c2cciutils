@@ -60,20 +60,27 @@ def snyk(
 
     snyk_exec, env = c2cciutils.snyk_exec()
     command = [snyk_exec, "monitor", f"--target-reference={args.branch}"] + config.get(
-        "monitor_arguments", c2cciutils.configuration.SNYK_MONITOR_ARGUMENTS_DEFAULT
+        "monitor_arguments", c2cciutils.configuration.AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT
     )
     print(f"::group::Run: {' '.join(command)}")
     subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
     print("::endgroup::")
 
     command = [snyk_exec, "test"] + config.get(
-        "test_arguments", c2cciutils.configuration.SNYK_TEST_ARGUMENTS_DEFAULT
+        "test_arguments", c2cciutils.configuration.AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT
     )
     print(f"::group::Run: {' '.join(command)}")
     test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
     print("::endgroup::")
     if test_proc.returncode != 0:
         print("With error")
+
+    command = [snyk_exec, "fix"] + config.get(
+        "fix_arguments", c2cciutils.configuration.AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT
+    )
+    print(f"::group::Run: {' '.join(command)}")
+    subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+    print("::endgroup::")
 
     return test_proc.returncode == 0
 
