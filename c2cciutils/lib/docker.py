@@ -55,8 +55,7 @@ def get_dpkg_packages_versions(
 
     distribution_final = distribution.strip('"').lower()
     release_final = release.strip('"').replace(".", "_")
-    postfix = "_backports" if distribution_final == "ubuntu" else ""
-    prefix = f"{distribution_final}_{release_final}{postfix}/"
+    prefix = f"{distribution_final}_{release_final}/"
 
     package_version: Dict[str, Version] = {}
     packages_status_process = subprocess.run(
