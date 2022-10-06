@@ -81,8 +81,14 @@ def snyk(
     print(f"::group::Run: {' '.join(command)}")
     subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
     print("::endgroup::")
+    diff_proc = subprocess.run(["git", "diff", "--quiet"])  # pylint: disable=subprocess-run-check
+    if diff_proc.returncode != 0:
+        print("::error::There is some changes to commit")
+        print("::group::Diff")
+        subprocess.run(["git", "diff"], check=True)
+        print("::endgroup::")
 
-    return test_proc.returncode == 0
+    return test_proc.returncode == 0 and diff_proc.returncode == 0
 
 
 def _python_ignores(directory: str) -> List[str]:
