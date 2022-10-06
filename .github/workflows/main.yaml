@@ -28,13 +28,7 @@ jobs:
         env:
           GITHUB_EVENT: ${{ toJson(github) }}
 
-      - run: |
-          for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
-          do
-              echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
-              echo ::endgroup::
-          done
+      - run: pip install pyOpenSSL --upgrade
 
       - uses: actions/checkout@v3
         with:
@@ -81,18 +75,12 @@ jobs:
 
   k8s:
     runs-on: ubuntu-20.04
-    name: Continuous integration
+    name: Kubernetes
     timeout-minutes: 20
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
-      - run: |
-          for package in $(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
-          do
-              echo ::group::Upgrade $package
-              sudo python3 -m pip install --upgrade $package || true
-              echo ::endgroup::
-          done
+      - run: pip install pyOpenSSL --upgrade
 
       - uses: actions/checkout@v3
         with:
