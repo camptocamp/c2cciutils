@@ -63,7 +63,7 @@ def commits_messages(
             if need_head:
                 need_separator = _commit_intro(need_separator, commit)
             need_head = False
-            print("Fixup message not allowed")
+            print("::error::Fixup message not allowed")
             success = False
         if config.get(
             "check_squash", c2cciutils.configuration.PULL_REQUEST_CHECKS_COMMITS_MESSAGES_SQUASH_DEFAULT
@@ -71,7 +71,7 @@ def commits_messages(
             if need_head:
                 need_separator = _commit_intro(need_separator, commit)
             need_head = False
-            print("Squash message not allowed")
+            print("::error::Squash message not allowed")
             success = False
         if (
             config.get(
@@ -83,7 +83,7 @@ def commits_messages(
             if need_head:
                 need_separator = _commit_intro(need_separator, commit)
             need_head = False
-            print("The first letter of message head should be a capital")
+            print("::error::The first letter of message head should be a capital")
             success = False
         min_length = config.get(
             "min_head_length",
@@ -105,7 +105,7 @@ def commits_messages(
             if need_head:
                 need_separator = _commit_intro(need_separator, commit)
             need_head = False
-            print("The merge commit are not allowed")
+            print("::error::The merge commit are not allowed")
             success = False
         if config.get(
             "check_no_own_revert",
@@ -154,7 +154,7 @@ def commits_spell(
             )
             if spell.returncode != 0:
                 need_separator = _commit_intro(need_separator, commit)
-                print("Code spell error")
+                print("::error::Code spell error")
                 print(spell.stderr)
                 print(spell.stdout)
                 success = False
@@ -187,7 +187,7 @@ def pull_request_spell(
             spellcheck_cmd + [temp_file.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
         if spell.returncode != 0:
-            print("Code spell error in pull request")
+            print("::error::Code spell error in pull request")
             print(spell.stderr)
             print(spell.stdout)
             return False

@@ -36,7 +36,7 @@ def main() -> None:
                     print("::endgroup::")
                     if args.stop:
                         sys.exit(1)
-                    print("With error")
+                    print("::error::With error")
                     if key in ("black", "isort", "prettier", "codespell"):
                         print("Can be fixed with:")
                         print("python3 -m pip install --requirement=ci/requirements.txt")
@@ -51,7 +51,7 @@ def main() -> None:
                 print("::endgroup::")
                 if args.stop:
                     sys.exit(1)
-                print("With error")
+                print("::error::With error")
     if not success:
         sys.exit(1)
 

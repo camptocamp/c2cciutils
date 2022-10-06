@@ -31,7 +31,7 @@ def get_dpkg_packages_versions(
         )
         os_release = dict([e.split("=") for e in os_release_process.stdout.decode().split("\n") if e])
     except subprocess.CalledProcessError:
-        print("INFO: /etc/os-release not found in the image")
+        print("Info: /etc/os-release not found in the image")
 
     lsb_release = {}
     try:

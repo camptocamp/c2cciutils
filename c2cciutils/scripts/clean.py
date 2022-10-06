@@ -46,7 +46,7 @@ def clean(image: str, tag: str, token: str) -> None:
         timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
     if not response.ok:
-        print("Error on deleting tag: " + tag)
+        print("::error::Error on deleting tag: " + tag)
         print(response.text)
         sys.exit(1)
 

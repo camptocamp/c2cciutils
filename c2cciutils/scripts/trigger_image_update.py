@@ -42,13 +42,13 @@ def main() -> None:
         ref = os.environ["GITHUB_REF"].split("/")
 
         if ref[1] != "heads":
-            print("Not a branch")
+            print("::error::Not a branch")
             sys.exit(0)
 
         version = "/".join(ref[2:])
 
         if version not in os.environ.get("HELM_RELEASE_NAMES", "").split(","):
-            print("Not a release branch")
+            print("::error::Not a release branch")
             sys.exit(0)
 
     images_full = []
