@@ -70,7 +70,7 @@
             "files_no_install": {
               "description": "The list of files to not install",
               "title": "audit snyk files no install",
-              "default": [],
+              "default": ["ci/requirements.txt"],
               "type": "array",
               "items": { "type": "string" }
             }
