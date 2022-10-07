@@ -50,14 +50,20 @@ RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/
     && echo "deb https://deb.nodesource.com/node_16.x ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/nodesource.list \
     && curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
     && apt-get update \
-    && apt-get install --assume-yes --no-install-recommends nodejs
+    && apt-get install --assume-yes --no-install-recommends nodejs libmagic1 git python3-dev libpq-dev gcc python-is-python3
 
 RUN python3 -m compileall -q -- *
 
 COPY . ./
 ARG VERSION=dev
 RUN --mount=type=cache,target=/root/.cache \
+    --mount=type=cache,target=/root/.npm \
     cd c2cciutils && npm install && cd - \
     && POETRY_DYNAMIC_VERSIONING_BYPASS=${VERSION} python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
     && python3 -m pip freeze > /requirements.txt \
     && python3 -m compileall -q /app/c2cciutils
+
+ENV PATH=/root/.local/bin:$PATH
+RUN git config --global --add safe.directory /src
+WORKDIR /src
+VOLUME /src
