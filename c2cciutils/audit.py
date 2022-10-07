@@ -60,6 +60,7 @@ def snyk(
 
     one_done = False
     install_success = True
+    test_success = True
     for file in (
         subprocess.run(["git", "ls-files", "Pipfile", "*/Pipfile"], stdout=subprocess.PIPE, check=True)
         .stdout.decode()
@@ -105,24 +106,26 @@ def snyk(
         print("::error::Error while installing the dependencies")
 
     snyk_exec, env = c2cciutils.snyk_exec()
-    command = [snyk_exec, "monitor", f"--target-reference={args.branch}"] + config.get(
-        "monitor_arguments", c2cciutils.configuration.AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT
-    )
-    print(f"::group::Run: {' '.join(command)}")
-    subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
-    print("::endgroup::")
+    if not args.fix:
+        command = [snyk_exec, "monitor", f"--target-reference={args.branch}"] + config.get(
+            "monitor_arguments", c2cciutils.configuration.AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT
+        )
+        print(f"::group::Run: {' '.join(command)}")
+        subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+        print("::endgroup::")
 
-    command = [snyk_exec, "test"] + config.get(
-        "test_arguments", c2cciutils.configuration.AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT
-    )
-    print(f"::group::Run: {' '.join(command)}")
-    test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
-    print("::endgroup::")
-    if test_proc.returncode != 0:
-        print("With error")
+        command = [snyk_exec, "test"] + config.get(
+            "test_arguments", c2cciutils.configuration.AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT
+        )
+        print(f"::group::Run: {' '.join(command)}")
+        test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+        print("::endgroup::")
+        if test_proc.returncode != 0:
+            test_success = False
+            print("With error")
 
-    # Clean all the changes to isolate the fix diff
-    subprocess.run(["git", "reset", "--hard"], check=True)
+        # Clean all the changes to isolate the fix diff
+        subprocess.run(["git", "reset", "--hard"], check=True)
 
     command = [snyk_exec, "fix"] + config.get(
         "fix_arguments", c2cciutils.configuration.AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT
@@ -130,14 +133,16 @@ def snyk(
     print(f"::group::Run: {' '.join(command)}")
     subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
     print("::endgroup::")
-    diff_proc = subprocess.run(["git", "diff", "--quiet"])  # pylint: disable=subprocess-run-check
-    if diff_proc.returncode != 0:
-        print("::error::There is some changes to commit")
-        print("::group::Diff")
-        subprocess.run(["git", "diff"], check=True)
-        print("::endgroup::")
 
-    return install_success and test_proc.returncode == 0 and diff_proc.returncode == 0
+    if not args.fix:
+        diff_proc = subprocess.run(["git", "diff", "--quiet"])  # pylint: disable=subprocess-run-check
+        if diff_proc.returncode != 0:
+            print("::error::There is some changes to commit")
+            print("::group::Diff")
+            subprocess.run(["git", "diff"], check=True)
+            print("::endgroup::")
+
+    return install_success and test_success and diff_proc.returncode == 0
 
 
 def _python_ignores(directory: str) -> List[str]:
