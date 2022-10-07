@@ -55,8 +55,9 @@ jobs:
           cd example-project/
           make build
           make checks
-        env:
-          GITHUB_REPOSITORY: camptocamp/project
+      # Rebuild the right image
+      - name: Build
+        run: make build
 
       - name: Publish
         run: c2cciutils-publish
