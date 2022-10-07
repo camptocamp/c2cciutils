@@ -16,6 +16,8 @@ def main() -> None:
     """
     parser = argparse.ArgumentParser(description="Run the audit of c2cciutils.")
     parser.add_argument("--branch", help="The branch to audit, not defined means autodetect")
+    parser.add_argument("--check", help="Runs only the specified check")
+    parser.add_argument("--fix", action="store_true", help="Fix issues")
 
     args = parser.parse_args()
 
@@ -23,7 +25,7 @@ def main() -> None:
     config = full_config.get("audit", {})
     success = True
     for key, conf in config.items():
-        if conf is not False:
+        if conf is not False and (args.check is None or args.check == key):
             audit = getattr(c2cciutils.audit, key)
             print(f"Run audit {key}")
             success &= audit({} if conf is True else conf, full_config, args)
