@@ -5,6 +5,10 @@ Automatically generated file from a JSON schema.
 
 from typing import Any, Dict, List, Literal, TypedDict, Union
 
+# Default value of the field path 'Audit snyk config files_no_install'
+AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: List[Any] = []
+
+
 # Default value of the field path 'Audit snyk config fix_arguments'
 AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
 
@@ -181,6 +185,13 @@ AuditSnykConfig = TypedDict(
         # default:
         #   - --all-projects
         "fix_arguments": List[str],
+        # audit snyk files no install
+        #
+        # The list of files to not install
+        #
+        # default:
+        #   []
+        "files_no_install": List[str],
     },
     total=False,
 )
