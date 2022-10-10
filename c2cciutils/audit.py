@@ -146,7 +146,10 @@ def snyk(
             subprocess.run(["git", "checkout", "-b", f"snyk-fix/{current_branch}"], check=True)
             subprocess.run(["git", "add", "--all"], check=True)
             subprocess.run(["git", "commit", "--message=Snyk auto fix"], check=True)
-            subprocess.run(["git", "push", "--force"], check=True)
+            subprocess.run(
+                ["git", "push", "--force", "origin", f"snyk-fix/{current_branch}"],
+                check=True,
+            )
             subprocess.run(
                 ["gh", "pr", "create", f"--base={current_branch}", "--fill"],
                 check=True,
