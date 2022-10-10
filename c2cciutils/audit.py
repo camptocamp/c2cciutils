@@ -142,6 +142,13 @@ def snyk(
             subprocess.run(["git", "diff"], check=True)
             print("::endgroup::")
 
+            current_branch = c2cciutils.get_branch(args.branch)
+            subprocess.run(["git", "checkout", "-b", f"snyk-fix/{current_branch}"], check=True)
+            subprocess.run(["git", "add", "--all"], check=True)
+            subprocess.run(["git", "commit", "--message=Snyk auto fix"], check=True)
+            subprocess.run(["gh", "pr", "create", f"--base={current_branch}", "--fill"], check=True)
+            subprocess.run(["git", "checkout", current_branch], check=True)
+
     return install_success and test_success and diff_proc.returncode == 0
 
 
