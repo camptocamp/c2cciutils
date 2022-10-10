@@ -35,7 +35,7 @@ def get_repository() -> str:
     if remote_match:
         return remote_match.group(1)
 
-    print("WARNING: the GitHub repository isn't found, using 'camptocamp/project'")
+    print("::warning::The GitHub repository isn't found, using 'camptocamp/project'")
 
     return "camptocamp/project"
 
@@ -72,7 +72,7 @@ def get_master_branch(repo: List[str]) -> Tuple[str, bool]:
         master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"] if success else "master"
     except RuntimeError as runtime_error:
         print(runtime_error)
-        print("Fallback to master")
+        print("::warning::Fallback to master")
     return master_branch, success
 
 

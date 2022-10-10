@@ -57,7 +57,7 @@ def main() -> None:
                     print("::endgroup::")
                     if args.stop:
                         sys.exit(1)
-                    print("With error")
+                    print("::error::With error")
                 else:
                     print("::endgroup::")
             except Exception:  # pylint: disable=broad-except
@@ -66,7 +66,7 @@ def main() -> None:
                 print("::endgroup::")
                 if args.stop:
                     sys.exit(1)
-                print("With error")
+                print("::error::With error")
     if not success:
         sys.exit(1)
 

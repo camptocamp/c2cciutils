@@ -115,7 +115,7 @@ class GoogleCalendar:
         calendars = calendars_result.get("items", [])
 
         if not calendars:
-            print("No calendars found.")
+            print("::error::No calendars found.")
         for calendar in calendars:
             summary = calendar["summary"]
             event_id = calendar["id"]
@@ -146,7 +146,7 @@ class GoogleCalendar:
         events = events_result.get("items", [])
 
         if not events:
-            print("No upcoming events found.")
+            print("::error::No upcoming events found.")
         for event in events:
             start = event["start"].get("dateTime", event["start"].get("date"))
             print(start, event["summary"])
@@ -311,7 +311,7 @@ def pip(
     except subprocess.CalledProcessError as exception:
         print(f"Error: {exception}")
         print("::endgroup::")
-        print("With error")
+        print("::error::With error")
         return False
     return True
 
@@ -395,7 +395,7 @@ def docker(
     except subprocess.CalledProcessError as exception:
         print(f"Error: {exception}")
         print("::endgroup::")
-        print("With error")
+        print("::error::With error")
         return False
     return True
 
@@ -460,6 +460,6 @@ def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, toke
     except subprocess.CalledProcessError as exception:
         print(f"Error: {exception}")
         print("::endgroup::")
-        print("With error")
+        print("::error::With error")
         return False
     return True

@@ -90,7 +90,7 @@ def main() -> None:
     ref = os.environ.get("GITHUB_REF", "refs/heads/fake-local")
 
     if len([e for e in [args.version, args.branch, args.tag] if e is not None]) > 1:
-        print("ERROR: you specified more than one of the arguments --version, --branch or --tag")
+        print("::error::you specified more than one of the arguments --version, --branch or --tag")
         sys.exit(1)
 
     version_type = args.type
@@ -120,26 +120,26 @@ def main() -> None:
         if version_type is None:
             version_type = "version_tag"
         else:
-            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
+            print("::warning::you specified the argument --type but not one of --version, --branch or --tag")
         version = c2cciutils.get_value(*tag_match)
     elif branch_match[0] is not None:
         if version_type is None:
             version_type = "version_branch"
         else:
-            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
+            print("::warning::you specified the argument --type but not one of --version, --branch or --tag")
         version = c2cciutils.get_value(*branch_match)
     elif ref.startswith("refs/heads/"):
         if version_type is None:
             version_type = "feature_branch"
         else:
-            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
+            print("::warning::you specified the argument --type but not one of --version, --branch or --tag")
         # By the way we replace '/' by '_' because it isn't supported by Docker
         version = "_".join(ref.split("/")[2:])
     elif ref.startswith("refs/tags/"):
         if version_type is None:
             version_type = "feature_tag"
         else:
-            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
+            print("::warning::you specified the argument --type but not one of --version, --branch or --tag")
         # By the way we replace '/' by '_' because it isn't supported by Docker
         version = "_".join(ref.split("/")[2:])
     else:
@@ -150,7 +150,7 @@ def main() -> None:
         sys.exit(0)
 
     if version_type is None:
-        print("ERROR: you specified one of the arguments --version, --branch or --tag but not the --type")
+        print("::error::you specified one of the arguments --version, --branch or --tag but not the --type")
         sys.exit(1)
 
     if version_type is not None:
@@ -294,7 +294,7 @@ def main() -> None:
             for image in images_src:
                 _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(image)
                 current_versions_in_images[image] = {k: str(v) for k, v in versions_image.items()}
-            print("ERROR: some packages are have a greater version in the config raster then in the image.")
+            print("::error::some packages are have a greater version in the config raster then in the image.")
             print("Current versions of the Debian packages in Docker images:")
             print(yaml.dump(current_versions_in_images, Dumper=yaml.SafeDumper, default_flow_style=False))
 

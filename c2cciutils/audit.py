@@ -122,7 +122,7 @@ def snyk(
         print("::endgroup::")
         if test_proc.returncode != 0:
             test_success = False
-            print("With error")
+            print("::error::With error")
 
         # Clean all the changes to isolate the fix diff
         subprocess.run(["git", "reset", "--hard"], check=True)
@@ -224,14 +224,14 @@ def _safely(filename: str, read_packages: Callable[[str], List[str]]) -> bool:
                     output_report += "\n\n" + reporter.render_announcements(announcements)
                 print(output_report)
                 print("::endgroup::")
-                print("With error")
+                print("::error::With error")
             else:
                 print("::endgroup::")
         except safety.errors.DatabaseFetchError:
             c2cciutils.error("pip", "Audit issue, see above", file)
             success = False
             print("::endgroup::")
-            print("With error")
+            print("::error::With error")
     return success
 
 
@@ -382,7 +382,7 @@ def pipenv(
             c2cciutils.error("pipenv", "Audit issue, see above", file)
             success = False
             print("::endgroup::")
-            print("With error")
+            print("::error::With error")
         print("::endgroup::")
     return success
 
@@ -468,7 +468,7 @@ def npm(
         if "error" in audit:
             print(yaml.dump(audit["error"], default_flow_style=False, Dumper=yaml.SafeDumper))
             print("::endgroup::")
-            print("With error")
+            print("::error::With error")
             return False
 
         for vulnerability in audit.get("advisories", audit.get("vulnerabilities")).values():
@@ -549,7 +549,7 @@ def npm(
 
         print("::endgroup::")
         if not success:
-            print("With error")
+            print("::error::With error")
         global_success = global_success and success
     return global_success
 
