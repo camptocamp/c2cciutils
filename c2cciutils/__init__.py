@@ -80,48 +80,12 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
     """
     Get the configuration, with project and auto detections.
     """
-    docker = False
-    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.basename(filename) == "Dockerfile":
-            docker = True
-            break
 
     config: c2cciutils.configuration.Configuration = {}
     if os.path.exists("ci/config.yaml"):
         with open("ci/config.yaml", encoding="utf-8") as open_file:
             yaml_ = ruamel.yaml.YAML()
             config = yaml_.load(open_file)
-
-    editorconfig_properties = {
-        "end_of_line": "lf",
-        "insert_final_newline": "true",
-        "charset": "utf-8",
-        "indent_style": "space",
-        "trim_trailing_whitespace": "true",
-        "max_line_length": "110",
-        "quote_type": "single",
-    }
-    editorconfig_properties_2 = dict(editorconfig_properties)
-    editorconfig_properties_4 = dict(editorconfig_properties)
-    editorconfig_properties_2["indent_size"] = "2"
-    editorconfig_properties_4["indent_size"] = "4"
-    editorconfig_properties_mk = dict(editorconfig_properties_4)
-    editorconfig_properties_mk["indent_style"] = "tab"
-    editorconfig_full_properties = {
-        "*.py": editorconfig_properties_4,
-        "*.yaml": editorconfig_properties_2,
-        "*.yml": editorconfig_properties_2,
-        "*.graphql": editorconfig_properties_2,
-        "*.json": editorconfig_properties_2,
-        "*.java": editorconfig_properties_4,
-        "*.js": editorconfig_properties_2,
-        "*.mk": editorconfig_properties_mk,
-        "Makefile": editorconfig_properties_mk,
-        "*.css": editorconfig_properties_2,
-        "*.scss": editorconfig_properties_2,
-        "*.html": editorconfig_properties_2,
-        "*.md": editorconfig_properties_2,
-    }
 
     repository = get_repository()
     repo = repository.split("/")
@@ -195,25 +159,9 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "print_config": True,
             "print_environment_variables": True,
             "print_github_event": True,
-            "black_config": True,
-            "prospector_config": True,
-            "editorconfig": {
-                "properties": editorconfig_full_properties,
-            },
             "gitattribute": True,
             "eof": True,
-            "workflows": {"images_blacklist": ["ubuntu-latest"] if based_on_master else [], "timeout": True},
-            "required_workflows": {
-                "main.yaml": {"if": "!startsWith(github.event.head_commit.message, '[skip ci] ')"},
-                "codeql.yaml": True,
-                **(
-                    {
-                        "backport.yaml": True,
-                    }
-                    if based_on_master
-                    else {}
-                ),
-            },
+            "workflows": True,
             "versions": {
                 "extra_versions": [master_branch],
                 "backport_labels": True,
@@ -258,22 +206,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
         },
     }
     merge(default_config, config)
-
-    if docker:
-        if isinstance(config.get("checks", {}).get("required_workflows", {}), dict):
-            merge(
-                {
-                    "clean.yaml": {"steps": [{"run_re": "c2cciutils-clean$"}]},
-                    "audit.yaml": {
-                        "steps": [{"run_re": "c2cciutils-audit.*$", "env": ["GITHUB_TOKEN"]}],
-                        "strategy-fail-fast": False,
-                    },
-                    "pr-checks.yaml": {
-                        "steps": [{"run_re": "c2cciutils-pull-request-checks$", "env": ["GITHUB_EVENT"]}],
-                    },
-                },
-                config.get("checks", {}).get("required_workflows", {}),
-            )
 
     return validate_config(config, "ci/config.yaml")
 

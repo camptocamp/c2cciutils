@@ -181,53 +181,6 @@
         { "type": "boolean" }
       ]
     },
-    "checks_black_config": {
-      "title": "Checks Black configuration",
-      "description": "The Black configuration check configuration",
-      "oneOf": [
-        {
-          "title": "Checks black configuration config",
-          "description": "The Black configuration check configuration",
-          "type": "object",
-          "properties": {
-            "properties": {
-              "title": "Black configuration properties",
-              "description": "The properties key = value that should be present",
-              "default": { "line-length": 110 },
-              "type": "object",
-              "additionalProperties": { "type": ["number", "string"] }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_prospector_config": {
-      "title": "Checks Prospector configuration",
-      "description": "The Prospector configuration check configuration",
-      "oneOf": [
-        {
-          "title": "Checks prospector configuration config",
-          "description": "The Prospector configuration check configuration",
-          "type": "object",
-          "properties": {
-            "properties": {
-              "title": "Prospector configuration properties",
-              "description": "The properties key = value that should be present",
-              "default": {
-                "strictness": "veryhigh",
-                "max-line-length": 110,
-                "doc-warnings": true,
-                "mypy": { "run": true },
-                "bandit": { "run": true }
-              },
-              "type": "object"
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
     "checks_codespell": {
       "title": "Checks codespell",
       "description": "The codespell check configuration",
@@ -261,28 +214,6 @@
           }
         },
         { "type": "boolean" }
-      ]
-    },
-    "checks_editorconfig": {
-      "title": "Checks editorconfig",
-      "description": "The editorconfig configuration check configuration",
-      "oneOf": [
-        {
-          "title": "Checks editorconfig config",
-          "description": "The editorconfig configuration check configuration",
-          "type": "object",
-          "properties": {
-            "properties": {
-              "description": "The key = value that should be present in the configuration",
-              "type": "object",
-              "additionalProperties": {
-                "type": "object",
-                "additionalProperties": { "type": "string" }
-              }
-            }
-          }
-        },
-        { "const": false }
       ]
     },
     "checks_eof": {
@@ -320,62 +251,6 @@
       "description": "The print the configuration including the auto-generated parts",
       "type": "boolean"
     },
-    "checks_required_workflows": {
-      "title": "checks required workflows",
-      "description": "The required workflow check configuration",
-      "oneOf": [
-        {
-          "title": "checks required workflows config",
-          "description": "The required workflow check configuration",
-          "type": "object",
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "steps": {
-                    "description": "The required steps configuration",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "env": {
-                          "description": "The required environment variable",
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "run_re": {
-                          "description": "The required regular expression of the run part",
-                          "type": "string"
-                        }
-                      }
-                    }
-                  },
-                  "strategy-fail-fast": {
-                    "description": "Should we have a fail fast configuration",
-                    "type": "boolean"
-                  },
-                  "if": {
-                    "description": "The if that we should have",
-                    "type": "string"
-                  },
-                  "noif": {
-                    "description": "We shouldn't have any if",
-                    "type": "boolean"
-                  },
-                  "on": {
-                    "description": "The on configuration that we should have",
-                    "type": "object"
-                  }
-                }
-              },
-              { "type": "boolean" }
-            ]
-          }
-        },
-        { "const": false }
-      ]
-    },
     "checks_versions": {
       "title": "checks versions",
       "description": "The version check configuration",
@@ -410,27 +285,7 @@
     "checks_workflows": {
       "title": "checks workflows",
       "description": "The workflows checks configuration",
-      "oneOf": [
-        {
-          "title": "checks workflows config",
-          "description": "The workflows checks configuration",
-          "type": "object",
-          "properties": {
-            "images_blacklist": {
-              "description": "The images that shouldn't be used",
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "timeout": {
-              "description": "A timeout should be present",
-              "type": "boolean"
-            }
-          }
-        },
-        { "const": false }
-      ]
+      "type": "boolean"
     },
     "checks_snyk": {
       "title": "Checks snyk",
@@ -577,7 +432,7 @@
           "properties": {
             "only_head": {
               "title": "pull request checks commits messages only head",
-              "default": false,
+              "default": true,
               "type": "boolean"
             }
           }
@@ -595,7 +450,7 @@
           "properties": {
             "only_head": {
               "title": "pull request checks only head",
-              "default": false,
+              "default": true,
               "type": "boolean"
             }
           }
@@ -892,15 +747,11 @@
       "type": "object",
       "properties": {
         "black": { "$ref": "#/definitions/checks_black" },
-        "black_config": { "$ref": "#/definitions/checks_black_config" },
-        "prospector_config": { "$ref": "#/definitions/checks_prospector_config" },
         "codespell": { "$ref": "#/definitions/checks_codespell" },
-        "editorconfig": { "$ref": "#/definitions/checks_editorconfig" },
         "eof": { "$ref": "#/definitions/checks_eof" },
         "gitattribute": { "$ref": "#/definitions/checks_gitattribute" },
         "isort": { "$ref": "#/definitions/checks_isort" },
         "print_config": { "$ref": "#/definitions/checks_print_config" },
-        "required_workflows": { "$ref": "#/definitions/checks_required_workflows" },
         "versions": { "$ref": "#/definitions/checks_versions" },
         "workflows": { "$ref": "#/definitions/checks_workflows" },
         "snyk": { "$ref": "#/definitions/checks_snyk" },
