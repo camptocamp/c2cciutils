@@ -6,3 +6,8 @@ publish:
       - version_tag
       - version_branch
       - rebuild
+
+audit:
+  snyk:
+    files_no_install:
+      - example-project/ci/requirements.txt
