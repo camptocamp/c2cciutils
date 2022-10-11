@@ -105,6 +105,8 @@ pyOpenSSL = "22.0.0"
 tomlkit = { version = "0.11.4", optional = true }
 poetry-dynamic-versioning = { version = "0.19.0", optional = true, "extras" = ["plugin"] }
 poetry-plugin-tweak-dependencies-version = { version = "1.0.0", optional = true }
+poetry = { version = "1.2.1", optional = true }
+poetry-core = { version = "1.2.0", optional = true }
 protobuf = { version = "4.21.6", optional = true }
 
 [tool.poetry.extras]
@@ -117,7 +119,9 @@ publish = [
     "google-auth-oauthlib",
     "tomlkit",
     "poetry-dynamic-versioning",
-    "poetry-plugin-tweak-dependencies-version"
+    "poetry-plugin-tweak-dependencies-version",
+    "poetry",
+    "poetry-core"
 ]
 pr_checks = ["codespell"]
 
@@ -159,3 +163,7 @@ pipenv = "full"
 black = "full"
 isort = "full"
 codespell = "full"
+poetry-dynamic-versioning = "full"
+poetry-plugin-tweak-dependencies-version = "full"
+poetry = "full"
+poetry-core = "full"
