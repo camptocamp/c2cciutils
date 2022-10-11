@@ -103,12 +103,6 @@ def main() -> None:
         ref,
         c2cciutils.compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/"),
     )
-    if branch_match[0] is None:
-        ref_match = re.match(r"refs/pull/(.*)/merge", ref)
-        if ref_match is not None:
-            branch_match = (ref_match, {}, ref)
-            if version_type is None:
-                version_type = "feature_branch"
 
     if args.version is not None:
         version = args.version
@@ -122,6 +116,12 @@ def main() -> None:
         else:
             print("::warning::you specified the argument --type but not one of --version, --branch or --tag")
         version = c2cciutils.get_value(*tag_match)
+    elif branch_match[0] is None:
+        ref_match = re.match(r"refs/pull/(.*)/merge", ref)
+        if ref_match is not None:
+            version = c2cciutils.get_value(ref_match, {}, ref)
+            if version_type is None:
+                version_type = "feature_branch"
     elif branch_match[0] is not None:
         if version_type is None:
             version_type = "version_branch"
@@ -286,7 +286,7 @@ def main() -> None:
 
         versions_config = c2cciutils.lib.docker.get_versions_config()
         dpkg_success = True
-        for image in images_src:
+        for image in images_src and versions_config:
             dpkg_success &= c2cciutils.lib.docker.check_versions(versions_config.get(image, {}), image)
 
         if not dpkg_success:

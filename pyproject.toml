@@ -112,6 +112,8 @@ pyOpenSSL = "22.1.0"
 tomlkit = { version = "0.11.5", optional = true }
 poetry-dynamic-versioning = { version = "0.19.0", optional = true, "extras" = ["plugin"] }
 poetry-plugin-tweak-dependencies-version = { version = "1.0.0", optional = true }
+poetry = { version = "1.2.1", optional = true }
+poetry-core = { version = "1.2.0", optional = true }
 
 [tool.poetry.extras]
 audit = ["pipenv"]
@@ -123,7 +125,9 @@ publish = [
     "google-auth-oauthlib",
     "tomlkit",
     "poetry-dynamic-versioning",
-    "poetry-plugin-tweak-dependencies-version"
+    "poetry-plugin-tweak-dependencies-version",
+    "poetry",
+    "poetry-core"
 ]
 pr_checks = ["codespell"]
 
@@ -150,7 +154,7 @@ enable = true
 vcs = "git"
 pattern = "^(?P<base>\\d+(\\.\\d+)*)"
 format-jinja = """
-{%- if env.get("VERSION_TYPE") == "version_branch" -%}
+{%- if env.get("VERSION_TYPE") in ("version_branch", "feature_branch") -%}
 {{serialize_pep440(bump_version(base, 1 if env.get("IS_MASTER") == "TRUE" else 2), dev=distance)}}
 {%- elif distance == 0 -%}
 {{serialize_pep440(base)}}
@@ -166,3 +170,7 @@ safety = "full"
 black = "full"
 isort = "full"
 codespell = "full"
+poetry-dynamic-versioning = "full"
+poetry-plugin-tweak-dependencies-version = "full"
+poetry = "full"
+poetry-core = "full"
