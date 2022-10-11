@@ -94,25 +94,3 @@ jobs:
       - name: Clean the database
         run: c2cciutils-k8s-db --cleanup
         if: always()
-
-  audit:
-    runs-on: ubuntu-20.04
-    name: Audit
-    timeout-minutes: 10
-    if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
-
-    steps:
-      - run: docker system prune --all --force
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user --requirement=requirements.txt
-      - run: poetry build
-      - run: python3 -m pip install --user --force-reinstall dist/c2cciutils-0.0.0-py3-none-any.whl[audit]
-
-      - name: Audit
-        run: c2cciutils-audit
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
