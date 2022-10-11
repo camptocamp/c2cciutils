@@ -74,9 +74,9 @@ def snyk(
         if not one_done:
             print("::group::Install dependencies")
             one_done = True
-        print(f"Install from: {file}")
+        print(f"::notice::Install from: {file}")
         directory = os.path.dirname(os.path.abspath(file))
-        proc = subprocess.run(["pipenv", "update"], cwd=directory)  # pylint: disable=subprocess-run-check
+        proc = subprocess.run(["pipenv", "sync"], cwd=directory)  # pylint: disable=subprocess-run-check
         install_success &= proc.returncode == 0
 
     for file in (
