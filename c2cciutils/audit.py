@@ -67,6 +67,8 @@ def snyk(
         .strip()
         .split("\n")
     ):
+        if not file:
+            continue
         if file in config.get(
             "files_no_install", c2cciutils.configuration.AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT
         ):
@@ -87,11 +89,13 @@ def snyk(
         .strip()
         .split("\n")
     ):
+        if not file:
+            continue
         if file in config.get(
             "files_no_install", c2cciutils.configuration.AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT
         ):
             continue
-        print(f"Install from: {file}")
+        print(f"::notice::Install from: {file}")
         if not one_done:
             print("::group::Install dependencies")
             one_done = True
