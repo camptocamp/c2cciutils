@@ -102,6 +102,7 @@ def main() -> None:
         ref,
         c2cciutils.compile_re(config["version"].get("branch_to_version_re", []), "refs/heads/"),
     )
+    ref_match = re.match(r"refs/pull/(.*)/merge", ref)
 
     if args.version is not None:
         version = args.version
@@ -115,18 +116,16 @@ def main() -> None:
         else:
             print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         version = c2cciutils.get_value(*tag_match)
-    elif branch_match[0] is None:
-        ref_match = re.match(r"refs/pull/(.*)/merge", ref)
-        if ref_match is not None:
-            version = c2cciutils.get_value(ref_match, {}, ref)
-            if version_type is None:
-                version_type = "feature_branch"
     elif branch_match[0] is not None:
         if version_type is None:
             version_type = "version_branch"
         else:
             print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         version = c2cciutils.get_value(*branch_match)
+    elif ref_match is not None:
+        version = c2cciutils.get_value(ref_match, {}, ref)
+        if version_type is None:
+            version_type = "feature_branch"
     elif ref.startswith("refs/heads/"):
         if version_type is None:
             version_type = "feature_branch"
@@ -149,7 +148,9 @@ def main() -> None:
         sys.exit(0)
 
     if version_type is None:
-        print("ERROR: you specified one of the arguments --version, --branch or --tag but not the --type")
+        print(
+            f"ERROR: you specified one of the arguments --version, --branch or --tag but not the --type, GitHub ref is: {ref}"
+        )
         sys.exit(1)
 
     if version_type is not None:
