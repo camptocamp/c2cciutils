@@ -81,9 +81,18 @@ def snyk(
 
         sys.stdout.flush()
         sys.stderr.flush()
-        proc = subprocess.run(["pipenv", "sync"], cwd=directory)  # pylint: disable=subprocess-run-check
+        proc = subprocess.run(
+            [
+                "pipenv",
+                "sync",
+                *config.get(
+                    "pipenv_sync_arguments", c2cciutils.configuration.AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT
+                ),
+            ],
+            cwd=directory,
+        )  # pylint: disable=subprocess-run-check
         if proc.returncode != 0:
-            print("::error::With error")
+            print(f"::error::With error from: {file}")
         install_success &= proc.returncode == 0
 
     for file in (
@@ -107,10 +116,17 @@ def snyk(
         sys.stdout.flush()
         sys.stderr.flush()
         proc = subprocess.run(  # pylint: disable=subprocess-run-check
-            ["pip", "install", "--user", f"--requirement={file}"]
+            [
+                "pip",
+                "install",
+                *config.get(
+                    "pip_install_arguments", c2cciutils.configuration.AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT
+                ),
+                f"--requirement={file}",
+            ]
         )
         if proc.returncode != 0:
-            print("::error::With error")
+            print(f"::error::With error from: {file}")
         install_success &= proc.returncode == 0
 
     if one_done:

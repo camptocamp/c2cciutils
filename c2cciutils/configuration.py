@@ -17,6 +17,14 @@ AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
 AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
 
 
+# Default value of the field path 'Audit snyk config pipenv_sync_arguments'
+AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT: List[Any] = []
+
+
+# Default value of the field path 'Audit snyk config pip_install_arguments'
+AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT: List[Any] = []
+
+
 # Default value of the field path 'Audit snyk config test_arguments'
 AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
 
@@ -185,6 +193,20 @@ AuditSnykConfig = TypedDict(
         # default:
         #   - --all-projects
         "fix_arguments": List[str],
+        # audit snyk pip install arguments
+        #
+        # The snyk pip install arguments
+        #
+        # default:
+        #   []
+        "pip_install_arguments": List[str],
+        # audit snyk pipenv sync arguments
+        #
+        # The snyk pipenv sync arguments
+        #
+        # default:
+        #   []
+        "pipenv_sync_arguments": List[str],
         # audit snyk files no install
         #
         # The list of files to not install
