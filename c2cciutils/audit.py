@@ -78,7 +78,12 @@ def snyk(
             one_done = True
         print(f"::notice::Install from: {file}")
         directory = os.path.dirname(os.path.abspath(file))
+
+        sys.stdout.flush()
+        sys.stderr.flush()
         proc = subprocess.run(["pipenv", "sync"], cwd=directory)  # pylint: disable=subprocess-run-check
+        if proc.returncode != 0:
+            print("::error::With error")
         install_success &= proc.returncode == 0
 
     for file in (
@@ -99,9 +104,13 @@ def snyk(
         if not one_done:
             print("::group::Install dependencies")
             one_done = True
+        sys.stdout.flush()
+        sys.stderr.flush()
         proc = subprocess.run(  # pylint: disable=subprocess-run-check
             ["pip", "install", "--user", f"--requirement={file}"]
         )
+        if proc.returncode != 0:
+            print("::error::With error")
         install_success &= proc.returncode == 0
 
     if one_done:
@@ -115,6 +124,8 @@ def snyk(
             "monitor_arguments", c2cciutils.configuration.AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT
         )
         print(f"::group::Run: {' '.join(command)}")
+        sys.stdout.flush()
+        sys.stderr.flush()
         subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
         print("::endgroup::")
 
@@ -122,6 +133,8 @@ def snyk(
             "test_arguments", c2cciutils.configuration.AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT
         )
         print(f"::group::Run: {' '.join(command)}")
+        sys.stdout.flush()
+        sys.stderr.flush()
         test_proc = subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
         print("::endgroup::")
         if test_proc.returncode != 0:
@@ -135,6 +148,8 @@ def snyk(
         "fix_arguments", c2cciutils.configuration.AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT
     )
     print(f"::group::Run: {' '.join(command)}")
+    sys.stdout.flush()
+    sys.stderr.flush()
     subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
     print("::endgroup::")
 
@@ -143,6 +158,8 @@ def snyk(
         if diff_proc.returncode != 0:
             print("::error::There is some changes to commit")
             print("::group::Diff")
+            sys.stdout.flush()
+            sys.stderr.flush()
             subprocess.run(["git", "diff"], check=True)
             print("::endgroup::")
 
