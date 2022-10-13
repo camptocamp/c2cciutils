@@ -73,6 +73,10 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
       - **`fix_arguments`** _(array)_: The snyk fix arguments. Default: `["--all-projects"]`.
         - **Items** _(string)_
+      - **`pip_install_arguments`** _(array)_: The snyk pip install arguments. Default: `[]`.
+        - **Items** _(string)_
+      - **`pipenv_sync_arguments`** _(array)_: The snyk pipenv sync arguments. Default: `[]`.
+        - **Items** _(string)_
       - **`files_no_install`** _(array)_: The list of files to not install. Default: `["ci/requirements.txt"]`.
         - **Items** _(string)_
     - _boolean_

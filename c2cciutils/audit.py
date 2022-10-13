@@ -61,30 +61,6 @@ def snyk(
     one_done = False
     install_success = True
     test_success = True
-    for file in (
-        subprocess.run(["git", "ls-files", "Pipfile", "*/Pipfile"], stdout=subprocess.PIPE, check=True)
-        .stdout.decode()
-        .strip()
-        .split("\n")
-    ):
-        if not file:
-            continue
-        if file in config.get(
-            "files_no_install", c2cciutils.configuration.AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT
-        ):
-            continue
-        if not one_done:
-            print("::group::Install dependencies")
-            one_done = True
-        print(f"::notice::Install from: {file}")
-        directory = os.path.dirname(os.path.abspath(file))
-
-        sys.stdout.flush()
-        sys.stderr.flush()
-        proc = subprocess.run(["pipenv", "sync"], cwd=directory)  # pylint: disable=subprocess-run-check
-        if proc.returncode != 0:
-            print("::error::With error")
-        install_success &= proc.returncode == 0
 
     for file in (
         subprocess.run(
@@ -107,10 +83,51 @@ def snyk(
         sys.stdout.flush()
         sys.stderr.flush()
         proc = subprocess.run(  # pylint: disable=subprocess-run-check
-            ["pip", "install", "--user", f"--requirement={file}"]
+            [
+                "pip",
+                "install",
+                *config.get(
+                    "pip_install_arguments", c2cciutils.configuration.AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT
+                ),
+                f"--requirement={file}",
+            ]
         )
         if proc.returncode != 0:
-            print("::error::With error")
+            print(f"::error::With error from: {file}")
+        install_success &= proc.returncode == 0
+
+    for file in (
+        subprocess.run(["git", "ls-files", "Pipfile", "*/Pipfile"], stdout=subprocess.PIPE, check=True)
+        .stdout.decode()
+        .strip()
+        .split("\n")
+    ):
+        if not file:
+            continue
+        if file in config.get(
+            "files_no_install", c2cciutils.configuration.AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT
+        ):
+            continue
+        if not one_done:
+            print("::group::Install dependencies")
+            one_done = True
+        print(f"::notice::Install from: {file}")
+        directory = os.path.dirname(os.path.abspath(file))
+
+        sys.stdout.flush()
+        sys.stderr.flush()
+        proc = subprocess.run(  # pylint: disable=subprocess-run-check
+            [
+                "pipenv",
+                "sync",
+                *config.get(
+                    "pipenv_sync_arguments", c2cciutils.configuration.AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT
+                ),
+            ],
+            cwd=directory,
+        )
+        if proc.returncode != 0:
+            print(f"::error::With error from: {file}")
         install_success &= proc.returncode == 0
 
     if one_done:
