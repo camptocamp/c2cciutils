@@ -44,6 +44,6 @@ jobs:
       - run: python --version
 
       - name: Audit
-        run: ~/.venv/bin/c2cciutils-audit
+        run: ~/.venv/bin/c2cciutils-audit --branch=${{ matrix.branch }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
