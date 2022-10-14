@@ -73,11 +73,11 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
       - **`fix_arguments`** _(array)_: The snyk fix arguments. Default: `["--all-projects"]`.
         - **Items** _(string)_
-      - **`pip_install_arguments`** _(array)_: The snyk pip install arguments. Default: `[]`.
+      - **`pip_install_arguments`** _(array)_: The snyk pip install arguments. Default: `["--user"]`.
         - **Items** _(string)_
       - **`pipenv_sync_arguments`** _(array)_: The snyk pipenv sync arguments. Default: `[]`.
         - **Items** _(string)_
-      - **`files_no_install`** _(array)_: The list of files to not install. Default: `["ci/requirements.txt"]`.
+      - **`files_no_install`** _(array)_: The list of files to not install. Default: `[]`.
         - **Items** _(string)_
     - _boolean_
 - <a id="definitions/audit_pip"></a>**`audit_pip`** _(boolean)_: Audit the requirements.txt files.
