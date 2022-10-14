@@ -211,6 +211,8 @@ def pull_request_labels(github_event: Dict[str, Any], **kwargs: Any) -> bool:
             if "labels" in section:
                 required_labels.extend(section["labels"])
 
+    print(f"Requird one onf the following labels: {', '.join(required_labels)}")
+
     if required_labels:
         labels = [
             label["name"]
