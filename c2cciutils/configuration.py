@@ -6,7 +6,7 @@ Automatically generated file from a JSON schema.
 from typing import Any, Dict, List, Literal, TypedDict, Union
 
 # Default value of the field path 'Audit snyk config files_no_install'
-AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT = ["ci/requirements.txt"]
+AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: List[Any] = []
 
 
 # Default value of the field path 'Audit snyk config fix_arguments'
@@ -22,7 +22,7 @@ AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT: List[Any] = []
 
 
 # Default value of the field path 'Audit snyk config pip_install_arguments'
-AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT: List[Any] = []
+AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT = ["--user"]
 
 
 # Default value of the field path 'Audit snyk config test_arguments'
@@ -198,7 +198,7 @@ AuditSnykConfig = TypedDict(
         # The snyk pip install arguments
         #
         # default:
-        #   []
+        #   - --user
         "pip_install_arguments": List[str],
         # audit snyk pipenv sync arguments
         #
@@ -212,7 +212,7 @@ AuditSnykConfig = TypedDict(
         # The list of files to not install
         #
         # default:
-        #   - ci/requirements.txt
+        #   []
         "files_no_install": List[str],
     },
     total=False,

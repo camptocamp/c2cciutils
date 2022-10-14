@@ -331,7 +331,14 @@ def _get_branch_matrix(
         branch_to_version_re: The transform configuration
     """
 
-    branch = job.get("strategy", {}).get("matrix", {}).get("branch", [])
+    matrix = job.get("strategy", {}).get("matrix", {})
+    if "include" in matrix:
+        branch = []
+        for include in matrix["include"]:
+            if "branch" in include:
+                branch.append(include["branch"])
+    else:
+        branch = matrix.get("branch", [])
     return [c2cciutils.get_value(*c2cciutils.match(av, branch_to_version_re)) for av in branch]
 
 
