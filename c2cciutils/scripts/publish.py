@@ -204,7 +204,6 @@ def main() -> None:
             latest = security.data[-1][version_index] == version
 
         images_src: Set[str] = set()
-        images_tag: Set[str] = set()
         images_full: List[str] = []
         for image_conf in docker_config.get("images", []):
             if (
@@ -217,7 +216,6 @@ def main() -> None:
                     tag_src = tag_config.format(version="latest")
                     images_src.add(f"{image_conf['name']}:{tag_src}")
                     tag_dst = tag_config.format(version=version)
-                    images_tag.add(f"{image_conf['name']}:{tag_dst}")
                     for name, conf in docker_config.get(
                         "repository",
                         cast(
@@ -272,7 +270,7 @@ def main() -> None:
             )
 
         snyk_exec, env = c2cciutils.snyk_exec()
-        for image in images_tag:
+        for image in images_full:
             if version_type in ("version_branch", "version_tag"):
                 subprocess.run([snyk_exec, "container", "monitor", image], check=True, env=env)
             # Currently just for information
