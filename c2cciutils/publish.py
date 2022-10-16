@@ -289,6 +289,7 @@ def pip(
                 os.mkdir(dist)
             cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", "."]
             if os.path.exists(os.path.join(cwd, "pyproject.toml")):
+                use_poetry = False
                 if "build_command" not in package:
                     with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
                         pyproject = tomlkit.load(project_file)
