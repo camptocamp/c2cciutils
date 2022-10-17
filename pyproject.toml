@@ -118,11 +118,9 @@ publish = [
     "google-auth-httplib2",
     "google-auth-oauthlib",
     "tomlkit",
-    "poetry-dynamic-versioning",
-    "poetry-plugin-tweak-dependencies-version",
-    "poetry",
-    "poetry-core"
+    "poetry"
 ]
+publish_plugins = ["poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry-core"]
 pr_checks = ["codespell"]
 
 [tool.poetry.dev-dependencies]
@@ -139,7 +137,7 @@ jsonschema2md = "0.4.0"
 requires = [
     "poetry-core>=1.0.0",
     "poetry-dynamic-versioning[plugin]>=0.19.0",
-    "poetry-plugin-tweak-dependencies-version>=1.0.0"
+    "poetry-plugin-tweak-dependencies-version>=1.1.0"
 ]
 build-backend = "poetry.core.masonry.api"
 
