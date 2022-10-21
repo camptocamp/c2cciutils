@@ -175,10 +175,9 @@ def pull_request_spell(
     with NamedTemporaryFile("w+t") as temp_file:
         temp_file.write(github_event["event"]["pull_request"]["title"])
         temp_file.write("\n")
-        if (
-            not config.get("only_head", c2cciutils.configuration.PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT)
-            and github_event["event"]["pull_request"]["body"]
-        ):
+        if not config.get(
+            "only_head", c2cciutils.configuration.PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT
+        ) and github_event["event"]["pull_request"].get("body"):
             temp_file.write("\n")
             temp_file.write(github_event["event"]["pull_request"]["body"])
             temp_file.write("\n")
@@ -251,7 +250,9 @@ def add_issue_link(github_event: Dict[str, Any], **kwargs: Any) -> bool:
     if issue_number is None:
         return True
 
-    if issue_number in github_event["event"]["pull_request"]["body"]:
+    issue_number = issue_number.upper()
+
+    if issue_number in github_event["event"]["pull_request"].get("body", "").upper():
         return True
 
     comments_response = requests.get(
@@ -263,7 +264,7 @@ def add_issue_link(github_event: Dict[str, Any], **kwargs: Any) -> bool:
     comments = comments_response.json()
 
     for comment in comments:
-        if issue_number in comment["body"]:
+        if issue_number in comment.get("body", "").upper():
             return True
 
     response = requests.post(
@@ -276,5 +277,6 @@ def add_issue_link(github_event: Dict[str, Any], **kwargs: Any) -> bool:
         timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
 
-    print(response.text)
+    if not response.ok:
+        print(f"Unable to add the comment: {response.text}")
     return response.ok
