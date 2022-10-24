@@ -216,13 +216,13 @@ def main() -> None:
                     tag_src = tag_config.format(version="latest")
                     images_src.add(f"{image_conf['name']}:{tag_src}")
                     tag_dst = tag_config.format(version=version)
-                    for name, conf in docker_config.get(
-                        "repository",
-                        cast(
+                    for name, conf in {
+                        **cast(
                             Dict[str, c2cciutils.configuration.PublishDockerRepository],
                             c2cciutils.configuration.DOCKER_REPOSITORY_DEFAULT,
                         ),
-                    ).items():
+                        **docker_config.get("repository", {}),
+                    }.items():
                         if version_type in conf.get(
                             "versions", c2cciutils.configuration.PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT
                         ):
