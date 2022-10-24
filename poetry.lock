@@ -1009,7 +1009,7 @@ plugin = ["poetry (>=1.2.0,<2.0.0)"]
 
 [[package]]
 name = "poetry-plugin-export"
-version = "1.0.7"
+version = "1.1.2"
 description = "Poetry plugin to export the dependencies to various formats"
 category = "main"
 optional = true
@@ -1738,12 +1738,12 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 audit = ["pipenv"]
 checks = ["black", "isort", "codespell", "EditorConfig"]
 pr_checks = ["codespell"]
-publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version"]
+publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry", "poetry-core"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "ef338be71cfef23a99693c7e63a92136c2efc844bb062a72ef80b2ca2296f75d"
+content-hash = "db9aad96e4558b88700162462a48f9aeb6c49f524df24f241c1a07ec5cdcb918"
 
 [metadata.files]
 astroid = [
@@ -2345,8 +2345,8 @@ poetry-dynamic-versioning = [
     {file = "poetry_dynamic_versioning-0.19.0-py3-none-any.whl", hash = "sha256:b59410538490aaeb35ae8672761a048d2cf58287b3ce261e50efef201813c1d6"},
 ]
 poetry-plugin-export = [
-    {file = "poetry-plugin-export-1.0.7.tar.gz", hash = "sha256:f6ac707ae227b06b2481249ed2678ff6b810b3487cac0fbb66eb0dc2bfd6ecf1"},
-    {file = "poetry_plugin_export-1.0.7-py3-none-any.whl", hash = "sha256:dd9d4552e7113a86c97908c13b9a439cb46830f247c7e4969e46a0d8d70e4d3f"},
+    {file = "poetry-plugin-export-1.1.2.tar.gz", hash = "sha256:5e92525dd63f38ce74a51ed68ea91d753523f21ce5f9ef8d3b793e2a4b2222ef"},
+    {file = "poetry_plugin_export-1.1.2-py3-none-any.whl", hash = "sha256:946e3313b3d00c18fb9a50522e9d5e6a7e111beaba8d6ae33297662fc2070ac1"},
 ]
 poetry-plugin-tweak-dependencies-version = [
     {file = "poetry_plugin_tweak_dependencies_version-1.0.0-py3-none-any.whl", hash = "sha256:38287fec333949b4c3d4ffa29886190298debaa421af708eaf50aacc68402452"},
