@@ -298,7 +298,12 @@ def pip(
                         if requirement_split[0] == "poetry-core":
                             use_poetry = True
                 if use_poetry:
-                    subprocess.run(["poetry", "--version"], check=True)
+                    freeze = subprocess.run(["pip", "freeze"], check=True, stdout=subprocess.PIPE)
+                    for freeze_line in freeze.stdout.decode("utf-8").split("\n"):
+                        if freeze_line.startswith("poetry-") or freeze_line.startswith("poetry="):
+                            print(freeze_line)
+                    env_bash = " ".join([f"{key}={value}" for key, value in env.items()])
+                    print(f"Run in {cwd}: {env_bash} poetry build")
                     subprocess.run(["poetry", "build"], cwd=cwd, env=env, check=True)
                     cmd = []
         if cmd:
