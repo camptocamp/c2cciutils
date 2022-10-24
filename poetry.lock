@@ -26,7 +26,7 @@ python-versions = ">=3.5"
 dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy (>=0.900,!=0.940)", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "sphinx", "sphinx-notfound-page", "zope.interface"]
 docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
 tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "zope.interface"]
-tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
+tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
 
 [[package]]
 name = "bandit"
@@ -179,7 +179,7 @@ optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-unicode_backport = ["unicodedata2"]
+unicode-backport = ["unicodedata2"]
 
 [[package]]
 name = "cleo"
@@ -356,7 +356,7 @@ pgp = ["gpg"]
 
 [[package]]
 name = "dunamai"
-version = "1.13.1"
+version = "1.13.2"
 description = "Dynamic version generation"
 category = "main"
 optional = true
@@ -481,7 +481,7 @@ six = ">=1.9.0"
 
 [package.extras]
 aiohttp = ["aiohttp (>=3.6.2,<4.0.0dev)", "requests (>=2.20.0,<3.0.0dev)"]
-enterprise_cert = ["cryptography (==36.0.2)", "pyopenssl (==22.0.0)"]
+enterprise-cert = ["cryptography (==36.0.2)", "pyopenssl (==22.0.0)"]
 pyopenssl = ["pyopenssl (>=20.0.0)"]
 reauth = ["pyu2f (>=0.1.5)"]
 
@@ -605,9 +605,9 @@ python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
-pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+pipfile-deprecated-finder = ["pipreqs", "requirementslib"]
 plugins = ["setuptools"]
-requirements_deprecated_finder = ["pip-api", "pipreqs"]
+requirements-deprecated-finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "jaraco.classes"
@@ -952,7 +952,7 @@ test = ["appdirs (==1.4.4)", "pytest (>=6)", "pytest-cov (>=2.7)", "pytest-mock 
 
 [[package]]
 name = "poetry"
-version = "1.2.1"
+version = "1.2.2"
 description = "Python dependency management and packaging made easy."
 category = "main"
 optional = true
@@ -972,8 +972,8 @@ packaging = ">=20.4"
 pexpect = ">=4.7.0,<5.0.0"
 pkginfo = ">=1.5,<2.0"
 platformdirs = ">=2.5.2,<3.0.0"
-poetry-core = "1.2.0"
-poetry-plugin-export = ">=1.0.7,<2.0.0"
+poetry-core = "1.3.2"
+poetry-plugin-export = ">=1.1.2,<2.0.0"
 requests = ">=2.18,<3.0"
 requests-toolbelt = ">=0.9.1,<0.10.0"
 shellingham = ">=1.5,<2.0"
@@ -984,7 +984,7 @@ xattr = {version = ">=0.9.7,<0.10.0", markers = "sys_platform == \"darwin\""}
 
 [[package]]
 name = "poetry-core"
-version = "1.2.0"
+version = "1.3.2"
 description = "Poetry PEP 517 Build Backend"
 category = "main"
 optional = true
@@ -992,14 +992,14 @@ python-versions = ">=3.7,<4.0"
 
 [[package]]
 name = "poetry-dynamic-versioning"
-version = "0.19.0"
+version = "0.20.0"
 description = "Plugin for Poetry to enable dynamic versioning based on VCS tags"
 category = "main"
 optional = true
 python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
-dunamai = ">=1.12.0,<2.0.0"
+dunamai = ">=1.13.2,<2.0.0"
 jinja2 = ">=2.11.1,<4"
 poetry = {version = ">=1.2.0,<2.0.0", optional = true, markers = "extra == \"plugin\""}
 tomlkit = ">=0.4"
@@ -1009,7 +1009,7 @@ plugin = ["poetry (>=1.2.0,<2.0.0)"]
 
 [[package]]
 name = "poetry-plugin-export"
-version = "1.0.7"
+version = "1.1.2"
 description = "Poetry plugin to export the dependencies to various formats"
 category = "main"
 optional = true
@@ -1021,14 +1021,15 @@ poetry-core = ">=1.1.0,<2.0.0"
 
 [[package]]
 name = "poetry-plugin-tweak-dependencies-version"
-version = "1.0.0"
+version = "1.1.0"
 description = "Poetry plugin used to tweak dependency versions"
 category = "main"
 optional = true
 python-versions = ">=3.8,<4.0"
 
 [package.dependencies]
-poetry = ">=1.2.0"
+poetry = ">=1.2.0,<1.3.0"
+poetry-core = ">=1.3.0,<1.4.0"
 
 [[package]]
 name = "prospector"
@@ -1059,12 +1060,12 @@ setoptconf-tmp = ">=0.3.1,<0.4.0"
 toml = ">=0.10.2,<0.11.0"
 
 [package.extras]
-with_bandit = ["bandit (>=1.5.1)"]
-with_everything = ["bandit (>=1.5.1)", "frosted (>=1.4.1)", "mypy (>=0.600)", "pyroma (>=2.4)", "vulture (>=1.5)"]
-with_frosted = ["frosted (>=1.4.1)"]
-with_mypy = ["mypy (>=0.600)"]
-with_pyroma = ["pyroma (>=2.4)"]
-with_vulture = ["vulture (>=1.5)"]
+with-bandit = ["bandit (>=1.5.1)"]
+with-everything = ["bandit (>=1.5.1)", "frosted (>=1.4.1)", "mypy (>=0.600)", "pyroma (>=2.4)", "vulture (>=1.5)"]
+with-frosted = ["frosted (>=1.4.1)"]
+with-mypy = ["mypy (>=0.600)"]
+with-pyroma = ["pyroma (>=2.4)"]
+with-vulture = ["vulture (>=1.5)"]
 
 [[package]]
 name = "protobuf"
@@ -1207,8 +1208,8 @@ pylint = ">=2.0,<3"
 pylint-plugin-utils = ">=0.7"
 
 [package.extras]
-for_tests = ["coverage", "django-tables2", "django-tastypie", "factory-boy", "pylint (>=2.13)", "pytest", "wheel"]
-with_django = ["Django"]
+for-tests = ["coverage", "django-tables2", "django-tastypie", "factory-boy", "pylint (>=2.13)", "pytest", "wheel"]
+with-django = ["Django"]
 
 [[package]]
 name = "pylint-flask"
@@ -1341,7 +1342,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "requests-oauthlib"
@@ -1737,13 +1738,14 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [extras]
 audit = ["pipenv"]
 checks = ["black", "isort", "codespell", "EditorConfig"]
-pr_checks = ["codespell"]
-publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version"]
+pr-checks = ["codespell"]
+publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit", "poetry"]
+publish-plugins = ["poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry-core"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "b7c925446641d043619f198c60049d95d2c9367fd65cdaa32edc46ea056cd551"
+content-hash = "9b2642606515bc18e928a69fae7bd91b28776a0e5ca412cea397247bc9bb7350"
 
 [metadata.files]
 astroid = [
@@ -1995,8 +1997,8 @@ dulwich = [
     {file = "dulwich-0.20.46.tar.gz", hash = "sha256:4f0e88ffff5db1523d93d92f1525fe5fa161318ffbaad502c1b9b3be7a067172"},
 ]
 dunamai = [
-    {file = "dunamai-1.13.1-py3-none-any.whl", hash = "sha256:f23d31fd3e7df1c16f018f4f0c408df7feda8cba9516f7c9822a29fa3ed665cd"},
-    {file = "dunamai-1.13.1.tar.gz", hash = "sha256:49597bdf653bdacdeb51ec6e0f1d4d2327309376fc83e6f1d42af6e29600515f"},
+    {file = "dunamai-1.13.2-py3-none-any.whl", hash = "sha256:d64974271c32d40ad097dceac43e411c87ca9f74d22ce55e03b358fa1adf624d"},
+    {file = "dunamai-1.13.2.tar.gz", hash = "sha256:3bb079c1a84b3dd04a20071e6c914308caba125af98bcef537cabed1a628d989"},
 ]
 EditorConfig = [
     {file = "EditorConfig-0.12.3-py3-none-any.whl", hash = "sha256:6b0851425aa875b08b16789ee0eeadbd4ab59666e9ebe728e526314c4a2e52c1"},
@@ -2334,23 +2336,23 @@ platformdirs = [
     {file = "platformdirs-2.5.2.tar.gz", hash = "sha256:58c8abb07dcb441e6ee4b11d8df0ac856038f944ab98b7be6b27b2a3c7feef19"},
 ]
 poetry = [
-    {file = "poetry-1.2.1-py3-none-any.whl", hash = "sha256:43be0a7b0fdc3efa661324e288e9630ad00c54dcf17e2a054740a160d7f25d63"},
-    {file = "poetry-1.2.1.tar.gz", hash = "sha256:2750bb2b636ef435d8beac51dde0b13d06199017a1d9b96cba899863d1e81024"},
+    {file = "poetry-1.2.2-py3-none-any.whl", hash = "sha256:93ea3c4a622485c2a7b7249f1e34e4ac84f8229ded76153b67506313201b154f"},
+    {file = "poetry-1.2.2.tar.gz", hash = "sha256:6d9ed0b1b826a0a79190f2078d7d78483fa24bf2494f3b170e354eaa5e7b5ea1"},
 ]
 poetry-core = [
-    {file = "poetry-core-1.2.0.tar.gz", hash = "sha256:ceccec95487e46c63a41761fbac5211b809bca22658e25a049f4c7da96269f71"},
-    {file = "poetry_core-1.2.0-py3-none-any.whl", hash = "sha256:e248d36c1314dd60fbc66390791923ad8b58c629d3e587080b7c1537a1c0d30f"},
+    {file = "poetry-core-1.3.2.tar.gz", hash = "sha256:0ab006a40cb38d6a38b97264f6835da2f08a96912f2728ce668e9ac6a34f686f"},
+    {file = "poetry_core-1.3.2-py3-none-any.whl", hash = "sha256:ea0f5a90b339cde132b4e43cff78a1b440cd928db864bb67cfc97fdfcefe7218"},
 ]
 poetry-dynamic-versioning = [
-    {file = "poetry-dynamic-versioning-0.19.0.tar.gz", hash = "sha256:a11a7eba6e7be167c55a1dddec78f52b61a1832275c95519ad119c7a89a7f821"},
-    {file = "poetry_dynamic_versioning-0.19.0-py3-none-any.whl", hash = "sha256:b59410538490aaeb35ae8672761a048d2cf58287b3ce261e50efef201813c1d6"},
+    {file = "poetry_dynamic_versioning-0.20.0-py3-none-any.whl", hash = "sha256:f6b4476a25568bb81e93fda014735b426ed2c1920d7bf654c30f0fc662041b03"},
+    {file = "poetry_dynamic_versioning-0.20.0.tar.gz", hash = "sha256:1e88914070bb58161d1d873f238985db1d23b3c7ae298bd60c4d579530095d9e"},
 ]
 poetry-plugin-export = [
-    {file = "poetry-plugin-export-1.0.7.tar.gz", hash = "sha256:f6ac707ae227b06b2481249ed2678ff6b810b3487cac0fbb66eb0dc2bfd6ecf1"},
-    {file = "poetry_plugin_export-1.0.7-py3-none-any.whl", hash = "sha256:dd9d4552e7113a86c97908c13b9a439cb46830f247c7e4969e46a0d8d70e4d3f"},
+    {file = "poetry-plugin-export-1.1.2.tar.gz", hash = "sha256:5e92525dd63f38ce74a51ed68ea91d753523f21ce5f9ef8d3b793e2a4b2222ef"},
+    {file = "poetry_plugin_export-1.1.2-py3-none-any.whl", hash = "sha256:946e3313b3d00c18fb9a50522e9d5e6a7e111beaba8d6ae33297662fc2070ac1"},
 ]
 poetry-plugin-tweak-dependencies-version = [
-    {file = "poetry_plugin_tweak_dependencies_version-1.0.0-py3-none-any.whl", hash = "sha256:38287fec333949b4c3d4ffa29886190298debaa421af708eaf50aacc68402452"},
+    {file = "poetry_plugin_tweak_dependencies_version-1.1.0-py3-none-any.whl", hash = "sha256:acfae318bbd566fd518ff2ddff92a0fe309204d2f0fe968e485762896d8ee67b"},
 ]
 prospector = [
     {file = "prospector-1.7.7-py3-none-any.whl", hash = "sha256:2dec5dac06f136880a3710996c0886dcc99e739007bbc05afc32884973f5c058"},
