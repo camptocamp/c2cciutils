@@ -46,7 +46,7 @@
     },
     /** Group Poetry packages */
     {
-      matchPackageNames: ['poetry', 'poetry-core'],
+      matchPackageNames: ['poetry', 'poetry-.*'],
       groupName: 'Poetry',
       automerge: true,
       separateMajorMinor: false,
