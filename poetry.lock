@@ -356,7 +356,7 @@ pgp = ["gpg"]
 
 [[package]]
 name = "dunamai"
-version = "1.13.1"
+version = "1.13.2"
 description = "Dynamic version generation"
 category = "main"
 optional = true
@@ -992,14 +992,14 @@ python-versions = ">=3.7,<4.0"
 
 [[package]]
 name = "poetry-dynamic-versioning"
-version = "0.19.0"
+version = "0.20.0"
 description = "Plugin for Poetry to enable dynamic versioning based on VCS tags"
 category = "main"
 optional = true
 python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
-dunamai = ">=1.12.0,<2.0.0"
+dunamai = ">=1.13.2,<2.0.0"
 jinja2 = ">=2.11.1,<4"
 poetry = {version = ">=1.2.0,<2.0.0", optional = true, markers = "extra == \"plugin\""}
 tomlkit = ">=0.4"
@@ -1009,7 +1009,7 @@ plugin = ["poetry (>=1.2.0,<2.0.0)"]
 
 [[package]]
 name = "poetry-plugin-export"
-version = "1.0.7"
+version = "1.1.2"
 description = "Poetry plugin to export the dependencies to various formats"
 category = "main"
 optional = true
@@ -1738,12 +1738,13 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 audit = ["pipenv"]
 checks = ["black", "isort", "codespell", "EditorConfig"]
 pr_checks = ["codespell"]
-publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version"]
+publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit", "poetry"]
+publish_plugins = ["poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry-core"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "b7c925446641d043619f198c60049d95d2c9367fd65cdaa32edc46ea056cd551"
+content-hash = "d951595da7ef6c2cbbcbb16e71f51abb869a20dc127c50127d122a072dce07d2"
 
 [metadata.files]
 astroid = [
@@ -1995,8 +1996,8 @@ dulwich = [
     {file = "dulwich-0.20.46.tar.gz", hash = "sha256:4f0e88ffff5db1523d93d92f1525fe5fa161318ffbaad502c1b9b3be7a067172"},
 ]
 dunamai = [
-    {file = "dunamai-1.13.1-py3-none-any.whl", hash = "sha256:f23d31fd3e7df1c16f018f4f0c408df7feda8cba9516f7c9822a29fa3ed665cd"},
-    {file = "dunamai-1.13.1.tar.gz", hash = "sha256:49597bdf653bdacdeb51ec6e0f1d4d2327309376fc83e6f1d42af6e29600515f"},
+    {file = "dunamai-1.13.2-py3-none-any.whl", hash = "sha256:d64974271c32d40ad097dceac43e411c87ca9f74d22ce55e03b358fa1adf624d"},
+    {file = "dunamai-1.13.2.tar.gz", hash = "sha256:3bb079c1a84b3dd04a20071e6c914308caba125af98bcef537cabed1a628d989"},
 ]
 EditorConfig = [
     {file = "EditorConfig-0.12.3-py3-none-any.whl", hash = "sha256:6b0851425aa875b08b16789ee0eeadbd4ab59666e9ebe728e526314c4a2e52c1"},
@@ -2342,12 +2343,12 @@ poetry-core = [
     {file = "poetry_core-1.2.0-py3-none-any.whl", hash = "sha256:e248d36c1314dd60fbc66390791923ad8b58c629d3e587080b7c1537a1c0d30f"},
 ]
 poetry-dynamic-versioning = [
-    {file = "poetry-dynamic-versioning-0.19.0.tar.gz", hash = "sha256:a11a7eba6e7be167c55a1dddec78f52b61a1832275c95519ad119c7a89a7f821"},
-    {file = "poetry_dynamic_versioning-0.19.0-py3-none-any.whl", hash = "sha256:b59410538490aaeb35ae8672761a048d2cf58287b3ce261e50efef201813c1d6"},
+    {file = "poetry_dynamic_versioning-0.20.0-py3-none-any.whl", hash = "sha256:f6b4476a25568bb81e93fda014735b426ed2c1920d7bf654c30f0fc662041b03"},
+    {file = "poetry_dynamic_versioning-0.20.0.tar.gz", hash = "sha256:1e88914070bb58161d1d873f238985db1d23b3c7ae298bd60c4d579530095d9e"},
 ]
 poetry-plugin-export = [
-    {file = "poetry-plugin-export-1.0.7.tar.gz", hash = "sha256:f6ac707ae227b06b2481249ed2678ff6b810b3487cac0fbb66eb0dc2bfd6ecf1"},
-    {file = "poetry_plugin_export-1.0.7-py3-none-any.whl", hash = "sha256:dd9d4552e7113a86c97908c13b9a439cb46830f247c7e4969e46a0d8d70e4d3f"},
+    {file = "poetry-plugin-export-1.1.2.tar.gz", hash = "sha256:5e92525dd63f38ce74a51ed68ea91d753523f21ce5f9ef8d3b793e2a4b2222ef"},
+    {file = "poetry_plugin_export-1.1.2-py3-none-any.whl", hash = "sha256:946e3313b3d00c18fb9a50522e9d5e6a7e111beaba8d6ae33297662fc2070ac1"},
 ]
 poetry-plugin-tweak-dependencies-version = [
     {file = "poetry_plugin_tweak_dependencies_version-1.0.0-py3-none-any.whl", hash = "sha256:38287fec333949b4c3d4ffa29886190298debaa421af708eaf50aacc68402452"},
