@@ -6,8 +6,8 @@ import argparse
 import datetime
 import glob
 import os
-import pickle
-import re  # nosec
+import pickle  # nosec
+import re
 import subprocess  # nosec
 import sys
 import uuid
