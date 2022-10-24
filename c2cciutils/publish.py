@@ -6,7 +6,8 @@ import argparse
 import datetime
 import glob
 import os
-import pickle  # nosec
+import pickle
+import re  # nosec
 import subprocess  # nosec
 import sys
 import uuid
@@ -293,10 +294,12 @@ def pip(
                 if "build_command" not in package:
                     with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
                         pyproject = tomlkit.load(project_file)
+                    re_splitter = re.compile(r"[<>=]+")
                     for requirement in pyproject.get("build-system", {}).get("requires", []):
-                        requirement_split = requirement.split(">=")
-                        if requirement_split[0] == "poetry-core":
+                        requirement_split = re_splitter.split(requirement)
+                        if requirement_split[0] in ("poetry", "poetry-core"):
                             use_poetry = True
+                        subprocess.run(["pip", "install", requirement], check=True)
                 if use_poetry:
                     freeze = subprocess.run(["pip", "freeze"], check=True, stdout=subprocess.PIPE)
                     for freeze_line in freeze.stdout.decode("utf-8").split("\n"):
@@ -304,6 +307,8 @@ def pip(
                             print(freeze_line)
                     env_bash = " ".join([f"{key}={value}" for key, value in env.items()])
                     print(f"Run in {cwd}: {env_bash} poetry build")
+                    sys.stdout.flush()
+                    sys.stderr.flush()
                     subprocess.run(["poetry", "build"], cwd=cwd, env=env, check=True)
                     cmd = []
         if cmd:
