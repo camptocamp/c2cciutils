@@ -263,7 +263,7 @@ def pip(
     sys.stderr.flush()
 
     try:
-        env = dict(os.environ)
+        env = {}
         env["VERSION"] = version
         env["VERSION_TYPE"] = version_type
         full_repo = c2cciutils.get_repository()
@@ -299,6 +299,7 @@ def pip(
                         requirement_split = re_splitter.split(requirement)
                         if requirement_split[0] in ("poetry", "poetry-core"):
                             use_poetry = True
+                            break
                     subprocess.run(
                         ["pip", "install", *pyproject.get("build-system", {}).get("requires", [])], check=True
                     )
@@ -311,7 +312,7 @@ def pip(
                     print(f"Run in {cwd}: {env_bash} poetry build")
                     sys.stdout.flush()
                     sys.stderr.flush()
-                    subprocess.run(["poetry", "build"], cwd=cwd, env=env, check=True)
+                    subprocess.run(["poetry", "build"], cwd=cwd, env={**os.environ, **env}, check=True)
                     cmd = []
         if cmd:
             cmd = package.get("build_command", cmd)
