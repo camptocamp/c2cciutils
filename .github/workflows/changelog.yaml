@@ -6,12 +6,14 @@ on:
       - master
     tags:
       - '*'
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   changelog:
     name: Changelog Generator
     runs-on: ubuntu-20.04
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
       - uses: actions/checkout@v3
