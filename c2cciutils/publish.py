@@ -299,7 +299,9 @@ def pip(
                         requirement_split = re_splitter.split(requirement)
                         if requirement_split[0] in ("poetry", "poetry-core"):
                             use_poetry = True
-                    subprocess.run(["pip", "install", *pyproject.get("build-system", {}).get("requires", [])], check=True)
+                    subprocess.run(
+                        ["pip", "install", *pyproject.get("build-system", {}).get("requires", [])], check=True
+                    )
                 if use_poetry:
                     freeze = subprocess.run(["pip", "freeze"], check=True, stdout=subprocess.PIPE)
                     for freeze_line in freeze.stdout.decode("utf-8").split("\n"):
