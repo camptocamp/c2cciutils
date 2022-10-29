@@ -1245,7 +1245,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-pyyaml"
-version = "6.0.12"
+version = "6.0.12.1"
 description = "Typing stubs for PyYAML"
 category = "dev"
 optional = false
@@ -1391,7 +1391,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "c6e9a181e1e3fa289052504fe8060df030ec9fce7558e5cb185fd2b4e2d74472"
+content-hash = "a191e8645dbf36331dc22ed02c4cff755082cb76f8d436300907d6c3e81d1ff5"
 
 [metadata.files]
 astroid = [
@@ -2048,8 +2048,8 @@ types-markdown = [
     {file = "types_Markdown-3.3.31-py3-none-any.whl", hash = "sha256:c9c67f1aecbcd710ead2057a197064bf790c7493e9b15d490673ef60c4522bf7"},
 ]
 types-pyyaml = [
-    {file = "types-PyYAML-6.0.12.tar.gz", hash = "sha256:f6f350418125872f3f0409d96a62a5a5ceb45231af5cc07ee0034ec48a3c82fa"},
-    {file = "types_PyYAML-6.0.12-py3-none-any.whl", hash = "sha256:29228db9f82df4f1b7febee06bbfb601677882e98a3da98132e31c6874163e15"},
+    {file = "types-PyYAML-6.0.12.1.tar.gz", hash = "sha256:70ccaafcf3fb404d57bffc1529fdd86a13e8b4f2cf9fc3ee81a6408ce0ad59d2"},
+    {file = "types_PyYAML-6.0.12.1-py3-none-any.whl", hash = "sha256:aaf5e51444c13bd34104695a89ad9c48412599a4f615d65a60e649109714f608"},
 ]
 types-requests = [
     {file = "types-requests-2.27.31.tar.gz", hash = "sha256:6fab97b99fea52b9c7b466a4dd93e06bb325bc7e7420475e87831026a8dd35cc"},
