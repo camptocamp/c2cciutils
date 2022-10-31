@@ -59,7 +59,7 @@
       matchUpdateTypes: ['major', 'minor', 'pin', 'digest', 'lockFileMaintenance', 'rollback', 'bump'],
       enabled: false,
     },
-    /** Ungroup pipenv and safety */
+    /** Ungroup pipenv, safety and codespell */
     {
       matchPackageNames: ['pipenv'],
       groupName: 'pipenv',
@@ -68,6 +68,10 @@
       matchPackageNames: ['safety'],
       matchUpdateTypes: ['minor'],
       groupName: 'safety',
+    },
+    {
+      matchPackageNames: ['codespell'],
+      groupName: 'codespell',
     },
     /** Update dpkg versions every day */
     {
