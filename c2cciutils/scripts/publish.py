@@ -272,7 +272,18 @@ def main() -> None:
         snyk_exec, env = c2cciutils.snyk_exec()
         for image in images_full:
             if version_type in ("version_branch", "version_tag"):
-                subprocess.run([snyk_exec, "container", "monitor", image], check=True, env=env)
+                subprocess.run(
+                    [
+                        snyk_exec,
+                        "container",
+                        "monitor",
+                        f"--project-tags={image.split(':')[-1]}",
+                        image,
+                        "--app-vulns",
+                    ],
+                    check=True,
+                    env=env,
+                )
             # Currently just for information
             subprocess.run(  # pylint: disable=subprocess-run-check
                 [snyk_exec, "container", "test", "--app-vulns", "--severity-threshold=high", image], env=env
