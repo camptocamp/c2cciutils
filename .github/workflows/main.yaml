@@ -40,9 +40,9 @@ jobs:
       - run: cd c2cciutils; npm install
       - run: python3 -m pip install --user --requirement=requirements.txt
       - run: poetry build
-      - run: python3 -m pip install --user --force-reinstall dist/c2cciutils-0.0.0-py3-none-any.whl[checks,publish]
         env:
           POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
+      - run: python3 -m pip install --user --force-reinstall dist/c2cciutils-0.0.0-py3-none-any.whl[checks,publish]
       - run: rm -rf dist build
 
       - name: Checks
@@ -82,6 +82,8 @@ jobs:
       - run: cd c2cciutils; npm install
       - run: python3 -m pip install --user --requirement=requirements.txt
       - run: poetry build
+        env:
+          POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
       - run: python3 -m pip install --user --force-reinstall dist/c2cciutils-0.0.0-py3-none-any.whl[k8s]
       - run: rm -rf dist build
 
@@ -123,6 +125,8 @@ jobs:
       - run: python3 -m pip install --user --requirement=requirements.txt
       - run: cd c2cciutils; npm install
       - run: ~/.local/bin/poetry build
+        env:
+          POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
 
       - run: python3 -m venv ~/.venv
       - run: ~/.venv/bin/pip install --force-reinstall dist/c2cciutils-0.0.0-py3-none-any.whl[audit]
