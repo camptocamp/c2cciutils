@@ -78,7 +78,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/nodejs: 16.17.1-deb-1nodesource1
   ubuntu_22_04/npth: 1.6-3build2
   ubuntu_22_04/openldap: 2.5.13+dfsg-0ubuntu0.22.04.1
-  ubuntu_22_04/openssl: 3.0.2-0ubuntu1.6
+  ubuntu_22_04/openssl: 3.0.2-0ubuntu1.7
   ubuntu_22_04/p11-kit: 0.24.0-6build1
   ubuntu_22_04/pam: 1.4.0-11ubuntu2
   ubuntu_22_04/pcre2: 10.39-3ubuntu0.1
@@ -90,7 +90,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/python-pip: 22.0.2+dfsg-1
   ubuntu_22_04/python3-defaults: 3.10.6-1~22.04
   ubuntu_22_04/python3-stdlib-extensions: 3.10.6-1~22.04
-  ubuntu_22_04/python3.10: 3.10.6-1~22.04
+  ubuntu_22_04/python3.10: 3.10.6-1~22.04.1
   ubuntu_22_04/readline: 8.1.2-1
   ubuntu_22_04/rpcsvc-proto: 1.4.2-0ubuntu6
   ubuntu_22_04/rtmpdump: 2.4+20151223.gitfa8646d.1-2build4
