@@ -13,7 +13,6 @@ on:
 
 env:
   HAS_SECRETS: ${{ secrets.HAS_SECRETS }}
-  POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
 
 jobs:
   main:
@@ -42,6 +41,8 @@ jobs:
       - run: python3 -m pip install --user --requirement=requirements.txt
       - run: poetry build
       - run: python3 -m pip install --user --force-reinstall dist/c2cciutils-0.0.0-py3-none-any.whl[checks,publish]
+        env:
+          POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
       - run: rm -rf dist build
 
       - name: Checks
