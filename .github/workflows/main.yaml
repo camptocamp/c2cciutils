@@ -13,6 +13,7 @@ on:
 
 env:
   HAS_SECRETS: ${{ secrets.HAS_SECRETS }}
+  POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
 
 jobs:
   main:
