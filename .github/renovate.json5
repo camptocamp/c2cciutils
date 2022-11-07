@@ -46,7 +46,7 @@
     },
     /** Group Poetry packages */
     {
-      matchPackageNames: ['poetry'],
+      matchPackageNames: ['poetry', 'pip'],
       matchPackagePrefixes: ['poetry-'],
       groupName: 'Poetry',
       automerge: true,
