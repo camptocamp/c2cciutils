@@ -903,7 +903,7 @@ ptyprocess = ">=0.5"
 
 [[package]]
 name = "pipenv"
-version = "2022.10.25"
+version = "2022.11.5"
 description = "Python Development Workflow for Humans."
 category = "main"
 optional = true
@@ -1748,7 +1748,7 @@ publish_plugins = ["poetry-dynamic-versioning", "poetry-plugin-tweak-dependencie
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "857905db745594f63cc37f78531b39bb27b9b079e08d36325396276d8f21e516"
+content-hash = "70e0be102620bd7ecd7a2226dc9fad8fba07a8b54551da4e73135b26cf05005f"
 
 [metadata.files]
 astroid = [
@@ -2335,8 +2335,8 @@ pexpect = [
     {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
 ]
 pipenv = [
-    {file = "pipenv-2022.10.25-py2.py3-none-any.whl", hash = "sha256:0ece09bd57c703c57a2b1dbe89758568819bf93a98ca0b471f249152120124c8"},
-    {file = "pipenv-2022.10.25.tar.gz", hash = "sha256:3e39c8d5a2bcaab324552a18576105c2a35e020bb311ff53d74eacb58b851853"},
+    {file = "pipenv-2022.11.5-py2.py3-none-any.whl", hash = "sha256:9aa4b6b53120cb6199cfd426a4704d0781fbf0d34e074a8bea927787bf239026"},
+    {file = "pipenv-2022.11.5.tar.gz", hash = "sha256:af8595e38f1d87af3b00d209390bce41c97b10fca1c956e9ba1208438af55c6a"},
 ]
 pkginfo = [
     {file = "pkginfo-1.8.3-py2.py3-none-any.whl", hash = "sha256:848865108ec99d4901b2f7e84058b6e7660aae8ae10164e015a6dcf5b242a594"},
