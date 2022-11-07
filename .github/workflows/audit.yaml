@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '30 2 * * *'
 
+env:
+  POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
+
 jobs:
   audit:
     runs-on: ubuntu-22.04
