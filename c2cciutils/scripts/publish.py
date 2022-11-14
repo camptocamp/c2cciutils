@@ -278,7 +278,7 @@ def main() -> None:
                         "container",
                         "monitor",
                         "--app-vulns",
-                        f"--project-tags={image.split(':')[-1]}",
+                        f"--project-tags=tag={image.split(':')[-1]}",
                         image,
                     ],
                     check=True,
