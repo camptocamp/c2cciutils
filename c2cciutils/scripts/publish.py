@@ -278,7 +278,8 @@ def main() -> None:
                         "container",
                         "monitor",
                         "--app-vulns",
-                        f"--project-tags=tag={image.split(':')[-1]}",
+                        # Available only on the business plan
+                        # f"--project-tags=tag={image.split(':')[-1]}",
                         image,
                     ],
                     check=True,
