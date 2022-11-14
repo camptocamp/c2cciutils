@@ -13,6 +13,7 @@ FROM base-all as poetry
 # Install Poetry
 WORKDIR /tmp
 COPY requirements.txt ./
+ENV POETRY_DYNAMIC_VERSIONING_BYPASS=0.0.0.dev
 RUN --mount=type=cache,target=/root/.cache \
     python3 -m pip install --disable-pip-version-check --requirement=requirements.txt
 
