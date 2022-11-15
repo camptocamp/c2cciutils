@@ -219,10 +219,10 @@ def pull_request_labels(github_event: Dict[str, Any], **kwargs: Any) -> bool:
             if label["name"] in required_labels
         ]
         if len(labels) == 0:
-            print(f"No required label found: {', '.join(required_labels)}")
-            return True
+            print(f"::error::No required label found: {', '.join(required_labels)}")
+            return False
         if len(labels) > 1:
-            print(f"Too many required labels found: {', '.join(labels)}")
+            print(f"::error::Too many required labels found: {', '.join(labels)}")
             return False
     return True
 
