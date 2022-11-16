@@ -50,7 +50,7 @@ def commits_messages(
 
     need_separator = False
     success = True
-    first_capital = re.compile(r"^[A-Z]")
+    first_capital = re.compile(r"^[^a-z]")
     commit_hash = set()
     for commit in commits:
         need_head = True
