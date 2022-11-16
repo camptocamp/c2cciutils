@@ -188,11 +188,13 @@ def snyk(
                 ["git", "push", "--force", "origin", f"snyk-fix/{current_branch}"],
                 check=True,
             )
-            subprocess.run(
-                ["gh", "pr", "create", f"--base={current_branch}", "--fill"],
-                check=True,
-                env={"GH_TOKEN": str(c2cciutils.gopass("gs/ci/github/token/gopass")), **os.environ},
-            )
+            env = os.environ.copy()
+            if "GH_TOKEN" not in env:
+                if "GITHUB_TOKEN" in env:
+                    env["GH_TOKEN"] = env["GITHUB_TOKEN"]
+                else:
+                    env["GH_TOKEN"] = str(c2cciutils.gopass("gs/ci/github/token/gopass"))
+            subprocess.run(["gh", "pr", "create", f"--base={current_branch}", "--fill"], check=True, env=env)
             subprocess.run(["git", "checkout", current_branch], check=True)
 
     return install_success and test_success and diff_proc.returncode == 0
