@@ -192,7 +192,7 @@ To make it working in the `Dockerfile` you should have in the `poetry` stage:
 ```Dockerfile
 ENV POETRY_DYNAMIC_VERSIONING_BYPASS=dev
 RUN poetry export --extras=checks --extras=publish --extras=audit --output=requirements.txt \
-    && poetry export --dev --output=requirements-dev.txt
+    && poetry export --with=dev --output=requirements-dev.txt
 ```
 
 And in the `run` stage
