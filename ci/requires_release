@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import datetime
+import os
 from distutils.version import LooseVersion
 
 import requests
@@ -21,8 +22,9 @@ def main() -> None:
 
     print(f"days: {days}")
     print(f"required: {required}")
-    print(f"##[set-output name=days;]{days}")
-    print(f"##[set-output name=required;]{required}")
+    with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output_file:
+        output_file.write(f"days={days}\n")
+        output_file.write(f"required={required}\n")
 
 
 if __name__ == "__main__":
