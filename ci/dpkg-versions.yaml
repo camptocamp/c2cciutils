@@ -23,7 +23,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/diffutils: 3.8-0ubuntu2
   ubuntu_22_04/dpkg: 1.21.1ubuntu2.1
   ubuntu_22_04/e2fsprogs: 1.46.5-2ubuntu1.1
-  ubuntu_22_04/expat: 2.4.7-1
+  ubuntu_22_04/expat: 2.4.7-1ubuntu0.1
   ubuntu_22_04/findutils: 4.8.0-1ubuntu3
   ubuntu_22_04/gcc-12: 12.1.0-2ubuntu1~22.04
   ubuntu_22_04/glibc: 2.35-0ubuntu3.1
