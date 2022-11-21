@@ -21,8 +21,9 @@ def main() -> None:
 
     print(f"days: {days}")
     print(f"required: {required}")
-    print(f"##[set-output name=days;]{days}")
-    print(f"##[set-output name=required;]{required}")
+    with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output_file:
+        output_file.write(f"days={days}")
+        output_file.write(f"required={required}")
 
 
 if __name__ == "__main__":
