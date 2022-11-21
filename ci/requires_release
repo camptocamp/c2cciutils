@@ -22,8 +22,8 @@ def main() -> None:
     print(f"days: {days}")
     print(f"required: {required}")
     with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output_file:
-        output_file.write(f"days={days}")
-        output_file.write(f"required={required}")
+        output_file.write(f"days={days}\n")
+        output_file.write(f"required={required}\n")
 
 
 if __name__ == "__main__":
