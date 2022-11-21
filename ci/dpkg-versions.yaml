@@ -23,7 +23,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/diffutils: 3.8-0ubuntu2
   ubuntu_22_04/dpkg: 1.21.1ubuntu2.1
   ubuntu_22_04/e2fsprogs: 1.46.5-2ubuntu1.1
-  ubuntu_22_04/expat: 2.4.7-1
+  ubuntu_22_04/expat: 2.4.7-1ubuntu0.1
   ubuntu_22_04/file: 5.41-3
   ubuntu_22_04/findutils: 4.8.0-1ubuntu3
   ubuntu_22_04/gcc-11: 11.3.0-1ubuntu1~22.04
@@ -63,7 +63,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libunistring: 1.0-1
   ubuntu_22_04/libxcrypt: 4.4.27-1
   ubuntu_22_04/libzstd: 1.4.8+dfsg-3build1
-  ubuntu_22_04/linux: 5.15.0-52.58
+  ubuntu_22_04/linux: 5.15.0-53.59
   ubuntu_22_04/lsb: 11.1.0ubuntu4
   ubuntu_22_04/lz4: 1.9.3-2build2
   ubuntu_22_04/mawk: 1.3.4.20200120-3
