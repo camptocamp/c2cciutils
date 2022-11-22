@@ -263,6 +263,12 @@ def pip(
     try:
         env = dict(os.environ)
         env["VERSION"] = version
+        env["VERSION_TYPE"] = version_type
+        full_repo = c2cciutils.get_repository()
+        full_repo_split = full_repo.split("/")
+        master_branch, _ = c2cciutils.get_master_branch(full_repo_split)
+        is_master = master_branch == version
+        env["IS_MASTER"] = "TRUE" if is_master else "FALSE"
 
         cwd = os.path.abspath(package.get("path", "."))
 
@@ -383,7 +389,7 @@ def docker(
 
 def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, token: str) -> bool:
     """
-    Publish to pypi.
+    Publish to helm.
 
     Arguments:
         folder: The folder to be published
