@@ -7,12 +7,14 @@ import datetime
 import glob
 import os
 import pickle  # nosec
+import re
 import subprocess  # nosec
 import sys
 import uuid
 from typing import List, Optional
 
 import ruamel.yaml
+import tomlkit
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -287,6 +289,31 @@ def pip(
             if not os.path.exists(dist):
                 os.mkdir(dist)
             cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", "."]
+            if os.path.exists(os.path.join(cwd, "pyproject.toml")):
+                use_poetry = False
+                if "build_command" not in package:
+                    with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
+                        pyproject = tomlkit.load(project_file)
+                    re_splitter = re.compile(r"[<>=]+")
+                    for requirement in pyproject.get("build-system", {}).get("requires", []):
+                        requirement_split = re_splitter.split(requirement)
+                        if requirement_split[0] in ("poetry", "poetry-core"):
+                            use_poetry = True
+                            break
+                    subprocess.run(
+                        ["pip", "install", *pyproject.get("build-system", {}).get("requires", [])], check=True
+                    )
+                if use_poetry:
+                    freeze = subprocess.run(["pip", "freeze"], check=True, stdout=subprocess.PIPE)
+                    for freeze_line in freeze.stdout.decode("utf-8").split("\n"):
+                        if freeze_line.startswith("poetry-") or freeze_line.startswith("poetry="):
+                            print(freeze_line)
+                    env_bash = " ".join([f"{key}={value}" for key, value in env.items()])
+                    print(f"Run in {cwd}: {env_bash} poetry build")
+                    sys.stdout.flush()
+                    sys.stderr.flush()
+                    subprocess.run(["poetry", "build"], cwd=cwd, env={**os.environ, **env}, check=True)
+                    cmd = []
         cmd = package.get("build_command", cmd)
         subprocess.check_call(cmd, cwd=cwd, env=env)
         cmd = ["twine"]
