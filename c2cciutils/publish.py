@@ -314,8 +314,9 @@ def pip(
                     sys.stderr.flush()
                     subprocess.run(["poetry", "build"], cwd=cwd, env={**os.environ, **env}, check=True)
                     cmd = []
-        cmd = package.get("build_command", cmd)
-        subprocess.check_call(cmd, cwd=cwd, env=env)
+        if cmd:
+            cmd = package.get("build_command", cmd)
+            subprocess.check_call(cmd, cwd=cwd, env=env)
         cmd = ["twine"]
         cmd += ["upload", "--verbose", "--disable-progress-bar"] if publish else ["check"]
         cmd += glob.glob(os.path.join(cwd, "dist/*.whl"))
