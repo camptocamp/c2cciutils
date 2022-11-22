@@ -320,6 +320,7 @@ def pip(
         cmd = ["twine"]
         cmd += ["upload", "--verbose", "--disable-progress-bar"] if publish else ["check"]
         cmd += glob.glob(os.path.join(cwd, "dist/*.whl"))
+        cmd += glob.glob(os.path.join(cwd, "dist/*.tar.gz"))
         subprocess.check_call(cmd)
         print("::endgroup::")
     except subprocess.CalledProcessError as exception:
