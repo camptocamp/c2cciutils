@@ -13,6 +13,10 @@ AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: List[Any] = []
 AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
 
 
+# Default value of the field path 'Audit snyk config fix_github_create_pull_request_arguments'
+AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT = ["--fill", "--label=dependencies"]
+
+
 # Default value of the field path 'Audit snyk config monitor_arguments'
 AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
 
@@ -193,6 +197,14 @@ AuditSnykConfig = TypedDict(
         # default:
         #   - --all-projects
         "fix_arguments": List[str],
+        # audit snyk fix pull request arguments
+        #
+        # The snyk fix pull request extra arguments
+        #
+        # default:
+        #   - --fill
+        #   - --label=dependencies
+        "fix_github_create_pull_request_arguments": List[str],
         # audit snyk pip install arguments
         #
         # The snyk pip install arguments
