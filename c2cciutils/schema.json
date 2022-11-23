@@ -67,6 +67,13 @@
               "type": "array",
               "items": { "type": "string" }
             },
+            "fix_github_create_pull_request_arguments": {
+              "description": "The snyk fix pull request extra arguments",
+              "title": "audit snyk fix pull request arguments",
+              "default": ["--fill", "--label=dependencies"],
+              "type": "array",
+              "items": { "type": "string" }
+            },
             "pip_install_arguments": {
               "description": "The snyk pip install arguments",
               "title": "audit snyk pip install arguments",

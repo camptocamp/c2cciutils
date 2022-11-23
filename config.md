@@ -73,6 +73,8 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
       - **`fix_arguments`** _(array)_: The snyk fix arguments. Default: `["--all-projects"]`.
         - **Items** _(string)_
+      - **`fix_github_create_pull_request_arguments`** _(array)_: The snyk fix pull request extra arguments. Default: `["--fill", "--label=dependencies"]`.
+        - **Items** _(string)_
       - **`pip_install_arguments`** _(array)_: The snyk pip install arguments. Default: `["--user"]`.
         - **Items** _(string)_
       - **`pipenv_sync_arguments`** _(array)_: The snyk pipenv sync arguments. Default: `[]`.
