@@ -26,7 +26,7 @@ python-versions = ">=3.5"
 dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy (>=0.900,!=0.940)", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "sphinx", "sphinx-notfound-page", "zope.interface"]
 docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
 tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "zope.interface"]
-tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
+tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
 
 [[package]]
 name = "bandit"
@@ -149,7 +149,7 @@ optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-unicode_backport = ["unicodedata2"]
+unicode-backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -403,7 +403,7 @@ six = ">=1.9.0"
 
 [package.extras]
 aiohttp = ["aiohttp (>=3.6.2,<4.0.0dev)", "requests (>=2.20.0,<3.0.0dev)"]
-enterprise_cert = ["cryptography (==36.0.2)", "pyopenssl (==22.0.0)"]
+enterprise-cert = ["cryptography (==36.0.2)", "pyopenssl (==22.0.0)"]
 pyopenssl = ["cryptography (>=38.0.3)", "pyopenssl (>=20.0.0)"]
 reauth = ["pyu2f (>=0.1.5)"]
 
@@ -509,9 +509,9 @@ python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
-pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+pipfile-deprecated-finder = ["pipreqs", "requirementslib"]
 plugins = ["setuptools"]
-requirements_deprecated_finder = ["pip-api", "pipreqs"]
+requirements-deprecated-finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "jaraco-classes"
@@ -759,7 +759,7 @@ flake8-polyfill = ">=1.0.2,<2"
 
 [[package]]
 name = "pipenv"
-version = "2022.11.11"
+version = "2022.11.25"
 description = "Python Development Workflow for Humans."
 category = "main"
 optional = true
@@ -835,12 +835,12 @@ setoptconf-tmp = ">=0.3.1,<0.4.0"
 toml = ">=0.10.2,<0.11.0"
 
 [package.extras]
-with_bandit = ["bandit (>=1.5.1)"]
-with_everything = ["bandit (>=1.5.1)", "frosted (>=1.4.1)", "mypy (>=0.600)", "pyroma (>=2.4)", "vulture (>=1.5)"]
-with_frosted = ["frosted (>=1.4.1)"]
-with_mypy = ["mypy (>=0.600)"]
-with_pyroma = ["pyroma (>=2.4)"]
-with_vulture = ["vulture (>=1.5)"]
+with-bandit = ["bandit (>=1.5.1)"]
+with-everything = ["bandit (>=1.5.1)", "frosted (>=1.4.1)", "mypy (>=0.600)", "pyroma (>=2.4)", "vulture (>=1.5)"]
+with-frosted = ["frosted (>=1.4.1)"]
+with-mypy = ["mypy (>=0.600)"]
+with-pyroma = ["pyroma (>=2.4)"]
+with-vulture = ["vulture (>=1.5)"]
 
 [[package]]
 name = "protobuf"
@@ -967,8 +967,8 @@ pylint = ">=2.0,<3"
 pylint-plugin-utils = ">=0.7"
 
 [package.extras]
-for_tests = ["coverage", "django-tables2", "django-tastypie", "factory-boy", "pylint (>=2.13)", "pytest", "wheel"]
-with_django = ["Django"]
+for-tests = ["coverage", "django-tables2", "django-tastypie", "factory-boy", "pylint (>=2.13)", "pytest", "wheel"]
+with-django = ["Django"]
 
 [[package]]
 name = "pylint-flask"
@@ -1101,7 +1101,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "requests-oauthlib"
@@ -1482,14 +1482,14 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [extras]
 audit = ["pipenv"]
 checks = ["black", "isort", "codespell", "EditorConfig"]
-pr_checks = ["codespell"]
+pr-checks = ["codespell"]
 publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit"]
-publish_plugins = []
+publish-plugins = []
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "d35a5e45e14d382c0082db9ba6eccfef4a8550c562f77250610742840a272370"
+content-hash = "2648e9b99595245236a240f54fe1519ca5525ada0c25326b82aa32539ff7f32a"
 
 [metadata.files]
 astroid = [
@@ -1887,8 +1887,8 @@ pep8-naming = [
     {file = "pep8_naming-0.10.0-py2.py3-none-any.whl", hash = "sha256:5d9f1056cb9427ce344e98d1a7f5665710e2f20f748438e308995852cfa24164"},
 ]
 pipenv = [
-    {file = "pipenv-2022.11.11-py2.py3-none-any.whl", hash = "sha256:7a75fe8df36226a84ad482d37c003eab131378339bc421b553d8425253980b2c"},
-    {file = "pipenv-2022.11.11.tar.gz", hash = "sha256:e69f64477e83595f3b891e1e58b1b1355d4c593432e63b078dc1be9bd93c5066"},
+    {file = "pipenv-2022.11.25-py3-none-any.whl", hash = "sha256:421a90dcc4c3e7b5cf27a4ced6b7c04a69f1b8ed8a67ad24cb71571895b4d017"},
+    {file = "pipenv-2022.11.25.tar.gz", hash = "sha256:1259d6c7053b1086d9aaabc81a9feb739bd2d17e81bb2020489a32ec141862ee"},
 ]
 pkginfo = [
     {file = "pkginfo-1.8.3-py2.py3-none-any.whl", hash = "sha256:848865108ec99d4901b2f7e84058b6e7660aae8ae10164e015a6dcf5b242a594"},
