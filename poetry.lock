@@ -759,7 +759,7 @@ flake8-polyfill = ">=1.0.2,<2"
 
 [[package]]
 name = "pipenv"
-version = "2022.11.11"
+version = "2022.11.25"
 description = "Python Development Workflow for Humans."
 category = "main"
 optional = true
@@ -1489,7 +1489,7 @@ publish_plugins = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "d35a5e45e14d382c0082db9ba6eccfef4a8550c562f77250610742840a272370"
+content-hash = "2648e9b99595245236a240f54fe1519ca5525ada0c25326b82aa32539ff7f32a"
 
 [metadata.files]
 astroid = [
@@ -1887,8 +1887,8 @@ pep8-naming = [
     {file = "pep8_naming-0.10.0-py2.py3-none-any.whl", hash = "sha256:5d9f1056cb9427ce344e98d1a7f5665710e2f20f748438e308995852cfa24164"},
 ]
 pipenv = [
-    {file = "pipenv-2022.11.11-py2.py3-none-any.whl", hash = "sha256:7a75fe8df36226a84ad482d37c003eab131378339bc421b553d8425253980b2c"},
-    {file = "pipenv-2022.11.11.tar.gz", hash = "sha256:e69f64477e83595f3b891e1e58b1b1355d4c593432e63b078dc1be9bd93c5066"},
+    {file = "pipenv-2022.11.25-py3-none-any.whl", hash = "sha256:421a90dcc4c3e7b5cf27a4ced6b7c04a69f1b8ed8a67ad24cb71571895b4d017"},
+    {file = "pipenv-2022.11.25.tar.gz", hash = "sha256:1259d6c7053b1086d9aaabc81a9feb739bd2d17e81bb2020489a32ec141862ee"},
 ]
 pkginfo = [
     {file = "pkginfo-1.8.3-py2.py3-none-any.whl", hash = "sha256:848865108ec99d4901b2f7e84058b6e7660aae8ae10164e015a6dcf5b242a594"},
