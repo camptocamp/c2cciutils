@@ -114,15 +114,8 @@ tomlkit = { version = "0.11.6", optional = true }
 [tool.poetry.extras]
 audit = ["pipenv"]
 checks = ["black", "isort", "codespell", "EditorConfig"]
-publish = [
-    "twine",
-    "google-api-python-client",
-    "google-auth-httplib2",
-    "google-auth-oauthlib",
-    "tomlkit",
-    "poetry"
-]
-publish_plugins = ["poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry-core"]
+publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit"]
+publish_plugins = []
 pr_checks = ["codespell"]
 
 [tool.poetry.dev-dependencies]
