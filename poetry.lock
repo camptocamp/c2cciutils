@@ -542,7 +542,7 @@ trio = ["async_generator", "trio"]
 
 [[package]]
 name = "jsonschema"
-version = "4.17.1"
+version = "4.17.3"
 description = "An implementation of JSON Schema validation for Python"
 category = "main"
 optional = false
@@ -1499,7 +1499,7 @@ publish_plugins = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "a11c1ead71a65b71141b849d6649d541d273b59adb2355de3b34c4d73694b8f6"
+content-hash = "2b0ef8c920161fda42c9d7872490e9fa99a51413ad112cffea1d219dd9ee33f2"
 
 [metadata.files]
 astroid = [
@@ -1776,8 +1776,8 @@ jeepney = [
     {file = "jeepney-0.8.0.tar.gz", hash = "sha256:5efe48d255973902f6badc3ce55e2aa6c5c3b3bc642059ef3a91247bcfcc5806"},
 ]
 jsonschema = [
-    {file = "jsonschema-4.17.1-py3-none-any.whl", hash = "sha256:410ef23dcdbca4eaedc08b850079179883c2ed09378bd1f760d4af4aacfa28d7"},
-    {file = "jsonschema-4.17.1.tar.gz", hash = "sha256:05b2d22c83640cde0b7e0aa329ca7754fbd98ea66ad8ae24aa61328dfe057fa3"},
+    {file = "jsonschema-4.17.3-py3-none-any.whl", hash = "sha256:a870ad254da1a8ca84b6a2905cac29d265f805acc57af304784962a2aa6508f6"},
+    {file = "jsonschema-4.17.3.tar.gz", hash = "sha256:0f864437ab8b6076ba6707453ef8f98a6a0d512a80e93f8abdb676f737ecb60d"},
 ]
 jsonschema-gentypes = [
     {file = "jsonschema_gentypes-1.4.0-py3-none-any.whl", hash = "sha256:44d39905c4f4559096fdbeca4295921b1a90a155eb91178bb9052520995e1b4e"},
