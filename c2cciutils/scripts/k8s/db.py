@@ -63,7 +63,7 @@ def main() -> None:
             os.environ.get("HELM", "helm"),
             "install",
             "test-pg",
-            f"--version={versions['bitnami/postgresql']}",
+            f"--version={versions['postgresql']}",
         ]
         + [
             f"--set={k}={v}"
