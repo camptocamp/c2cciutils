@@ -76,7 +76,7 @@ def get_master_branch(repo: List[str]) -> Tuple[str, bool]:
     return master_branch, success
 
 
-def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configuration:
+def get_config() -> c2cciutils.configuration.Configuration:
     """
     Get the configuration, with project and auto detections.
     """
@@ -89,7 +89,7 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
 
     repository = get_repository()
     repo = repository.split("/")
-    master_branch, credentials = get_master_branch(repo)
+    master_branch, _ = get_master_branch(repo)
 
     merge(
         {
@@ -106,7 +106,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
         config,
     )
 
-    based_on_master = get_based_on_master(repo, branch, master_branch, config) if credentials else False
     has_docker_files = bool(
         subprocess.run(
             ["git", "ls-files", "*/Dockerfile*", "Dockerfile*"], stdout=subprocess.PIPE, check=True
@@ -162,14 +161,6 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "gitattribute": True,
             "eof": True,
             "workflows": True,
-            "versions": {
-                "extra_versions": [master_branch],
-                "backport_labels": True,
-                "audit": True,
-                "branches": True,
-            }
-            if based_on_master
-            else False,
             "black": True,
             "isort": True,
             "codespell": True,
