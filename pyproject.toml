@@ -85,7 +85,7 @@ c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-pipenv = { version = "2022.11.25", optional = true }
+pipenv = { version = "2022.11.30", optional = true }
 safety = "2.3.3"
 markdown-table = "2020.12.3"
 python-magic = "0.4.27"
