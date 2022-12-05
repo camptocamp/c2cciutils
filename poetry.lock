@@ -1218,7 +1218,7 @@ python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "twine"
-version = "4.0.1"
+version = "4.0.2"
 description = "Collection of utilities for publishing packages on PyPI"
 category = "main"
 optional = false
@@ -1391,7 +1391,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "456bdaa9d3f5561b7fb06c5d9c96050e576f15efecfd4f8865dc59d7c247d432"
+content-hash = "d59946584ee9382deefb2c0f87349ce4b594212b5eb8ccc8823a2f3ac1bce9fa"
 
 [metadata.files]
 astroid = [
@@ -2044,8 +2044,8 @@ tomlkit = [
     {file = "tomlkit-0.11.0.tar.gz", hash = "sha256:71ceb10c0eefd8b8f11fe34e8a51ad07812cb1dc3de23247425fbc9ddc47b9dd"},
 ]
 twine = [
-    {file = "twine-4.0.1-py3-none-any.whl", hash = "sha256:42026c18e394eac3e06693ee52010baa5313e4811d5a11050e7d48436cf41b9e"},
-    {file = "twine-4.0.1.tar.gz", hash = "sha256:96b1cf12f7ae611a4a40b6ae8e9570215daff0611828f5fe1f37a16255ab24a0"},
+    {file = "twine-4.0.2-py3-none-any.whl", hash = "sha256:929bc3c280033347a00f847236564d1c52a3e61b1ac2516c97c48f3ceab756d8"},
+    {file = "twine-4.0.2.tar.gz", hash = "sha256:9e102ef5fdd5a20661eb88fad46338806c3bd32cf1db729603fe3697b1bc83c8"},
 ]
 types-markdown = [
     {file = "types-Markdown-3.3.31.tar.gz", hash = "sha256:6c5cd453c341500779e7b57580c2c1af5727917cb4eba90c41ba02717d9df647"},
