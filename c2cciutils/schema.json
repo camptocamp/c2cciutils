@@ -272,37 +272,6 @@
       "description": "The print the configuration including the auto-generated parts",
       "type": "boolean"
     },
-    "checks_versions": {
-      "title": "checks versions",
-      "description": "The version check configuration",
-      "oneOf": [
-        {
-          "title": "checks versions config",
-          "description": "The version check configuration",
-          "type": "object",
-          "properties": {
-            "audit": {
-              "description": "Check the versions in the audit workflow",
-              "type": "boolean"
-            },
-            "backport_labels": {
-              "description": "Check the versions of the backport labels",
-              "type": "boolean"
-            },
-            "branches": {
-              "description": "Check the versions of the protected branches",
-              "type": "boolean"
-            },
-            "extra_versions": {
-              "description": "Versions that are not in the `SECURITY.md` but should still be considered",
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "const": false }
-      ]
-    },
     "checks_workflows": {
       "title": "checks workflows",
       "description": "The workflows checks configuration",
@@ -773,7 +742,6 @@
         "gitattribute": { "$ref": "#/definitions/checks_gitattribute" },
         "isort": { "$ref": "#/definitions/checks_isort" },
         "print_config": { "$ref": "#/definitions/checks_print_config" },
-        "versions": { "$ref": "#/definitions/checks_versions" },
         "workflows": { "$ref": "#/definitions/checks_workflows" },
         "snyk": { "$ref": "#/definitions/checks_snyk" },
         "snyk_code": { "$ref": "#/definitions/checks_snyk_code" },
