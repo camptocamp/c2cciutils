@@ -272,7 +272,7 @@ def main() -> None:
         snyk_exec, env = c2cciutils.snyk_exec()
         for image in images_full:
             if version_type in ("version_branch", "version_tag"):
-                subprocess.run(
+                subprocess.run(  # pylint: disable=subprocess-run-check
                     [
                         snyk_exec,
                         "container",
@@ -282,7 +282,6 @@ def main() -> None:
                         # f"--project-tags=tag={image.split(':')[-1]}",
                         image,
                     ],
-                    check=True,
                     env=env,
                 )
             # Currently just for information
