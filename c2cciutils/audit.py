@@ -158,7 +158,10 @@ def snyk(
     print(f"::group::Run: {' '.join(command)}")
     sys.stdout.flush()
     sys.stderr.flush()
-    subprocess.run(command, env=env)  # pylint: disable=subprocess-run-check
+    snyk_fix_proc = subprocess.run(  # pylint: disable=subprocess-run-check
+        command, env=env, stdout=subprocess.PIPE, encoding="utf-8"
+    )
+    snyk_fix_message = snyk_fix_proc.stdout.strip()
     print("::endgroup::")
 
     if not args.fix:
@@ -190,7 +193,14 @@ def snyk(
                 c2cciutils.configuration.AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT,
             )
             subprocess.run(
-                ["gh", "pr", "create", f"--base={current_branch}", *fix_github_create_pull_request_arguments],
+                [
+                    "gh",
+                    "pr",
+                    "create",
+                    f"--base={current_branch}",
+                    f"--body={snyk_fix_message}",
+                    *fix_github_create_pull_request_arguments,
+                ],
                 check=True,
                 env=env,
             )
