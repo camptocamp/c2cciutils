@@ -254,7 +254,8 @@ def add_issue_link(github_event: Dict[str, Any], **kwargs: Any) -> bool:
 
     issue_number = issue_number.upper()
 
-    if issue_number in github_event["event"]["pull_request"].get("body", "").upper():
+    body = github_event["event"]["pull_request"].get("body") or ""
+    if issue_number in body.upper():
         return True
 
     comments_response = requests.get(
