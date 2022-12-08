@@ -100,68 +100,6 @@
         { "type": "boolean" }
       ]
     },
-    "audit_pip": {
-      "title": "Audit pip",
-      "description": "Audit the requirements.txt files",
-      "type": "boolean"
-    },
-    "audit_pipenv": {
-      "title": "Audit pipenv",
-      "description": "The audit Pipfile and Pipfile.lock configuration (old version)",
-      "oneOf": [
-        {
-          "title": "Audit pipenv config",
-          "description": "The audit Pipfile and Pipfile.lock configuration (old version)",
-          "type": "object",
-          "properties": {
-            "python_versions": { "type": "array", "items": { "type": "string" } }
-          }
-        },
-        { "const": false }
-      ]
-    },
-    "audit_pipfile": {
-      "title": "Audit pipfile",
-      "description": "The audit Pipfile configuration",
-      "oneOf": [
-        {
-          "title": "Audit pipfile config",
-          "description": "The audit Pipfile configuration",
-          "type": "object",
-          "properties": {
-            "sections": {
-              "title": "Pipfile sections",
-              "description": "The section to be audited",
-              "default": ["packages", "dev-packages"],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "audit_pipfile_lock": {
-      "title": "Audit pipfile lock",
-      "description": "The audit Pipfile.lock configuration",
-      "oneOf": [
-        {
-          "title": "Audit pipfile lock config",
-          "description": "The audit Pipfile.lock configuration",
-          "type": "object",
-          "properties": {
-            "sections": {
-              "title": "Pipfile.lock sections",
-              "description": "The section to be audited",
-              "default": ["default"],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
     "checks_black": {
       "title": "Checks Black",
       "description": "The Black check configuration",
@@ -720,14 +658,24 @@
       "title": "Audit",
       "description": "The audit configuration",
       "type": "object",
+      "default": {
+        "print_versions": {
+          "versions": [
+            { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
+            { "name": "python", "cmd": ["python3", "--version"] },
+            { "name": "safety", "cmd": ["safety", "--version"] },
+            { "name": "node", "prefix": "node ", "cmd": ["node", "--version"] },
+            { "name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"] }
+          ]
+        },
+        "npm": true,
+        "snyk": true,
+        "outdated_versions": true
+      },
       "properties": {
         "npm": { "$ref": "#/definitions/audit_npm" },
         "outdated_versions": { "$ref": "#/definitions/audit_outdated_versions" },
         "snyk": { "$ref": "#/definitions/audit_snyk" },
-        "pip": { "$ref": "#/definitions/audit_pip" },
-        "pipenv": { "$ref": "#/definitions/audit_pipenv" },
-        "pipfile": { "$ref": "#/definitions/audit_pipfile" },
-        "pipfile_lock": { "$ref": "#/definitions/audit_pipfile_lock" },
         "print_versions": { "$ref": "#/definitions/print_versions" }
       }
     },
@@ -735,6 +683,36 @@
       "title": "Checks",
       "description": "The checkers configurations",
       "type": "object",
+      "default": {
+        "print_versions": {
+          "versions": [
+            { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
+            { "name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell " },
+            { "name": "java", "cmd": ["java", "-version"] },
+            { "name": "python", "cmd": ["python3", "--version"] },
+            { "name": "pip", "cmd": ["python3", "-m", "pip", "--version"] },
+            { "name": "node", "prefix": "node ", "cmd": ["node", "--version"] },
+            { "name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"] },
+            { "name": "docker", "cmd": ["docker", "--version"] },
+            { "name": "docker-compose", "cmd": ["docker-compose", "--version"] },
+            { "name": "kubectl", "cmd": ["kubectl", "version"] }
+          ]
+        },
+        "print_config": true,
+        "print_environment_variables": true,
+        "print_github_event": true,
+        "gitattribute": true,
+        "eof": true,
+        "workflows": true,
+        "black": true,
+        "isort": true,
+        "codespell": true,
+        "prettier": true,
+        "snyk": true,
+        "snyk_code": false,
+        "snyk_iac": false,
+        "snyk_fix": false
+      },
       "properties": {
         "black": { "$ref": "#/definitions/checks_black" },
         "codespell": { "$ref": "#/definitions/checks_codespell" },
@@ -755,6 +733,13 @@
       "title": "Pull request checks",
       "description": "The PR check configuration",
       "type": "object",
+      "default": {
+        "commits_messages": true,
+        "commits_spell": true,
+        "pull_request_spell": true,
+        "pull_request_labels": true,
+        "add_issue_link": true
+      },
       "properties": {
         "print_event": { "$ref": "#/definitions/pr_checks_print_event" },
         "commits_messages": { "$ref": "#/definitions/pr_checks_commits_messages" },
@@ -767,6 +752,24 @@
     "publish": {
       "title": "Publish",
       "description": "The publishing configurations",
+      "default": {
+        "print_versions": {
+          "versions": [
+            { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
+            { "name": "python", "cmd": ["python3", "--version"] },
+            { "name": "twine", "cmd": ["twine", "--version"] },
+            { "name": "docker", "cmd": ["docker", "--version"] }
+          ]
+        },
+        "pypi": { "versions": ["version_tag"], "packages": "<auto-detected>" },
+        "docker": {
+          "images": "<auto-detected>"
+        },
+        "helm": {
+          "versions": ["version_tag"],
+          "folders": "<auto-detected>"
+        }
+      },
       "type": "object",
       "properties": {
         "docker": { "$ref": "#/definitions/publish_docker" },
