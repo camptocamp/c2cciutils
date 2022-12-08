@@ -4,23 +4,18 @@ _C2C CI utils configuration file_
 
 ## Properties
 
-- **`audit`** _(object)_: The audit configuration.
+- **`audit`** _(object)_: The audit configuration. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "safety", "cmd": ["safety", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}]}, "npm": true, "snyk": true, "outdated_versions": true}`.
   - **`npm`**: Refer to _[#/definitions/audit_npm](#definitions/audit_npm)_.
   - **`outdated_versions`**: Refer to _[#/definitions/audit_outdated_versions](#definitions/audit_outdated_versions)_.
   - **`snyk`**: Refer to _[#/definitions/audit_snyk](#definitions/audit_snyk)_.
-  - **`pip`**: Refer to _[#/definitions/audit_pip](#definitions/audit_pip)_.
-  - **`pipenv`**: Refer to _[#/definitions/audit_pipenv](#definitions/audit_pipenv)_.
-  - **`pipfile`**: Refer to _[#/definitions/audit_pipfile](#definitions/audit_pipfile)_.
-  - **`pipfile_lock`**: Refer to _[#/definitions/audit_pipfile_lock](#definitions/audit_pipfile_lock)_.
   - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
-- **`checks`** _(object)_: The checkers configurations.
+- **`checks`** _(object)_: The checkers configurations. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker-compose", "cmd": ["docker-compose", "--version"]}, {"name": "kubectl", "cmd": ["kubectl", "version"]}]}, "print_config": true, "print_environment_variables": true, "print_github_event": true, "gitattribute": true, "eof": true, "workflows": true, "black": true, "isort": true, "codespell": true, "prettier": true, "snyk": true, "snyk_code": false, "snyk_iac": false, "snyk_fix": false}`.
   - **`black`**: Refer to _[#/definitions/checks_black](#definitions/checks_black)_.
   - **`codespell`**: Refer to _[#/definitions/checks_codespell](#definitions/checks_codespell)_.
   - **`eof`**: Refer to _[#/definitions/checks_eof](#definitions/checks_eof)_.
   - **`gitattribute`**: Refer to _[#/definitions/checks_gitattribute](#definitions/checks_gitattribute)_.
   - **`isort`**: Refer to _[#/definitions/checks_isort](#definitions/checks_isort)_.
   - **`print_config`**: Refer to _[#/definitions/checks_print_config](#definitions/checks_print_config)_.
-  - **`versions`**: Refer to _[#/definitions/checks_versions](#definitions/checks_versions)_.
   - **`workflows`**: Refer to _[#/definitions/checks_workflows](#definitions/checks_workflows)_.
   - **`snyk`**: Refer to _[#/definitions/checks_snyk](#definitions/checks_snyk)_.
   - **`snyk_code`**: Refer to _[#/definitions/checks_snyk_code](#definitions/checks_snyk_code)_.
@@ -28,14 +23,14 @@ _C2C CI utils configuration file_
   - **`snyk_fix`**: Refer to _[#/definitions/checks_snyk_fix](#definitions/checks_snyk_fix)_.
   - **`prettier`**: Refer to _[#/definitions/checks_prettier](#definitions/checks_prettier)_.
   - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
-- **`pr-checks`** _(object)_: The PR check configuration.
+- **`pr-checks`** _(object)_: The PR check configuration. Default: `{"commits_messages": true, "commits_spell": true, "pull_request_spell": true, "pull_request_labels": true, "add_issue_link": true}`.
   - **`print_event`**: Refer to _[#/definitions/pr_checks_print_event](#definitions/pr_checks_print_event)_.
   - **`commits_messages`**: Refer to _[#/definitions/pr_checks_commits_messages](#definitions/pr_checks_commits_messages)_.
   - **`commits_spell`**: Refer to _[#/definitions/pr_checks_commits_spell](#definitions/pr_checks_commits_spell)_.
   - **`pull_request_spell`**: Refer to _[#/definitions/pr_checks_pull_request_spell](#definitions/pr_checks_pull_request_spell)_.
   - **`pull_request_labels`**: Refer to _[#/definitions/pr_checks_pull_request_labels](#definitions/pr_checks_pull_request_labels)_.
   - **`add_issue_link`**: Refer to _[#/definitions/pr_checks_add_issue_link](#definitions/pr_checks_add_issue_link)_.
-- **`publish`** _(object)_: The publishing configurations.
+- **`publish`** _(object)_: The publishing configurations. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "twine", "cmd": ["twine", "--version"]}, {"name": "docker", "cmd": ["docker", "--version"]}]}, "pypi": {"versions": ["version_tag"], "packages": "<auto-detected>"}, "docker": {"images": "<auto-detected>"}, "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"}}`.
   - **`docker`**: Refer to _[#/definitions/publish_docker](#definitions/publish_docker)_.
   - **`pypi`**: Refer to _[#/definitions/publish_pypi](#definitions/publish_pypi)_.
   - **`helm`**: Refer to _[#/definitions/publish_helm](#definitions/publish_helm)_.
@@ -82,25 +77,6 @@ _C2C CI utils configuration file_
       - **`files_no_install`** _(array)_: The list of files to not install. Default: `[]`.
         - **Items** _(string)_
     - _boolean_
-- <a id="definitions/audit_pip"></a>**`audit_pip`** _(boolean)_: Audit the requirements.txt files.
-- <a id="definitions/audit_pipenv"></a>**`audit_pipenv`**: The audit Pipfile and Pipfile.lock configuration (old version).
-  - **One of**
-    - _object_: The audit Pipfile and Pipfile.lock configuration (old version).
-      - **`python_versions`** _(array)_
-        - **Items** _(string)_
-    -
-- <a id="definitions/audit_pipfile"></a>**`audit_pipfile`**: The audit Pipfile configuration.
-  - **One of**
-    - _object_: The audit Pipfile configuration.
-      - **`sections`** _(array)_: The section to be audited. Default: `["packages", "dev-packages"]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/audit_pipfile_lock"></a>**`audit_pipfile_lock`**: The audit Pipfile.lock configuration.
-  - **One of**
-    - _object_: The audit Pipfile.lock configuration.
-      - **`sections`** _(array)_: The section to be audited. Default: `["default"]`.
-        - **Items** _(string)_
-    - _boolean_
 - <a id="definitions/checks_black"></a>**`checks_black`**: The Black check configuration.
   - **One of**
     - _object_: The Black check configuration.
@@ -132,15 +108,6 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
     - _boolean_
 - <a id="definitions/checks_print_config"></a>**`checks_print_config`** _(boolean)_: The print the configuration including the auto-generated parts.
-- <a id="definitions/checks_versions"></a>**`checks_versions`**: The version check configuration.
-  - **One of**
-    - _object_: The version check configuration.
-      - **`audit`** _(boolean)_: Check the versions in the audit workflow.
-      - **`backport_labels`** _(boolean)_: Check the versions of the backport labels.
-      - **`branches`** _(boolean)_: Check the versions of the protected branches.
-      - **`extra_versions`** _(array)_: Versions that are not in the `SECURITY.md` but should still be considered.
-        - **Items** _(string)_
-    -
 - <a id="definitions/checks_workflows"></a>**`checks_workflows`** _(boolean)_: The workflows checks configuration.
 - <a id="definitions/checks_snyk"></a>**`checks_snyk`**: The check snyk configuration.
   - **One of**

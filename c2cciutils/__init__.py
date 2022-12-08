@@ -121,80 +121,18 @@ def get_config() -> c2cciutils.configuration.Configuration:
         ).stdout
     )
 
+    publish_config = merge(c2cciutils.configuration.PUBLISH_DEFAULT, {})
+    publish_config["pypi"]["packages"] = [{"path": "."}] if has_python_package else []
+    publish_config["docker"]["images"] = [{"name": get_repository()}] if has_docker_files else []
+    publish_config["helm"]["folders"] = [
+        os.path.dirname(f) for f in glob.glob("./**/Chart.yaml", recursive=True)
+    ]
+
     default_config = {
-        "publish": {
-            "print_versions": {
-                "versions": [
-                    {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-                    {"name": "python", "cmd": ["python3", "--version"]},
-                    {"name": "twine", "cmd": ["twine", "--version"]},
-                    {"name": "docker", "cmd": ["docker", "--version"]},
-                ]
-            },
-            "pypi": {"versions": ["version_tag"], "packages": [{"path": "."}] if has_python_package else []},
-            "docker": {
-                "images": [{"name": get_repository()}] if has_docker_files else [],
-            },
-            "helm": {
-                "versions": ["version_tag"],
-                "folders": [os.path.dirname(f) for f in glob.glob("./**/Chart.yaml", recursive=True)],
-            },
-        },
-        "checks": {
-            "print_versions": {
-                "versions": [
-                    {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-                    {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "},
-                    {"name": "java", "cmd": ["java", "-version"]},
-                    {"name": "python", "cmd": ["python3", "--version"]},
-                    {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
-                    {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
-                    {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
-                    {"name": "docker", "cmd": ["docker", "--version"]},
-                    {"name": "docker-compose", "cmd": ["docker-compose", "--version"]},
-                    {"name": "kubectl", "cmd": ["kubectl", "version"]},
-                ]
-            },
-            "print_config": True,
-            "print_environment_variables": True,
-            "print_github_event": True,
-            "gitattribute": True,
-            "eof": True,
-            "workflows": True,
-            "black": True,
-            "isort": True,
-            "codespell": True,
-            "prettier": True,
-            "snyk": True,
-            "snyk_code": False,
-            "snyk_iac": False,
-            "snyk_fix": False,
-        },
-        "pr-checks": {
-            "commits_messages": True,
-            "commits_spell": True,
-            "pull_request_spell": True,
-            "pull_request_labels": True,
-            "add_issue_link": True,
-        },
-        "audit": {
-            "print_versions": {
-                "versions": [
-                    {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-                    {"name": "python", "cmd": ["python3", "--version"]},
-                    {"name": "safety", "cmd": ["safety", "--version"]},
-                    {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
-                    {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
-                ]
-            },
-            "pip": True,
-            "pipfile": True,
-            "pipfile_lock": True,
-            "pipenv": False,
-            "npm": True,
-            "snyk": True,
-            "outdated_versions": True,
-        },
+        "publish": publish_config,
+        "checks": c2cciutils.configuration.CHECKS_DEFAULT,
+        "pr-checks": c2cciutils.configuration.PULL_REQUEST_CHECKS_DEFAULT,
+        "audit": c2cciutils.configuration.AUDIT_DEFAULT,
     }
     merge(default_config, config)
 
