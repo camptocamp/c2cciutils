@@ -54,9 +54,11 @@ jobs:
         run: make checks
       - name: Build example
         run: |
+          # Workaround to get the right Makefile
+          docker builder prune --all --force
           cd example-project/
-          make build
-          make checks
+          GITHUB_REPOSITORY=camptocamp/project make build
+          GITHUB_REPOSITORY=camptocamp/project make checks
       # Rebuild the right image
       - name: Build
         run: make build
