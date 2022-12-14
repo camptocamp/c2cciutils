@@ -5,6 +5,23 @@ Automatically generated file from a JSON schema.
 
 from typing import Any, Dict, List, Literal, TypedDict, Union
 
+# Default value of the field path 'configuration audit'
+AUDIT_DEFAULT = {
+    "print_versions": {
+        "versions": [
+            {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
+            {"name": "python", "cmd": ["python3", "--version"]},
+            {"name": "safety", "cmd": ["safety", "--version"]},
+            {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
+            {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
+        ]
+    },
+    "npm": True,
+    "snyk": True,
+    "outdated_versions": True,
+}
+
+
 # Default value of the field path 'Audit snyk config files_no_install'
 AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: List[Any] = []
 
@@ -36,16 +53,41 @@ AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--sever
 # Audit
 #
 # The audit configuration
+#
+# default:
+#   npm: true
+#   outdated_versions: true
+#   print_versions:
+#     versions:
+#     - cmd:
+#       - c2cciutils
+#       - --version
+#       name: c2cciutils
+#     - cmd:
+#       - python3
+#       - --version
+#       name: python
+#     - cmd:
+#       - safety
+#       - --version
+#       name: safety
+#     - cmd:
+#       - node
+#       - --version
+#       name: node
+#       prefix: 'node '
+#     - cmd:
+#       - npm
+#       - --version
+#       name: npm
+#       prefix: 'npm '
+#   snyk: true
 Audit = TypedDict(
     "Audit",
     {
         "npm": "AuditNpm",
         "outdated_versions": "AuditOutdatedVersions",
         "snyk": "AuditWithSnyk",
-        "pip": "AuditPip",
-        "pipenv": "AuditPipenv",
-        "pipfile": "AuditPipfile",
-        "pipfile_lock": "AuditPipfileLock",
         # WARNING: The required are not correctly taken in account,
         # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "print_versions": "PrintVersions",
@@ -87,85 +129,6 @@ AuditNpmConfig = TypedDict(
 #
 # Audit of outdated version
 AuditOutdatedVersions = bool
-
-
-# Audit pip
-#
-# Audit the requirements.txt files
-AuditPip = bool
-
-
-# Audit pipenv
-#
-# The audit Pipfile and Pipfile.lock configuration (old version)
-#
-# oneOf
-AuditPipenv = Union["AuditPipenvConfig", Literal[False]]
-
-
-# Audit pipenv config
-#
-# The audit Pipfile and Pipfile.lock configuration (old version)
-AuditPipenvConfig = TypedDict(
-    "AuditPipenvConfig",
-    {
-        "python_versions": List[str],
-    },
-    total=False,
-)
-
-
-# Audit pipfile
-#
-# The audit Pipfile configuration
-#
-# oneOf
-AuditPipfile = Union["AuditPipfileConfig", bool]
-
-
-# Audit pipfile config
-#
-# The audit Pipfile configuration
-AuditPipfileConfig = TypedDict(
-    "AuditPipfileConfig",
-    {
-        # Pipfile sections
-        #
-        # The section to be audited
-        #
-        # default:
-        #   - packages
-        #   - dev-packages
-        "sections": List[str],
-    },
-    total=False,
-)
-
-
-# Audit pipfile lock
-#
-# The audit Pipfile.lock configuration
-#
-# oneOf
-AuditPipfileLock = Union["AuditPipfileLockConfig", bool]
-
-
-# Audit pipfile lock config
-#
-# The audit Pipfile.lock configuration
-AuditPipfileLockConfig = TypedDict(
-    "AuditPipfileLockConfig",
-    {
-        # Pipfile.lock sections
-        #
-        # The section to be audited
-        #
-        # default:
-        #   - default
-        "sections": List[str],
-    },
-    total=False,
-)
 
 
 # Audit snyk config
@@ -239,6 +202,39 @@ AuditSnykConfig = TypedDict(
 AuditWithSnyk = Union["AuditSnykConfig", bool]
 
 
+# Default value of the field path 'configuration checks'
+CHECKS_DEFAULT = {
+    "print_versions": {
+        "versions": [
+            {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
+            {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "},
+            {"name": "java", "cmd": ["java", "-version"]},
+            {"name": "python", "cmd": ["python3", "--version"]},
+            {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
+            {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
+            {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
+            {"name": "docker", "cmd": ["docker", "--version"]},
+            {"name": "docker-compose", "cmd": ["docker-compose", "--version"]},
+            {"name": "kubectl", "cmd": ["kubectl", "version"]},
+        ]
+    },
+    "print_config": True,
+    "print_environment_variables": True,
+    "print_github_event": True,
+    "gitattribute": True,
+    "eof": True,
+    "workflows": True,
+    "black": True,
+    "isort": True,
+    "codespell": True,
+    "prettier": True,
+    "snyk": True,
+    "snyk_code": False,
+    "snyk_iac": False,
+    "snyk_fix": False,
+}
+
+
 # Default value of the field path 'Checks snyk configuration arguments'
 CHECKS_SNYK_ARGUMENTS_DEFAULT = ["--severity-threshold=medium"]
 
@@ -270,6 +266,69 @@ CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock", "(.*/)?pac
 # Checks
 #
 # The checkers configurations
+#
+# default:
+#   black: true
+#   codespell: true
+#   eof: true
+#   gitattribute: true
+#   isort: true
+#   prettier: true
+#   print_config: true
+#   print_environment_variables: true
+#   print_github_event: true
+#   print_versions:
+#     versions:
+#     - cmd:
+#       - c2cciutils
+#       - --version
+#       name: c2cciutils
+#     - cmd:
+#       - codespell
+#       - --version
+#       name: codespell
+#       prefix: 'codespell '
+#     - cmd:
+#       - java
+#       - -version
+#       name: java
+#     - cmd:
+#       - python3
+#       - --version
+#       name: python
+#     - cmd:
+#       - python3
+#       - -m
+#       - pip
+#       - --version
+#       name: pip
+#     - cmd:
+#       - node
+#       - --version
+#       name: node
+#       prefix: 'node '
+#     - cmd:
+#       - npm
+#       - --version
+#       name: npm
+#       prefix: 'npm '
+#     - cmd:
+#       - docker
+#       - --version
+#       name: docker
+#     - cmd:
+#       - docker-compose
+#       - --version
+#       name: docker-compose
+#     - cmd:
+#       - kubectl
+#       - version
+#       name: kubectl
+#   snyk: true
+#   snyk_code: false
+#   snyk_fix: false
+#   snyk_iac: false
+#   workflows: true
 Checks = TypedDict(
     "Checks",
     {
@@ -279,7 +338,6 @@ Checks = TypedDict(
         "gitattribute": "ChecksGitattribute",
         "isort": "ChecksIsort",
         "print_config": "ChecksPrintConfig",
-        "versions": "ChecksVersions",
         "workflows": "ChecksWorkflows",
         "snyk": "ChecksSnyk",
         "snyk_code": "ChecksSnykCode",
@@ -510,33 +568,6 @@ ChecksSnykIacConfiguration = TypedDict(
 )
 
 
-# checks versions
-#
-# The version check configuration
-#
-# oneOf
-ChecksVersions = Union["ChecksVersionsConfig", Literal[False]]
-
-
-# checks versions config
-#
-# The version check configuration
-ChecksVersionsConfig = TypedDict(
-    "ChecksVersionsConfig",
-    {
-        # Check the versions in the audit workflow
-        "audit": bool,
-        # Check the versions of the backport labels
-        "backport_labels": bool,
-        # Check the versions of the protected branches
-        "branches": bool,
-        # Versions that are not in the `SECURITY.md` but should still be considered
-        "extra_versions": List[str],
-    },
-    total=False,
-)
-
-
 # Checks with snyk fix
 #
 # The check snyk fix configuration
@@ -715,12 +746,20 @@ K8S_DB_CHART_OPTIONS_DEFAULT = {
 }
 
 
-# Default value of the field path 'Audit pipfile lock config sections'
-PIPFILE_FULL_STOP_LOCK_SECTIONS_DEFAULT = ["default"]
-
-
-# Default value of the field path 'Audit pipfile config sections'
-PIPFILE_SECTIONS_DEFAULT = ["packages", "dev-packages"]
+# Default value of the field path 'configuration publish'
+PUBLISH_DEFAULT = {
+    "print_versions": {
+        "versions": [
+            {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
+            {"name": "python", "cmd": ["python3", "--version"]},
+            {"name": "twine", "cmd": ["twine", "--version"]},
+            {"name": "docker", "cmd": ["docker", "--version"]},
+        ]
+    },
+    "pypi": {"versions": ["version_tag"], "packages": "<auto-detected>"},
+    "docker": {"images": "<auto-detected>"},
+    "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"},
+}
 
 
 # Default value of the field path 'Publish Docker image group'
@@ -783,6 +822,16 @@ PULL_REQUEST_CHECKS_COMMITS_MESSAGES_ONLY_HEAD_DEFAULT = True
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_SQUASH_DEFAULT = True
 
 
+# Default value of the field path 'configuration pr-checks'
+PULL_REQUEST_CHECKS_DEFAULT = {
+    "commits_messages": True,
+    "commits_spell": True,
+    "pull_request_spell": True,
+    "pull_request_labels": True,
+    "add_issue_link": True,
+}
+
+
 # Default value of the field path 'pull request checks pull request spelling configuration only_head'
 PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT = True
 
@@ -802,6 +851,36 @@ PrintVersions = TypedDict(
 # Publish
 #
 # The publishing configurations
+#
+# default:
+#   docker:
+#     images: <auto-detected>
+#   helm:
+#     folders: <auto-detected>
+#     versions:
+#     - version_tag
+#   print_versions:
+#     versions:
+#     - cmd:
+#       - c2cciutils
+#       - --version
+#       name: c2cciutils
+#     - cmd:
+#       - python3
+#       - --version
+#       name: python
+#     - cmd:
+#       - twine
+#       - --version
+#       name: twine
+#     - cmd:
+#       - docker
+#       - --version
+#       name: docker
+#   pypi:
+#     packages: <auto-detected>
+#     versions:
+#     - version_tag
 Publish = TypedDict(
     "Publish",
     {
@@ -1011,6 +1090,13 @@ PublishPypiPackage = TypedDict(
 # Pull request checks
 #
 # The PR check configuration
+#
+# default:
+#   add_issue_link: true
+#   commits_messages: true
+#   commits_spell: true
+#   pull_request_labels: true
+#   pull_request_spell: true
 PullRequestChecks = TypedDict(
     "PullRequestChecks",
     {
