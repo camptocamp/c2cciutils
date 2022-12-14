@@ -53,7 +53,7 @@ jobs:
       - name: Checks
         run: make checks
       - name: Build example
-        run: (cd example-project/; make)
+        run: (cd example-project/; GITHUB_REPOSITORY=camptocamp/project make)
 
       - name: Publish
         run: c2cciutils-publish
