@@ -11,7 +11,7 @@ help: ## Display this help message
 
 .PHONY: build
 build: checks ## Build the Docker images
-		docker build --tag=$(GITHUB_REPOSITORY) .
+	docker build --tag=$(GITHUB_REPOSITORY) .
 
 .PHONY: build-checker
 build-checker: ## Build the checker Docker images
