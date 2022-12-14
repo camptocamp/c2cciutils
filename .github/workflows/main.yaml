@@ -44,7 +44,7 @@ jobs:
       - name: Build
         run: make
       - name: Build example
-        run: (cd example-project/; make)
+        run: (cd example-project/; GITHUB_REPOSITORY=camptocamp/project make)
 
       - run: sudo chmod go+rw -R *.egg-info
       - name: Publish
