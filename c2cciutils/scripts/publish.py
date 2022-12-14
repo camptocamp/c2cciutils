@@ -269,6 +269,8 @@ def main() -> None:
                 images_full,
             )
 
+        based_on_master = c2cciutils.get_based_on_master(full_repo_split, None, master_branch, config)
+
         snyk_exec, env = c2cciutils.snyk_exec()
         for image in images_full:
             if version_type in ("version_branch", "version_tag"):
@@ -290,7 +292,7 @@ def main() -> None:
             )
             subprocess.run(
                 [snyk_exec, "container", "test", "--app-vulns", "--severity-threshold=critical", image],
-                check=True,
+                check=based_on_master and version_type == "version_branch",
                 env=env,
             )
 
