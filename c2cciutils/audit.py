@@ -168,7 +168,7 @@ def snyk(
     sys.stdout.flush()
     sys.stderr.flush()
     snyk_fix_proc = subprocess.run(  # pylint: disable=subprocess-run-check
-        command, env=env, stdout=subprocess.PIPE, encoding="utf-8"
+        command, env={**env, "FORCE_COLOR": "false"}, stdout=subprocess.PIPE, encoding="utf-8"
     )
     snyk_fix_message = snyk_fix_proc.stdout.strip()
     print("::endgroup::")
