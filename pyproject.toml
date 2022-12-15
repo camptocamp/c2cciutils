@@ -95,6 +95,7 @@ dparse = "0.5.2"
 oauthlib = "3.2.2"
 protobuf = "3.20.3"
 cryptography = "38.0.4"
+certifi = "2022.12.7"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = [
