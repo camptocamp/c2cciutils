@@ -216,6 +216,9 @@ CHECKS_DEFAULT = {
             {"name": "docker", "cmd": ["docker", "--version"]},
             {"name": "docker-compose", "cmd": ["docker-compose", "--version"]},
             {"name": "kubectl", "cmd": ["kubectl", "version"]},
+            {"name": "make", "cmd": ["make", "--version"], "prefix": "make "},
+            {"name": "pip_packages", "cmd": ["pip", "freeze", "--all"], "prefix": "pip packages: "},
+            {"name": "npm_packages", "cmd": ["npm", "list", "--all", "--global"]},
         ]
     },
     "print_config": True,
@@ -324,6 +327,23 @@ CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock", "(.*/)?pac
 #       - kubectl
 #       - version
 #       name: kubectl
+#     - cmd:
+#       - make
+#       - --version
+#       name: make
+#       prefix: 'make '
+#     - cmd:
+#       - pip
+#       - freeze
+#       - --all
+#       name: pip_packages
+#       prefix: 'pip packages: '
+#     - cmd:
+#       - npm
+#       - list
+#       - --all
+#       - --global
+#       name: npm_packages
 #   snyk: true
 #   snyk_code: false
 #   snyk_fix: false

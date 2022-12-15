@@ -695,7 +695,14 @@
             { "name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"] },
             { "name": "docker", "cmd": ["docker", "--version"] },
             { "name": "docker-compose", "cmd": ["docker-compose", "--version"] },
-            { "name": "kubectl", "cmd": ["kubectl", "version"] }
+            { "name": "kubectl", "cmd": ["kubectl", "version"] },
+            { "name": "make", "cmd": ["make", "--version"], "prefix": "make " },
+            { "name": "pip_packages", "cmd": ["pip", "freeze", "--all"], "prefix": "pip packages:\n" },
+            {
+              "name": "npm_packages",
+              "cmd": ["npm", "list", "--all", "--global"],
+              "prefix": "npm packages:\n"
+            }
           ]
         },
         "print_config": true,
