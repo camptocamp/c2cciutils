@@ -292,7 +292,7 @@ def main() -> None:
             )
             subprocess.run(
                 [snyk_exec, "container", "test", "--app-vulns", "--severity-threshold=critical", image],
-                check=based_on_master and version_type == "version_branch",
+                check=not based_on_master and version_type == "version_branch",
                 env=env,
             )
 
