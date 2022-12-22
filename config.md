@@ -5,92 +5,244 @@ _C2C CI utils configuration file_
 ## Properties
 
 - **`audit`** _(object)_: The audit configuration.
-  - **`npm`**: Refer to _#/definitions/audit_npm_.
-  - **`outdated_versions`**: Refer to _#/definitions/audit_outdated_versions_.
-  - **`pip`**: Refer to _#/definitions/audit_pip_.
-  - **`pipenv`**: Refer to _#/definitions/audit_pipenv_.
-  - **`pipfile`**: Refer to _#/definitions/audit_pipfile_.
-  - **`pipfile_lock`**: Refer to _#/definitions/audit_pipfile_lock_.
-  - **`print_versions`**: Refer to _#/definitions/print_versions_.
+  - **`npm`**: Refer to _[#/definitions/audit_npm](#definitions/audit_npm)_.
+  - **`outdated_versions`**: Refer to _[#/definitions/audit_outdated_versions](#definitions/audit_outdated_versions)_.
+  - **`pip`**: Refer to _[#/definitions/audit_pip](#definitions/audit_pip)_.
+  - **`pipenv`**: Refer to _[#/definitions/audit_pipenv](#definitions/audit_pipenv)_.
+  - **`pipfile`**: Refer to _[#/definitions/audit_pipfile](#definitions/audit_pipfile)_.
+  - **`pipfile_lock`**: Refer to _[#/definitions/audit_pipfile_lock](#definitions/audit_pipfile_lock)_.
+  - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
 - **`checks`** _(object)_: The checkers configurations.
-  - **`black`**: Refer to _#/definitions/checks_black_.
-  - **`black_config`**: Refer to _#/definitions/checks_black_config_.
-  - **`prospector_config`**: Refer to _#/definitions/checks_prospector_config_.
-  - **`codespell`**: Refer to _#/definitions/checks_codespell_.
-  - **`editorconfig`**: Refer to _#/definitions/checks_editorconfig_.
-  - **`eof`**: Refer to _#/definitions/checks_eof_.
-  - **`gitattribute`**: Refer to _#/definitions/checks_gitattribute_.
-  - **`isort`**: Refer to _#/definitions/checks_isort_.
-  - **`print_config`**: Refer to _#/definitions/checks_print_config_.
-  - **`required_workflows`**: Refer to _#/definitions/checks_required_workflows_.
-  - **`versions`**: Refer to _#/definitions/checks_versions_.
-  - **`workflows`**: Refer to _#/definitions/checks_workflows_.
-  - **`prettier`**: Refer to _#/definitions/checks_prettier_.
-  - **`print_versions`**: Refer to _#/definitions/print_versions_.
+  - **`black`**: Refer to _[#/definitions/checks_black](#definitions/checks_black)_.
+  - **`black_config`**: Refer to _[#/definitions/checks_black_config](#definitions/checks_black_config)_.
+  - **`prospector_config`**: Refer to _[#/definitions/checks_prospector_config](#definitions/checks_prospector_config)_.
+  - **`codespell`**: Refer to _[#/definitions/checks_codespell](#definitions/checks_codespell)_.
+  - **`editorconfig`**: Refer to _[#/definitions/checks_editorconfig](#definitions/checks_editorconfig)_.
+  - **`eof`**: Refer to _[#/definitions/checks_eof](#definitions/checks_eof)_.
+  - **`gitattribute`**: Refer to _[#/definitions/checks_gitattribute](#definitions/checks_gitattribute)_.
+  - **`isort`**: Refer to _[#/definitions/checks_isort](#definitions/checks_isort)_.
+  - **`print_config`**: Refer to _[#/definitions/checks_print_config](#definitions/checks_print_config)_.
+  - **`required_workflows`**: Refer to _[#/definitions/checks_required_workflows](#definitions/checks_required_workflows)_.
+  - **`versions`**: Refer to _[#/definitions/checks_versions](#definitions/checks_versions)_.
+  - **`workflows`**: Refer to _[#/definitions/checks_workflows](#definitions/checks_workflows)_.
+  - **`prettier`**: Refer to _[#/definitions/checks_prettier](#definitions/checks_prettier)_.
+  - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
 - **`pr-checks`** _(object)_: The PR check configuration.
-  - **`print_event`**: Refer to _#/definitions/pr_checks_print_event_.
-  - **`commits_messages`**: Refer to _#/definitions/pr_checks_commits_messages_.
-  - **`commits_spell`**: Refer to _#/definitions/pr_checks_commits_spell_.
-  - **`pull_request_spell`**: Refer to _#/definitions/pr_checks_pull_request_spell_.
-  - **`pull_request_labels`**: Refer to _#/definitions/pr_checks_pull_request_labels_.
-  - **`add_issue_link`**: Refer to _#/definitions/pr_checks_add_issue_link_.
+  - **`print_event`**: Refer to _[#/definitions/pr_checks_print_event](#definitions/pr_checks_print_event)_.
+  - **`commits_messages`**: Refer to _[#/definitions/pr_checks_commits_messages](#definitions/pr_checks_commits_messages)_.
+  - **`commits_spell`**: Refer to _[#/definitions/pr_checks_commits_spell](#definitions/pr_checks_commits_spell)_.
+  - **`pull_request_spell`**: Refer to _[#/definitions/pr_checks_pull_request_spell](#definitions/pr_checks_pull_request_spell)_.
+  - **`pull_request_labels`**: Refer to _[#/definitions/pr_checks_pull_request_labels](#definitions/pr_checks_pull_request_labels)_.
+  - **`add_issue_link`**: Refer to _[#/definitions/pr_checks_add_issue_link](#definitions/pr_checks_add_issue_link)_.
 - **`publish`** _(object)_: The publishing configurations.
-  - **`docker`**: Refer to _#/definitions/publish_docker_.
-  - **`pypi`**: Refer to _#/definitions/publish_pypi_.
-  - **`helm`**: Refer to _#/definitions/publish_helm_.
-  - **`google_calendar`**: Refer to _#/definitions/publish_google_calendar_.
-  - **`print_versions`**: Refer to _#/definitions/print_versions_.
+  - **`docker`**: Refer to _[#/definitions/publish_docker](#definitions/publish_docker)_.
+  - **`pypi`**: Refer to _[#/definitions/publish_pypi](#definitions/publish_pypi)_.
+  - **`helm`**: Refer to _[#/definitions/publish_helm](#definitions/publish_helm)_.
+  - **`google_calendar`**: Refer to _[#/definitions/publish_google_calendar](#definitions/publish_google_calendar)_.
+  - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
 - **`version`** _(object)_: The version configurations.
-  - **`branch_to_version_re`**: Refer to _#/definitions/version_transform_.
-  - **`tag_to_version_re`**: Refer to _#/definitions/version_transform_.
+  - **`branch_to_version_re`**: Refer to _[#/definitions/version_transform](#definitions/version_transform)_.
+  - **`tag_to_version_re`**: Refer to _[#/definitions/version_transform](#definitions/version_transform)_.
 - **`k8s`** _(object)_: Default: `{}`.
   - **`k3d`** _(object)_: Default: `{}`.
-    - **`install-commands`** _(array)_: Default: `[['k3d', 'cluster', 'create', 'test-cluster', '--no-lb', '--no-rollback']]`.
+    - **`install-commands`** _(array)_: Default: `[["k3d", "cluster", "create", "test-cluster", "--no-lb", "--no-rollback"]]`.
       - **Items** _(array)_
         - **Items** _(string)_
   - **`db`** _(object)_: Database configuration. Default: `{}`.
-    - **`chart-options`** _(object)_: Can contain additional properties. Default: `{'persistence.enabled': 'false', 'tls.enabled': 'true', 'tls.autoGenerated': 'true', 'postgresqlPassword': 'mySuperTestingPassword', 'volumePermissions.enabled': 'true'}`.
+    - **`chart-options`** _(object)_: Can contain additional properties. Default: `{"persistence.enabled": "false", "tls.enabled": "true", "tls.autoGenerated": "true", "auth.postgresPassword": "mySuperTestingPassword", "volumePermissions.enabled": "true"}`.
       - **Additional Properties** _(string)_
 
 ## Definitions
 
-- **`audit_npm`**: The npm audit configuration.
-- **`audit_outdated_versions`** _(boolean)_: Audit of outdated version.
-- **`audit_pip`** _(boolean)_: Audit the requirements.txt files.
-- **`audit_pipenv`**: The audit Pipfile and Pipfile.lock configuration (old version).
-- **`audit_pipfile`**: The audit Pipfile configuration.
-- **`audit_pipfile_lock`**: The audit Pipfile.lock configuration.
-- **`checks_black`**: The Black check configuration.
-- **`checks_prettier`**: The Prettier check configuration.
-- **`checks_black_config`**: The Black configuration check configuration.
-- **`checks_prospector_config`**: The Prospector configuration check configuration.
-- **`checks_codespell`**: The codespell check configuration.
-- **`checks_editorconfig`**: The editorconfig configuration check configuration.
-- **`checks_eof`** _(boolean)_: Check the end-of-file.
-- **`checks_gitattribute`** _(boolean)_: Run the Git attributes check.
-- **`checks_isort`**: The isort check configuration.
-- **`checks_print_config`** _(boolean)_: The print the configuration including the auto-generated parts.
-- **`checks_required_workflows`**: The required workflow check configuration.
-- **`checks_versions`**: The version check configuration.
-- **`checks_workflows`**: The workflows checks configuration.
-- **`pr_checks_print_event`** _(boolean)_: Print the GitHub event object.
-- **`pr_checks_commits_messages`**: Check the pull request commits messages.
-- **`pr_checks_commits_spell`**
-- **`pr_checks_pull_request_spell`**
-- **`pr_checks_pull_request_labels`** _(boolean)_: According the create changelog configuration.
-- **`pr_checks_add_issue_link`** _(boolean)_
-- **`publish_docker`**: The configuration used to publish on Docker.
-- **`publish_google_calendar`**: The configuration to publish on Google Calendar. Default: `{}`.
-- **`publish_pypi`**: Configuration to publish on pypi. Default: `{}`.
-- **`publish_helm`**: Configuration to publish Helm charts on GitHub release.
-- **`print_versions`** _(object)_: The print versions configuration.
+- <a id="definitions/audit_npm"></a>**`audit_npm`**: The npm audit configuration.
+  - **One of**
+    - _object_: The npm audit configuration.
+      - **`cwe_ignore`** _(array)_: The list of CWE id to be ignored. Default: `[]`.
+        - **Items** _(string)_
+      - **`package_ignore`** _(array)_: The list of package names to be ignored. Default: `[]`.
+        - **Items** _(string)_
+    - _boolean_
+- <a id="definitions/audit_outdated_versions"></a>**`audit_outdated_versions`** _(boolean)_: Audit of outdated version.
+- <a id="definitions/audit_pip"></a>**`audit_pip`** _(boolean)_: Audit the requirements.txt files.
+- <a id="definitions/audit_pipenv"></a>**`audit_pipenv`**: The audit Pipfile and Pipfile.lock configuration (old version).
+  - **One of**
+    - _object_: The audit Pipfile and Pipfile.lock configuration (old version).
+      - **`python_versions`** _(array)_
+        - **Items** _(string)_
+    -
+- <a id="definitions/audit_pipfile"></a>**`audit_pipfile`**: The audit Pipfile configuration.
+  - **One of**
+    - _object_: The audit Pipfile configuration.
+      - **`sections`** _(array)_: The section to be audited. Default: `["default", "develop"]`.
+        - **Items** _(string)_
+    - _boolean_
+- <a id="definitions/audit_pipfile_lock"></a>**`audit_pipfile_lock`**: The audit Pipfile.lock configuration.
+  - **One of**
+    - _object_: The audit Pipfile.lock configuration.
+      - **`sections`** _(array)_: The section to be audited. Default: `["default"]`.
+        - **Items** _(string)_
+    - _boolean_
+- <a id="definitions/checks_black"></a>**`checks_black`**: The Black check configuration.
+  - **One of**
+    - _object_: The Black check configuration.
+      - **`properties`** _(object)_
+      - **`ignore_patterns_re`** _(array)_: List of regular expression that should be ignored. Default: `[]`.
+        - **Items** _(string)_
+    - _boolean_
+- <a id="definitions/checks_prettier"></a>**`checks_prettier`**: The Prettier check configuration.
+  - **One of**
+    - _object_: The Prettier check configuration.
+      - **`properties`** _(object)_
+    - _boolean_
+- <a id="definitions/checks_black_config"></a>**`checks_black_config`**: The Black configuration check configuration.
+  - **One of**
+    - _object_: The Black configuration check configuration.
+      - **`properties`** _(object)_: The properties key = value that should be present. Can contain additional properties. Default: `{"line-length": 110}`.
+        - **Additional Properties** _(['number', 'string'])_
+    - _boolean_
+- <a id="definitions/checks_prospector_config"></a>**`checks_prospector_config`**: The Prospector configuration check configuration.
+  - **One of**
+    - _object_: The Prospector configuration check configuration.
+      - **`properties`** _(object)_: The properties key = value that should be present. Default: `{"strictness": "veryhigh", "max-line-length": 110, "doc-warnings": true, "mypy": {"run": true}, "bandit": {"run": true}}`.
+    - _boolean_
+- <a id="definitions/checks_codespell"></a>**`checks_codespell`**: The codespell check configuration.
+  - **One of**
+    - _object_: The codespell check configuration.
+      - **`internal_dictionaries`** _(array)_: List of argument that will be added to the codespell command. Default: `["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]`.
+        - **Items** _(string)_
+      - **`arguments`** _(array)_: List of argument that will be added to the codespell command. Default: `["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]`.
+        - **Items** _(string)_
+      - **`ignore_re`** _(array)_: List of regular expression that should be ignored. Default: `["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]`.
+        - **Items** _(string)_
+    - _boolean_
+- <a id="definitions/checks_editorconfig"></a>**`checks_editorconfig`**: The editorconfig configuration check configuration.
+  - **One of**
+    - _object_: The editorconfig configuration check configuration.
+      - **`properties`** _(object)_: The key = value that should be present in the configuration. Can contain additional properties.
+        - **Additional Properties** _(object)_: Can contain additional properties.
+          - **Additional Properties** _(string)_
+    -
+- <a id="definitions/checks_eof"></a>**`checks_eof`** _(boolean)_: Check the end-of-file.
+- <a id="definitions/checks_gitattribute"></a>**`checks_gitattribute`** _(boolean)_: Run the Git attributes check.
+- <a id="definitions/checks_isort"></a>**`checks_isort`**: The isort check configuration.
+  - **One of**
+    - _object_: The isort check configuration.
+      - **`ignore_patterns_re`** _(array)_: List of regular expression that should be ignored. Default: `[]`.
+        - **Items** _(string)_
+    - _boolean_
+- <a id="definitions/checks_print_config"></a>**`checks_print_config`** _(boolean)_: The print the configuration including the auto-generated parts.
+- <a id="definitions/checks_required_workflows"></a>**`checks_required_workflows`**: The required workflow check configuration.
+  - **One of**
+    - _object_: The required workflow check configuration. Can contain additional properties.
+      - **Additional Properties**
+        - **One of**
+          - _object_
+            - **`steps`** _(array)_: The required steps configuration.
+              - **Items** _(object)_
+                - **`env`** _(array)_: The required environment variable.
+                  - **Items** _(string)_
+                - **`run_re`** _(string)_: The required regular expression of the run part.
+            - **`strategy-fail-fast`** _(boolean)_: Should we have a fail fast configuration.
+            - **`if`** _(string)_: The if that we should have.
+            - **`noif`** _(boolean)_: We shouldn't have any if.
+            - **`on`** _(object)_: The on configuration that we should have.
+          - _boolean_
+    -
+- <a id="definitions/checks_versions"></a>**`checks_versions`**: The version check configuration.
+  - **One of**
+    - _object_: The version check configuration.
+      - **`audit`** _(boolean)_: Check the versions in the audit workflow.
+      - **`backport_labels`** _(boolean)_: Check the versions of the backport labels.
+      - **`branches`** _(boolean)_: Check the versions of the protected branches.
+      - **`extra_versions`** _(array)_: Versions that are not in the `SECURITY.md` but should still be considered.
+        - **Items** _(string)_
+    -
+- <a id="definitions/checks_workflows"></a>**`checks_workflows`**: The workflows checks configuration.
+  - **One of**
+    - _object_: The workflows checks configuration.
+      - **`images_blacklist`** _(array)_: The images that shouldn't be used.
+        - **Items** _(string)_
+      - **`timeout`** _(boolean)_: A timeout should be present.
+    -
+- <a id="definitions/pr_checks_print_event"></a>**`pr_checks_print_event`** _(boolean)_: Print the GitHub event object.
+- <a id="definitions/pr_checks_commits_messages"></a>**`pr_checks_commits_messages`**: Check the pull request commits messages.
+  - **One of**
+    - _object_: The commit message check configuration.
+      - **`check_fixup`** _(boolean)_: Check that we don't have one fixup commit in the pull request. Default: `true`.
+      - **`check_squash`** _(boolean)_: Check that we don't have one squash commit in the pull request. Default: `true`.
+      - **`check_first_capital`** _(boolean)_: Check that the all the commits message starts with a capital letter. Default: `true`.
+      - **`min_head_length`** _(integer)_: Check that the commits message head is at least this long, use 0 to disable. Default: `5`.
+      - **`check_no_merge_commits`** _(boolean)_: Check that we don't have merge commits in the pull request. Default: `true`.
+      - **`check_no_own_revert`** _(boolean)_: Check that we don't have reverted one of our commits in the pull request. Default: `true`.
+    - _boolean_
+- <a id="definitions/pr_checks_commits_spell"></a>**`pr_checks_commits_spell`**
+  - **One of**
+    - _object_: Configuration used to check the spelling of the commits.
+      - **`only_head`** _(boolean)_: Default: `false`.
+    - _boolean_
+- <a id="definitions/pr_checks_pull_request_spell"></a>**`pr_checks_pull_request_spell`**
+  - **One of**
+    - _object_: Configuration used to check the spelling of the title and body of the pull request.
+      - **`only_head`** _(boolean)_: Default: `false`.
+    - _boolean_
+- <a id="definitions/pr_checks_pull_request_labels"></a>**`pr_checks_pull_request_labels`** _(boolean)_: According the create changelog configuration.
+- <a id="definitions/pr_checks_add_issue_link"></a>**`pr_checks_add_issue_link`** _(boolean)_
+- <a id="definitions/publish_docker"></a>**`publish_docker`**: The configuration used to publish on Docker.
+  - **One of**
+    - _object_: The configuration used to publish on Docker.
+      - **`latest`** _(boolean)_: Publish the latest version on tag latest. Default: `true`.
+      - **`images`** _(array)_: List of images to be published.
+        - **Items** _(object)_
+          - **`group`** _(string)_: The image is in the group, should be used with the --group option of c2cciutils-publish script. Default: `"default"`.
+          - **`name`** _(string)_: The image name.
+          - **`tags`** _(array)_: The tag name, will be formatted with the version=<the version>, the image with version=latest should be present when we call the c2cciutils-publish script. Default: `["{version}"]`.
+            - **Items** _(string)_
+      - **`repository`** _(object)_: The repository where we should publish the images. Can contain additional properties. Default: `{"github": {"server": "ghcr.io", "versions": ["version_tag", "version_branch", "rebuild"]}, "dockerhub": {}}`.
+        - **Additional Properties** _(object)_
+          - **`server`** _(string)_: The server URL.
+          - **`versions`** _(array)_: The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script. Default: `["version_tag", "version_branch", "rebuild", "feature_branch"]`.
+            - **Items** _(string)_
+      - **`dispatch`**: Send a dispatch event to an other repository. Default: `{}`.
+        - **One of**
+          - _object_: Send a dispatch event to an other repository.
+            - **`repository`** _(string)_: The repository name to be triggered. Default: `"camptocamp/argocd-gs-platform-ch-development-apps"`.
+            - **`event-type`** _(string)_: The event type to be triggered. Default: `"image-update"`.
+          -
+    -
+- <a id="definitions/publish_google_calendar"></a>**`publish_google_calendar`**: The configuration to publish on Google Calendar. Default: `{}`.
+  - **One of**
+    - _object_: The configuration to publish on Google Calendar.
+      - **`on`** _(array)_: Default: `["version_branch", "version_tag", "rebuild"]`.
+        - **Items** _(string)_
+    -
+- <a id="definitions/publish_pypi"></a>**`publish_pypi`**: Configuration to publish on pypi. Default: `{}`.
+  - **One of**
+    - _object_: Configuration to publish on pypi.
+      - **`packages`** _(array)_: The configuration of packages that will be published.
+        - **Items** _(object)_: The configuration of package that will be published.
+          - **`group`** _(string)_: The image is in the group, should be used with the --group option of c2cciutils-publish script. Default: `"default"`.
+          - **`path`** _(string)_: The path of the pypi package.
+          - **`build_command`** _(array)_: The command used to do the build.
+            - **Items** _(string)_
+      - **`versions`** _(array)_: The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script.
+        - **Items** _(string)_
+    -
+- <a id="definitions/publish_helm"></a>**`publish_helm`**: Configuration to publish Helm charts on GitHub release.
+  - **One of**
+    - _object_: Configuration to publish on Helm charts on GitHub release.
+      - **`folders`** _(array)_: The folders that will be published.
+        - **Items** _(string)_
+      - **`versions`** _(array)_: The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script.
+        - **Items** _(string)_
+    -
+- <a id="definitions/print_versions"></a>**`print_versions`** _(object)_: The print versions configuration.
   - **`versions`** _(array)_
     - **Items** _(object)_
       - **`cmd`** _(array)_: The command that should be used.
         - **Items** _(string)_
       - **`name`** _(string)_: The name.
       - **`prefix`** _(string)_: Prefix added when we print the version.
-- **`version_transform`** _(array)_: A version transformer definition.
+- <a id="definitions/version_transform"></a>**`version_transform`** _(array)_: A version transformer definition.
   - **Items** _(object)_
     - **`from`** _(string)_: The from regular expression.
     - **`to`** _(string)_: The expand regular expression: https://docs.python.org/3/library/re.html#re.Match.expand.
