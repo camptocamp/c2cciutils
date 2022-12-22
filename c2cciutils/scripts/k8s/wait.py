@@ -81,6 +81,10 @@ def _check_pod_status(pods: Any) -> bool:
             if not _check_container_status(pod, status):
                 return False
 
+        if pod["status"].get("phase") not in ("Running", "Succeeded"):
+            print(f'::group::The Pod {pod["metadata"]["name"]} is not ready: {pod["status"].get("phase")}')
+            return False
+
     return True
 
 
@@ -95,14 +99,18 @@ def main() -> None:
         help="Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)",
     )
     parser.add_argument("--no-deployments", dest="deployments", action="store_false")
+    parser.add_argument(
+        "--nb-try", default=20, type=int, help="Number of try to wait for the application to be ready"
+    )
+    parser.add_argument("--sleep", default=10, type=int, help="Sleep time before each try")
 
     args = parser.parse_args()
 
     if args.namespace:
         subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)
 
-    for _ in range(20):
-        time.sleep(10)
+    for _ in range(args.nb_try):
+        time.sleep(args.sleep)
         success = True
         deployements_names = []
         if args.deployments:
