@@ -56,7 +56,7 @@ jobs:
       - name: Check
         run: make checks
       - name: Build example
-        run: (cd example-project/; make)
+        run: (cd example-project/; GITHUB_REPOSITORY=camptocamp/project make)
 
       - name: Prepare publish
         run: |
