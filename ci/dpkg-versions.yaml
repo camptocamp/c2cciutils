@@ -8,7 +8,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/audit: 3.0.7-1build1
   ubuntu_22_04/base-passwd: 3.5.52build1
   ubuntu_22_04/bash: 5.1-6ubuntu1
-  ubuntu_22_04/binutils: 2.38-4ubuntu2
+  ubuntu_22_04/binutils: 2.38-4ubuntu2.1
   ubuntu_22_04/brotli: 1.0.9-2build6
   ubuntu_22_04/bzip2: 1.0.8-5build1
   ubuntu_22_04/ca-certificates: '20211016'
@@ -90,7 +90,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/python-pip: 22.0.2+dfsg-1
   ubuntu_22_04/python3-defaults: 3.10.6-1~22.04
   ubuntu_22_04/python3-stdlib-extensions: 3.10.6-1~22.04
-  ubuntu_22_04/python3.10: 3.10.6-1~22.04.1
+  ubuntu_22_04/python3.10: 3.10.6-1~22.04.2
   ubuntu_22_04/readline: 8.1.2-1
   ubuntu_22_04/rpcsvc-proto: 1.4.2-0ubuntu6
   ubuntu_22_04/rtmpdump: 2.4+20151223.gitfa8646d.1-2build4
