@@ -4,12 +4,11 @@ _C2C CI utils configuration file_
 
 ## Properties
 
-- **`audit`** _(object)_: The audit configuration. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "safety", "cmd": ["safety", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}]}, "npm": true, "snyk": true, "outdated_versions": true}`.
-  - **`npm`**: Refer to _[#/definitions/audit_npm](#definitions/audit_npm)_.
+- **`audit`** _(object)_: The audit configuration. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}]}, "snyk": true, "outdated_versions": true}`.
   - **`outdated_versions`**: Refer to _[#/definitions/audit_outdated_versions](#definitions/audit_outdated_versions)_.
   - **`snyk`**: Refer to _[#/definitions/audit_snyk](#definitions/audit_snyk)_.
   - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
-- **`checks`** _(object)_: The checkers configurations. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker-compose", "cmd": ["docker-compose", "--version"]}, {"name": "kubectl", "cmd": ["kubectl", "version"]}, {"name": "make", "cmd": ["make", "--version"], "prefix": "make "}, {"name": "pip_packages", "cmd": ["pip", "freeze", "--all"], "prefix": "pip packages: "}, {"name": "npm_packages", "cmd": ["npm", "list", "--all", "--global"]}]}, "print_config": true, "print_environment_variables": true, "print_github_event": true, "gitattribute": true, "eof": true, "workflows": true, "black": true, "isort": true, "codespell": true, "prettier": true, "snyk": true, "snyk_code": false, "snyk_iac": false, "snyk_fix": false}`.
+- **`checks`** _(object)_: The checkers configurations. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker-compose", "cmd": ["docker-compose", "--version"]}, {"name": "kubectl", "cmd": ["kubectl", "version"]}, {"name": "make", "cmd": ["make", "--version"], "prefix": "make "}, {"name": "pip_packages", "cmd": ["pip", "freeze", "--all"], "prefix": "pip packages:\n"}, {"name": "npm_packages", "cmd": ["npm", "list", "--all", "--global"], "prefix": "npm packages:\n"}]}, "print_config": true, "print_environment_variables": true, "print_github_event": true, "gitattribute": true, "eof": true, "workflows": true, "black": true, "isort": true, "codespell": true, "prettier": true, "snyk": true, "snyk_code": false, "snyk_iac": false, "snyk_fix": false}`.
   - **`black`**: Refer to _[#/definitions/checks_black](#definitions/checks_black)_.
   - **`codespell`**: Refer to _[#/definitions/checks_codespell](#definitions/checks_codespell)_.
   - **`eof`**: Refer to _[#/definitions/checks_eof](#definitions/checks_eof)_.
@@ -50,14 +49,6 @@ _C2C CI utils configuration file_
 
 ## Definitions
 
-- <a id="definitions/audit_npm"></a>**`audit_npm`**: The npm audit configuration.
-  - **One of**
-    - _object_: The npm audit configuration.
-      - **`cwe_ignore`** _(array)_: The list of CWE id to be ignored. Default: `[]`.
-        - **Items** _(string)_
-      - **`package_ignore`** _(array)_: The list of package names to be ignored. Default: `[]`.
-        - **Items** _(string)_
-    - _boolean_
 - <a id="definitions/audit_outdated_versions"></a>**`audit_outdated_versions`** _(boolean)_: Audit of outdated version.
 - <a id="definitions/audit_snyk"></a>**`audit_snyk`**: The audit snyk configuration.
   - **One of**

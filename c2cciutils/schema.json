@@ -6,32 +6,6 @@
   "description": "C2C CI utils configuration file",
   "additionalProperties": false,
   "definitions": {
-    "audit_npm": {
-      "title": "audit npm",
-      "description": "The npm audit configuration",
-      "oneOf": [
-        {
-          "title": "audit npm config",
-          "description": "The npm audit configuration",
-          "type": "object",
-          "properties": {
-            "cwe_ignore": {
-              "description": "The list of CWE id to be ignored",
-              "default": [],
-              "type": "array",
-              "items": { "type": "string" }
-            },
-            "package_ignore": {
-              "description": "The list of package names to be ignored",
-              "default": [],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
     "audit_outdated_versions": {
       "title": "Audit outdated versions",
       "description": "Audit of outdated version",
@@ -663,17 +637,14 @@
           "versions": [
             { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
             { "name": "python", "cmd": ["python3", "--version"] },
-            { "name": "safety", "cmd": ["safety", "--version"] },
             { "name": "node", "prefix": "node ", "cmd": ["node", "--version"] },
             { "name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"] }
           ]
         },
-        "npm": true,
         "snyk": true,
         "outdated_versions": true
       },
       "properties": {
-        "npm": { "$ref": "#/definitions/audit_npm" },
         "outdated_versions": { "$ref": "#/definitions/audit_outdated_versions" },
         "snyk": { "$ref": "#/definitions/audit_snyk" },
         "print_versions": { "$ref": "#/definitions/print_versions" }
