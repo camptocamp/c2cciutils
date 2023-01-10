@@ -30,7 +30,7 @@ def main() -> None:
     parser.add_argument("--event-type", default="image-update", help="The event name to be triggered")
     parser.add_argument(
         "--repository",
-        default="camptocamp/argocd-gs-platform-ch-development-apps",
+        default="camptocamp/argocd-gs-gmf-apps",
         help="The repository name to be triggered",
     )
 

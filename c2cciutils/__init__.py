@@ -180,7 +180,7 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                 },
                 "dispatch": {
                     "event-type": "image-update",
-                    "repository": "camptocamp/argocd-gs-platform-ch-development-apps",
+                    "repository": "camptocamp/argocd-gs-gmf-apps",
                 },
             },
             "helm": {
