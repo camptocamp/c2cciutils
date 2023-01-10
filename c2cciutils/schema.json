@@ -482,7 +482,7 @@
                     "repository": {
                       "title": "Docker dispatch repository",
                       "description": "The repository name to be triggered",
-                      "default": "camptocamp/argocd-gs-platform-ch-development-apps",
+                      "default": "camptocamp/argocd-gs-gmf-apps",
                       "type": "string"
                     },
                     "event-type": {
