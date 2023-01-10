@@ -659,7 +659,7 @@ DOCKER_DISPATCH_EVENT_TYPE_DEFAULT = "image-update"
 """Default value of the field path 'dispatch config event-type'"""
 
 
-DOCKER_DISPATCH_REPOSITORY_DEFAULT = "camptocamp/argocd-gs-platform-ch-development-apps"
+DOCKER_DISPATCH_REPOSITORY_DEFAULT = "camptocamp/argocd-gs-gmf-apps"
 """Default value of the field path 'dispatch config repository'"""
 
 
@@ -703,7 +703,7 @@ DispatchConfig = TypedDict(
         #
         # The repository name to be triggered
         #
-        # default: camptocamp/argocd-gs-platform-ch-development-apps
+        # default: camptocamp/argocd-gs-gmf-apps
         "repository": str,
         # Docker dispatch event type.
         #

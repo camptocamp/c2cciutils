@@ -165,7 +165,7 @@ _C2C CI utils configuration file_
       - **`dispatch`**: Send a dispatch event to an other repository. Default: `{}`.
         - **One of**
           - _object_: Send a dispatch event to an other repository.
-            - **`repository`** _(string)_: The repository name to be triggered. Default: `"camptocamp/argocd-gs-platform-ch-development-apps"`.
+            - **`repository`** _(string)_: The repository name to be triggered. Default: `"camptocamp/argocd-gs-gmf-apps"`.
             - **`event-type`** _(string)_: The event type to be triggered. Default: `"image-update"`.
           -
     -
