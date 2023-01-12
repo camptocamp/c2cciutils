@@ -222,8 +222,12 @@ def main() -> None:
                         google_calendar.create_event(summary, description)
 
         dispatch_config = docker_config.get("dispatch", False)
-        if dispatch_config and images_full:
-            dispatch(dispatch_config["repository"], dispatch_config["event-type"], images_full)
+        if dispatch_config is not False and images_full:
+            dispatch(
+                dispatch_config.get("repository", "camptocamp/argocd-gs-gmf-apps"),
+                dispatch_config.get("event-type", "image-update"),
+                images_full,
+            )
 
     helm_config = cast(
         c2cciutils.configuration.PublishHelmConfig,
