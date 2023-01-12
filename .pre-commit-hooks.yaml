@@ -6,23 +6,43 @@
     - --check=workflow
   files: ^\.github/workflows/.+\.ya?ml$
   language: python
-- id: check-poetry
+- id: poetry-check
   name: poetry check
   description: Validates the structure of the pyproject.toml file
-  entry: poetry check
+  entry: c2cciutils-run-in-dir --cmd poetry check
+  args:
+    - --files
   language: python
   additional_dependencies:
     - poetry
-  pass_filenames: false
-  files: ^pyproject\.toml$
-- id: lock-poetry
+  files: ^(|.*/)pyproject\.toml$
+- id: poetry-lock
   name: poetry lock
   description: Lock the from the pyproject.toml file
-  entry: poetry lock
+  entry: c2cciutils-run-in-dir --cmd poetry lock
   args:
-    - --no-update
+    - -a--no-update
+    - --files
   language: python
   additional_dependencies:
     - poetry
-  pass_filenames: false
-  files: ^pyproject\.toml$
+  files: ^(|.*/)pyproject\.toml$
+- id: pipenv-lock
+  name: pipenv lock
+  description: Lock the from the Pipfile file
+  entry: c2cciutils-run-in-dir --cmd pipenv lock
+  args:
+    - -a--keep-outdated
+    - --files
+  language: python
+  additional_dependencies:
+    - pipenv
+  files: ^(|.*/)Pipfile$
+- id: helm-lock
+  name: helm lock
+  description: Lock the from the Chart.yaml file
+  entry: c2cciutils-run-in-dir --cmd helm dependency update
+  args:
+    - --files
+  language: python
+  files: ^(|.*/)Chart\.yaml$

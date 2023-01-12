@@ -60,6 +60,64 @@ All the provided commands:
 - `c2cciutils-download-applications`: Download the applications with version managed by Renovate, see below.
 - `c2cciutils-docker-versions-gen`: Generate the Docker package versions file (`ci/dpkg-versions.yaml`), see below.
 
+## Provided precommit
+
+Required timeout in GitHub workflow files:
+
+```yaml
+repos:
+  - repo: https://github.com/camptocamp/c2cciutils
+    rev: <version>
+    hooks:
+      - id: workflows-require-timeout
+```
+
+Check Poetry config:
+
+```yaml
+repos:
+  - repo: https://github.com/camptocamp/c2cciutils
+    rev: <version>
+    hooks:
+      - id: poetry-check
+        additional_dependencies:
+          - poetry==<version>
+```
+
+Do Poetry lock:
+
+```yaml
+repos:
+  - repo: https://github.com/camptocamp/c2cciutils
+    rev: <version>
+    hooks:
+      - id: poetry-lock
+        additional_dependencies:
+          - poetry==<version>
+```
+
+Do Pipfile lock:
+
+```yaml
+repos:
+  - repo: https://github.com/camptocamp/c2cciutils
+    rev: <version>
+    hooks:
+      - id: pipenv-lock
+        additional_dependencies:
+          - pipenv==<version>
+```
+
+Do Helm lock:
+
+```yaml
+repos:
+  - repo: https://github.com/camptocamp/c2cciutils
+    rev: <version>
+    hooks:
+      - id: helm-lock
+```
+
 ## New project
 
 The content of `example-project` can be a good base for a new project.
