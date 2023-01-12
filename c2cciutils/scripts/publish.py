@@ -258,7 +258,7 @@ def main() -> None:
             sys.exit(0)
 
         dispatch_config = docker_config.get("dispatch", {})
-        if dispatch_config and images_full:
+        if dispatch_config is not False and images_full:
             dispatch(
                 dispatch_config.get(
                     "repository", c2cciutils.configuration.DOCKER_DISPATCH_REPOSITORY_DEFAULT
