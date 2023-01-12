@@ -13,6 +13,7 @@ import traceback
 import requests
 
 import c2cciutils
+import c2cciutils.env
 import c2cciutils.pr_checks
 
 
@@ -26,6 +27,9 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    full_config = c2cciutils.get_config()
+    c2cciutils.env.print_environment(full_config)
+
     github_event = json.loads(os.environ["GITHUB_EVENT"])
 
     commits_response = requests.get(
@@ -36,7 +40,6 @@ def main() -> None:
     commits_response.raise_for_status()
     commits = commits_response.json()
 
-    full_config = c2cciutils.get_config()
     config = full_config["pr-checks"]
 
     check_args = {
@@ -66,7 +69,7 @@ def main() -> None:
                 print("::endgroup::")
                 if args.stop:
                     sys.exit(1)
-                print("::error::With error")
+                print("::error::With exception")
     if not success:
         sys.exit(1)
 

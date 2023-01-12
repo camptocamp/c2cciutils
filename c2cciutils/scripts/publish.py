@@ -17,6 +17,7 @@ import yaml
 
 import c2cciutils
 import c2cciutils.configuration
+import c2cciutils.env
 import c2cciutils.lib.docker
 import c2cciutils.publish
 import c2cciutils.security
@@ -83,11 +84,7 @@ def main() -> None:
     args = parser.parse_args()
 
     config = c2cciutils.get_config()
-
-    if config["publish"].get("print_versions"):
-        print("::group::Versions")
-        c2cciutils.print_versions(config.get("publish", {}).get("print_versions", {}))
-        print("::endgroup::")
+    c2cciutils.env.print_environment(config)
 
     # Describe the kind of release we do: rebuild (specified with --type), version_tag, version_branch,
     # feature_branch, feature_tag (for pull request)

@@ -9,6 +9,7 @@ import os
 import sys
 
 import c2cciutils.audit
+import c2cciutils.env
 
 
 def main() -> None:
@@ -23,6 +24,8 @@ def main() -> None:
     args = parser.parse_args()
 
     full_config = c2cciutils.get_config()
+    c2cciutils.env.print_environment(full_config)
+
     config = full_config.get("audit", {})
     success = True
     for key, conf in config.items():

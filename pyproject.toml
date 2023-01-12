@@ -44,33 +44,18 @@ include = [
     "c2cciutils/*.graphql",
     "c2cciutils/*.yaml",
     "c2cciutils/*.json",
-    "c2cciutils/*.js",
     "c2cciutils/node_modules/snyk/bin/snyk",
-    "c2cciutils/node_modules/snyk/**/*.js",
-    "c2cciutils/node_modules/snyk/**/*.py",
-    "c2cciutils/node_modules/snyk/**/*.wasm",
-    "c2cciutils/node_modules/semver/**/*.js",
+    "c2cciutils/node_modules/**/*.js",
+    "c2cciutils/node_modules/**/*.py",
+    "c2cciutils/node_modules/**/*.wasm",
     "c2cciutils/node_modules/**/package.json",
-    "c2cciutils/node_modules/*/*.js",
-    "c2cciutils/node_modules/**/cjs/*.js",
-    "c2cciutils/node_modules/**/cjs/**/*.js",
-    "c2cciutils/node_modules/*/dist/*.js",
-    "c2cciutils/node_modules/*/dist/**/*.js",
-    "c2cciutils/node_modules/*/src/*.js",
-    "c2cciutils/node_modules/*/src/**/*.js",
-    "c2cciutils/node_modules/**/lib/*.js",
-    "c2cciutils/node_modules/**/lib/*.cjs",
-    "c2cciutils/node_modules/**/lib/**/*.js",
-    "c2cciutils/node_modules/*/lib/src/**/*.js",
-    "c2cciutils/node_modules/**/vendors/*.js",
-    "c2cciutils/node_modules/**/modules/*.js",
-    "c2cciutils/node_modules/**/prettier/*.js",
 ]
 exclude = ["c2cciutils/node_modules/**/test"]
 
 [tool.poetry.scripts]
 c2cciutils = "c2cciutils.scripts.main:main"
-c2cciutils-checks = "c2cciutils.scripts.checks:main"
+c2cciutils-env = "c2cciutils.scripts.env:main"
+c2cciutils-checks = "c2cciutils.scripts.env:main"
 c2cciutils-pull-request-checks = "c2cciutils.scripts.pr_checks:main"
 c2cciutils-audit = "c2cciutils.scripts.audit:main"
 c2cciutils-publish = "c2cciutils.scripts.publish:main"
@@ -92,29 +77,22 @@ markdown-table = "2020.12.3"
 python-magic = "0.4.27"
 requests = "2.28.2"
 Markdown = "3.4.3"
-EditorConfig = { version = "0.12.3", optional = true }
 google-api-python-client = { version = "2.83.0", optional = true }
 google-auth-httplib2 = { version = "0.1.0", optional = true }
 google-auth-oauthlib = { version = "1.0.0", optional = true }
 "ruamel.yaml" = "0.17.21"
 jsonschema-gentypes = "1.5.0"
-node-vm2 = "0.4.5"
 defusedxml = "0.7.1"
-black = { version = "22.12.0", optional = true }
-click = "8.1.3"
-isort = { version = "5.12.0", optional = true }
 twine = { version = "4.0.2", optional = true }
 codespell = { version = "2.2.4", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0"
-pyOpenSSL = "23.1.1"
 tomlkit = { version = "0.11.7", optional = true }
-certifi = "2022.12.7"
 
 [tool.poetry.extras]
 audit = []
-checks = ["black", "isort", "codespell", "EditorConfig"]
+checks = []
 publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit"]
 publish_plugins = []
 pr_checks = ["codespell"]

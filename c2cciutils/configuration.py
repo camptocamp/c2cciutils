@@ -5,18 +5,7 @@ Automatically generated file from a JSON schema.
 
 from typing import Any, Dict, List, Literal, TypedDict, Union
 
-AUDIT_DEFAULT = {
-    "print_versions": {
-        "versions": [
-            {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-            {"name": "python", "cmd": ["python3", "--version"]},
-            {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
-            {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
-        ]
-    },
-    "snyk": True,
-    "outdated_versions": True,
-}
+AUDIT_DEFAULT = {"snyk": True, "outdated_versions": True}
 """Default value of the field path 'configuration audit'"""
 
 
@@ -56,32 +45,11 @@ class Audit(TypedDict, total=False):
 
     default:
       outdated_versions: true
-      print_versions:
-        versions:
-        - cmd:
-          - c2cciutils
-          - --version
-          name: c2cciutils
-        - cmd:
-          - python3
-          - --version
-          name: python
-        - cmd:
-          - node
-          - --version
-          name: node
-          prefix: 'node '
-        - cmd:
-          - npm
-          - --version
-          name: npm
-          prefix: 'npm '
       snyk: true
     """
 
     outdated_versions: "AuditOutdatedVersions"
     snyk: "AuditWithSnyk"
-    print_versions: "PrintVersions"
 
 
 AuditOutdatedVersions = bool
@@ -183,219 +151,21 @@ oneOf
 """
 
 
-CHECKS_DEFAULT = {
-    "print_versions": {
-        "versions": [
-            {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-            {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "},
-            {"name": "java", "cmd": ["java", "-version"]},
-            {"name": "python", "cmd": ["python3", "--version"]},
-            {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
-            {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
-            {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
-            {"name": "docker", "cmd": ["docker", "--version"]},
-            {"name": "docker-compose", "cmd": ["docker-compose", "--version"]},
-            {"name": "kubectl", "cmd": ["kubectl", "version"]},
-            {"name": "make", "cmd": ["make", "--version"], "prefix": "make "},
-            {"name": "pip_packages", "cmd": ["pip", "freeze", "--all"], "prefix": "pip packages:\n"},
-            {
-                "name": "npm_packages",
-                "cmd": ["npm", "list", "--all", "--global"],
-                "prefix": "npm packages:\n",
-            },
-        ]
-    },
-    "print_config": True,
-    "print_environment_variables": True,
-    "print_github_event": True,
-    "gitattribute": True,
-    "eof": True,
-    "workflows": True,
-    "black": True,
-    "isort": True,
-    "codespell": True,
-    "prettier": True,
-    "snyk": True,
-    "snyk_code": False,
-    "snyk_iac": False,
-    "snyk_fix": False,
-}
-"""Default value of the field path 'configuration checks'"""
-
-
-CHECKS_SNYK_ARGUMENTS_DEFAULT = ["--severity-threshold=medium"]
-"""Default value of the field path 'Checks snyk configuration arguments'"""
-
-
-CHECKS_SNYK_CODE_ARGUMENTS_DEFAULT = ["--all-projects", "--severity-threshold=medium"]
-"""Default value of the field path 'Checks snyk code configuration arguments'"""
-
-
-CHECKS_SNYK_FIX_ARGUMENTS_DEFAULT: List[Any] = []
-"""Default value of the field path 'Checks snyk fix configuration arguments'"""
-
-
-CHECKS_SNYK_IAC_ARGUMENTS_DEFAULT = ["--severity-threshold=medium"]
-"""Default value of the field path 'Checks snyk iac configuration arguments'"""
-
-
 CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]
-"""Default value of the field path 'Checks codespell config  arguments'"""
+"""Default value of the field path 'Codespell arguments'"""
 
 
 CODESPELL_DICTIONARIES_DEFAULT = ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]
-"""Default value of the field path 'Checks codespell config  internal_dictionaries'"""
+"""Default value of the field path 'Codespell internal_dictionaries'"""
 
 
 CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]
-"""Default value of the field path 'Checks codespell config  ignore_re'"""
+"""Default value of the field path 'Codespell ignore_re'"""
 
 
-class Checks(TypedDict, total=False):
+class Codespell(TypedDict, total=False):
     """
-    Checks.
-
-    The checkers configurations
-
-    default:
-      black: true
-      codespell: true
-      eof: true
-      gitattribute: true
-      isort: true
-      prettier: true
-      print_config: true
-      print_environment_variables: true
-      print_github_event: true
-      print_versions:
-        versions:
-        - cmd:
-          - c2cciutils
-          - --version
-          name: c2cciutils
-        - cmd:
-          - codespell
-          - --version
-          name: codespell
-          prefix: 'codespell '
-        - cmd:
-          - java
-          - -version
-          name: java
-        - cmd:
-          - python3
-          - --version
-          name: python
-        - cmd:
-          - python3
-          - -m
-          - pip
-          - --version
-          name: pip
-        - cmd:
-          - node
-          - --version
-          name: node
-          prefix: 'node '
-        - cmd:
-          - npm
-          - --version
-          name: npm
-          prefix: 'npm '
-        - cmd:
-          - docker
-          - --version
-          name: docker
-        - cmd:
-          - docker-compose
-          - --version
-          name: docker-compose
-        - cmd:
-          - kubectl
-          - version
-          name: kubectl
-        - cmd:
-          - make
-          - --version
-          name: make
-          prefix: 'make '
-        - cmd:
-          - pip
-          - freeze
-          - --all
-          name: pip_packages
-          prefix: 'pip packages:
-            '
-        - cmd:
-          - npm
-          - list
-          - --all
-          - --global
-          name: npm_packages
-          prefix: 'npm packages:
-            '
-      snyk: true
-      snyk_code: false
-      snyk_fix: false
-      snyk_iac: false
-      workflows: true
-    """
-
-    black: "ChecksBlack"
-    codespell: "ChecksCodespell"
-    eof: "ChecksEof"
-    gitattribute: "ChecksGitattribute"
-    isort: "ChecksIsort"
-    print_config: "ChecksPrintConfig"
-    workflows: "ChecksWorkflows"
-    snyk: "ChecksSnyk"
-    snyk_code: "ChecksSnykCode"
-    snyk_iac: "ChecksWithSnykIac"
-    snyk_fix: "ChecksWithSnykFix"
-    prettier: "ChecksPrettier"
-    print_versions: "PrintVersions"
-
-
-ChecksBlack = Union["ChecksBlackConfig", bool]
-"""
-Checks Black.
-
-The Black check configuration
-
-oneOf
-"""
-
-
-class ChecksBlackConfig(TypedDict, total=False):
-    """
-    Checks black config.
-
-    The Black check configuration
-    """
-
-    properties: Dict[str, Any]
-    ignore_patterns_re: List[str]
-    """
-    List of regular expression that should be ignored
-
-    default:
-      []
-    """
-
-
-ChecksCodespell = Union["ChecksCodespellConfig", bool]
-"""
-Checks codespell.
-
-The codespell check configuration
-
-oneOf
-"""
-
-
-class ChecksCodespellConfig(TypedDict, total=False):
-    """
-    Checks codespell config .
+    Codespell.
 
     The codespell check configuration
     """
@@ -439,189 +209,15 @@ class ChecksCodespellConfig(TypedDict, total=False):
     """
 
 
-ChecksEof = bool
-"""
-checks eof.
-
-Check the end-of-file
-"""
-
-
-ChecksGitattribute = bool
-"""
-checks gitattribute.
-
-Run the Git attributes check
-"""
-
-
-ChecksIsort = Union["ChecksIsortConfig", bool]
-"""
-checks isort.
-
-The isort check configuration
-
-oneOf
-"""
-
-
-class ChecksIsortConfig(TypedDict, total=False):
-    """
-    checks isort config.
-
-    The isort check configuration
-    """
-
-    ignore_patterns_re: List[str]
-    """
-    List of regular expression that should be ignored
-
-    default:
-      []
-    """
-
-
-ChecksPrettier = Union["ChecksPrettierConfig", bool]
-"""
-Checks Prettier.
-
-The Prettier check configuration
-
-oneOf
-"""
-
-
-class ChecksPrettierConfig(TypedDict, total=False):
-    """
-    Checks Prettier config.
-
-    The Prettier check configuration
-    """
-
-    properties: Dict[str, Any]
-
-
-ChecksPrintConfig = bool
-"""
-Checks print config.
-
-The print the configuration including the auto-generated parts
-"""
-
-
-ChecksSnyk = Union["ChecksSnykConfiguration", bool]
-"""
-Checks snyk.
-
-The check snyk configuration
-
-oneOf
-"""
-
-
-ChecksSnykCode = Union["ChecksSnykCodeConfiguration", bool]
-"""
-Checks snyk code.
-
-The check snyk code configuration
-
-oneOf
-"""
-
-
-class ChecksSnykCodeConfiguration(TypedDict, total=False):
-    """Checks snyk code configuration."""
-
-    arguments: List[str]
-    """
-    checks snyk code arguments.
-
-    The snyk code test arguments
-
-    default:
-      - --all-projects
-      - --severity-threshold=medium
-    """
-
-
-class ChecksSnykConfiguration(TypedDict, total=False):
-    """Checks snyk configuration."""
-
-    arguments: List[str]
-    """
-    checks snyk arguments.
-
-    The snyk code test arguments
-
-    default:
-      - --severity-threshold=medium
-    """
-
-
-class ChecksSnykFixConfiguration(TypedDict, total=False):
-    """Checks snyk fix configuration."""
-
-    arguments: List[str]
-    """
-    checks snyk fix arguments.
-
-    The snyk code test arguments
-
-    default:
-      []
-    """
-
-
-class ChecksSnykIacConfiguration(TypedDict, total=False):
-    """Checks snyk iac configuration."""
-
-    arguments: List[str]
-    """
-    checks snyk iac arguments.
-
-    The snyk code test arguments
-
-    default:
-      - --severity-threshold=medium
-    """
-
-
-ChecksWithSnykFix = Union["ChecksSnykFixConfiguration", bool]
-"""
-Checks with snyk fix.
-
-The check snyk fix configuration
-
-oneOf
-"""
-
-
-ChecksWithSnykIac = Union["ChecksSnykIacConfiguration", bool]
-"""
-Checks with snyk iac.
-
-The check snyk iac configuration
-
-oneOf
-"""
-
-
-ChecksWorkflows = bool
-"""
-checks workflows.
-
-The workflows checks configuration
-"""
-
-
 # configuration.
 #
 # C2C CI utils configuration file
 Configuration = TypedDict(
     "Configuration",
     {
+        "print_versions": "PrintVersions",
+        "codespell": "Codespell",
         "audit": "Audit",
-        "checks": "Checks",
         "pr-checks": "PullRequestChecks",
         "publish": "Publish",
         "version": "Version",
@@ -752,15 +348,24 @@ K8S_DB_CHART_OPTIONS_DEFAULT = {
 """Default value of the field path 'DB configuration chart-options'"""
 
 
+PRINT_VERSIONS_VERSIONS_DEFAULT = [
+    {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
+    {"name": "python", "cmd": ["python3", "--version"]},
+    {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
+    {"name": "twine", "cmd": ["twine", "--version"]},
+    {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
+    {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
+    {"name": "make", "cmd": ["make", "--version"], "prefix": "make "},
+    {"name": "docker", "cmd": ["docker", "--version"]},
+    {"name": "docker-compose", "cmd": ["docker-compose", "--version"]},
+    {"name": "java", "cmd": ["java", "-version"]},
+    {"name": "kubectl", "cmd": ["kubectl", "version"]},
+    {"name": "helm", "cmd": ["helm", "version"]},
+]
+"""Default value of the field path 'Print versions versions'"""
+
+
 PUBLISH_DEFAULT = {
-    "print_versions": {
-        "versions": [
-            {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-            {"name": "python", "cmd": ["python3", "--version"]},
-            {"name": "twine", "cmd": ["twine", "--version"]},
-            {"name": "docker", "cmd": ["docker", "--version"]},
-        ]
-    },
     "pypi": {"versions": ["version_tag"], "packages": "<auto-detected>"},
     "docker": {"images": "<auto-detected>"},
     "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"},
@@ -858,6 +463,64 @@ class PrintVersions(TypedDict, total=False):
     """
 
     versions: List["_PrintVersionsVersionsItem"]
+    """
+    Print versions versions.
+
+    default:
+      - cmd:
+        - c2cciutils
+        - --version
+        name: c2cciutils
+      - cmd:
+        - python3
+        - --version
+        name: python
+      - cmd:
+        - python3
+        - -m
+        - pip
+        - --version
+        name: pip
+      - cmd:
+        - twine
+        - --version
+        name: twine
+      - cmd:
+        - node
+        - --version
+        name: node
+        prefix: 'node '
+      - cmd:
+        - npm
+        - --version
+        name: npm
+        prefix: 'npm '
+      - cmd:
+        - make
+        - --version
+        name: make
+        prefix: 'make '
+      - cmd:
+        - docker
+        - --version
+        name: docker
+      - cmd:
+        - docker-compose
+        - --version
+        name: docker-compose
+      - cmd:
+        - java
+        - -version
+        name: java
+      - cmd:
+        - kubectl
+        - version
+        name: kubectl
+      - cmd:
+        - helm
+        - version
+        name: helm
+    """
 
 
 class Publish(TypedDict, total=False):
@@ -873,24 +536,6 @@ class Publish(TypedDict, total=False):
         folders: <auto-detected>
         versions:
         - version_tag
-      print_versions:
-        versions:
-        - cmd:
-          - c2cciutils
-          - --version
-          name: c2cciutils
-        - cmd:
-          - python3
-          - --version
-          name: python
-        - cmd:
-          - twine
-          - --version
-          name: twine
-        - cmd:
-          - docker
-          - --version
-          name: docker
       pypi:
         packages: <auto-detected>
         versions:
@@ -901,7 +546,6 @@ class Publish(TypedDict, total=False):
     pypi: "PublishPypi"
     helm: "PublishHelm"
     google_calendar: "PublishGoogleCalendar"
-    print_versions: "PrintVersions"
 
 
 PublishDocker = Union["PublishDockerConfig", Literal[False]]
@@ -1127,7 +771,6 @@ class PullRequestChecks(TypedDict, total=False):
       pull_request_spell: true
     """
 
-    print_event: "PullRequestChecksPrintEvent"
     commits_messages: "PullRequestChecksCommitsMessages"
     commits_spell: "PullRequestChecksCommitsSpelling"
     pull_request_spell: "PullRequestChecksPullRequestSpelling"
@@ -1234,14 +877,6 @@ class PullRequestChecksCommitsSpellingConfiguration(TypedDict, total=False):
     """
 
 
-PullRequestChecksPrintEvent = bool
-"""
-pull request checks print event.
-
-Print the GitHub event object
-"""
-
-
 PullRequestChecksPullRequestSpelling = Union["PullRequestChecksPullRequestSpellingConfiguration", bool]
 """
 pull request checks pull request spelling.
@@ -1290,14 +925,6 @@ Version transform.
 
 A version transformer definition
 """
-
-
-_CHECKS_BLACK_CONFIG_IGNORE_PATTERNS_RE_DEFAULT: List[Any] = []
-"""Default value of the field path 'Checks black config ignore_patterns_re'"""
-
-
-_CHECKS_ISORT_CONFIG_IGNORE_PATTERNS_RE_DEFAULT: List[Any] = []
-"""Default value of the field path 'checks isort config ignore_patterns_re'"""
 
 
 _PUBLISH_DOCKER_CONFIG_DISPATCH_DEFAULT: Dict[str, Any] = {}
