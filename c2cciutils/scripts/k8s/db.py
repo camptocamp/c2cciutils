@@ -37,7 +37,6 @@ def main() -> None:
         os.path.join(
             os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "applications-versions.yaml"
         ),
-        "r",
         encoding="utf-8",
     ) as config_file:
         versions = cast(Dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))

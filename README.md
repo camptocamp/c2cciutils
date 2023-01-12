@@ -13,12 +13,12 @@ The goals of C2C CI utils are:
     - Git attributes
     - That the timeout is present in the GitHub workflow files
     - That the stabilization version (get from the Security.md) are used everywhere it's needed
-  - Check the code style:
-    - End of files
+  - Check the code style with [pre-commit](https://pre-commit.com):
     - Black
     - Isort
     - Code spell
     - Prettier
+    - ...
   - Snyk tests
     - Test (never failed)
     - Code test (never failed, disabled by default)
@@ -374,3 +374,12 @@ volumePermissions.enabled: 'true'
 ```
 
 See also: [Parameters documentations](https://github.com/bitnami/charts/tree/master/bitnami/postgresql#parameters).
+
+## Contributing
+
+Install the pre-commit hooks:
+
+```bash
+pip install pre-commit
+pre-commit install
+```

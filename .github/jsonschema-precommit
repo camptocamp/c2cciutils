@@ -1,0 +1,15 @@
+#!/bin/bash -eux
+
+pip install --requirement=requirements.txt
+make jsonschema
+
+for f in config.md applications.md; do
+    for c in trailing-whitespace prettier; do
+        pre-commit run --files=$f $c > /dev/null || true
+    done
+done
+for f in c2cciutils/configuration.py c2cciutils/applications_definition.py; do
+    for c in black isort pyupgrade; do
+        pre-commit run --files=$f $c > /dev/null || true
+    done
+done

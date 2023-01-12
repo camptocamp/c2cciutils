@@ -1,0 +1,28 @@
+- id: workflows-require-timeout
+  name: workflows require timeout
+  description: Check that the workflows have a timeout
+  entry: c2cciutils-checks
+  args:
+    - --check=workflow
+  files: ^\.github/workflows/.+\.ya?ml$
+  language: python
+- id: check-poetry
+  name: poetry check
+  description: Validates the structure of the pyproject.toml file
+  entry: poetry check
+  language: python
+  additional_dependencies:
+    - poetry
+  pass_filenames: false
+  files: ^pyproject\.toml$
+- id: lock-poetry
+  name: poetry lock
+  description: Lock the from the pyproject.toml file
+  entry: poetry lock
+  args:
+    - --no-update
+  language: python
+  additional_dependencies:
+    - poetry
+  pass_filenames: false
+  files: ^pyproject\.toml$

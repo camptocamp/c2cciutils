@@ -311,7 +311,7 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
         config: The print configuration
     """
 
-    for version in config.get("versions", []):
+    for version in config.get("versions", c2cciutils.configuration.PRINT_VERSIONS_VERSIONS_DEFAULT):
         try:
             sys.stdout.flush()
             sys.stderr.flush()
@@ -565,7 +565,7 @@ def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: b
         config: The full configuration
         fix: If we should fix the errors
     """
-    codespell_config = config.get("checks", {}).get("codespell", {})
+    codespell_config = config.get("codespell", {})
     codespell_config = codespell_config if isinstance(codespell_config, dict) else {}
     command = ["codespell"]
     if fix:
@@ -592,4 +592,6 @@ def snyk_exec() -> Tuple[str, Dict[str, str]]:
     if "SNYK_ORG" in env:
         subprocess.run(["snyk", "config", "set", f"org={env['SNYK_ORG']}"], check=True, env=env)
 
+    if not os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "node_modules")):
+        subprocess.run(["npm", "install"], check=True, cwd=os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), "node_modules/snyk/bin/snyk"), env

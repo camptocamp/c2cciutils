@@ -30,4 +30,3 @@ jsonschema: ## Generate files depends on the JSON schema
 	jsonschema-gentypes
 	jsonschema2md c2cciutils/schema.json config.md
 	jsonschema2md c2cciutils/schema-applications.json applications.md
-	c2cciutils-checks --fix --check=prettier

@@ -4,37 +4,24 @@ _C2C CI utils configuration file_
 
 ## Properties
 
-- **`audit`** _(object)_: The audit configuration. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}]}, "snyk": true, "outdated_versions": true}`.
+- **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
+- **`codespell`**: Refer to _[#/definitions/codespell](#definitions/codespell)_.
+- **`audit`** _(object)_: The audit configuration. Default: `{"snyk": true, "outdated_versions": true}`.
   - **`outdated_versions`**: Refer to _[#/definitions/audit_outdated_versions](#definitions/audit_outdated_versions)_.
   - **`snyk`**: Refer to _[#/definitions/audit_snyk](#definitions/audit_snyk)_.
-  - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
-- **`checks`** _(object)_: The checkers configurations. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker-compose", "cmd": ["docker-compose", "--version"]}, {"name": "kubectl", "cmd": ["kubectl", "version"]}, {"name": "make", "cmd": ["make", "--version"], "prefix": "make "}, {"name": "pip_packages", "cmd": ["pip", "freeze", "--all"], "prefix": "pip packages:\n"}, {"name": "npm_packages", "cmd": ["npm", "list", "--all", "--global"], "prefix": "npm packages:\n"}]}, "print_config": true, "print_environment_variables": true, "print_github_event": true, "gitattribute": true, "eof": true, "workflows": true, "black": true, "isort": true, "codespell": true, "prettier": true, "snyk": true, "snyk_code": false, "snyk_iac": false, "snyk_fix": false}`.
-  - **`black`**: Refer to _[#/definitions/checks_black](#definitions/checks_black)_.
-  - **`codespell`**: Refer to _[#/definitions/checks_codespell](#definitions/checks_codespell)_.
-  - **`eof`**: Refer to _[#/definitions/checks_eof](#definitions/checks_eof)_.
-  - **`gitattribute`**: Refer to _[#/definitions/checks_gitattribute](#definitions/checks_gitattribute)_.
-  - **`isort`**: Refer to _[#/definitions/checks_isort](#definitions/checks_isort)_.
-  - **`print_config`**: Refer to _[#/definitions/checks_print_config](#definitions/checks_print_config)_.
+- **`checks`** _(object)_: The checkers configurations. Default: `{"workflows": true}`.
   - **`workflows`**: Refer to _[#/definitions/checks_workflows](#definitions/checks_workflows)_.
-  - **`snyk`**: Refer to _[#/definitions/checks_snyk](#definitions/checks_snyk)_.
-  - **`snyk_code`**: Refer to _[#/definitions/checks_snyk_code](#definitions/checks_snyk_code)_.
-  - **`snyk_iac`**: Refer to _[#/definitions/checks_snyk_iac](#definitions/checks_snyk_iac)_.
-  - **`snyk_fix`**: Refer to _[#/definitions/checks_snyk_fix](#definitions/checks_snyk_fix)_.
-  - **`prettier`**: Refer to _[#/definitions/checks_prettier](#definitions/checks_prettier)_.
-  - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
 - **`pr-checks`** _(object)_: The PR check configuration. Default: `{"commits_messages": true, "commits_spell": true, "pull_request_spell": true, "pull_request_labels": true, "add_issue_link": true}`.
-  - **`print_event`**: Refer to _[#/definitions/pr_checks_print_event](#definitions/pr_checks_print_event)_.
   - **`commits_messages`**: Refer to _[#/definitions/pr_checks_commits_messages](#definitions/pr_checks_commits_messages)_.
   - **`commits_spell`**: Refer to _[#/definitions/pr_checks_commits_spell](#definitions/pr_checks_commits_spell)_.
   - **`pull_request_spell`**: Refer to _[#/definitions/pr_checks_pull_request_spell](#definitions/pr_checks_pull_request_spell)_.
   - **`pull_request_labels`**: Refer to _[#/definitions/pr_checks_pull_request_labels](#definitions/pr_checks_pull_request_labels)_.
   - **`add_issue_link`**: Refer to _[#/definitions/pr_checks_add_issue_link](#definitions/pr_checks_add_issue_link)_.
-- **`publish`** _(object)_: The publishing configurations. Default: `{"print_versions": {"versions": [{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "twine", "cmd": ["twine", "--version"]}, {"name": "docker", "cmd": ["docker", "--version"]}]}, "pypi": {"versions": ["version_tag"], "packages": "<auto-detected>"}, "docker": {"images": "<auto-detected>"}, "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"}}`.
+- **`publish`** _(object)_: The publishing configurations. Default: `{"pypi": {"versions": ["version_tag"], "packages": "<auto-detected>"}, "docker": {"images": "<auto-detected>"}, "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"}}`.
   - **`docker`**: Refer to _[#/definitions/publish_docker](#definitions/publish_docker)_.
   - **`pypi`**: Refer to _[#/definitions/publish_pypi](#definitions/publish_pypi)_.
   - **`helm`**: Refer to _[#/definitions/publish_helm](#definitions/publish_helm)_.
   - **`google_calendar`**: Refer to _[#/definitions/publish_google_calendar](#definitions/publish_google_calendar)_.
-  - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
 - **`version`** _(object)_: The version configurations.
   - **`branch_to_version_re`**: Refer to _[#/definitions/version_transform](#definitions/version_transform)_.
   - **`tag_to_version_re`**: Refer to _[#/definitions/version_transform](#definitions/version_transform)_.
@@ -68,63 +55,14 @@ _C2C CI utils configuration file_
       - **`files_no_install`** _(array)_: The list of files to not install. Default: `[]`.
         - **Items** _(string)_
     - _boolean_
-- <a id="definitions/checks_black"></a>**`checks_black`**: The Black check configuration.
-  - **One of**
-    - _object_: The Black check configuration.
-      - **`properties`** _(object)_
-      - **`ignore_patterns_re`** _(array)_: List of regular expression that should be ignored. Default: `[]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/checks_prettier"></a>**`checks_prettier`**: The Prettier check configuration.
-  - **One of**
-    - _object_: The Prettier check configuration.
-      - **`properties`** _(object)_
-    - _boolean_
-- <a id="definitions/checks_codespell"></a>**`checks_codespell`**: The codespell check configuration.
-  - **One of**
-    - _object_: The codespell check configuration.
-      - **`internal_dictionaries`** _(array)_: List of argument that will be added to the codespell command. Default: `["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]`.
-        - **Items** _(string)_
-      - **`arguments`** _(array)_: List of argument that will be added to the codespell command. Default: `["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]`.
-        - **Items** _(string)_
-      - **`ignore_re`** _(array)_: List of regular expression that should be ignored. Default: `["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/checks_eof"></a>**`checks_eof`** _(boolean)_: Check the end-of-file.
-- <a id="definitions/checks_gitattribute"></a>**`checks_gitattribute`** _(boolean)_: Run the Git attributes check.
-- <a id="definitions/checks_isort"></a>**`checks_isort`**: The isort check configuration.
-  - **One of**
-    - _object_: The isort check configuration.
-      - **`ignore_patterns_re`** _(array)_: List of regular expression that should be ignored. Default: `[]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/checks_print_config"></a>**`checks_print_config`** _(boolean)_: The print the configuration including the auto-generated parts.
+- <a id="definitions/codespell"></a>**`codespell`** _(object)_: The codespell check configuration.
+  - **`internal_dictionaries`** _(array)_: List of argument that will be added to the codespell command. Default: `["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]`.
+    - **Items** _(string)_
+  - **`arguments`** _(array)_: List of argument that will be added to the codespell command. Default: `["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]`.
+    - **Items** _(string)_
+  - **`ignore_re`** _(array)_: List of regular expression that should be ignored. Default: `["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]`.
+    - **Items** _(string)_
 - <a id="definitions/checks_workflows"></a>**`checks_workflows`** _(boolean)_: The workflows checks configuration.
-- <a id="definitions/checks_snyk"></a>**`checks_snyk`**: The check snyk configuration.
-  - **One of**
-    - _object_
-      - **`arguments`** _(array)_: The snyk code test arguments. Default: `["--severity-threshold=medium"]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/checks_snyk_code"></a>**`checks_snyk_code`**: The check snyk code configuration.
-  - **One of**
-    - _object_
-      - **`arguments`** _(array)_: The snyk code test arguments. Default: `["--all-projects", "--severity-threshold=medium"]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/checks_snyk_iac"></a>**`checks_snyk_iac`**: The check snyk iac configuration.
-  - **One of**
-    - _object_
-      - **`arguments`** _(array)_: The snyk code test arguments. Default: `["--severity-threshold=medium"]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/checks_snyk_fix"></a>**`checks_snyk_fix`**: The check snyk fix configuration.
-  - **One of**
-    - _object_
-      - **`arguments`** _(array)_: The snyk code test arguments. Default: `[]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/pr_checks_print_event"></a>**`pr_checks_print_event`** _(boolean)_: Print the GitHub event object.
 - <a id="definitions/pr_checks_commits_messages"></a>**`pr_checks_commits_messages`**: Check the pull request commits messages.
   - **One of**
     - _object_: The commit message check configuration.
@@ -196,7 +134,7 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
     -
 - <a id="definitions/print_versions"></a>**`print_versions`** _(object)_: The print versions configuration.
-  - **`versions`** _(array)_
+  - **`versions`** _(array)_: Default: `[{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "twine", "cmd": ["twine", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "make", "cmd": ["make", "--version"], "prefix": "make "}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker-compose", "cmd": ["docker-compose", "--version"]}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "kubectl", "cmd": ["kubectl", "version"]}, {"name": "helm", "cmd": ["helm", "version"]}]`.
     - **Items** _(object)_
       - **`cmd`** _(array)_: The command that should be used.
         - **Items** _(string)_

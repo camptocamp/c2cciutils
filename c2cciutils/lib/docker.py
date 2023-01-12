@@ -100,7 +100,7 @@ def get_versions_config() -> Dict[str, Dict[str, str]]:
     Get the versions from the config file.
     """
     if os.path.exists("ci/dpkg-versions.yaml"):
-        with open("ci/dpkg-versions.yaml", "r", encoding="utf-8") as versions_file:
+        with open("ci/dpkg-versions.yaml", encoding="utf-8") as versions_file:
             return cast(Dict[str, Dict[str, str]], yaml.load(versions_file.read(), Loader=yaml.SafeLoader))
     return {}
 

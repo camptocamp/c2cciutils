@@ -16,9 +16,9 @@ def main() -> None:
     Run the checks.
     """
     parser = argparse.ArgumentParser(description="Run the checks of c2cciutils.")
-    parser.add_argument("--fix", action="store_true", help="fix black and isort issues")
     parser.add_argument("--stop", action="store_true", help="stop on first error")
     parser.add_argument("--check", help="runs only the specified check")
+    parser.add_argument("files", nargs=argparse.REMAINDER)
 
     args = parser.parse_args()
 
@@ -30,18 +30,14 @@ def main() -> None:
             check = getattr(c2cciutils.checks, key)
             print(f"::group::Run check {key}")
             try:
-                if not check({} if conf is True else conf, full_config, args):
+                if not check(
+                    {} if conf is True else conf, full_config, args, args.files if args.files else None
+                ):
                     success = False
                     print("::endgroup::")
                     if args.stop:
                         sys.exit(1)
                     print("::error::With error")
-                    if key in ("black", "isort", "prettier", "codespell"):
-                        print("Can be fixed with:")
-                        print("python3 -m pip install --requirement=ci/requirements.txt")
-                        print(f"c2cciutils-checks --fix --check={key}")
-                    if key in ("black", "isort", "prettier"):
-                        print("See also documentation for IDE: https://github.com/camptocamp/c2cciutils#ide")
                 else:
                     print("::endgroup::")
             except Exception:  # pylint: disable=broad-except

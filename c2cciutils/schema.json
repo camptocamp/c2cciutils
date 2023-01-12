@@ -74,204 +74,37 @@
         { "type": "boolean" }
       ]
     },
-    "checks_black": {
-      "title": "Checks Black",
-      "description": "The Black check configuration",
-      "oneOf": [
-        {
-          "title": "Checks black config",
-          "description": "The Black check configuration",
-          "type": "object",
-          "properties": {
-            "properties": {
-              "type": "object"
-            },
-            "ignore_patterns_re": {
-              "description": "List of regular expression that should be ignored",
-              "default": [],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_prettier": {
-      "title": "Checks Prettier",
-      "description": "The Prettier check configuration",
-      "oneOf": [
-        {
-          "title": "Checks Prettier config",
-          "description": "The Prettier check configuration",
-          "type": "object",
-          "properties": {
-            "properties": {
-              "type": "object"
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_codespell": {
-      "title": "Checks codespell",
+    "codespell": {
+      "title": "Codespell",
       "description": "The codespell check configuration",
-      "oneOf": [
-        {
-          "title": "Checks codespell config ",
-          "description": "The codespell check configuration",
-          "type": "object",
-          "properties": {
-            "internal_dictionaries": {
-              "title": "codespell dictionaries",
-              "description": "List of argument that will be added to the codespell command",
-              "default": ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"],
-              "type": "array",
-              "items": { "type": "string" }
-            },
-            "arguments": {
-              "title": "codespell arguments",
-              "description": "List of argument that will be added to the codespell command",
-              "default": ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"],
-              "type": "array",
-              "items": { "type": "string" }
-            },
-            "ignore_re": {
-              "title": "codespell ignore regular expression",
-              "description": "List of regular expression that should be ignored",
-              "default": ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
+      "type": "object",
+      "properties": {
+        "internal_dictionaries": {
+          "title": "codespell dictionaries",
+          "description": "List of argument that will be added to the codespell command",
+          "default": ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"],
+          "type": "array",
+          "items": { "type": "string" }
         },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_eof": {
-      "title": "checks eof",
-      "description": "Check the end-of-file",
-      "type": "boolean"
-    },
-    "checks_gitattribute": {
-      "title": "checks gitattribute",
-      "description": "Run the Git attributes check",
-      "type": "boolean"
-    },
-    "checks_isort": {
-      "title": "checks isort",
-      "description": "The isort check configuration",
-      "oneOf": [
-        {
-          "title": "checks isort config",
-          "description": "The isort check configuration",
-          "type": "object",
-          "properties": {
-            "ignore_patterns_re": {
-              "description": "List of regular expression that should be ignored",
-              "default": [],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
+        "arguments": {
+          "title": "codespell arguments",
+          "description": "List of argument that will be added to the codespell command",
+          "default": ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"],
+          "type": "array",
+          "items": { "type": "string" }
         },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_print_config": {
-      "title": "Checks print config",
-      "description": "The print the configuration including the auto-generated parts",
-      "type": "boolean"
+        "ignore_re": {
+          "title": "codespell ignore regular expression",
+          "description": "List of regular expression that should be ignored",
+          "default": ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"],
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
     },
     "checks_workflows": {
       "title": "checks workflows",
       "description": "The workflows checks configuration",
-      "type": "boolean"
-    },
-    "checks_snyk": {
-      "title": "Checks snyk",
-      "description": "The check snyk configuration",
-      "oneOf": [
-        {
-          "title": "Checks snyk configuration",
-          "type": "object",
-          "properties": {
-            "arguments": {
-              "description": "The snyk code test arguments",
-              "title": "checks snyk arguments",
-              "default": ["--severity-threshold=medium"],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_snyk_code": {
-      "title": "Checks snyk code",
-      "description": "The check snyk code configuration",
-      "oneOf": [
-        {
-          "title": "Checks snyk code configuration",
-          "type": "object",
-          "properties": {
-            "arguments": {
-              "description": "The snyk code test arguments",
-              "title": "checks snyk code arguments",
-              "default": ["--all-projects", "--severity-threshold=medium"],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_snyk_iac": {
-      "title": "Checks with snyk iac",
-      "description": "The check snyk iac configuration",
-      "oneOf": [
-        {
-          "title": "Checks snyk iac configuration",
-          "type": "object",
-          "properties": {
-            "arguments": {
-              "description": "The snyk code test arguments",
-              "title": "checks snyk iac arguments",
-              "default": ["--severity-threshold=medium"],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "checks_snyk_fix": {
-      "title": "Checks with snyk fix",
-      "description": "The check snyk fix configuration",
-      "oneOf": [
-        {
-          "title": "Checks snyk fix configuration",
-          "type": "object",
-          "properties": {
-            "arguments": {
-              "description": "The snyk code test arguments",
-              "title": "checks snyk fix arguments",
-              "default": [],
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        },
-        { "type": "boolean" }
-      ]
-    },
-    "pr_checks_print_event": {
-      "title": "pull request checks print event",
-      "description": "Print the GitHub event object",
       "type": "boolean"
     },
     "pr_checks_commits_messages": {
@@ -586,7 +419,22 @@
       "type": "object",
       "properties": {
         "versions": {
+          "title": "Print versions versions",
           "type": "array",
+          "default": [
+            { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
+            { "name": "python", "cmd": ["python3", "--version"] },
+            { "name": "pip", "cmd": ["python3", "-m", "pip", "--version"] },
+            { "name": "twine", "cmd": ["twine", "--version"] },
+            { "name": "node", "prefix": "node ", "cmd": ["node", "--version"] },
+            { "name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"] },
+            { "name": "make", "cmd": ["make", "--version"], "prefix": "make " },
+            { "name": "docker", "cmd": ["docker", "--version"] },
+            { "name": "docker-compose", "cmd": ["docker-compose", "--version"] },
+            { "name": "java", "cmd": ["java", "-version"] },
+            { "name": "kubectl", "cmd": ["kubectl", "version"] },
+            { "name": "helm", "cmd": ["helm", "version"] }
+          ],
           "items": {
             "type": "object",
             "properties": {
@@ -628,26 +476,19 @@
     }
   },
   "properties": {
+    "print_versions": { "$ref": "#/definitions/print_versions" },
+    "codespell": { "$ref": "#/definitions/codespell" },
     "audit": {
       "title": "Audit",
       "description": "The audit configuration",
       "type": "object",
       "default": {
-        "print_versions": {
-          "versions": [
-            { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
-            { "name": "python", "cmd": ["python3", "--version"] },
-            { "name": "node", "prefix": "node ", "cmd": ["node", "--version"] },
-            { "name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"] }
-          ]
-        },
         "snyk": true,
         "outdated_versions": true
       },
       "properties": {
         "outdated_versions": { "$ref": "#/definitions/audit_outdated_versions" },
-        "snyk": { "$ref": "#/definitions/audit_snyk" },
-        "print_versions": { "$ref": "#/definitions/print_versions" }
+        "snyk": { "$ref": "#/definitions/audit_snyk" }
       }
     },
     "checks": {
@@ -655,56 +496,10 @@
       "description": "The checkers configurations",
       "type": "object",
       "default": {
-        "print_versions": {
-          "versions": [
-            { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
-            { "name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell " },
-            { "name": "java", "cmd": ["java", "-version"] },
-            { "name": "python", "cmd": ["python3", "--version"] },
-            { "name": "pip", "cmd": ["python3", "-m", "pip", "--version"] },
-            { "name": "node", "prefix": "node ", "cmd": ["node", "--version"] },
-            { "name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"] },
-            { "name": "docker", "cmd": ["docker", "--version"] },
-            { "name": "docker-compose", "cmd": ["docker-compose", "--version"] },
-            { "name": "kubectl", "cmd": ["kubectl", "version"] },
-            { "name": "make", "cmd": ["make", "--version"], "prefix": "make " },
-            { "name": "pip_packages", "cmd": ["pip", "freeze", "--all"], "prefix": "pip packages:\n" },
-            {
-              "name": "npm_packages",
-              "cmd": ["npm", "list", "--all", "--global"],
-              "prefix": "npm packages:\n"
-            }
-          ]
-        },
-        "print_config": true,
-        "print_environment_variables": true,
-        "print_github_event": true,
-        "gitattribute": true,
-        "eof": true,
-        "workflows": true,
-        "black": true,
-        "isort": true,
-        "codespell": true,
-        "prettier": true,
-        "snyk": true,
-        "snyk_code": false,
-        "snyk_iac": false,
-        "snyk_fix": false
+        "workflows": true
       },
       "properties": {
-        "black": { "$ref": "#/definitions/checks_black" },
-        "codespell": { "$ref": "#/definitions/checks_codespell" },
-        "eof": { "$ref": "#/definitions/checks_eof" },
-        "gitattribute": { "$ref": "#/definitions/checks_gitattribute" },
-        "isort": { "$ref": "#/definitions/checks_isort" },
-        "print_config": { "$ref": "#/definitions/checks_print_config" },
-        "workflows": { "$ref": "#/definitions/checks_workflows" },
-        "snyk": { "$ref": "#/definitions/checks_snyk" },
-        "snyk_code": { "$ref": "#/definitions/checks_snyk_code" },
-        "snyk_iac": { "$ref": "#/definitions/checks_snyk_iac" },
-        "snyk_fix": { "$ref": "#/definitions/checks_snyk_fix" },
-        "prettier": { "$ref": "#/definitions/checks_prettier" },
-        "print_versions": { "$ref": "#/definitions/print_versions" }
+        "workflows": { "$ref": "#/definitions/checks_workflows" }
       }
     },
     "pr-checks": {
@@ -719,7 +514,6 @@
         "add_issue_link": true
       },
       "properties": {
-        "print_event": { "$ref": "#/definitions/pr_checks_print_event" },
         "commits_messages": { "$ref": "#/definitions/pr_checks_commits_messages" },
         "commits_spell": { "$ref": "#/definitions/pr_checks_commits_spell" },
         "pull_request_spell": { "$ref": "#/definitions/pr_checks_pull_request_spell" },
@@ -731,14 +525,6 @@
       "title": "Publish",
       "description": "The publishing configurations",
       "default": {
-        "print_versions": {
-          "versions": [
-            { "name": "c2cciutils", "cmd": ["c2cciutils", "--version"] },
-            { "name": "python", "cmd": ["python3", "--version"] },
-            { "name": "twine", "cmd": ["twine", "--version"] },
-            { "name": "docker", "cmd": ["docker", "--version"] }
-          ]
-        },
         "pypi": { "versions": ["version_tag"], "packages": "<auto-detected>" },
         "docker": {
           "images": "<auto-detected>"
@@ -753,8 +539,7 @@
         "docker": { "$ref": "#/definitions/publish_docker" },
         "pypi": { "$ref": "#/definitions/publish_pypi" },
         "helm": { "$ref": "#/definitions/publish_helm" },
-        "google_calendar": { "$ref": "#/definitions/publish_google_calendar" },
-        "print_versions": { "$ref": "#/definitions/print_versions" }
+        "google_calendar": { "$ref": "#/definitions/publish_google_calendar" }
       }
     },
     "version": {
