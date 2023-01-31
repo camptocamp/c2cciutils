@@ -66,6 +66,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Publish the project.")
     parser.add_argument("--group", default="default", help="The publishing group")
     parser.add_argument("--version", help="The version to publish to")
+    parser.add_argument(
+        "--docker-versions",
+        help="The versions to publish on Docker registry, comma separated, ex: 'x,x.y,x.y.z,latest'.",
+    )
+    parser.add_argument("--snyk-version", help="The version to publish to Snyk")
     parser.add_argument("--branch", help="The branch from which to compute the version")
     parser.add_argument("--tag", help="The tag from which to compute the version")
     parser.add_argument("--dry-run", action="store_true", help="Don't do the publish")
@@ -205,6 +210,8 @@ def main() -> None:
 
         images_src: Set[str] = set()
         images_full: List[str] = []
+        images_snyk: Set[str] = set()
+        versions = args.docker_versions.split(",") if args.docker_versions else [version]
         for image_conf in docker_config.get("images", []):
             if (
                 image_conf.get("group", c2cciutils.configuration.PUBLISH_DOCKER_IMAGE_GROUP_DEFAULT)
@@ -214,8 +221,25 @@ def main() -> None:
                     "tags", c2cciutils.configuration.PUBLISH_DOCKER_IMAGE_TAGS_DEFAULT
                 ):
                     tag_src = tag_config.format(version="latest")
-                    images_src.add(f"{image_conf['name']}:{tag_src}")
-                    tag_dst = tag_config.format(version=version)
+                    image_source = f"{image_conf['name']}:{tag_src}"
+                    images_src.add(image_source)
+                    tag_snyk = tag_config.format(version=args.snyk_version or version)
+                    image_snk = f"{image_conf['name']}:{tag_snyk}"
+                    # Workaround sine we have the business plan
+                    image_snk = f"{image_conf['name']}_{tag_snyk}"
+                    images_snyk.add(image_snk)
+                    if tag_snyk != tag_src:
+                        subprocess.run(
+                            [
+                                "docker",
+                                "tag",
+                                image_source,
+                                f"{image_conf['name']}:{tag_snyk}",
+                            ],
+                            check=True,
+                        )
+
+                    tags_calendar = []
                     for name, conf in {
                         **cast(
                             Dict[str, c2cciutils.configuration.PublishDockerRepository],
@@ -223,33 +247,38 @@ def main() -> None:
                         ),
                         **docker_config.get("repository", {}),
                     }.items():
-                        if version_type in conf.get(
-                            "versions", c2cciutils.configuration.PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT
-                        ):
-                            if args.dry_run:
-                                print(
-                                    f"Publishing {image_conf['name']}:{tag_dst} to {name}, "
-                                    "skipping (dry run)"
-                                )
-                                if latest:
-                                    print(
-                                        f"Publishing {image_conf['name']}:{tag_src} to {name}, "
-                                        "skipping (dry run)"
+                        for docker_version in versions:
+                            tag_dst = tag_config.format(version=docker_version)
+                            if tag_dst not in tags_calendar:
+                                tags_calendar.append(tag_dst)
+                            image_dst = f"{image_conf['name']}:{tag_dst}"
+                            if version_type in conf.get(
+                                "versions",
+                                c2cciutils.configuration.PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT,
+                            ):
+                                if args.dry_run:
+                                    print(f"Publishing {image_dst} to {name}, skipping (dry run)")
+                                    if latest:
+                                        print(f"Publishing {image_source} to {name}, skipping (dry run)")
+                                else:
+                                    success &= c2cciutils.publish.docker(
+                                        conf, name, image_conf, tag_src, tag_dst, latest, images_full
                                     )
-                            else:
-                                success &= c2cciutils.publish.docker(
-                                    conf, name, image_conf, tag_src, tag_dst, latest, images_full
-                                )
+
                     if google_calendar_publish:
                         if version_type in google_calendar_config.get(
                             "on", c2cciutils.configuration.PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT
                         ):
                             if not google_calendar:
                                 google_calendar = GoogleCalendar()
-                            summary = f"{image_conf['name']}:{tag_dst}"
-                            description = (
-                                f"Published on: {', '.join(docker_config['repository'].keys())}\n"
-                                f"For version type: {version_type}"
+                            summary = f"{image_conf['name']}:{', '.join(tags_calendar)}"
+                            description = "\n".join(
+                                [
+                                    f"Published the image {image_conf['name']}",
+                                    f"Published on: {', '.join(docker_config['repository'].keys())}",
+                                    f"With tags: {', '.join(tags_calendar)}",
+                                    f"For version type: {version_type}",
+                                ]
                             )
 
                             google_calendar.create_event(summary, description)
@@ -272,7 +301,7 @@ def main() -> None:
         based_on_master = c2cciutils.get_based_on_master(full_repo_split, None, master_branch, config)
 
         snyk_exec, env = c2cciutils.snyk_exec()
-        for image in images_full:
+        for image in images_snyk:
             if version_type in ("version_branch", "version_tag"):
                 subprocess.run(  # pylint: disable=subprocess-run-check
                     [
