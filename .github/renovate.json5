@@ -1,7 +1,7 @@
 {
   extends: ['config:base'],
   timezone: 'Europe/Zurich',
-  schedule: 'on the first day of the month',
+  schedule: 'after 5pm on the first day of the month',
   labels: ['dependencies'],
   separateMajorMinor: true,
   separateMinorPatch: true,
@@ -67,7 +67,7 @@
     /** Update dpkg versions every day */
     {
       matchPaths: ['^ci/dpkg-versions.yaml$'],
-      schedule: 'every weekday',
+      schedule: 'after 5pm on the first day of the month',
       groupName: 'dpkg',
       automerge: true,
     },
