@@ -122,16 +122,17 @@ def check_versions(
     if not result:
         return False
 
+    success = True
     for package, version in versions_image.items():
         if package not in versions_config:
             print(f"Package {package} is not in the config file for the image {image}")
-            return False
+            success = False
 
         if Version.from_string(versions_config[package]) > version:
             print(
                 f"Package {package} is older than the config file for the image {image}: "
                 f"{versions_config[package]} > {version}."
             )
-            return False
+            success = False
 
-    return True
+    return success
