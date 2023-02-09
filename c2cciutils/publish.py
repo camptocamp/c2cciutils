@@ -262,7 +262,8 @@ def pip(
 
     try:
         env = dict(os.environ)
-        env["VERSION"] = version
+        if publish:
+            env["VERSION"] = version
 
         cwd = os.path.abspath(package.get("path", "."))
 
