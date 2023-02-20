@@ -96,6 +96,7 @@ oauthlib = "3.2.2"
 protobuf = "3.20.3"
 cryptography = "39.0.1"
 certifi = "2022.12.7"
+pyopenssl = "23.0.0"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = [
