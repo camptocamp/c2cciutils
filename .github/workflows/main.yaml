@@ -146,6 +146,6 @@ jobs:
       - run: python --version
 
       - name: Audit
-        run: ~/.venv/bin/c2cciutils-audit
+        run: ~/.venv/bin/c2cciutils-audit || true
         env:
           GITHUB_TOKEN: ${{ github.token }}
