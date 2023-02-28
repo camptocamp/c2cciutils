@@ -224,10 +224,13 @@ def main() -> None:
                     image_source = f"{image_conf['name']}:{tag_src}"
                     images_src.add(image_source)
                     tag_snyk = tag_config.format(version=args.snyk_version or version)
-                    image_snk = f"{image_conf['name']}:{tag_snyk}"
+                    image_snyk = f"{image_conf['name']}:{tag_snyk}"
+
                     # Workaround sine we have the business plan
-                    image_snk = f"{image_conf['name']}_{tag_snyk}"
-                    images_snyk.add(image_snk)
+                    image_snyk = f"{image_conf['name']}_{tag_snyk}"
+
+                    subprocess.run(["docker", "tag", image_source, image_snyk], check=True)
+                    images_snyk.add(image_snyk)
                     if tag_snyk != tag_src:
                         subprocess.run(
                             [
