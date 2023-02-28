@@ -168,6 +168,17 @@ _C2C CI utils configuration file_
             - **`repository`** _(string)_: The repository name to be triggered. Default: `"camptocamp/argocd-gs-gmf-apps"`.
             - **`event-type`** _(string)_: The event type to be triggered. Default: `"image-update"`.
           -
+      - **`snyk`** _(object)_: Checks the published images with Snyk.
+        - **`monitor_args`**: The arguments to pass to the Snyk container monitor command. Default: `["--app-vulns"]`.
+          - **One of**
+            - _array_
+              - **Items** _(string)_
+            -
+        - **`test_args`**: The arguments to pass to the Snyk container test command. Default: `["--app-vulns", "--severity-threshold=critical"]`.
+          - **One of**
+            - _array_
+              - **Items** _(string)_
+            -
     -
 - <a id="definitions/publish_google_calendar"></a>**`publish_google_calendar`**: The configuration to publish on Google Calendar. Default: `{}`.
   - **One of**
