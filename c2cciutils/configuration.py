@@ -813,6 +813,14 @@ PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT = ["version_tag", "version_branch", "
 """Default value of the field path 'Publish Docker repository versions'"""
 
 
+PUBLISH_DOCKER_SNYK_MONITOR_ARGS_DEFAULT = ["--app-vulns"]
+"""Default value of the field path 'Publish Docker config snyk monitor_args'"""
+
+
+PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT = ["--app-vulns", "--severity-threshold=critical"]
+"""Default value of the field path 'Publish Docker config snyk test_args'"""
+
+
 PUBLISH_GOOGLE_CALENDAR_DEFAULT: Dict[str, Any] = {}
 """Default value of the field path 'Publish google_calendar'"""
 
@@ -982,6 +990,12 @@ class PublishDockerConfig(TypedDict, total=False):
       {}
 
     oneOf
+    """
+
+    snyk: "_PublishDockerConfigSnyk"
+    """
+    WARNING: The required are not correctly taken in account,
+    See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
     """
 
 
@@ -1336,6 +1350,35 @@ class _PrintVersionsVersionsItem(TypedDict, total=False):
 
     prefix: str
     """Prefix added when we print the version"""
+
+
+class _PublishDockerConfigSnyk(TypedDict, total=False):
+    """Checks the published images with Snyk"""
+
+    monitor_args: Union[List[str], Literal[False]]
+    """
+    Publish docker snyk monitor args.
+
+    The arguments to pass to the Snyk container monitor command
+
+    default:
+      - --app-vulns
+
+    oneOf
+    """
+
+    test_args: Union[List[str], Literal[False]]
+    """
+    Publish docker snyk test args.
+
+    The arguments to pass to the Snyk container test command
+
+    default:
+      - --app-vulns
+      - --severity-threshold=critical
+
+    oneOf
+    """
 
 
 _VersionTransformItem = TypedDict(
