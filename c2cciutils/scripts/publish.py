@@ -305,33 +305,43 @@ def main() -> None:
 
         snyk_exec, env = c2cciutils.snyk_exec()
         for image in images_snyk:
-            if version_type in ("version_branch", "version_tag"):
-                monitor_args = docker_config.get("snyk", {}).get(
-                    "monitor_args",
-                    c2cciutils.configuration.PUBLISH_DOCKER_SNYK_MONITOR_ARGS_DEFAULT,
+            print(f"::group::Snyk check {image}")
+            sys.stdout.flush()
+            sys.stderr.flush()
+            try:
+                if version_type in ("version_branch", "version_tag"):
+                    monitor_args = docker_config.get("snyk", {}).get(
+                        "monitor_args",
+                        c2cciutils.configuration.PUBLISH_DOCKER_SNYK_MONITOR_ARGS_DEFAULT,
+                    )
+                    if monitor_args is not False:
+                        subprocess.run(  # pylint: disable=subprocess-run-check
+                            [
+                                snyk_exec,
+                                "container",
+                                "monitor",
+                                *monitor_args,
+                                # Available only on the business plan
+                                # f"--project-tags=tag={image.split(':')[-1]}",
+                                image,
+                            ],
+                            env=env,
+                        )
+                test_args = docker_config.get("snyk", {}).get(
+                    "test_args", c2cciutils.configuration.PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT
                 )
-                if monitor_args is not False:
-                    subprocess.run(  # pylint: disable=subprocess-run-check
-                        [
-                            snyk_exec,
-                            "container",
-                            "monitor",
-                            *monitor_args,
-                            # Available only on the business plan
-                            # f"--project-tags=tag={image.split(':')[-1]}",
-                            image,
-                        ],
+                if test_args is not False:
+                    subprocess.run(
+                        [snyk_exec, "container", "test", *test_args, image],
+                        check=not based_on_master and version_type == "version_branch",
                         env=env,
                     )
-            test_args = docker_config.get("snyk", {}).get(
-                "test_args", c2cciutils.configuration.PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT
-            )
-            if test_args is not False:
-                subprocess.run(
-                    [snyk_exec, "container", "test", *test_args, image],
-                    check=not based_on_master and version_type == "version_branch",
-                    env=env,
-                )
+
+                print("::endgroup::")
+            except subprocess.CalledProcessError as exception:
+                print(f"Error: {exception}")
+                print("::endgroup::")
+                print("::error::With error")
 
         versions_config = c2cciutils.lib.docker.get_versions_config()
         dpkg_success = True
