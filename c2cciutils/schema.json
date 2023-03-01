@@ -469,6 +469,40 @@
                 },
                 { "const": false }
               ]
+            },
+            "snyk": {
+              "description": "Checks the published images with Snyk",
+              "type": "object",
+              "properties": {
+                "monitor_args": {
+                  "description": "The arguments to pass to the Snyk container monitor command",
+                  "title": "Publish docker snyk monitor args",
+                  "default": ["--app-vulns"],
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    { "const": false }
+                  ]
+                },
+                "test_args": {
+                  "description": "The arguments to pass to the Snyk container test command",
+                  "title": "Publish docker snyk test args",
+                  "default": ["--app-vulns", "--severity-threshold=critical"],
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    { "const": false }
+                  ]
+                }
+              }
             }
           }
         },
