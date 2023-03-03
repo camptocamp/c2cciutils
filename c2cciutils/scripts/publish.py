@@ -160,7 +160,10 @@ def main() -> None:
         sys.exit(1)
 
     if version_type is not None:
-        print(f"Create release type {version_type}: {version}")
+        if args.dry_run:
+            print(f"Create release type {version_type}: {version} (dry run)")
+        else:
+            print(f"Create release type {version_type}: {version}")
 
     success = True
     pypi_config = cast(
@@ -229,9 +232,10 @@ def main() -> None:
                     # Workaround sine we have the business plan
                     image_snyk = f"{image_conf['name']}_{tag_snyk}"
 
-                    subprocess.run(["docker", "tag", image_source, image_snyk], check=True)
+                    if not args.dry_run:
+                        subprocess.run(["docker", "tag", image_source, image_snyk], check=True)
                     images_snyk.add(image_snyk)
-                    if tag_snyk != tag_src:
+                    if tag_snyk != tag_src and not args.dry_run:
                         subprocess.run(
                             [
                                 "docker",
