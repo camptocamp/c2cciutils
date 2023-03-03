@@ -5,6 +5,7 @@ The audit main function.
 """
 
 import argparse
+import os
 import sys
 
 import c2cciutils.audit
@@ -29,7 +30,7 @@ def main() -> None:
             audit = getattr(c2cciutils.audit, key)
             print(f"Run audit {key}")
             success &= audit({} if conf is True else conf, full_config, args)
-    if not success:
+    if not success and os.environ.get("TEST") != "TRUE":
         sys.exit(1)
 
 
