@@ -1319,14 +1319,6 @@ rich = ">=12.0.0"
 urllib3 = ">=1.26.0"
 
 [[package]]
-name = "types-docutils"
-version = "0.19.1.2"
-description = "Typing stubs for docutils"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "types-Markdown"
 version = "3.4.2.5"
 description = "Typing stubs for Markdown"
@@ -1355,14 +1347,11 @@ types-urllib3 = "<1.27"
 
 [[package]]
 name = "types-setuptools"
-version = "65.7.0.4"
+version = "67.4.0.3"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[package.dependencies]
-types-docutils = "*"
 
 [[package]]
 name = "types-toml"
@@ -1458,7 +1447,7 @@ publish_plugins = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "9c0ff6f1b4346a1bb4ad16b61baedca41092203ef0667d06ef62033f92053930"
+content-hash = "9d777e0598b7f4d90b2e73c57c6d4773f3c92ab3cce6cc8f7e687edf3a5fea3e"
 
 [metadata.files]
 astroid = [
@@ -2236,10 +2225,6 @@ twine = [
     {file = "twine-4.0.2-py3-none-any.whl", hash = "sha256:929bc3c280033347a00f847236564d1c52a3e61b1ac2516c97c48f3ceab756d8"},
     {file = "twine-4.0.2.tar.gz", hash = "sha256:9e102ef5fdd5a20661eb88fad46338806c3bd32cf1db729603fe3697b1bc83c8"},
 ]
-types-docutils = [
-    {file = "types-docutils-0.19.1.2.tar.gz", hash = "sha256:ca3d2135484adb52dd042bbddbd6eddcbbda8c608ba3f5e5f908bd548ffcb399"},
-    {file = "types_docutils-0.19.1.2-py3-none-any.whl", hash = "sha256:7be44dac1b160901308ac43762d5e89175105ed682092a3a1f08911d2573a470"},
-]
 types-Markdown = [
     {file = "types-Markdown-3.4.2.5.tar.gz", hash = "sha256:e76a2a07166f7c69aadf5fa51ef954d2baaed35eb8fa30c36f10877d8403fcef"},
     {file = "types_Markdown-3.4.2.5-py3-none-any.whl", hash = "sha256:6707853d2478f6ae9e298db497c93c38fe40d8f89e1d90872d992c3934aa76d7"},
@@ -2253,8 +2238,8 @@ types-requests = [
     {file = "types_requests-2.28.11.15-py3-none-any.whl", hash = "sha256:a05e4c7bc967518fba5789c341ea8b0c942776ee474c7873129a61161978e586"},
 ]
 types-setuptools = [
-    {file = "types-setuptools-65.7.0.4.tar.gz", hash = "sha256:147809433301fe7e0f4ef5c0782f9a0453788960575e1efb6da5fe8cb2493c9f"},
-    {file = "types_setuptools-65.7.0.4-py3-none-any.whl", hash = "sha256:522067dfd8e1771f8d7e047e451de2740dc4e0c9f48a22302a6cc96e6c964a13"},
+    {file = "types-setuptools-67.4.0.3.tar.gz", hash = "sha256:19e958dfdbf1c5a628e54c2a7ee84935051afb7278d0c1cdb08ac194757ee3b1"},
+    {file = "types_setuptools-67.4.0.3-py3-none-any.whl", hash = "sha256:3c83c3a6363dd3ddcdd054796705605f0fa8b8e5a39390e07a05e5f7af054978"},
 ]
 types-toml = [
     {file = "types-toml-0.10.8.5.tar.gz", hash = "sha256:bf80fce7d2d74be91148f47b88d9ae5adeb1024abef22aa2fdbabc036d6b8b3c"},
