@@ -305,8 +305,6 @@ def main() -> None:
                 images_full,
             )
 
-        based_on_master = c2cciutils.get_based_on_master(full_repo_split, None, master_branch, config)
-
         snyk_exec, env = c2cciutils.snyk_exec()
         for image in images_snyk:
             print(f"::group::Snyk check {image}")
@@ -334,14 +332,18 @@ def main() -> None:
                 test_args = docker_config.get("snyk", {}).get(
                     "test_args", c2cciutils.configuration.PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT
                 )
+                snyk_error = False
                 if test_args is not False:
-                    subprocess.run(
+                    proc = subprocess.run(
                         [snyk_exec, "container", "test", *test_args, image],
-                        check=not based_on_master and version_type == "version_branch",
+                        check=False,
                         env=env,
                     )
-
+                    if proc.returncode != 0:
+                        snyk_error = True
                 print("::endgroup::")
+                if snyk_error:
+                    print("::error::Critical vulnerability found by Snyk in the published image.")
             except subprocess.CalledProcessError as exception:
                 print(f"Error: {exception}")
                 print("::endgroup::")
