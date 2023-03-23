@@ -270,8 +270,6 @@ def main() -> None:
                 images_full,
             )
 
-        based_on_master = c2cciutils.get_based_on_master(full_repo_split, None, master_branch, config)
-
         snyk_exec, env = c2cciutils.snyk_exec()
         for image in images_full:
             if version_type in ("version_branch", "version_tag"):
@@ -287,15 +285,16 @@ def main() -> None:
                     ],
                     env=env,
                 )
-            # Currently just for information
+            # Just for information
             subprocess.run(  # pylint: disable=subprocess-run-check
                 [snyk_exec, "container", "test", "--app-vulns", "--severity-threshold=high", image], env=env
             )
-            subprocess.run(
+            proc = subprocess.run(  # pylint: disable=subprocess-run-check
                 [snyk_exec, "container", "test", "--app-vulns", "--severity-threshold=critical", image],
-                check=not based_on_master and version_type == "version_branch",
                 env=env,
             )
+            if proc.returncode != 0:
+                print(f"::error::Critical vulnerability found by Snyk in the published image: {image}.")
 
         versions_config = c2cciutils.lib.docker.get_versions_config()
         dpkg_success = True
