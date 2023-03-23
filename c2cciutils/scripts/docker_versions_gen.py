@@ -16,7 +16,7 @@ def main() -> None:
     argparser.add_argument("images", help="The image to check", nargs="+")
     args = argparser.parse_args()
 
-    versions_config = c2cciutils.lib.docker.get_versions_config()
+    versions_config, _ = c2cciutils.lib.docker.get_versions_config()
     for image in args.images:
 
         _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(
