@@ -29,9 +29,9 @@ def main() -> None:
     argparser.add_argument("--versions-file", required=True)
     args = argparser.parse_args()
 
-    with open(args.versions_file, "r", encoding="utf-8") as config_file:
+    with open(args.versions_file, encoding="utf-8") as config_file:
         versions = cast(Dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
-    with open(args.applications_file, "r", encoding="utf-8") as config_file:
+    with open(args.applications_file, encoding="utf-8") as config_file:
         applications = cast(
             applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader)
         )
@@ -42,12 +42,11 @@ def download_c2cciutils_applications() -> None:
     """Download the applications defined in the c2cciutils package."""
     with open(
         os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications-versions.yaml"),
-        "r",
         encoding="utf-8",
     ) as config_file:
         versions = cast(Dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
     with open(
-        os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications.yaml"), "r", encoding="utf-8"
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications.yaml"), encoding="utf-8"
     ) as config_file:
         applications = cast(
             applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader)

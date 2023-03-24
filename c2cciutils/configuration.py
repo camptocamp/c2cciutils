@@ -436,7 +436,7 @@ class ChecksCodespellConfig(TypedDict, total=False):
     """
 
     ignore_re: List[str]
-    """
+    r"""
     codespell ignore regular expression.
 
     List of regular expression that should be ignored
