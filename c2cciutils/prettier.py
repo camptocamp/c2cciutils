@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 Load prettier.js and improve the API.
 """

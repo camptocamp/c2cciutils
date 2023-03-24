@@ -150,7 +150,7 @@ def commits_spell(
                 temp_file.write(commit["commit"]["message"])
             temp_file.flush()
             spell = subprocess.run(  # nosec # pylint: disable=subprocess-run-check
-                spellcheck_cmd + [temp_file.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+                spellcheck_cmd + [temp_file.name], capture_output=True
             )
             if spell.returncode != 0:
                 need_separator = _commit_intro(need_separator, commit)
@@ -183,7 +183,7 @@ def pull_request_spell(
             temp_file.write("\n")
         temp_file.flush()
         spell = subprocess.run(  # nosec # pylint: disable=subprocess-run-check
-            spellcheck_cmd + [temp_file.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            spellcheck_cmd + [temp_file.name], capture_output=True
         )
         if spell.returncode != 0:
             print("::error::Code spell error in pull request")
@@ -210,7 +210,7 @@ def pull_request_labels(github_event: Dict[str, Any], **kwargs: Any) -> bool:
             if "labels" in section:
                 required_labels.extend(section["labels"])
 
-    print(f"Requird one onf the following labels: {', '.join(required_labels)}")
+    print(f"Required one onf the following labels: {', '.join(required_labels)}")
 
     if required_labels:
         labels = [
