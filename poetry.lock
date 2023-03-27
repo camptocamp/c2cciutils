@@ -1486,7 +1486,7 @@ files = [
 name = "pyyaml"
 version = "6.0"
 description = "YAML parser and emitter for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -2190,4 +2190,4 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "0dc67c075db31e8e50f29a204ef302c499205aa62257675640cfb0aed61ea196"
+content-hash = "8f80e8bb215ee91a7cf7a67c6cf12a88c8f4c2273bcc49c37cd01eb907053294"
