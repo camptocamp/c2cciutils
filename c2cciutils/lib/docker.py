@@ -95,14 +95,17 @@ def get_dpkg_packages_versions(
     return True, {f"{prefix}{k}": v for k, v in package_version.items()}
 
 
-def get_versions_config() -> Dict[str, Dict[str, str]]:
+def get_versions_config() -> Tuple[Dict[str, Dict[str, str]], bool]:
     """
     Get the versions from the config file.
     """
     if os.path.exists("ci/dpkg-versions.yaml"):
         with open("ci/dpkg-versions.yaml", encoding="utf-8") as versions_file:
-            return cast(Dict[str, Dict[str, str]], yaml.load(versions_file.read(), Loader=yaml.SafeLoader))
-    return {}
+            return (
+                cast(Dict[str, Dict[str, str]], yaml.load(versions_file.read(), Loader=yaml.SafeLoader)),
+                True,
+            )
+    return {}, False
 
 
 def check_versions(
