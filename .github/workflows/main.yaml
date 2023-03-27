@@ -29,6 +29,8 @@ jobs:
           GITHUB_EVENT: ${{ toJson(github) }}
 
       - run: pip install pyOpenSSL --upgrade
+      - run: sudo apt-get remove python3-distro-info python3-debian
+      - run: pip freeze
 
       - uses: actions/checkout@v3
         with:
