@@ -349,9 +349,9 @@ def main() -> None:
                 print("::endgroup::")
                 print("::error::With error")
 
-        versions_config = c2cciutils.lib.docker.get_versions_config()
+        versions_config, dpkg_config_found = c2cciutils.lib.docker.get_versions_config()
         dpkg_success = True
-        for image in images_src and versions_config:
+        for image in images_src:
             dpkg_success &= c2cciutils.lib.docker.check_versions(versions_config.get(image, {}), image)
 
         if not dpkg_success:
@@ -363,7 +363,7 @@ def main() -> None:
             print("Current versions of the Debian packages in Docker images:")
             print(yaml.dump(current_versions_in_images, Dumper=yaml.SafeDumper, default_flow_style=False))
 
-            if versions_config:
+            if dpkg_config_found:
                 success = False
 
     helm_config = cast(
