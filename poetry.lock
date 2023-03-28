@@ -2086,7 +2086,7 @@ files = [
 name = "wheel"
 version = "0.38.4"
 description = "A built-package format for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -2190,4 +2190,4 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "8f80e8bb215ee91a7cf7a67c6cf12a88c8f4c2273bcc49c37cd01eb907053294"
+content-hash = "d3cf7c7742eed11034d7290906fda7bfdcd37f03ab9fd462ead566d768e13be8"

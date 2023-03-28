@@ -98,6 +98,7 @@ cryptography = "39.0.1"
 certifi = "2022.12.7"
 pyopenssl = "23.0.0"
 pyyaml = "6.0"
+wheel = "0.38.4"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = [
