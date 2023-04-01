@@ -30,7 +30,7 @@ repos:
           - poetry==1.3.2 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2022.12.19 # pypi
+          - pipenv==2023.3.20 # pypi
       - id: helm-lock
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.2
