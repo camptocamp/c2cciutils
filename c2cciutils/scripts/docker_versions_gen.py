@@ -18,7 +18,6 @@ def main() -> None:
 
     versions_config, _ = c2cciutils.lib.docker.get_versions_config()
     for image in args.images:
-
         _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(
             image,
             default_distribution=args.distribution,
