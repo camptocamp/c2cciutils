@@ -83,7 +83,7 @@ safety = "2.1.1"
 markdown-table = "2020.12.3"
 python-magic = "0.4.27"
 requests = "2.28.2"
-Markdown = "3.4.1"
+Markdown = "3.4.3"
 EditorConfig = { version = "0.12.3", optional = true }
 google-api-python-client = { version = "2.60.0", optional = true }
 google-auth-httplib2 = { version = "0.1.0", optional = true }
@@ -103,13 +103,13 @@ toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0"
 pyOpenSSL = "23.0.0"
-tomlkit = { version = "0.11.6", optional = true }
+tomlkit = { version = "0.11.7", optional = true }
 poetry-dynamic-versioning = { version = "0.19.0", optional = true, "extras" = ["plugin"] }
 poetry-plugin-tweak-dependencies-version = { version = "1.0.0", optional = true }
 poetry = { version = "1.2.1", optional = true }
 poetry-core = { version = "1.2.0", optional = true }
 protobuf = { version = "4.21.12", optional = true }
-cryptography = "39.0.1"
+cryptography = "39.0.2"
 certifi = "2022.12.7"
 
 [tool.poetry.extras]
@@ -130,11 +130,11 @@ pr_checks = ["codespell"]
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
-types-requests = "2.28.11.15"
-types-pyyaml = "6.0.12.8"
+types-requests = "2.28.11.17"
+types-pyyaml = "6.0.12.9"
 types-setuptools = "65.3.0"
-types-markdown = "3.4.2.5"
-types-toml = "0.10.8.5"
+types-markdown = "3.4.2.6"
+types-toml = "0.10.8.6"
 typing-extensions = "4.3.0"
 jsonschema2md = "0.4.0"
 
