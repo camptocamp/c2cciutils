@@ -36,7 +36,11 @@ repos:
     rev: v2.2.4
     hooks:
       - id: codespell
-        exclude: ^(.*/)?poetry\.lock$
+        exclude: |-
+          (?x)(
+            (.*/)?poetry\.lock$
+            |^test/Pipfile\.lock$
+          )
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.9.0.2
     hooks:
