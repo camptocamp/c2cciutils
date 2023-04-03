@@ -76,7 +76,7 @@
     /** Update dpkg versions every day */
     {
       matchPaths: ['^ci/dpkg-versions.yaml$'],
-      schedule: 'after 5pm on the first day of the month',
+      schedule: ['at any time'],
       groupName: 'dpkg',
       automerge: true,
     },
