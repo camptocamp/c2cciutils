@@ -33,10 +33,14 @@ repos:
           - pipenv==2023.3.20 # pypi
       - id: helm-lock
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.2
+    rev: v2.2.4
     hooks:
       - id: codespell
-        exclude: ^(.*/)?poetry\.lock$
+        exclude: |-
+          (?x)(
+            (.*/)?poetry\.lock$
+            |^test/Pipfile\.lock$
+          )
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.9.0.2
     hooks:
@@ -66,7 +70,7 @@ repos:
     hooks:
       - id: ripsecrets
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.0.0
+    rev: v2.0.2
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/pyupgrade
