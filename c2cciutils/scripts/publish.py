@@ -233,7 +233,8 @@ def main() -> None:
         url = "https://github.com/helm/chart-releaser/releases/download/v1.2.1/chart-releaser_1.2.1_linux_amd64.tar.gz"
         response = requests.get(url, stream=True)
         with tarfile.open(fileobj=response.raw, mode="r:gz") as file:
-            file.extractall(path=os.path.expanduser("~/.local/bin"))
+            # B202(bandit) tarfile.extractall used without any validation. Please check and discard dangerous members.
+            file.extractall(path=os.path.expanduser("~/.local/bin"))  # nosec
 
         owner, repo = full_repo_split
         commit_sha = (
