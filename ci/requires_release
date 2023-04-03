@@ -9,7 +9,7 @@ import requests
 
 def main() -> None:
     url = "https://pypi.org/pypi/c2cciutils/json"
-    data = requests.get(url).json()
+    data = requests.get(url, timeout=30).json()
     versions = [LooseVersion(v) for v in data["releases"].keys()]
     versions = [v for v in versions if len(v.version) == 4]
     versions = sorted(versions)
