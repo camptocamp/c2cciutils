@@ -18,7 +18,7 @@ def main() -> None:
     _ = parser.parse_args()
 
     _print("::group::Install")
-    response = requests.get("https://raw.githubusercontent.com/rancher/k3d/main/install.sh")
+    response = requests.get("https://raw.githubusercontent.com/rancher/k3d/main/install.sh", timeout=30)
     subprocess.run(["bash"], env={"TAG": "v4.4.8"}, check=True, input=response.content)
     _print("::endgroup::")
 

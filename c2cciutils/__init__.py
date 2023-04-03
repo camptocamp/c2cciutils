@@ -484,9 +484,7 @@ def match(
     return None, None, value
 
 
-def does_match(
-    value: str, config: List[VersionTransform]
-) -> bool:
+def does_match(value: str, config: List[VersionTransform]) -> bool:
     """
     Check if the version match with the config patterns.
 
@@ -633,6 +631,7 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
                 "Content-Type": "application/json",
             }
         ),
+        timeout=30,
     )
     if http_response.status_code == 401 and default is not None:
         return default
@@ -688,9 +687,7 @@ def get_branch(branch: Optional[str], master_branch: str = "master") -> str:
         return branch
     try:
         branch = (
-            subprocess.run(
-                ["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE
-            )
+            subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE)
             .stdout.decode()
             .strip()
         )

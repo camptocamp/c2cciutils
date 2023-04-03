@@ -182,6 +182,7 @@ def main() -> None:
         security_response = requests.get(
             f"https://raw.githubusercontent.com/{full_repo}/{master_branch}/SECURITY.md",
             headers=c2cciutils.add_authorization_header({}),
+            timeout=30,
         )
         if security_response.ok and docker_config["latest"] is True:
             security = c2cciutils.security.Security(security_response.text)
@@ -231,9 +232,10 @@ def main() -> None:
     )
     if helm_config and helm_config["folders"] and version_type in helm_config.get("versions", []):
         url = "https://github.com/helm/chart-releaser/releases/download/v1.2.1/chart-releaser_1.2.1_linux_amd64.tar.gz"
-        response = requests.get(url, stream=True)
+        response = requests.get(url, stream=True, timeout=30)
         with tarfile.open(fileobj=response.raw, mode="r:gz") as file:
-            file.extractall(path=os.path.expanduser("~/.local/bin"))
+            # B202(bandit) tarfile.extractall used without any validation. Please check and discard dangerous members.
+            file.extractall(path=os.path.expanduser("~/.local/bin"))  # nosec
 
         owner, repo = full_repo_split
         commit_sha = (
