@@ -82,10 +82,6 @@ class Audit(TypedDict, total=False):
     outdated_versions: "AuditOutdatedVersions"
     snyk: "AuditWithSnyk"
     print_versions: "PrintVersions"
-    """
-    WARNING: The required are not correctly taken in account,
-    See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
-    """
 
 
 AuditOutdatedVersions = bool
@@ -358,10 +354,6 @@ class Checks(TypedDict, total=False):
     snyk_fix: "ChecksWithSnykFix"
     prettier: "ChecksPrettier"
     print_versions: "PrintVersions"
-    """
-    WARNING: The required are not correctly taken in account,
-    See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
-    """
 
 
 ChecksBlack = Union["ChecksBlackConfig", bool]
@@ -628,23 +620,11 @@ The workflows checks configuration
 Configuration = TypedDict(
     "Configuration",
     {
-        # WARNING: The required are not correctly taken in account,
-        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "audit": "Audit",
-        # WARNING: The required are not correctly taken in account,
-        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "checks": "Checks",
-        # WARNING: The required are not correctly taken in account,
-        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "pr-checks": "PullRequestChecks",
-        # WARNING: The required are not correctly taken in account,
-        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "publish": "Publish",
-        # WARNING: The required are not correctly taken in account,
-        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "version": "Version",
-        # WARNING: The required are not correctly taken in account,
-        # See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
         "k8s": "K8SConfiguration",
     },
     total=False,
@@ -755,16 +735,7 @@ class K8SConfiguration(TypedDict, total=False):
     """
 
     k3d: "K3DConfiguration"
-    """
-    WARNING: The required are not correctly taken in account,
-    See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
-    """
-
     db: "DbConfiguration"
-    """
-    WARNING: The required are not correctly taken in account,
-    See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
-    """
 
 
 K8S_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
@@ -931,10 +902,6 @@ class Publish(TypedDict, total=False):
     helm: "PublishHelm"
     google_calendar: "PublishGoogleCalendar"
     print_versions: "PrintVersions"
-    """
-    WARNING: The required are not correctly taken in account,
-    See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
-    """
 
 
 PublishDocker = Union["PublishDockerConfig", Literal[False]]
@@ -993,10 +960,6 @@ class PublishDockerConfig(TypedDict, total=False):
     """
 
     snyk: "_PublishDockerConfigSnyk"
-    """
-    WARNING: The required are not correctly taken in account,
-    See: https://github.com/camptocamp/jsonschema-gentypes/issues/6
-    """
 
 
 class PublishDockerImage(TypedDict, total=False):
