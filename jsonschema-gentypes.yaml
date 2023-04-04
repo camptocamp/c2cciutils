@@ -2,9 +2,12 @@ headers: |
   """
   Automatically generated file from a JSON schema.
   """
-callbacks:
-  - - black
-  - - isort
+
+pre_commit:
+  enabled: true
+  arguments:
+    - --color=never
+
 generate:
   - source: c2cciutils/schema.json
     destination: c2cciutils/configuration.py
