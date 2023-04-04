@@ -48,6 +48,7 @@ include = [
     "c2cciutils/node_modules/snyk/**/*",
     "c2cciutils/node_modules/**/package.json",
     "c2cciutils/node_modules/*/*.js",
+    "c2cciutils/node_modules/*/dist/*.js",
     "c2cciutils/node_modules/*/src/*.js",
     "c2cciutils/node_modules/*/src/**/*.js",
     "c2cciutils/node_modules/**/lib/*.js",
