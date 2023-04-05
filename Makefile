@@ -24,10 +24,3 @@ checks: prospector ## Do the checks
 .PHONY: prospector
 prospector: build-checker ## Run Prospector
 	docker run --rm --volume=${PWD}:/app $(GITHUB_REPOSITORY)-checker prospector --ignore-paths=example-project/ --output=pylint --die-on-tool-error
-
-.PHONY: jsonschema
-jsonschema: ## Generate files depends on the JSON schema
-	jsonschema-gentypes
-	jsonschema2md c2cciutils/schema.json config.md
-	jsonschema2md c2cciutils/schema-applications.json applications.md
-	c2cciutils-checks --fix --check=prettier

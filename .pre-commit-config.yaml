@@ -8,6 +8,7 @@ ci:
     - helm-lock
     - ripsecrets
     - jsonschema-gentypes
+    - jsonschema2md
 
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
@@ -38,6 +39,21 @@ repos:
             ĵsonschema-gentypes.yaml$
             |^c2cciutils/schema.*\.json$
           )
+  - repo: https://github.com/sbrunner/jsonschema2md2
+    rev: 0.6.0
+    hooks:
+      - id: jsonschema2md
+        files: c2cciutils/schema.json
+        args:
+          - --pre-commit
+          - c2cciutils/schema.json
+          - config.md
+      - id: jsonschema2md
+        files: c2cciutils/schema-applications.json
+        args:
+          - --pre-commit
+          - c2cciutils/schema-applications.json
+          - applications.md
   - repo: https://github.com/sbrunner/hooks
     rev: 0.5.0
     hooks:
