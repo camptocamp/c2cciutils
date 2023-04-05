@@ -49,6 +49,7 @@ include = [
     "c2cciutils/node_modules/snyk/**/*.js",
     "c2cciutils/node_modules/snyk/**/*.py",
     "c2cciutils/node_modules/snyk/**/*.wasm",
+    "c2cciutils/node_modules/semver/**/*.js",
     "c2cciutils/node_modules/**/package.json",
     "c2cciutils/node_modules/*/*.js",
     "c2cciutils/node_modules/*/dist/*.js",
