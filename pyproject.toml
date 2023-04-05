@@ -45,10 +45,14 @@ include = [
     "c2cciutils/*.yaml",
     "c2cciutils/*.json",
     "c2cciutils/*.js",
-    "c2cciutils/node_modules/snyk/**/*",
+    "c2cciutils/node_modules/snyk/bin/snyk",
+    "c2cciutils/node_modules/snyk/**/*.js",
+    "c2cciutils/node_modules/snyk/**/*.py",
+    "c2cciutils/node_modules/snyk/**/*.wasm",
     "c2cciutils/node_modules/**/package.json",
     "c2cciutils/node_modules/*/*.js",
     "c2cciutils/node_modules/*/dist/*.js",
+    "c2cciutils/node_modules/*/dist/**/*.js",
     "c2cciutils/node_modules/*/src/*.js",
     "c2cciutils/node_modules/*/src/**/*.js",
     "c2cciutils/node_modules/**/lib/*.js",
@@ -59,7 +63,7 @@ include = [
     "c2cciutils/node_modules/**/modules/*.js",
     "c2cciutils/node_modules/**/prettier/*.js",
 ]
-exclude = ["c2cciutils/node_modules/**/*.d.ts", "c2cciutils/node_modules/**/*.map"]
+exclude = ["c2cciutils/node_modules/**/test"]
 
 [tool.poetry.scripts]
 c2cciutils = "c2cciutils.scripts.main:main"
