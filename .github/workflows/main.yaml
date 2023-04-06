@@ -55,8 +55,10 @@ jobs:
           SKIP: poetry-lock,pipenv-lock,helm-lock
       - run: git diff && false
         if: failure()
-      - name: Checks
-        run: c2cciutils-checks
+      - name: Print the environment
+        run: c2cciutils-env
+        env:
+          GITHUB_EVENT: ${{ toJson(github) }}
 
       - name: Build
         run: make build

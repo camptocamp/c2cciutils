@@ -130,7 +130,6 @@ def get_config() -> c2cciutils.configuration.Configuration:
 
     default_config = {
         "publish": publish_config,
-        "checks": c2cciutils.configuration.CHECKS_DEFAULT,
         "pr-checks": c2cciutils.configuration.PULL_REQUEST_CHECKS_DEFAULT,
         "audit": c2cciutils.configuration.AUDIT_DEFAULT,
     }
@@ -311,7 +310,7 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
         config: The print configuration
     """
 
-    for version in config.get("versions", []):
+    for version in config.get("versions", c2cciutils.configuration.PRINT_VERSIONS_VERSIONS_DEFAULT):
         try:
             sys.stdout.flush()
             sys.stderr.flush()
@@ -565,7 +564,7 @@ def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: b
         config: The full configuration
         fix: If we should fix the errors
     """
-    codespell_config = config.get("checks", {}).get("codespell", {})
+    codespell_config = config.get("codespell", {})
     codespell_config = codespell_config if isinstance(codespell_config, dict) else {}
     command = ["codespell"]
     if fix:
