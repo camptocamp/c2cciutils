@@ -532,18 +532,6 @@ extra = ["pinyin", "romanize", "romkan"]
 tools = ["black", "isort", "pyupgrade"]
 
 [[package]]
-name = "jsonschema2md2"
-version = "0.6.0"
-description = "Convert JSON Schema to human-readable Markdown documentation"
-category = "dev"
-optional = false
-python-versions = ">=3.6,<4.0"
-
-[package.dependencies]
-click = ">=7"
-PyYAML = ">=5.1"
-
-[[package]]
 name = "keyring"
 version = "23.13.1"
 description = "Store and access your passwords safely."
@@ -1450,7 +1438,7 @@ publish_plugins = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "0d46cb4ff3611be62ffdb581c746ced52eeff58b27db5c23ab9534ef82f5f198"
+content-hash = "2c0eb44e8f4a50d4a457dc5ba450049b6e0e5aeed603bc7736e1fe9296b69968"
 
 [metadata.files]
 astroid = [
@@ -1791,10 +1779,6 @@ jsonschema = [
 jsonschema-gentypes = [
     {file = "jsonschema_gentypes-1.5.0-py3-none-any.whl", hash = "sha256:4cb769bfd206610fe2b673daab015cf7c3df0dfddf903dba332a08b691469426"},
     {file = "jsonschema_gentypes-1.5.0.tar.gz", hash = "sha256:6d53f22ea850023ca3af60b9a9425f2c75bb83faffa5463e18e78c1c1a6c7a0c"},
-]
-jsonschema2md2 = [
-    {file = "jsonschema2md2-0.6.0-py3-none-any.whl", hash = "sha256:d71fe2c8418a93821597bfe151636e25eccedc41afa29e9ca875951f4966e451"},
-    {file = "jsonschema2md2-0.6.0.tar.gz", hash = "sha256:9c397bf3977290267dde4293e88f33feee41f90d9f77c61857447be7ce16d15b"},
 ]
 keyring = [
     {file = "keyring-23.13.1-py3-none-any.whl", hash = "sha256:771ed2a91909389ed6148631de678f82ddc73737d85a927f382a8a1b157898cd"},
