@@ -1,0 +1,8 @@
+headers: |
+  """
+  Automatically generated file from a JSON schema.
+  """
+generate:
+  - source: c2cciutils/schema-applications.json
+    destination: c2cciutils/applications_definition.py
+    root_name: ApplicationsConfiguration

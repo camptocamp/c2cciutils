@@ -1,0 +1,10 @@
+headers: |
+  """
+  Automatically generated file from a JSON schema.
+  """
+generate:
+  - source: c2cciutils/schema.json
+    destination: c2cciutils/configuration.py
+    root_name: Configuration
+    api_arguments:
+      additional_properties: Only explicit
