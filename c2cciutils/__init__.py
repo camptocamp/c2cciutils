@@ -5,13 +5,11 @@ c2cciutils shared utils function.
 import glob
 import json
 import os.path
-import pkgutil
 import re
 import subprocess  # nosec
 import sys
 from typing import Any, Dict, List, Match, Optional, Pattern, Tuple, TypedDict, cast
 
-import jsonschema_gentypes.validate
 import magic
 import requests
 import ruamel.yaml
@@ -135,36 +133,7 @@ def get_config() -> c2cciutils.configuration.Configuration:
     }
     merge(default_config, config)
 
-    return validate_config(config, "ci/config.yaml")
-
-
-def validate_config(
-    config: c2cciutils.configuration.Configuration, config_file: str
-) -> c2cciutils.configuration.Configuration:
-    """
-    Validate the configuration.
-
-    Arguments:
-        config: The configuration to be validated
-        config_file: The configuration file name, used to build the error messages
-
-    Return the configuration (used to be chained)
-    Print an message and eventually exit on validation error.
-    """
-    schema_data = pkgutil.get_data("c2cciutils", "schema.json")
-    assert schema_data is not None
-
-    errors, data = jsonschema_gentypes.validate.validate(
-        config_file, cast(Dict[str, Any], config), json.loads(schema_data)
-    )
-
-    if errors:
-        formated_errors = "\n".join(errors)
-        print(f"The config file is invalid:\n{formated_errors}")
-        if os.environ.get("IGNORE_CONFIG_ERROR", "FALSE").lower() != "true":
-            sys.exit(1)
-
-    return cast(c2cciutils.configuration.Configuration, data)
+    return config
 
 
 def error(

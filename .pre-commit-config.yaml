@@ -8,6 +8,7 @@ ci:
     - helm-lock
     - ripsecrets
     - jsonschema-gentypes
+    - jsonschema-validator
     - jsonschema2md
 
 repos:
@@ -36,9 +37,18 @@ repos:
       - id: jsonschema-gentypes
         files: |-
           (?x)(
-            ĵsonschema-gentypes.yaml$
+            ^ĵsonschema-gentypes.yaml$
             |^c2cciutils/schema.*\.json$
           )
+  - repo: https://github.com/sbrunner/jsonschema-validator
+    rev: 0.1.0
+    hooks:
+      - id: jsonschema-validator
+        files: |-
+          (?x)^(
+              ci/config\.yaml
+              |example-project/ci/config\.yaml
+          )$
   - repo: https://github.com/sbrunner/jsonschema2md2
     rev: 0.6.0
     hooks:
