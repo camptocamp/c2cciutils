@@ -1,4 +1,14 @@
 # https://pre-commit.com/hooks.html
+
+ci:
+  autoupdate_schedule: quarterly
+  skip:
+    - copyright
+    - poetry-check
+    - poetry-lock
+    - ripsecrets
+    - jsonschema-validator
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -17,6 +27,14 @@ repos:
     rev: 0.1.4
     hooks:
       - id: copyright
+  - repo: https://github.com/sbrunner/jsonschema-validator
+    rev: 0.1.0
+    hooks:
+      - id: jsonschema-validator
+        files: |
+          (?x)^(
+              ci/config\\.yaml
+          )$
   - repo: https://github.com/camptocamp/c2cciutils
     rev: 1.4.0
     hooks:
