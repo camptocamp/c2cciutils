@@ -48,7 +48,7 @@ include = [
     "c2cciutils/node_modules/**/*.js",
     "c2cciutils/node_modules/**/*.py",
     "c2cciutils/node_modules/**/*.wasm",
-    "c2cciutils/node_modules/**/package.json",
+    "c2cciutils/node_modules/**/*.json",
 ]
 exclude = ["c2cciutils/node_modules/**/test"]
 
