@@ -150,6 +150,17 @@ optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 
 [[package]]
+name = "ConfigUpdater"
+version = "3.1.1"
+description = "Parser like ConfigParser but for updating configuration files"
+category = "main"
+optional = true
+python-versions = ">=3.6"
+
+[package.extras]
+testing = ["flake8", "pytest", "pytest-cov", "pytest-virtualenv", "pytest-xdist", "sphinx"]
+
+[[package]]
 name = "cryptography"
 version = "40.0.2"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -376,6 +387,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 pyparsing = {version = ">=2.4.2,<3.0.0 || >3.0.0,<3.0.1 || >3.0.1,<3.0.2 || >3.0.2,<3.0.3 || >3.0.3,<4", markers = "python_version > \"3.0\""}
 
 [[package]]
+name = "identify"
+version = "2.5.22"
+description = "File identification library for Python"
+category = "main"
+optional = true
+python-versions = ">=3.7"
+
+[package.extras]
+license = ["ukkonen"]
+
+[[package]]
 name = "idna"
 version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -550,6 +572,25 @@ description = "More routines for operating on iterables, beyond itertools"
 category = "main"
 optional = true
 python-versions = ">=3.7"
+
+[[package]]
+name = "multi-repo-automation"
+version = "0.3.1"
+description = "Library for automation updates on multiple repositories."
+category = "main"
+optional = true
+python-versions = ">=3.8,<4.0"
+
+[package.dependencies]
+configupdater = "*"
+identify = "*"
+PyYAML = "*"
+requests = "*"
+"ruamel.yaml" = "*"
+tomlkit = "*"
+
+[package.extras]
+update-stabilization-branches = ["c2cciutils"]
 
 [[package]]
 name = "mypy"
@@ -1286,11 +1327,12 @@ checks = []
 pr_checks = ["codespell"]
 publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit"]
 publish_plugins = []
+version = ["multi-repo-automation"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "c37f1d815bdc93e2f633bfe87b7d783d81170c93bb200c917bce1dfadab0c91f"
+content-hash = "f49e9bf7d8098f55aee2a61e5f920bdcae22a819b448c9095b31b3f7dc1c2d2c"
 
 [metadata.files]
 astroid = [
@@ -1476,6 +1518,10 @@ colorama = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+ConfigUpdater = [
+    {file = "ConfigUpdater-3.1.1-py2.py3-none-any.whl", hash = "sha256:805986dbeba317886c7a8d348b2e34986dc9e3128cd3761ecc35decbd372b286"},
+    {file = "ConfigUpdater-3.1.1.tar.gz", hash = "sha256:46f0c74d73efa723776764b43c9739f68052495dd3d734319c1d0eb58511f15b"},
+]
 cryptography = [
     {file = "cryptography-40.0.2-cp36-abi3-macosx_10_12_universal2.whl", hash = "sha256:8f79b5ff5ad9d3218afb1e7e20ea74da5f76943ee5edb7f76e56ec5161ec782b"},
     {file = "cryptography-40.0.2-cp36-abi3-macosx_10_12_x86_64.whl", hash = "sha256:05dc219433b14046c476f6f09d7636b92a1c3e5808b9a6536adf4932b3b2c440"},
@@ -1560,6 +1606,10 @@ googleapis-common-protos = [
 httplib2 = [
     {file = "httplib2-0.22.0-py3-none-any.whl", hash = "sha256:14ae0a53c1ba8f3d37e9e27cf37eabb0fb9980f435ba405d546948b009dd64dc"},
     {file = "httplib2-0.22.0.tar.gz", hash = "sha256:d7a10bc5ef5ab08322488bde8c726eeee5c8618723fdb399597ec58f3d82df81"},
+]
+identify = [
+    {file = "identify-2.5.22-py2.py3-none-any.whl", hash = "sha256:f0faad595a4687053669c112004178149f6c326db71ee999ae4636685753ad2f"},
+    {file = "identify-2.5.22.tar.gz", hash = "sha256:f7a93d6cf98e29bd07663c60728e7a4057615068d7a639d132dc883b2d54d31e"},
 ]
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
@@ -1649,6 +1699,10 @@ mdurl = [
 more-itertools = [
     {file = "more-itertools-9.1.0.tar.gz", hash = "sha256:cabaa341ad0389ea83c17a94566a53ae4c9d07349861ecb14dc6d0345cf9ac5d"},
     {file = "more_itertools-9.1.0-py3-none-any.whl", hash = "sha256:d2bc7f02446e86a68911e58ded76d6561eea00cddfb2a91e7019bbb586c799f3"},
+]
+multi-repo-automation = [
+    {file = "multi_repo_automation-0.3.1-py3-none-any.whl", hash = "sha256:1cf5a29fb196317f0b3252ccc7e215095afa358214755549c413d596512acb98"},
+    {file = "multi_repo_automation-0.3.1.tar.gz", hash = "sha256:a8fd0c2ef19e59accfec565f3165eb52b950628abe2abb565f5e33a0d81758ee"},
 ]
 mypy = [
     {file = "mypy-1.2.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:701189408b460a2ff42b984e6bd45c3f41f0ac9f5f58b8873bbedc511900086d"},

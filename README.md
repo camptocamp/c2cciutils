@@ -39,6 +39,7 @@ It make easier to place the following workflows:
 All the provided commands:
 
 - `c2cciutils`: some generic tools.
+- `c2cciutils-version`: Create a new version of the project.
 - `c2cciutils-checks`: Run the checks on the code (those checks don't need any project dependencies).
 - `c2cciutils-audit`: Do the audit, the main difference with checks is that it can change between runs on the same code.
 - `c2cciutils-publish`: Publish the project.
@@ -57,6 +58,18 @@ All the provided commands:
 ## New project
 
 The content of `example-project` can be a good base for a new project.
+
+## New version
+
+Requirements: the right version (>= 1.6) of `c2cciutils` should be installed with the `version` extra.
+
+To create a new minor version you just should run `c2cciutils-version --version=<version>`.
+
+You are welcome to run `c2cciutils-version --help` to see what's it's done.
+
+Note that it didn't create a tag, you should do it manually.
+
+To create a patch version you should just create tag.
 
 ## Secrets
 
