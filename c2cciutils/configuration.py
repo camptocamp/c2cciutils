@@ -6,35 +6,35 @@ Automatically generated file from a JSON schema.
 from typing import Any, Dict, List, Literal, TypedDict, Union
 
 AUDIT_DEFAULT = {"snyk": True, "outdated_versions": True}
-"""Default value of the field path 'configuration audit'"""
+""" Default value of the field path 'configuration audit' """
 
 
 AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: List[Any] = []
-"""Default value of the field path 'Audit snyk config files_no_install'"""
+""" Default value of the field path 'Audit snyk config files_no_install' """
 
 
 AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
-"""Default value of the field path 'Audit snyk config fix_arguments'"""
+""" Default value of the field path 'Audit snyk config fix_arguments' """
 
 
 AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT = ["--fill", "--label=dependencies"]
-"""Default value of the field path 'Audit snyk config fix_github_create_pull_request_arguments'"""
+""" Default value of the field path 'Audit snyk config fix_github_create_pull_request_arguments' """
 
 
 AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
-"""Default value of the field path 'Audit snyk config monitor_arguments'"""
+""" Default value of the field path 'Audit snyk config monitor_arguments' """
 
 
 AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT: List[Any] = []
-"""Default value of the field path 'Audit snyk config pipenv_sync_arguments'"""
+""" Default value of the field path 'Audit snyk config pipenv_sync_arguments' """
 
 
 AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT = ["--user"]
-"""Default value of the field path 'Audit snyk config pip_install_arguments'"""
+""" Default value of the field path 'Audit snyk config pip_install_arguments' """
 
 
 AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
-"""Default value of the field path 'Audit snyk config test_arguments'"""
+""" Default value of the field path 'Audit snyk config test_arguments' """
 
 
 class Audit(TypedDict, total=False):
@@ -152,15 +152,15 @@ oneOf
 
 
 CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]
-"""Default value of the field path 'Codespell arguments'"""
+""" Default value of the field path 'Codespell arguments' """
 
 
 CODESPELL_DICTIONARIES_DEFAULT = ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]
-"""Default value of the field path 'Codespell internal_dictionaries'"""
+""" Default value of the field path 'Codespell internal_dictionaries' """
 
 
 CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]
-"""Default value of the field path 'Codespell ignore_re'"""
+""" Default value of the field path 'Codespell ignore_re' """
 
 
 class Codespell(TypedDict, total=False):
@@ -228,22 +228,22 @@ Configuration = TypedDict(
 
 
 DB_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
-"""Default value of the field path 'K8s configuration db'"""
+""" Default value of the field path 'K8s configuration db' """
 
 
 DOCKER_DISPATCH_EVENT_TYPE_DEFAULT = "image-update"
-"""Default value of the field path 'dispatch config event-type'"""
+""" Default value of the field path 'dispatch config event-type' """
 
 
 DOCKER_DISPATCH_REPOSITORY_DEFAULT = "camptocamp/argocd-gs-gmf-apps"
-"""Default value of the field path 'dispatch config repository'"""
+""" Default value of the field path 'dispatch config repository' """
 
 
 DOCKER_REPOSITORY_DEFAULT = {
     "github": {"server": "ghcr.io", "versions": ["version_tag", "version_branch", "rebuild"]},
     "dockerhub": {},
 }
-"""Default value of the field path 'Publish Docker config repository'"""
+""" Default value of the field path 'Publish Docker config repository' """
 
 
 # DB configuration.
@@ -315,11 +315,11 @@ K3DConfiguration = TypedDict(
 
 
 K3D_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
-"""Default value of the field path 'K8s configuration k3d'"""
+""" Default value of the field path 'K8s configuration k3d' """
 
 
 K3D_INSTALL_COMMANDS_DEFAULT = [["k3d", "cluster", "create", "test-cluster", "--no-lb", "--no-rollback"]]
-"""Default value of the field path 'K3d configuration install-commands'"""
+""" Default value of the field path 'K3d configuration install-commands' """
 
 
 class K8SConfiguration(TypedDict, total=False):
@@ -335,7 +335,7 @@ class K8SConfiguration(TypedDict, total=False):
 
 
 K8S_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
-"""Default value of the field path 'configuration k8s'"""
+""" Default value of the field path 'configuration k8s' """
 
 
 K8S_DB_CHART_OPTIONS_DEFAULT = {
@@ -345,7 +345,7 @@ K8S_DB_CHART_OPTIONS_DEFAULT = {
     "auth.postgresPassword": "mySuperTestingPassword",
     "volumePermissions.enabled": "true",
 }
-"""Default value of the field path 'DB configuration chart-options'"""
+""" Default value of the field path 'DB configuration chart-options' """
 
 
 PRINT_VERSIONS_VERSIONS_DEFAULT = [
@@ -362,7 +362,7 @@ PRINT_VERSIONS_VERSIONS_DEFAULT = [
     {"name": "kubectl", "cmd": ["kubectl", "version"]},
     {"name": "helm", "cmd": ["helm", "version"]},
 ]
-"""Default value of the field path 'Print versions versions'"""
+""" Default value of the field path 'Print versions versions' """
 
 
 PUBLISH_DEFAULT = {
@@ -370,75 +370,75 @@ PUBLISH_DEFAULT = {
     "docker": {"images": "<auto-detected>"},
     "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"},
 }
-"""Default value of the field path 'configuration publish'"""
+""" Default value of the field path 'configuration publish' """
 
 
 PUBLISH_DOCKER_IMAGE_GROUP_DEFAULT = "default"
-"""Default value of the field path 'Publish Docker image group'"""
+""" Default value of the field path 'Publish Docker image group' """
 
 
 PUBLISH_DOCKER_IMAGE_TAGS_DEFAULT = ["{version}"]
-"""Default value of the field path 'Publish Docker image tags'"""
+""" Default value of the field path 'Publish Docker image tags' """
 
 
 PUBLISH_DOCKER_LATEST_DEFAULT = True
-"""Default value of the field path 'Publish Docker config latest'"""
+""" Default value of the field path 'Publish Docker config latest' """
 
 
 PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT = ["version_tag", "version_branch", "rebuild", "feature_branch"]
-"""Default value of the field path 'Publish Docker repository versions'"""
+""" Default value of the field path 'Publish Docker repository versions' """
 
 
 PUBLISH_DOCKER_SNYK_MONITOR_ARGS_DEFAULT = ["--app-vulns"]
-"""Default value of the field path 'Publish Docker config snyk monitor_args'"""
+""" Default value of the field path 'Publish Docker config snyk monitor_args' """
 
 
 PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT = ["--app-vulns", "--severity-threshold=critical"]
-"""Default value of the field path 'Publish Docker config snyk test_args'"""
+""" Default value of the field path 'Publish Docker config snyk test_args' """
 
 
 PUBLISH_GOOGLE_CALENDAR_DEFAULT: Dict[str, Any] = {}
-"""Default value of the field path 'Publish google_calendar'"""
+""" Default value of the field path 'publish_google_calendar' """
 
 
 PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT = ["version_branch", "version_tag", "rebuild"]
-"""Default value of the field path 'Publish Google calendar config on'"""
+""" Default value of the field path 'Publish Google calendar config on' """
 
 
 PUBLISH_PIP_PACKAGE_GROUP_DEFAULT = "default"
-"""Default value of the field path 'publish pypi package group'"""
+""" Default value of the field path 'publish pypi package group' """
 
 
 PUBLISH_PYPI_DEFAULT: Dict[str, Any] = {}
-"""Default value of the field path 'Publish pypi'"""
+""" Default value of the field path 'publish_pypi' """
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIRST_CAPITAL_DEFAULT = True
-"""Default value of the field path 'pull request checks commits messages configuration check_first_capital'"""
+""" Default value of the field path 'pull request checks commits messages configuration check_first_capital' """
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIXUP_DEFAULT = True
-"""Default value of the field path 'pull request checks commits messages configuration check_fixup'"""
+""" Default value of the field path 'pull request checks commits messages configuration check_fixup' """
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_MIN_HEAD_LENGTH_DEFAULT = 5
-"""Default value of the field path 'pull request checks commits messages configuration min_head_length'"""
+""" Default value of the field path 'pull request checks commits messages configuration min_head_length' """
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_MERGE_COMMITS_DEFAULT = True
-"""Default value of the field path 'pull request checks commits messages configuration check_no_merge_commits'"""
+""" Default value of the field path 'pull request checks commits messages configuration check_no_merge_commits' """
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_OWN_REVERT_DEFAULT = True
-"""Default value of the field path 'pull request checks commits messages configuration check_no_own_revert'"""
+""" Default value of the field path 'pull request checks commits messages configuration check_no_own_revert' """
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_ONLY_HEAD_DEFAULT = True
-"""Default value of the field path 'pull request checks commits spelling configuration only_head'"""
+""" Default value of the field path 'pull request checks commits spelling configuration only_head' """
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_SQUASH_DEFAULT = True
-"""Default value of the field path 'pull request checks commits messages configuration check_squash'"""
+""" Default value of the field path 'pull request checks commits messages configuration check_squash' """
 
 
 PULL_REQUEST_CHECKS_DEFAULT = {
@@ -448,11 +448,11 @@ PULL_REQUEST_CHECKS_DEFAULT = {
     "pull_request_labels": True,
     "add_issue_link": True,
 }
-"""Default value of the field path 'configuration pr-checks'"""
+""" Default value of the field path 'configuration pr-checks' """
 
 
 PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT = True
-"""Default value of the field path 'pull request checks pull request spelling configuration only_head'"""
+""" Default value of the field path 'pull request checks pull request spelling configuration only_head' """
 
 
 class PrintVersions(TypedDict, total=False):
@@ -575,7 +575,7 @@ class PublishDockerConfig(TypedDict, total=False):
     """
 
     images: List["PublishDockerImage"]
-    """List of images to be published"""
+    """ List of images to be published """
 
     repository: Dict[str, "PublishDockerRepository"]
     """
@@ -619,7 +619,7 @@ class PublishDockerImage(TypedDict, total=False):
     """
 
     name: str
-    """The image name"""
+    """ The image name """
 
     tags: List[str]
     """
@@ -636,7 +636,7 @@ class PublishDockerRepository(TypedDict, total=False):
     """Publish Docker repository."""
 
     server: str
-    """The server URL"""
+    """ The server URL """
 
     versions: List[str]
     """
@@ -701,10 +701,10 @@ class PublishHelmConfig(TypedDict, total=False):
     """
 
     folders: List[str]
-    """The folders that will be published"""
+    """ The folders that will be published """
 
     versions: List[str]
-    """The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script"""
+    """ The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script """
 
 
 PublishPypi = Union["PublishPypiConfig", Literal[False]]
@@ -728,10 +728,10 @@ class PublishPypiConfig(TypedDict, total=False):
     """
 
     packages: List["PublishPypiPackage"]
-    """The configuration of packages that will be published"""
+    """ The configuration of packages that will be published """
 
     versions: List[str]
-    """The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script"""
+    """ The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script """
 
 
 class PublishPypiPackage(TypedDict, total=False):
@@ -751,10 +751,10 @@ class PublishPypiPackage(TypedDict, total=False):
     """
 
     path: str
-    """The path of the pypi package"""
+    """ The path of the pypi package """
 
     build_command: List[str]
-    """The command used to do the build"""
+    """ The command used to do the build """
 
 
 class PullRequestChecks(TypedDict, total=False):
@@ -779,7 +779,7 @@ class PullRequestChecks(TypedDict, total=False):
 
 
 PullRequestChecksAddIssueLink = bool
-"""pull request checks add issue link."""
+""" pull request checks add issue link. """
 
 
 PullRequestChecksCommitsMessages = Union["PullRequestChecksCommitsMessagesConfiguration", bool]
@@ -928,18 +928,18 @@ A version transformer definition
 
 
 _PUBLISH_DOCKER_CONFIG_DISPATCH_DEFAULT: Dict[str, Any] = {}
-"""Default value of the field path 'Publish Docker config dispatch'"""
+""" Default value of the field path 'Publish Docker config dispatch' """
 
 
 class _PrintVersionsVersionsItem(TypedDict, total=False):
     cmd: List[str]
-    """The command that should be used"""
+    """ The command that should be used """
 
     name: str
-    """The name"""
+    """ The name """
 
     prefix: str
-    """Prefix added when we print the version"""
+    """ Prefix added when we print the version """
 
 
 class _PublishDockerConfigSnyk(TypedDict, total=False):
