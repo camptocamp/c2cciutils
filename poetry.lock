@@ -286,7 +286,7 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0dev)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.83.0"
+version = "2.86.0"
 description = "Google API Client Library for Python"
 category = "main"
 optional = true
@@ -945,11 +945,11 @@ md = ["cmarkgfm (>=0.8.0)"]
 
 [[package]]
 name = "requests"
-version = "2.28.2"
+version = "2.29.0"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
-python-versions = ">=3.7, <4"
+python-versions = ">=3.7"
 
 [package.dependencies]
 certifi = ">=2017.4.17"
@@ -1202,7 +1202,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.28.11.17"
+version = "2.29.0.0"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
@@ -1213,7 +1213,7 @@ types-urllib3 = "<1.27"
 
 [[package]]
 name = "types-setuptools"
-version = "67.6.0.6"
+version = "67.7.0.1"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
@@ -1313,7 +1313,7 @@ publish_plugins = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "bbd0e57edcd61ed68c0175325171d47266f06fbb153de50894abfb26db02863e"
+content-hash = "5b9c6e8cd2fcf3888c8ca9066e7a842c25677d65e815ab9157559e38612a87af"
 
 [metadata.files]
 astroid = [
@@ -1578,8 +1578,8 @@ google-api-core = [
     {file = "google_api_core-2.11.0-py3-none-any.whl", hash = "sha256:ce222e27b0de0d7bc63eb043b956996d6dccab14cc3b690aaea91c9cc99dc16e"},
 ]
 google-api-python-client = [
-    {file = "google-api-python-client-2.83.0.tar.gz", hash = "sha256:d07509f1b2d2b2427363b454db996f7a15e1751a48cfcaf28427050560dd51cf"},
-    {file = "google_api_python_client-2.83.0-py2.py3-none-any.whl", hash = "sha256:afa7fe2a5d77e8f136cdb8f40a120dd6660c2292f791c1b22734dfe786bd1dac"},
+    {file = "google-api-python-client-2.86.0.tar.gz", hash = "sha256:3ca4e93821f4e9ac29b91ab0d9df168b42c8ad0fb8bff65b8c2ccb2d462b0464"},
+    {file = "google_api_python_client-2.86.0-py2.py3-none-any.whl", hash = "sha256:0f320190ab9d5bd2fdb0cb894e8e53bb5e17d4888ee8dc4d26ba65ce378409e2"},
 ]
 google-auth = [
     {file = "google-auth-2.16.0.tar.gz", hash = "sha256:ed7057a101af1146f0554a769930ac9de506aeca4fd5af6543ebe791851a9fbd"},
@@ -1895,8 +1895,8 @@ readme-renderer = [
     {file = "readme_renderer-37.3.tar.gz", hash = "sha256:cd653186dfc73055656f090f227f5cb22a046d7f71a841dfa305f55c9a513273"},
 ]
 requests = [
-    {file = "requests-2.28.2-py3-none-any.whl", hash = "sha256:64299f4909223da747622c030b781c0d7811e359c37124b4bd368fb8c6518baa"},
-    {file = "requests-2.28.2.tar.gz", hash = "sha256:98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"},
+    {file = "requests-2.29.0-py3-none-any.whl", hash = "sha256:e8f3c9be120d3333921d213eef078af392fba3933ab7ed2d1cba3b56f2568c3b"},
+    {file = "requests-2.29.0.tar.gz", hash = "sha256:f2e34a75f4749019bb0e3effb66683630e4ffeaf75819fb51bebef1bf5aef059"},
 ]
 requests-oauthlib = [
     {file = "requests-oauthlib-1.3.1.tar.gz", hash = "sha256:75beac4a47881eeb94d5ea5d6ad31ef88856affe2332b9aafb52c6452ccf0d7a"},
@@ -2021,12 +2021,12 @@ types-PyYAML = [
     {file = "types_PyYAML-6.0.12.9-py3-none-any.whl", hash = "sha256:5aed5aa66bd2d2e158f75dda22b059570ede988559f030cf294871d3b647e3e8"},
 ]
 types-requests = [
-    {file = "types-requests-2.28.11.17.tar.gz", hash = "sha256:0d580652ce903f643f8c3b494dd01d29367ea57cea0c7ad7f65cf3169092edb0"},
-    {file = "types_requests-2.28.11.17-py3-none-any.whl", hash = "sha256:cc1aba862575019306b2ed134eb1ea994cab1c887a22e18d3383e6dd42e9789b"},
+    {file = "types-requests-2.29.0.0.tar.gz", hash = "sha256:c86f4a955d943d2457120dbe719df24ef0924e11177164d10a0373cf311d7b4d"},
+    {file = "types_requests-2.29.0.0-py3-none-any.whl", hash = "sha256:4cf6e323e856c779fbe8815bb977a5bf5d6c5034713e4c17ff2a9a20610f5b27"},
 ]
 types-setuptools = [
-    {file = "types-setuptools-67.6.0.6.tar.gz", hash = "sha256:a5efd019b53c5793a112e0112b91bb402df749f75ee7abe681b6240841650ce4"},
-    {file = "types_setuptools-67.6.0.6-py3-none-any.whl", hash = "sha256:fb46e651c6b5880ec8932a8876aa832071d612b2954fc5156b09cd263927d85b"},
+    {file = "types-setuptools-67.7.0.1.tar.gz", hash = "sha256:980a2651b2b019809817e1585071596b87fbafcb54433ff3b12445461db23790"},
+    {file = "types_setuptools-67.7.0.1-py3-none-any.whl", hash = "sha256:471a4ecf6984ffada63ffcfa884bfcb62718bd2d1a1acf8ee5513ec99789ed5e"},
 ]
 types-toml = [
     {file = "types-toml-0.10.8.6.tar.gz", hash = "sha256:6d3ac79e36c9ee593c5d4fb33a50cca0e3adceb6ef5cff8b8e5aef67b4c4aaf2"},
