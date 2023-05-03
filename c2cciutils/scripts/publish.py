@@ -371,7 +371,9 @@ def main() -> None:
         url = "https://github.com/helm/chart-releaser/releases/download/v1.2.1/chart-releaser_1.2.1_linux_amd64.tar.gz"
         response = requests.get(url, stream=True, timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")))
         with tarfile.open(fileobj=response.raw, mode="r:gz") as file:
-            file.extractall(path=os.path.expanduser("~/.local/bin"))
+            filename_re = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9._/-]*$")
+            members = [member for member in file.getmembers() if filename_re.match(member.name) is not None]
+            file.extractall(path=os.path.expanduser("~/.local/bin"), members=members)  # nosec
 
         owner, repo = full_repo_split
         commit_sha = (
