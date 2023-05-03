@@ -3,3 +3,4 @@ skips:
   - B603 # subprocess call - check for execution of untrusted input
   - B607 # Starting a process with a partial executable path
   - B108 # Probable insecure usage of temp file/directory.
+  - B113 # Requests call without timeout: the check is buggy...
