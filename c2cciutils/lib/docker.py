@@ -89,8 +89,6 @@ def get_dpkg_packages_versions(
                 version = Version.from_string(source_split[1].strip("()"))
         if name == "Version" and version is None:
             version = Version.from_string(value)
-            # Don't take care on the epoch
-            version = Version(upstream=version.upstream, revision=version.revision)
 
     return True, {f"{prefix}{k}": v for k, v in package_version.items()}
 
