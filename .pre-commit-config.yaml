@@ -32,7 +32,7 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
   - repo: https://github.com/camptocamp/jsonschema-gentypes
-    rev: 2.1.0
+    rev: 2.2.3
     hooks:
       - id: jsonschema-gentypes
         files: |-
@@ -76,7 +76,7 @@ repos:
           - poetry==1.2.1 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2023.4.29 # pypi
+          - pipenv==2023.5.19 # pypi
       - id: helm-lock
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.4
@@ -96,7 +96,7 @@ repos:
     hooks:
       - id: git-check
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.22.0
+    rev: 0.23.1
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
@@ -120,7 +120,7 @@ repos:
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.3.2
+    rev: v3.4.0
     hooks:
       - id: pyupgrade
         args:
@@ -134,7 +134,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/prospector
-    rev: v1.9.0
+    rev: 1.10.2
     hooks:
       - id: prospector
         args:
