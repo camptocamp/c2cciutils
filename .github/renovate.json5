@@ -34,13 +34,6 @@
     },
   ],
   packageRules: [
-    /** Update dpkg versions every day */
-    {
-      matchPaths: ['^ci/dpkg-versions\\.yaml$'],
-      schedule: ['at any time'],
-      groupName: 'dpkg',
-      automerge: true,
-    },
     /** Automerge the patch, the minor and the dev dependency */
     {
       matchBaseBranches: ['master'],
@@ -79,6 +72,13 @@
     {
       matchPackageNames: ['codespell'],
       groupName: 'codespell',
+    },
+    /** Update dpkg versions every day */
+    {
+      matchPaths: ['^ci/dpkg-versions\\.yaml$'],
+      schedule: ['at any time'],
+      groupName: 'dpkg',
+      automerge: true,
     },
   ],
 }
