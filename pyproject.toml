@@ -108,8 +108,8 @@ debian-inspector = "31.0.0"
 PyYAML = "6.0"
 tomlkit = { version = "0.11.8", optional = true }
 certifi = "2022.12.7"
-cryptography = "39.0.2"
-pyOpenSSL = "23.0.0"
+cryptography = "41.0.1"
+pyOpenSSL = "23.2.0"
 
 [tool.poetry.extras]
 audit = []
