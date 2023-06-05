@@ -106,10 +106,10 @@ codespell = { version = "2.2.1", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0"
-pyOpenSSL = "23.0.0"
+pyOpenSSL = "23.1.0"
 tomlkit = { version = "0.11.8", optional = true }
 certifi = "2022.12.7"
-cryptography = "39.0.2"
+cryptography = "40.0.0"
 markdown-it-py = "2.2.0"
 
 [tool.poetry.extras]
