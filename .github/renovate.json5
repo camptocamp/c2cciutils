@@ -80,5 +80,11 @@
       groupName: 'dpkg',
       automerge: true,
     },
+    {
+      matchDatasources: ['repology'],
+      schedule: ['at any time'],
+      groupName: 'dpkg',
+      automerge: true,
+    },
   ],
 }
