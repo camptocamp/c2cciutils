@@ -59,6 +59,7 @@ c2cciutils-checks = "c2cciutils.scripts.env:main"
 c2cciutils-pull-request-checks = "c2cciutils.scripts.pr_checks:main"
 c2cciutils-audit = "c2cciutils.scripts.audit:main"
 c2cciutils-publish = "c2cciutils.scripts.publish:main"
+c2cciutils-version = "c2cciutils.scripts.version:main"
 c2cciutils-clean = "c2cciutils.scripts.clean:main"
 c2cciutils-google-calendar = "c2cciutils.publish:main_calendar"
 c2cciutils-k8s-install = "c2cciutils.scripts.k8s.install:main"
@@ -88,6 +89,7 @@ toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0"
 tomlkit = { version = "0.11.8", optional = true }
+multi-repo-automation = { version="0.3.1", optional = true }
 
 [tool.poetry.extras]
 audit = []
@@ -95,6 +97,7 @@ checks = []
 publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit"]
 publish_plugins = []
 pr_checks = ["codespell"]
+version = ["multi-repo-automation"]
 
 [tool.poetry.dev-dependencies]
 # pylint = "2.15.6"
