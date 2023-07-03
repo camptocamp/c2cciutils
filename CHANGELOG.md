@@ -479,7 +479,7 @@
 - Bump pygments from 2.5.2 to 2.7.4 in /example-project [\#137](https://github.com/camptocamp/c2cciutils/pull/137) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump c2cciutils from 1.1.dev20210419082527 to 1.1.dev20210419145517 in /example-project [\#136](https://github.com/camptocamp/c2cciutils/pull/136) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump c2cciutils from 1.1.dev20210315182348 to 1.1.dev20210419082527 in /example-project [\#135](https://github.com/camptocamp/c2cciutils/pull/135) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Dependabot tweek [\#134](https://github.com/camptocamp/c2cciutils/pull/134) ([sbrunner](https://github.com/sbrunner))
+- Dependabot tweak [\#134](https://github.com/camptocamp/c2cciutils/pull/134) ([sbrunner](https://github.com/sbrunner))
 - Accept to don't use any credentials [\#132](https://github.com/camptocamp/c2cciutils/pull/132) ([sbrunner](https://github.com/sbrunner))
 - Some fix for Dependabot [\#130](https://github.com/camptocamp/c2cciutils/pull/130) ([sbrunner](https://github.com/sbrunner))
 - Bump google-api-python-client from 2.0.2 to 2.2.0 [\#129](https://github.com/camptocamp/c2cciutils/pull/129) ([dependabot[bot]](https://github.com/apps/dependabot))
