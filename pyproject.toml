@@ -80,7 +80,7 @@ EditorConfig = "0.12.3"
 google-api-python-client = "2.50.0"
 google-auth-httplib2 = "0.1.0"
 google-auth-oauthlib = "0.5.3"
-"ruamel.yaml" = "0.17.31"
+"ruamel.yaml" = "0.17.32"
 jsonschema = "4.6.2"
 jsonschema-gentypes = "1.0.0"
 node-vm2 = "0.4.5"
@@ -99,7 +99,7 @@ certifi = "2022.12.7"
 pyopenssl = "23.2.0"
 pyyaml = "6.0"
 wheel = "0.38.4"
-pygments = "2.15.0"
+pygments = "2.15.1"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.7.7", extras = [
