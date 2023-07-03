@@ -84,7 +84,7 @@ google-auth-oauthlib = { version = "1.0.0", optional = true }
 "ruamel.yaml" = "0.17.31"
 defusedxml = "0.7.1"
 twine = { version = "4.0.2", optional = true }
-codespell = { version = "2.2.4", optional = true }
+codespell = { version = "2.2.5", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0"

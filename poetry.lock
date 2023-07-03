@@ -129,14 +129,14 @@ python-versions = ">=3.7.0"
 
 [[package]]
 name = "codespell"
-version = "2.2.4"
+version = "2.2.5"
 description = "Codespell"
 category = "main"
 optional = true
 python-versions = ">=3.7"
 
 [package.extras]
-dev = ["Pygments", "build", "chardet", "flake8", "flake8-pyproject", "pytest", "pytest-cov", "pytest-dependency", "tomli"]
+dev = ["Pygments", "build", "chardet", "pytest", "pytest-cov", "pytest-dependency", "ruff", "tomli"]
 hard-encoding-detection = ["chardet"]
 toml = ["tomli"]
 types = ["chardet (>=5.1.0)", "mypy", "pytest", "pytest-cov", "pytest-dependency"]
@@ -1332,7 +1332,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "039b1392be9180231e82ea3d26a031b8fb9b8bc28b8e21575db792e2814eb882"
+content-hash = "6d0316f4e44616937a469b0207587c5f5876810fce415b67cdfc60663df70d0e"
 
 [metadata.files]
 astroid = [
@@ -1511,8 +1511,8 @@ charset-normalizer = [
     {file = "charset_normalizer-3.1.0-py3-none-any.whl", hash = "sha256:3d9098b479e78c85080c98e1e35ff40b4a31d8953102bb0fd7d1b6f8a2111a3d"},
 ]
 codespell = [
-    {file = "codespell-2.2.4-py3-none-any.whl", hash = "sha256:7d984b8130108e6f82524b7d09f8b7bf2fb1e398c5d4b37d9e2bd310145b3e29"},
-    {file = "codespell-2.2.4.tar.gz", hash = "sha256:0b4620473c257d9cde1ff8998b26b2bb209a35c2b7489f5dc3436024298ce83a"},
+    {file = "codespell-2.2.5-py3-none-any.whl", hash = "sha256:efa037f54b73c84f7bd14ce8e853d5f822cdd6386ef0ff32e957a3919435b9ec"},
+    {file = "codespell-2.2.5.tar.gz", hash = "sha256:6d9faddf6eedb692bf80c9a94ec13ab4f5fb585aabae5f3750727148d7b5be56"},
 ]
 colorama = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
