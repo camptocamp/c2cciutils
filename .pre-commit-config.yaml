@@ -76,7 +76,7 @@ repos:
           - poetry==1.2.1 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2023.5.19 # pypi
+          - pipenv==2023.7.3 # pypi
       - id: helm-lock
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.4
@@ -116,11 +116,11 @@ repos:
     hooks:
       - id: ripsecrets
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.1.1
+    rev: v2.2.0
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.4.0
+    rev: v3.8.0
     hooks:
       - id: pyupgrade
         args:
