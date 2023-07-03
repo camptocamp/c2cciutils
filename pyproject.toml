@@ -81,7 +81,7 @@ Markdown = "3.4.3"
 google-api-python-client = { version = "2.91.0", optional = true }
 google-auth-httplib2 = { version = "0.1.0", optional = true }
 google-auth-oauthlib = { version = "1.0.0", optional = true }
-"ruamel.yaml" = "0.17.31"
+"ruamel.yaml" = "0.17.32"
 defusedxml = "0.7.1"
 twine = { version = "4.0.2", optional = true }
 codespell = { version = "2.2.5", optional = true }
