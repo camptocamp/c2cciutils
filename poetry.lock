@@ -1242,7 +1242,7 @@ types-urllib3 = "*"
 
 [[package]]
 name = "types-setuptools"
-version = "67.8.0.0"
+version = "68.0.0.0"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
@@ -1332,7 +1332,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "f49e9bf7d8098f55aee2a61e5f920bdcae22a819b448c9095b31b3f7dc1c2d2c"
+content-hash = "039b1392be9180231e82ea3d26a031b8fb9b8bc28b8e21575db792e2814eb882"
 
 [metadata.files]
 astroid = [
@@ -2031,8 +2031,8 @@ types-requests = [
     {file = "types_requests-2.31.0.1-py3-none-any.whl", hash = "sha256:afb06ef8f25ba83d59a1d424bd7a5a939082f94b94e90ab5e6116bd2559deaa3"},
 ]
 types-setuptools = [
-    {file = "types-setuptools-67.8.0.0.tar.gz", hash = "sha256:95c9ed61871d6c0e258433373a4e1753c0a7c3627a46f4d4058c7b5a08ab844f"},
-    {file = "types_setuptools-67.8.0.0-py3-none-any.whl", hash = "sha256:6df73340d96b238a4188b7b7668814b37e8018168aef1eef94a3b1872e3f60ff"},
+    {file = "types-setuptools-68.0.0.0.tar.gz", hash = "sha256:fc958b4123b155ffc069a66d3af5fe6c1f9d0600c35c0c8444b2ab4147112641"},
+    {file = "types_setuptools-68.0.0.0-py3-none-any.whl", hash = "sha256:cc00e09ba8f535362cbe1ea8b8407d15d14b59c57f4190cceaf61a9e57616446"},
 ]
 types-toml = [
     {file = "types-toml-0.10.8.6.tar.gz", hash = "sha256:6d3ac79e36c9ee593c5d4fb33a50cca0e3adceb6ef5cff8b8e5aef67b4c4aaf2"},
