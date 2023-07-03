@@ -889,7 +889,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "Pygments"
-version = "2.15.0"
+version = "2.15.1"
 description = "Pygments is a syntax highlighting package written in Python."
 category = "main"
 optional = false
@@ -1179,7 +1179,7 @@ pyasn1 = ">=0.1.3"
 
 [[package]]
 name = "ruamel.yaml"
-version = "0.17.31"
+version = "0.17.32"
 description = "ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
 category = "main"
 optional = false
@@ -1462,7 +1462,7 @@ publish_plugins = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "39c2fbc35c8a70d9162f53baa7e74aa58ea18df63fa0d72052235fd477b323e9"
+content-hash = "986b18403ce8f2efd07b5bee77dd1b2839e413cf8e8f0aa64d149aa36d2ff48b"
 
 [metadata.files]
 astroid = [
@@ -1998,8 +1998,8 @@ pyflakes = [
     {file = "pyflakes-2.5.0.tar.gz", hash = "sha256:491feb020dca48ccc562a8c0cbe8df07ee13078df59813b83959cbdada312ea3"},
 ]
 Pygments = [
-    {file = "Pygments-2.15.0-py3-none-any.whl", hash = "sha256:77a3299119af881904cd5ecd1ac6a66214b6e9bed1f2db16993b54adede64094"},
-    {file = "Pygments-2.15.0.tar.gz", hash = "sha256:f7e36cffc4c517fbc252861b9a6e4644ca0e5abadf9a113c72d1358ad09b9500"},
+    {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
+    {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
 ]
 pylint = [
     {file = "pylint-2.16.0-py3-none-any.whl", hash = "sha256:55e5cf00601c4cfe2e9404355c743a14e63be85df7409da7e482ebde5f9f14a1"},
@@ -2147,8 +2147,8 @@ rsa = [
     {file = "rsa-4.9.tar.gz", hash = "sha256:e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21"},
 ]
 "ruamel.yaml" = [
-    {file = "ruamel.yaml-0.17.31-py3-none-any.whl", hash = "sha256:3cf153f0047ced526e723097ac615d3009371779432e304dbd5596b6f3a4c777"},
-    {file = "ruamel.yaml-0.17.31.tar.gz", hash = "sha256:098ed1eb6d338a684891a72380277c1e6fc4d4ae0e120de9a447275056dda335"},
+    {file = "ruamel.yaml-0.17.32-py3-none-any.whl", hash = "sha256:23cd2ed620231677564646b0c6a89d138b6822a0d78656df7abda5879ec4f447"},
+    {file = "ruamel.yaml-0.17.32.tar.gz", hash = "sha256:ec939063761914e14542972a5cba6d33c23b0859ab6342f61cf070cfc600efc2"},
 ]
 "ruamel.yaml.clib" = [
     {file = "ruamel.yaml.clib-0.2.7-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d5859983f26d8cd7bb5c287ef452e8aacc86501487634573d260968f753e1d71"},
