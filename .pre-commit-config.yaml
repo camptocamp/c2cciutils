@@ -13,7 +13,7 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.7.1
+    rev: v3.0.0-alpha.9-for-vscode
     hooks:
       - id: prettier
         additional_dependencies:
@@ -32,7 +32,7 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
   - repo: https://github.com/camptocamp/jsonschema-gentypes
-    rev: 2.2.3
+    rev: 2.2.0
     hooks:
       - id: jsonschema-gentypes
         files: |-
@@ -88,7 +88,7 @@ repos:
             |^test/Pipfile\.lock$
           )
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.2
+    rev: v0.9.0.5
     hooks:
       - id: shellcheck
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
