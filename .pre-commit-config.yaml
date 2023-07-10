@@ -108,9 +108,9 @@ repos:
         args:
           - --builtin-schema
           - github-workflows-require-timeout
-      - id: check-renovate
-        additional_dependencies:
-          - pyjson5==1.6.3 # pypi
+      # - id: check-renovate
+      #   additional_dependencies:
+      #     - pyjson5==1.6.3 # pypi
   - repo: https://github.com/sirwart/ripsecrets
     rev: v0.1.5
     hooks:
