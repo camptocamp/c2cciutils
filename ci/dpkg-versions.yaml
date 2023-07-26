@@ -66,7 +66,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/nghttp2: 1.43.0-1build3
   ubuntu_22_04/nodejs: 16.17.1-deb-1nodesource1
   ubuntu_22_04/npth: 1.6-3build2
-  ubuntu_22_04/openldap: 2.5.14+dfsg-0ubuntu0.22.04.2
+  ubuntu_22_04/openldap: 2.5.15+dfsg-0ubuntu0.22.04.1
   ubuntu_22_04/openssl: 3.0.2-0ubuntu1.9
   ubuntu_22_04/p11-kit: 0.24.0-6build1
   ubuntu_22_04/pam: 1.4.0-11ubuntu2.3
