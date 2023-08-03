@@ -49,6 +49,7 @@ include = [
     "c2cciutils/node_modules/**/*.py",
     "c2cciutils/node_modules/**/*.wasm",
     "c2cciutils/node_modules/**/*.json",
+    "c2cciutils/node_modules/snyk/wrapper_dist/**",
 ]
 exclude = ["c2cciutils/node_modules/**/test"]
 
