@@ -37,6 +37,13 @@
       datasourceTemplate: 'repology',
       versioningTemplate: 'loose',
     },
+    {
+      fileMatch: ['^ci/config\\\\.yaml$'],
+      matchStrings: [
+        '.*https://raw\\\\.githubusercontent\\\\.com/(?<depName>[^\\\\s]+)/(?<currentValue>[0-9\\\\.]+)/.*',
+      ],
+      datasourceTemplate: 'github-tags',
+    },
   ],
   packageRules: [
     /** Automerge the patch, the minor and the dev dependency */
@@ -90,6 +97,10 @@
       schedule: ['at any time'],
       groupName: 'dpkg',
       automerge: true,
+    },
+    {
+      matchPackageNames: ['shellcheck-py/shellcheck-py'],
+      versioning: 'regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$',
     },
   ],
 }
