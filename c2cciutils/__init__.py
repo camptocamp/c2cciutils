@@ -538,8 +538,14 @@ def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: b
     command = ["codespell"]
     if fix:
         command.append("--write-changes")
-    if os.path.exists("spell-ignore-words.txt"):
-        command.append("--ignore-words=spell-ignore-words.txt")
+    for spell_ignore_file in (
+        ".github/spell-ignore-words.txt",
+        "spell-ignore-words.txt",
+        ".spell-ignore-words.txt",
+    ):
+        if os.path.exists(spell_ignore_file):
+            command.append(f"--ignore-words={spell_ignore_file}")
+            break
     dictionaries = codespell_config.get(
         "internal_dictionaries", c2cciutils.configuration.CODESPELL_DICTIONARIES_DEFAULT
     )
