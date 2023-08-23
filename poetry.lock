@@ -732,6 +732,14 @@ with_pyroma = ["pyroma (>=2.4)"]
 with_vulture = ["vulture (>=1.5)"]
 
 [[package]]
+name = "prospector-profile-duplicated"
+version = "0.1.0"
+description = "Profile that can be used to disable the duplicated or conflict rules between Prospector and other tools"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "protobuf"
 version = "4.23.4"
 description = ""
@@ -1334,7 +1342,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "3949acb9c85b3d407652ae43c1007e93aeee5f58c45d162f6a5a930963c300c4"
+content-hash = "43ed552cee33450c12299e61a653133ecae775acaf8f31fb63ed45231ff0cc07"
 
 [metadata.files]
 astroid = [
@@ -1773,6 +1781,10 @@ platformdirs = [
 prospector = [
     {file = "prospector-1.10.2-py3-none-any.whl", hash = "sha256:3bfe103c28bb821cca84926ca31357fbfd32405e4bf8c34ca2e55885684557e4"},
     {file = "prospector-1.10.2.tar.gz", hash = "sha256:cc8f09e79bdd32247edddf05b666940e88ad96338a84f5717b1e8c0678337821"},
+]
+prospector-profile-duplicated = [
+    {file = "prospector_profile_duplicated-0.1.0-py2.py3-none-any.whl", hash = "sha256:d9c8679736bb2f2310b0faec3f6955d63388abc594e293a3e82e43ae0315991c"},
+    {file = "prospector_profile_duplicated-0.1.0.tar.gz", hash = "sha256:144baaa10101a28834d68552ff0b1714c08f22c8a7e9506e02ccc8584a28943c"},
 ]
 protobuf = [
     {file = "protobuf-4.23.4-cp310-abi3-win32.whl", hash = "sha256:5fea3c64d41ea5ecf5697b83e41d09b9589e6f20b677ab3c48e5f242d9b7897b"},
