@@ -10,7 +10,8 @@ import re
 import subprocess  # nosec
 import sys
 import tarfile
-from typing import Dict, List, Match, Optional, Set, cast
+from re import Match
+from typing import Optional, cast
 
 import requests
 import yaml
@@ -208,9 +209,9 @@ def main() -> None:
             version_index = security.headers.index("Version")
             latest = security.data[-1][version_index] == version
 
-        images_src: Set[str] = set()
-        images_full: List[str] = []
-        images_snyk: Set[str] = set()
+        images_src: set[str] = set()
+        images_full: list[str] = []
+        images_snyk: set[str] = set()
         versions = args.docker_versions.split(",") if args.docker_versions else [version]
         for image_conf in docker_config.get("images", []):
             if (
@@ -246,7 +247,7 @@ def main() -> None:
                     tags_calendar = []
                     for name, conf in {
                         **cast(
-                            Dict[str, c2cciutils.configuration.PublishDockerRepository],
+                            dict[str, c2cciutils.configuration.PublishDockerRepository],
                             c2cciutils.configuration.DOCKER_REPOSITORY_DEFAULT,
                         ),
                         **docker_config.get("repository", {}),

@@ -8,7 +8,8 @@ import os.path
 import re
 import subprocess  # nosec
 import sys
-from typing import Any, Dict, List, Match, Optional, Pattern, Tuple, TypedDict, cast
+from re import Match, Pattern
+from typing import Any, Optional, TypedDict, cast
 
 import magic
 import requests
@@ -58,7 +59,7 @@ def merge(default_config: Any, config: Any) -> Any:
     return config
 
 
-def get_master_branch(repo: List[str]) -> Tuple[str, bool]:
+def get_master_branch(repo: list[str]) -> tuple[str, bool]:
     """Get the name of the master branch."""
     master_branch = "master"
     success = False
@@ -191,7 +192,7 @@ VersionTransform = TypedDict(
 )
 
 
-def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = "") -> List[VersionTransform]:
+def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = "") -> list[VersionTransform]:
     """
     Compile the from as a regular expression of a dictionary of the config list.
 
@@ -220,8 +221,8 @@ def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = 
 
 
 def match(
-    value: str, config: List[VersionTransform]
-) -> Tuple[Optional[Match[str]], Optional[VersionTransform], str]:
+    value: str, config: list[VersionTransform]
+) -> tuple[Optional[Match[str]], Optional[VersionTransform], str]:
     """
     Get the matched version.
 
@@ -239,7 +240,7 @@ def match(
     return None, None, value
 
 
-def does_match(value: str, config: List[VersionTransform]) -> bool:
+def does_match(value: str, config: list[VersionTransform]) -> bool:
     """
     Check if the version match with the config patterns.
 
@@ -336,7 +337,7 @@ def gopass_put(secret: str, key: str) -> None:
     subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
 
 
-def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
+def add_authorization_header(headers: dict[str, str]) -> dict[str, str]:
     """
     Add the Authorization header needed to be authenticated on GitHub.
 
@@ -357,7 +358,7 @@ def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
         return headers
 
 
-def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> Any:
+def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> Any:
     """
     Get a graphql result from GitHub.
 
@@ -397,14 +398,14 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
         raise RuntimeError(f"GraphQL error: {json.dumps(json_response['errors'], indent=2)}")
     if "data" not in json_response:
         raise RuntimeError(f"GraphQL no data: {json.dumps(json_response, indent=2)}")
-    return cast(Dict[str, Any], json_response["data"])
+    return cast(dict[str, Any], json_response["data"])
 
 
 def get_git_files_mime(
-    mime_type: Optional[List[str]] = None,
-    extensions: Optional[List[str]] = None,
-    ignore_patterns_re: Optional[List[str]] = None,
-) -> List[str]:
+    mime_type: Optional[list[str]] = None,
+    extensions: Optional[list[str]] = None,
+    ignore_patterns_re: Optional[list[str]] = None,
+) -> list[str]:
     """
     Get list of paths from git with all the files that have the specified mime type.
 
@@ -464,7 +465,7 @@ def get_branch(branch: Optional[str], master_branch: str = "master") -> str:
 
 
 def get_based_on_master(
-    repo: List[str],
+    repo: list[str],
     override_current_branch: Optional[str],
     master_branch: str,
     config: c2cciutils.configuration.Configuration,
@@ -525,7 +526,7 @@ def get_based_on_master(
     return based_branch == master_branch
 
 
-def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: bool = False) -> List[str]:
+def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: bool = False) -> list[str]:
     """
     Get the codespell command.
 
@@ -555,7 +556,7 @@ def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: b
     return command
 
 
-def snyk_exec() -> Tuple[str, Dict[str, str]]:
+def snyk_exec() -> tuple[str, dict[str, str]]:
     """Get the Snyk cli executable path."""
     env = {**os.environ}
     env["FORCE_COLOR"] = "true"

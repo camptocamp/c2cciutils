@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 110
-target-version = ['py38']
+target-version = ["py39"]
 
 [tool.isort]
 multi_line_output = 3
@@ -10,7 +10,7 @@ use_parentheses = true
 line_length = 110
 
 [tool.mypy]
-python_version = 3.8
+python_version = 3.9
 ignore_missing_imports = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -32,9 +32,6 @@ classifiers = [
     "Environment :: Console",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Typing :: Typed",
@@ -75,7 +72,7 @@ c2cciutils-download-applications = "c2cciutils.scripts.download_applications:mai
 c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.9,<4.0"
 markdown-table = "2020.12.3"
 python-magic = "0.4.27"
 requests = "2.31.0"

@@ -11,7 +11,7 @@ import re
 import subprocess  # nosec
 import sys
 import uuid
-from typing import List, Optional
+from typing import Optional
 
 import ruamel.yaml
 import tomlkit
@@ -338,7 +338,7 @@ def docker(
     tag_src: str,
     tag_dst: str,
     latest: bool,
-    images_full: List[str],
+    images_full: list[str],
 ) -> bool:
     """
     Publish to a Docker registry.
