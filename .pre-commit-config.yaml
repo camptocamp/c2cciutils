@@ -46,8 +46,8 @@ repos:
       - id: jsonschema-validator
         files: |-
           (?x)^(
-              ci/config\.yaml
-              |example-project/ci/config\.yaml
+            ci/config\.yaml
+            |example-project/ci/config\.yaml
           )$
   - repo: https://github.com/sbrunner/jsonschema2md2
     rev: 0.9.0
@@ -141,3 +141,5 @@ repos:
           - --tool=pydocstyle
           - --die-on-tool-error
           - --output-format=pylint
+        additional_dependencies:
+          - prospector-profile-duplicated==0.1.0 # pypi

@@ -40,9 +40,9 @@ include = ["project/py.typed"]
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
 
-[tool.poetry.dev-dependencies]
-# pylint = "2.15.6"
+[tool.poetry.group.dev.dependencies]
 prospector = { version = "1.10.2", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
+prospector-profile-duplicated = "0.1.0"
 
 [build-system]
 requires = [
