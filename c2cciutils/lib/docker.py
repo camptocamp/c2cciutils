@@ -3,7 +3,7 @@ Some utility functions for Docker images.
 """
 import os
 import subprocess  # nosec: B404
-from typing import Dict, Optional, Tuple, cast
+from typing import Optional, cast
 
 import yaml
 from debian_inspector.version import Version
@@ -11,7 +11,7 @@ from debian_inspector.version import Version
 
 def get_dpkg_packages_versions(
     image: str, default_distribution: Optional[str] = None, default_release: Optional[str] = None
-) -> Tuple[bool, Dict[str, Version]]:
+) -> tuple[bool, dict[str, Version]]:
     """
     Get the versions of the dpkg packages installed in the image.
 
@@ -57,7 +57,7 @@ def get_dpkg_packages_versions(
     release_final = release.strip('"').replace(".", "_")
     prefix = f"{distribution_final}_{release_final}/"
 
-    package_version: Dict[str, Version] = {}
+    package_version: dict[str, Version] = {}
     packages_status_process = subprocess.run(
         ["docker", "run", "--rm", "--entrypoint=", image, "dpkg", "--status"],
         stdout=subprocess.PIPE,
@@ -93,21 +93,21 @@ def get_dpkg_packages_versions(
     return True, {f"{prefix}{k}": v for k, v in package_version.items()}
 
 
-def get_versions_config() -> Tuple[Dict[str, Dict[str, str]], bool]:
+def get_versions_config() -> tuple[dict[str, dict[str, str]], bool]:
     """
     Get the versions from the config file.
     """
     if os.path.exists("ci/dpkg-versions.yaml"):
         with open("ci/dpkg-versions.yaml", encoding="utf-8") as versions_file:
             return (
-                cast(Dict[str, Dict[str, str]], yaml.load(versions_file.read(), Loader=yaml.SafeLoader)),
+                cast(dict[str, dict[str, str]], yaml.load(versions_file.read(), Loader=yaml.SafeLoader)),
                 True,
             )
     return {}, False
 
 
 def check_versions(
-    versions_config: Dict[str, str],
+    versions_config: dict[str, str],
     image: str,
     default_distribution: Optional[str] = None,
     default_release: Optional[str] = None,

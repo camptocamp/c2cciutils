@@ -4,7 +4,7 @@ import argparse
 import os
 import subprocess  # nosec
 import sys
-from typing import Dict, cast
+from typing import cast
 
 import yaml
 
@@ -39,7 +39,7 @@ def main() -> None:
         ),
         encoding="utf-8",
     ) as config_file:
-        versions = cast(Dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
+        versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
 
     args = parser.parse_args()
 

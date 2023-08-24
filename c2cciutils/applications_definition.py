@@ -3,7 +3,7 @@ Automatically generated file from a JSON schema.
 """
 
 
-from typing import Dict, List, Literal, TypedDict, Union
+from typing import Literal, TypedDict, Union
 
 # Application configuration.
 #
@@ -27,13 +27,13 @@ ApplicationConfiguration = TypedDict(
         # The tile name to get in the tar file.
         "tar-file-name": str,
         # The commands to run after the tile creation.
-        "finish-commands": List[List[str]],
+        "finish-commands": list[list[str]],
     },
     total=False,
 )
 
 
-ApplicationsConfiguration = Dict[str, "ApplicationConfiguration"]
+ApplicationsConfiguration = dict[str, "ApplicationConfiguration"]
 """
 Applications configuration.
 

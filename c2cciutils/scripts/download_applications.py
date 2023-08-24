@@ -7,7 +7,7 @@ import tarfile
 import urllib
 from glob import glob
 from io import BytesIO
-from typing import Dict, cast
+from typing import cast
 
 import requests
 import yaml
@@ -30,7 +30,7 @@ def main() -> None:
     args = argparser.parse_args()
 
     with open(args.versions_file, encoding="utf-8") as config_file:
-        versions = cast(Dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
+        versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
     with open(args.applications_file, encoding="utf-8") as config_file:
         applications = cast(
             applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader)
@@ -44,7 +44,7 @@ def download_c2cciutils_applications() -> None:
         os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications-versions.yaml"),
         encoding="utf-8",
     ) as config_file:
-        versions = cast(Dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
+        versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
     with open(
         os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications.yaml"), encoding="utf-8"
     ) as config_file:
@@ -55,7 +55,7 @@ def download_c2cciutils_applications() -> None:
 
 
 def download_applications(
-    applications: applications_definition.ApplicationsConfiguration, versions: Dict[str, str]
+    applications: applications_definition.ApplicationsConfiguration, versions: dict[str, str]
 ) -> None:
     """Download the versions of applications specified in the configuration."""
 

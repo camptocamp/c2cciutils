@@ -7,7 +7,7 @@ import os
 import re
 import subprocess  # nosec
 from tempfile import NamedTemporaryFile
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import requests
 import yaml
@@ -15,7 +15,7 @@ import yaml
 import c2cciutils.configuration
 
 
-def _commit_intro(need_separator: bool, commit: Dict[str, Any]) -> bool:
+def _commit_intro(need_separator: bool, commit: dict[str, Any]) -> bool:
     head = commit["commit"]["message"].split("\n")[0]
     if need_separator:
         print("-" * 30)
@@ -23,7 +23,7 @@ def _commit_intro(need_separator: bool, commit: Dict[str, Any]) -> bool:
     return True
 
 
-def print_event(github_event: Dict[str, Any], **kwargs: Any) -> bool:
+def print_event(github_event: dict[str, Any], **kwargs: Any) -> bool:
     """
     Print the github object.
     """
@@ -34,7 +34,7 @@ def print_event(github_event: Dict[str, Any], **kwargs: Any) -> bool:
 
 def commits_messages(
     config: c2cciutils.configuration.PullRequestChecksCommitsMessagesConfiguration,
-    commits: List[Dict[str, Any]],
+    commits: list[dict[str, Any]],
     **kwargs: Any,
 ) -> bool:
     """
@@ -129,7 +129,7 @@ def commits_messages(
 def commits_spell(
     config: c2cciutils.configuration.PullRequestChecksCommitsSpellingConfiguration,
     full_config: c2cciutils.configuration.Configuration,
-    commits: List[Dict[str, Any]],
+    commits: list[dict[str, Any]],
     **kwargs: Any,
 ) -> bool:
     """Check the spelling of the commits body."""
@@ -164,7 +164,7 @@ def commits_spell(
 def pull_request_spell(
     config: c2cciutils.configuration.PullRequestChecksPullRequestSpellingConfiguration,
     full_config: c2cciutils.configuration.Configuration,
-    github_event: Dict[str, Any],
+    github_event: dict[str, Any],
     **kwargs: Any,
 ) -> bool:
     """Check the spelling of the pull request title and message."""
@@ -193,7 +193,7 @@ def pull_request_spell(
     return True
 
 
-def pull_request_labels(github_event: Dict[str, Any], **kwargs: Any) -> bool:
+def pull_request_labels(github_event: dict[str, Any], **kwargs: Any) -> bool:
     """Check it the label are set correctly for the changelog generation."""
     del kwargs
 
@@ -243,7 +243,7 @@ def _get_issue_number(name: str) -> Optional[str]:
     return None
 
 
-def add_issue_link(github_event: Dict[str, Any], **kwargs: Any) -> bool:
+def add_issue_link(github_event: dict[str, Any], **kwargs: Any) -> bool:
     """Add a comment with the link to Jira if needed."""
     del kwargs
 

@@ -9,7 +9,6 @@ import os.path
 import random
 import subprocess  # nosec
 import sys
-from typing import List
 
 import requests
 import yaml
@@ -60,7 +59,7 @@ def main() -> None:
     dispatch(args.repository, args.event_type, [f"{image}:{version}" for image in images_full])
 
 
-def dispatch(repository: str, event_type: str, images_full: List[str]) -> None:
+def dispatch(repository: str, event_type: str, images_full: list[str]) -> None:
     """
     Trigger an image update on the argocd repository.
     """

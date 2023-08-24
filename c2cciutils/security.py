@@ -3,7 +3,7 @@ Read the table of versions from SECURITY.md.
 """
 
 import xml.etree.ElementTree  # nosec
-from typing import List, Optional
+from typing import Optional
 
 import markdown
 from markdown.extensions.tables import TableExtension
@@ -14,9 +14,9 @@ class Security:
     Read the table of versions from SECURITY.md.
     """
 
-    headers: List[str]
-    data: List[List[str]]
-    _row: Optional[List[str]] = None
+    headers: list[str]
+    data: list[list[str]]
+    _row: Optional[list[str]] = None
 
     def __init__(self, status: str):
         """
