@@ -338,6 +338,7 @@ def docker(
     tag_src: str,
     tag_dst: str,
     latest: bool,
+    alt_tags: list[str],
     images_full: list[str],
 ) -> bool:
     """
@@ -356,6 +357,7 @@ def docker(
         tag_src: The source tag (usually latest)
         tag_dst: The tag used for publication
         latest: Publish also the tag latest
+        alt_tags: Publish also to the provided tags
         images_full: The list of published images (with tag), used to build the dispatch event
     """
 
@@ -387,6 +389,17 @@ def docker(
                     check=True,
                 )
                 new_images_full.append(f"{config['server']}/{image_config['name']}:{tag_src}")
+            for alt_tag in alt_tags:
+                subprocess.run(
+                    [
+                        "docker",
+                        "tag",
+                        f"{image_config['name']}:{tag_src}",
+                        f"{config['server']}/{image_config['name']}:{alt_tag}",
+                    ],
+                    check=True,
+                )
+                new_images_full.append(f"{config['server']}/{image_config['name']}:{alt_tag}")
         else:
             if tag_src != tag_dst:
                 subprocess.run(
@@ -401,6 +414,17 @@ def docker(
             new_images_full.append(f"{image_config['name']}:{tag_dst}")
             if latest and tag_src != tag_dst:
                 new_images_full.append(f"{image_config['name']}:{tag_src}")
+            for alt_tag in alt_tags:
+                subprocess.run(
+                    [
+                        "docker",
+                        "tag",
+                        f"{image_config['name']}:{tag_src}",
+                        f"{image_config['name']}:{alt_tag}",
+                    ],
+                    check=True,
+                )
+                new_images_full.append(f"{image_config['name']}:{alt_tag}")
 
         for image in new_images_full:
             subprocess.run(["docker", "push", image], check=True)
