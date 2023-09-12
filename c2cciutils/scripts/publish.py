@@ -91,6 +91,7 @@ def main() -> None:
     # feature_branch, feature_tag (for pull request)
     version: str = ""
     ref = os.environ.get("GITHUB_REF", "refs/heads/fake-local")
+    local = "GITHUB_REF" not in os.environ
 
     if len([e for e in [args.version, args.branch, args.tag] if e is not None]) > 1:
         print("::error::you specified more than one of the arguments --version, --branch or --tag")
@@ -196,18 +197,37 @@ def main() -> None:
         full_repo = c2cciutils.get_repository()
         full_repo_split = full_repo.split("/")
         master_branch, _ = c2cciutils.get_master_branch(full_repo_split)
-        security_response = requests.get(
-            f"https://raw.githubusercontent.com/{full_repo}/{master_branch}/SECURITY.md",
-            headers=c2cciutils.add_authorization_header({}),
-            timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
-        )
-        if (
-            security_response.ok
-            and docker_config.get("latest", c2cciutils.configuration.PUBLISH_DOCKER_LATEST_DEFAULT) is True
-        ):
-            security = c2cciutils.security.Security(security_response.text)
-            version_index = security.headers.index("Version")
-            latest = security.data[-1][version_index] == version
+        security_text = ""
+        if local:
+            with open("SECURITY.md", encoding="utf-8") as security_file:
+                security_text = security_file.read()
+        else:
+            security_response = requests.get(
+                f"https://raw.githubusercontent.com/{full_repo}/{master_branch}/SECURITY.md",
+                headers=c2cciutils.add_authorization_header({}),
+                timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
+            )
+            if (
+                security_response.ok
+                and docker_config.get("latest", c2cciutils.configuration.PUBLISH_DOCKER_LATEST_DEFAULT)
+                is True
+            ):
+                security_text = security_response.text
+
+        security = c2cciutils.security.Security(security_text)
+        version_index = security.headers.index("Version")
+        latest = security.data[-1][version_index] == version
+
+        row_index = -1
+        for index, row in enumerate(security.data):
+            if row[version_index] == version:
+                row_index = index
+                break
+
+        alt_tags = []
+        if "Alternate Tag" in security.headers:
+            tag_index = security.headers.index("Alternate Tag")
+            alt_tags = security.data[row_index][tag_index].split(",")
 
         images_src: set[str] = set()
         images_full: list[str] = []
@@ -261,13 +281,26 @@ def main() -> None:
                                 "versions",
                                 c2cciutils.configuration.PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT,
                             ):
+                                current_alt_tag = [tag_config.format(version=alt_tag) for alt_tag in alt_tags]
+
                                 if args.dry_run:
                                     print(f"Publishing {image_dst} to {name}, skipping (dry run)")
                                     if latest:
                                         print(f"Publishing {image_source} to {name}, skipping (dry run)")
+                                    for alt_tag in current_alt_tag:
+                                        print(
+                                            f"Publishing {image_conf['name']}:{alt_tag} to {name}, skipping (dry run)"
+                                        )
                                 else:
                                     success &= c2cciutils.publish.docker(
-                                        conf, name, image_conf, tag_src, tag_dst, latest, images_full
+                                        conf,
+                                        name,
+                                        image_conf,
+                                        tag_src,
+                                        tag_dst,
+                                        latest,
+                                        current_alt_tag,
+                                        images_full,
                                     )
 
                     if google_calendar_publish:

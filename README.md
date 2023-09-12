@@ -5,18 +5,21 @@
 The main goals of C2C CI utils is to offer the commands and the workflows to have the following project structure:
 
 Have stabilization branches named by default `<major>.<minor>`.
-Have the release named by default `<major>.<minor>-<patch>`.
+Have the release named by default `<major>.<minor>.<patch>`.
 
 With C2C CI utils you can publish a python package and a Docker image from the same repository.
 
 The default publishing are:
 
-- Push on the `<major>.<minor>` branch will publish Docker images (the version in the last line of the
-  `SECURITY.md` of the `master` branch will be published also using the `latest` tag).
+- Push on the `<major>.<minor>` branch will publish Docker images.
 - Create the tag `<major>.<minor>.<patch>` will publish the Docker images, and the Python package.
 - Push on a feature branch (whatever other name) will publish the Docker images.
 - Delete a feature branch will delete the Docker images.
 - Push on the `master` branch will publish the Docker images with the master tag (Publishing a python package is also possible).
+- The version at the last line of the `SECURITY.md` of the `master` branch will be also published using the `latest` tag,
+  this will respect the `tags` present in the configuration
+- In the `SECURITY.md` file of the `master` branch we can also add a column `Alternate Tag` to publish the Docker images with another tag,
+  this will respect the `tags` present in the configuration (only for Docker).
 
 The Docker images are published on Docker Hub and GitHub Container Registry.
 
@@ -278,18 +281,23 @@ The config is like this:
 ```yaml
 latest: True
 images:
-  - name: # The base name of the image we want to publish
+  - # The base name of the image we want to publish
+    name:
 repository:
   <internal_name>:
-    'server': # The fqdn name of the server if not Docker hub
-    'version':# List of kinds of versions you want to publish, that can be: rebuild (specified using --type),
-      # version_tag, version_branch, feature_branch, feature_tag (for pull request)
-    'tags':# List of tags we want to publish interpreted with `template(version=version)`
-      # e.g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
-      # (that should be built by the application build) is `latest-lite`, and it will be published
-      # with the tag `1.2.3-lite`.
-    'group':# If your images are published by different jobs you can separate them in different groups
-      # and publish them with `c2cciutils-publish --group=<group>`
+    # The fqdn name of the server if not Docker hub
+    server:
+    # List of kinds of versions you want to publish, that can be: rebuild (specified using --type),
+    # version_tag, version_branch, feature_branch, feature_tag (for pull request)
+    version:
+    # List of tags we want to publish interpreted with `template(version=version)`
+    # e.g. if you use `{version}-lite` when you publish the version `1.2.3` the source tag
+    # (that should be built by the application build) is `latest-lite`, and it will be published
+    # with the tag `1.2.3-lite`.
+    tags:
+    # If your images are published by different jobs you can separate them in different groups
+    # and publish them with `c2cciutils-publish --group=<group>`
+    group:
 ```
 
 By default, the last line of the `SECURITY.md` file will be published (`docker`) with the tag
