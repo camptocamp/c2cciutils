@@ -4,3 +4,4 @@ __pycache__
 /dist/
 /c2cciutils/node_modules/
 /.github/changelog-generator-cache/
+/.mypy_cache/
