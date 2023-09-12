@@ -337,7 +337,6 @@ def docker(
     image_config: c2cciutils.configuration.PublishDockerImage,
     tag_src: str,
     tag_dst: str,
-    latest: bool,
     alt_tags: list[str],
     images_full: list[str],
 ) -> bool:
@@ -378,17 +377,6 @@ def docker(
                 check=True,
             )
             new_images_full.append(f"{config['server']}/{image_config['name']}:{tag_dst}")
-            if latest:
-                subprocess.run(
-                    [
-                        "docker",
-                        "tag",
-                        f"{image_config['name']}:{tag_src}",
-                        f"{config['server']}/{image_config['name']}:{tag_src}",
-                    ],
-                    check=True,
-                )
-                new_images_full.append(f"{config['server']}/{image_config['name']}:{tag_src}")
             for alt_tag in alt_tags:
                 subprocess.run(
                     [
@@ -412,18 +400,17 @@ def docker(
                     check=True,
                 )
             new_images_full.append(f"{image_config['name']}:{tag_dst}")
-            if latest and tag_src != tag_dst:
-                new_images_full.append(f"{image_config['name']}:{tag_src}")
             for alt_tag in alt_tags:
-                subprocess.run(
-                    [
-                        "docker",
-                        "tag",
-                        f"{image_config['name']}:{tag_src}",
-                        f"{image_config['name']}:{alt_tag}",
-                    ],
-                    check=True,
-                )
+                if tag_src != alt_tag:
+                    subprocess.run(
+                        [
+                            "docker",
+                            "tag",
+                            f"{image_config['name']}:{tag_src}",
+                            f"{image_config['name']}:{alt_tag}",
+                        ],
+                        check=True,
+                    )
                 new_images_full.append(f"{image_config['name']}:{alt_tag}")
 
         for image in new_images_full:
