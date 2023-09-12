@@ -20,6 +20,7 @@ import c2cciutils.configuration
 import c2cciutils.env
 import c2cciutils.lib.docker
 import c2cciutils.publish
+import c2cciutils.scripts.download_applications
 import c2cciutils.security
 from c2cciutils.publish import GoogleCalendar
 from c2cciutils.scripts.trigger_image_update import dispatch
