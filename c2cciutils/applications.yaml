@@ -9,3 +9,14 @@ k3d-io/k3d:
       - k3d
     - - k3d
       - --version
+helm/chart-releaser:
+  get-file-name: chart-releaser_{short_version}_linux_amd64.tar.gz
+  type: tar
+  tar-file-name: cr
+  to-file-name: cr
+  finish-commands:
+    - - chmod
+      - +x
+      - cr
+    - - cr
+      - version

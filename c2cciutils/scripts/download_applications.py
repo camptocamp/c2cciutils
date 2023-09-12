@@ -7,7 +7,7 @@ import tarfile
 import urllib
 from glob import glob
 from io import BytesIO
-from typing import cast
+from typing import Optional, cast
 
 import requests
 import yaml
@@ -38,7 +38,7 @@ def main() -> None:
     download_applications(applications, versions)
 
 
-def download_c2cciutils_applications() -> None:
+def download_c2cciutils_applications(name: Optional[str] = None) -> None:
     """Download the applications defined in the c2cciutils package."""
     with open(
         os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications-versions.yaml"),
@@ -51,6 +51,8 @@ def download_c2cciutils_applications() -> None:
         applications = cast(
             applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader)
         )
+    if name is not None:
+        applications = {name: applications[name]}
     download_applications(applications, versions)
 
 
