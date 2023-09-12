@@ -22,7 +22,7 @@ def main() -> None:
     config = c2cciutils.get_config()
 
     _print("::group::Install")
-    c2cciutils.scripts.download_applications.download_c2cciutils_applications()
+    c2cciutils.scripts.download_applications.download_c2cciutils_applications("k3d-io/k3d")
     _print("::endgroup::")
 
     _print("::group::Create cluster")
