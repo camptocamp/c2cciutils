@@ -10,3 +10,4 @@
 | 1.3     | Best effort     |
 | 1.4     | Best effort     |
 | 1.5     | 27/12/2024      |
+| 1.6     | Best effort     |
