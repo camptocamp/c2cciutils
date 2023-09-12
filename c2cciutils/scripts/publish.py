@@ -193,7 +193,6 @@ def main() -> None:
         config.get("publish", {}).get("docker", {}) if config.get("publish", {}).get("docker", False) else {},
     )
     if docker_config:
-        latest = False
         full_repo = c2cciutils.get_repository()
         full_repo_split = full_repo.split("/")
         master_branch, _ = c2cciutils.get_master_branch(full_repo_split)
@@ -216,7 +215,6 @@ def main() -> None:
 
         security = c2cciutils.security.Security(security_text)
         version_index = security.headers.index("Version")
-        latest = security.data[-1][version_index] == version
 
         row_index = -1
         for index, row in enumerate(security.data):
@@ -224,10 +222,12 @@ def main() -> None:
                 row_index = index
                 break
 
-        alt_tags = []
+        alt_tags = set()
         if "Alternate Tag" in security.headers:
             tag_index = security.headers.index("Alternate Tag")
-            alt_tags = security.data[row_index][tag_index].split(",")
+            alt_tags = {t.strip() for t in security.data[row_index][tag_index].split(",")}
+        if security.data[-1][version_index] == version:
+            alt_tags.add("latest")
 
         images_src: set[str] = set()
         images_full: list[str] = []
@@ -285,22 +285,13 @@ def main() -> None:
 
                                 if args.dry_run:
                                     print(f"Publishing {image_dst} to {name}, skipping (dry run)")
-                                    if latest:
-                                        print(f"Publishing {image_source} to {name}, skipping (dry run)")
                                     for alt_tag in current_alt_tag:
                                         print(
                                             f"Publishing {image_conf['name']}:{alt_tag} to {name}, skipping (dry run)"
                                         )
                                 else:
                                     success &= c2cciutils.publish.docker(
-                                        conf,
-                                        name,
-                                        image_conf,
-                                        tag_src,
-                                        tag_dst,
-                                        latest,
-                                        current_alt_tag,
-                                        images_full,
+                                        conf, name, image_conf, tag_src, tag_dst, current_alt_tag, images_full
                                     )
 
                     if google_calendar_publish:
