@@ -9,7 +9,6 @@ import os
 import re
 import subprocess  # nosec
 import sys
-import tarfile
 from re import Match
 from typing import Optional, cast
 
@@ -396,12 +395,7 @@ def main() -> None:
         config.get("publish", {}).get("helm", {}) if config.get("publish", {}).get("helm", False) else {},
     )
     if helm_config and helm_config["folders"] and version_type in helm_config.get("versions", []):
-        url = "https://github.com/helm/chart-releaser/releases/download/v1.2.1/chart-releaser_1.2.1_linux_amd64.tar.gz"
-        response = requests.get(url, stream=True, timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")))
-        with tarfile.open(fileobj=response.raw, mode="r:gz") as file:
-            filename_re = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9._/-]*$")
-            members = [member for member in file.getmembers() if filename_re.match(member.name) is not None]
-            file.extractall(path=os.path.expanduser("~/.local/bin"), members=members)  # nosec
+        c2cciutils.scripts.download_applications.download_c2cciutils_applications("helm/chart-releaser")
 
         owner, repo = full_repo_split
         commit_sha = (
