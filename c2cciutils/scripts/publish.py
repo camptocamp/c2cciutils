@@ -223,7 +223,7 @@ def main() -> None:
                 break
 
         alt_tags = set()
-        if "Alternate Tag" in security.headers:
+        if "Alternate Tag" in security.headers and row_index >= 0:
             tag_index = security.headers.index("Alternate Tag")
             alt_tags = {t.strip() for t in security.data[row_index][tag_index].split(",")}
         if security.data[-1][version_index] == version:
