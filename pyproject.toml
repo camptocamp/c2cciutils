@@ -41,13 +41,6 @@ include = [
     "c2cciutils/*.graphql",
     "c2cciutils/*.yaml",
     "c2cciutils/*.json",
-    "c2cciutils/node_modules/snyk/bin/snyk",
-    "c2cciutils/node_modules/**/*.js",
-    "c2cciutils/node_modules/**/*.py",
-    "c2cciutils/node_modules/**/*.wasm",
-    "c2cciutils/node_modules/**/*.json",
-    "c2cciutils/node_modules/snyk/wrapper_dist/*",
-    "c2cciutils/node_modules/snyk/wrapper_dist/**",
 ]
 exclude = ["c2cciutils/node_modules/**/test"]
 
