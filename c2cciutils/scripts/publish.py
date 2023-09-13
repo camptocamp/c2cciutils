@@ -276,22 +276,23 @@ def main() -> None:
                             tag_dst = tag_config.format(version=docker_version)
                             if tag_dst not in tags_calendar:
                                 tags_calendar.append(tag_dst)
-                            image_dst = f"{image_conf['name']}:{tag_dst}"
                             if version_type in conf.get(
                                 "versions",
                                 c2cciutils.configuration.PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT,
                             ):
-                                current_alt_tag = [tag_config.format(version=alt_tag) for alt_tag in alt_tags]
+                                tags = [
+                                    tag_config.format(version=alt_tag)
+                                    for alt_tag in [docker_version, *alt_tags]
+                                ]
 
                                 if args.dry_run:
-                                    print(f"Publishing {image_dst} to {name}, skipping (dry run)")
-                                    for alt_tag in current_alt_tag:
+                                    for tag in tags:
                                         print(
-                                            f"Publishing {image_conf['name']}:{alt_tag} to {name}, skipping (dry run)"
+                                            f"Publishing {image_conf['name']}:{tag} to {name}, skipping (dry run)"
                                         )
                                 else:
                                     success &= c2cciutils.publish.docker(
-                                        conf, name, image_conf, tag_src, tag_dst, current_alt_tag, images_full
+                                        conf, name, image_conf, tag_src, tags, images_full
                                     )
 
                     if google_calendar_publish:
