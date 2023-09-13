@@ -336,8 +336,7 @@ def docker(
     name: str,
     image_config: c2cciutils.configuration.PublishDockerImage,
     tag_src: str,
-    tag_dst: str,
-    alt_tags: list[str],
+    dst_tags: list[str],
     images_full: list[str],
 ) -> bool:
     """
@@ -354,64 +353,43 @@ def docker(
         name: The repository name, just used to print messages
         image_config: The image config
         tag_src: The source tag (usually latest)
-        tag_dst: The tag used for publication
-        latest: Publish also the tag latest
-        alt_tags: Publish also to the provided tags
+        dst_tags: Publish using the provided tags
         images_full: The list of published images (with tag), used to build the dispatch event
     """
 
-    print(f"::group::Publishing {image_config['name']}:{tag_dst} to {name}")
+    print(
+        f"::group::Publishing {image_config['name']} to the server {name} using the tags {', '.join(dst_tags)}"
+    )
     sys.stdout.flush()
     sys.stderr.flush()
 
     try:
         new_images_full = []
         if "server" in config:
-            subprocess.run(
-                [
-                    "docker",
-                    "tag",
-                    f"{image_config['name']}:{tag_src}",
-                    f"{config['server']}/{image_config['name']}:{tag_dst}",
-                ],
-                check=True,
-            )
-            new_images_full.append(f"{config['server']}/{image_config['name']}:{tag_dst}")
-            for alt_tag in alt_tags:
+            for tag in dst_tags:
                 subprocess.run(
                     [
                         "docker",
                         "tag",
                         f"{image_config['name']}:{tag_src}",
-                        f"{config['server']}/{image_config['name']}:{alt_tag}",
+                        f"{config['server']}/{image_config['name']}:{tag}",
                     ],
                     check=True,
                 )
-                new_images_full.append(f"{config['server']}/{image_config['name']}:{alt_tag}")
+                new_images_full.append(f"{config['server']}/{image_config['name']}:{tag}")
         else:
-            if tag_src != tag_dst:
-                subprocess.run(
-                    [
-                        "docker",
-                        "tag",
-                        f"{image_config['name']}:{tag_src}",
-                        f"{image_config['name']}:{tag_dst}",
-                    ],
-                    check=True,
-                )
-            new_images_full.append(f"{image_config['name']}:{tag_dst}")
-            for alt_tag in alt_tags:
-                if tag_src != alt_tag:
+            for tag in dst_tags:
+                if tag_src != tag:
                     subprocess.run(
                         [
                             "docker",
                             "tag",
                             f"{image_config['name']}:{tag_src}",
-                            f"{image_config['name']}:{alt_tag}",
+                            f"{image_config['name']}:{tag}",
                         ],
                         check=True,
                     )
-                new_images_full.append(f"{image_config['name']}:{alt_tag}")
+                new_images_full.append(f"{image_config['name']}:{tag}")
 
         for image in new_images_full:
             subprocess.run(["docker", "push", image], check=True)
