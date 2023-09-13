@@ -558,6 +558,10 @@ def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: b
 
 def snyk_exec() -> tuple[str, dict[str, str]]:
     """Get the Snyk cli executable path."""
+
+    if not os.path.exists(os.path.join(os.path.dirname(__file__), "node_modules")):
+        subprocess.run(["npm", "install"], cwd=os.path.dirname(__file__), check=True)  # nosec
+
     env = {**os.environ}
     env["FORCE_COLOR"] = "true"
     if "SNYK_TOKEN" not in env:
