@@ -215,6 +215,9 @@ def main() -> None:
 
         security = c2cciutils.security.Security(security_text)
         version_index = security.headers.index("Version")
+        alternate_tag_index = (
+            security.headers.index("Alternate Tag") if "Alternate Tag" in security.headers else -1
+        )
 
         row_index = -1
         for index, row in enumerate(security.data):
@@ -223,11 +226,21 @@ def main() -> None:
                 break
 
         alt_tags = set()
-        if "Alternate Tag" in security.headers and row_index >= 0:
-            tag_index = security.headers.index("Alternate Tag")
-            alt_tags = {t.strip() for t in security.data[row_index][tag_index].split(",")}
+        if alternate_tag_index >= 0 and row_index >= 0:
+            alt_tags = {
+                t.strip() for t in security.data[row_index][alternate_tag_index].split(",") if t.strip()
+            }
         if security.data[-1][version_index] == version:
-            alt_tags.add("latest")
+            add_latest = True
+            for data in security.data:
+                row_tags = {t.strip() for t in data[alternate_tag_index].split(",") if t.strip()}
+                print(row_tags)
+                if "latest" in row_tags:
+                    print("latest found in ", row_tags)
+                    add_latest = False
+                    break
+            if add_latest:
+                alt_tags.add("latest")
 
         images_src: set[str] = set()
         images_full: list[str] = []
