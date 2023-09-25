@@ -108,7 +108,7 @@ debian-inspector = "31.0.0"
 PyYAML = "6.0.1"
 tomlkit = { version = "0.11.8", optional = true }
 certifi = "2023.7.22"
-cryptography = "41.0.3"
+cryptography = "41.0.4"
 pyOpenSSL = "23.2.0"
 Pygments = "2.15.1"
 
