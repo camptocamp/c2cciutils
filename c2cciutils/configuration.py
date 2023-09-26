@@ -222,6 +222,7 @@ Configuration = TypedDict(
         "publish": "Publish",
         "version": "Version",
         "k8s": "K8SConfiguration",
+        "dpkg": "Dpkg",
     },
     total=False,
 )
@@ -290,6 +291,28 @@ DispatchConfig = TypedDict(
     },
     total=False,
 )
+
+
+class Dpkg(TypedDict, total=False):
+    """
+    dpkg.
+
+    The configuration use t manage the dpkg packages
+    """
+
+    packages_mapping: dict[str, str]
+    """
+    dpkg packages mapping.
+
+    The mapping of source package found in the image to package present in repology.org
+    """
+
+    ignored_packages: list[str]
+    """
+    dpkg ignored packages.
+
+    The list of packages that should be ignored
+    """
 
 
 # K3d configuration.
