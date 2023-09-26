@@ -8,9 +8,13 @@ from typing import Optional, cast
 import yaml
 from debian_inspector.version import Version
 
+import c2cciutils.configuration
+
 
 def get_dpkg_packages_versions(
-    image: str, default_distribution: Optional[str] = None, default_release: Optional[str] = None
+    image: str,
+    default_distribution: Optional[str] = None,
+    default_release: Optional[str] = None,
 ) -> tuple[bool, dict[str, Version]]:
     """
     Get the versions of the dpkg packages installed in the image.
@@ -21,6 +25,8 @@ def get_dpkg_packages_versions(
     Where `debian_11` corresponds on last path element for 'Debian 11'
     from https://repology.org/repositories/statistics
     """
+
+    dpkg_configuration = c2cciutils.get_config().get("dpkg", {})
 
     os_release = {}
     try:
@@ -79,12 +85,14 @@ def get_dpkg_packages_versions(
                 if version is None:
                     print(f"Error: Missing version for package {package}")
                 else:
-                    if package in package_version and version != package_version[package]:
-                        print(
-                            f"The package {package} has different version ({package_version[package]} != {version})"
-                        )
-                    if package not in ("base-files",):
-                        package_version[package] = version
+                    if package not in dpkg_configuration.get("ignored_packages", []):
+                        package = dpkg_configuration.get("packages_mapping", {}).get(package, package)
+                        if package in package_version and version != package_version[package]:
+                            print(
+                                f"The package {package} has different version ({package_version[package]} != {version})"
+                            )
+                        if package not in ("base-files",):
+                            package_version[package] = version
             package = value
             version = None
         if name == "Source":
