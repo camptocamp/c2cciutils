@@ -615,6 +615,30 @@
           }
         }
       }
+    },
+    "dpkg": {
+      "title": "dpkg",
+      "description": "The configuration use t manage the dpkg packages",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "packages_mapping": {
+          "title": "dpkg packages mapping",
+          "description": "The mapping of source package found in the image to package present in repology.org",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ignored_packages": {
+          "title": "dpkg ignored packages",
+          "description": "The list of packages that should be ignored",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
