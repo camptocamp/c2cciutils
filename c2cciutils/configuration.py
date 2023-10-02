@@ -49,7 +49,20 @@ class Audit(TypedDict, total=False):
     """
 
     outdated_versions: "AuditOutdatedVersions"
+    """
+    Audit outdated versions.
+
+    Audit of outdated version
+    """
+
     snyk: "AuditWithSnyk"
+    """
+    Audit with snyk.
+
+    The audit snyk configuration
+
+    Aggregation type: oneOf
+    """
 
 
 AuditOutdatedVersions = bool
@@ -147,7 +160,7 @@ Audit with snyk.
 
 The audit snyk configuration
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -215,13 +228,61 @@ class Codespell(TypedDict, total=False):
 Configuration = TypedDict(
     "Configuration",
     {
+        # Print versions.
+        #
+        # The print versions configuration
         "print_versions": "PrintVersions",
+        # Codespell.
+        #
+        # The codespell check configuration
         "codespell": "Codespell",
+        # Audit.
+        #
+        # The audit configuration
+        #
+        # default:
+        #   outdated_versions: true
+        #   snyk: true
         "audit": "Audit",
+        # Pull request checks.
+        #
+        # The PR check configuration
+        #
+        # default:
+        #   add_issue_link: true
+        #   commits_messages: true
+        #   commits_spell: true
+        #   pull_request_labels: true
+        #   pull_request_spell: true
         "pr-checks": "PullRequestChecks",
+        # Publish.
+        #
+        # The publishing configurations
+        #
+        # default:
+        #   docker:
+        #     images: <auto-detected>
+        #   helm:
+        #     folders: <auto-detected>
+        #     versions:
+        #     - version_tag
+        #   pypi:
+        #     packages: <auto-detected>
+        #     versions:
+        #     - version_tag
         "publish": "Publish",
+        # Version.
+        #
+        # The version configurations
         "version": "Version",
+        # K8s configuration.
+        #
+        # default:
+        #   {}
         "k8s": "K8SConfiguration",
+        # dpkg.
+        #
+        # The configuration use t manage the dpkg packages
         "dpkg": "Dpkg",
     },
     total=False,
@@ -354,7 +415,22 @@ class K8SConfiguration(TypedDict, total=False):
     """
 
     k3d: "K3DConfiguration"
+    """
+    K3d configuration.
+
+    default:
+      {}
+    """
+
     db: "DbConfiguration"
+    """
+    DB configuration.
+
+    Database configuration
+
+    default:
+      {}
+    """
 
 
 K8S_CONFIGURATION_DEFAULT: dict[str, Any] = {}
@@ -566,9 +642,46 @@ class Publish(TypedDict, total=False):
     """
 
     docker: "PublishDocker"
+    """
+    Publish Docker.
+
+    The configuration used to publish on Docker
+
+    Aggregation type: oneOf
+    """
+
     pypi: "PublishPypi"
+    """
+    publish pypi.
+
+    Configuration to publish on pypi
+
+    default:
+      {}
+
+    Aggregation type: oneOf
+    """
+
     helm: "PublishHelm"
+    """
+    publish helm.
+
+    Configuration to publish Helm charts on GitHub release
+
+    Aggregation type: oneOf
+    """
+
     google_calendar: "PublishGoogleCalendar"
+    """
+    Publish Google calendar.
+
+    The configuration to publish on Google Calendar
+
+    default:
+      {}
+
+    Aggregation type: oneOf
+    """
 
 
 PublishDocker = Union["PublishDockerConfig", Literal[False]]
@@ -577,7 +690,7 @@ Publish Docker.
 
 The configuration used to publish on Docker
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -623,10 +736,11 @@ class PublishDockerConfig(TypedDict, total=False):
     default:
       {}
 
-    oneOf
+    Aggregation type: oneOf
     """
 
     snyk: "_PublishDockerConfigSnyk"
+    """ Checks the published images with Snyk """
 
 
 class PublishDockerImage(TypedDict, total=False):
@@ -684,7 +798,7 @@ The configuration to publish on Google Calendar
 default:
   {}
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -712,7 +826,7 @@ publish helm.
 
 Configuration to publish Helm charts on GitHub release
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -739,7 +853,7 @@ Configuration to publish on pypi
 default:
   {}
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -795,10 +909,37 @@ class PullRequestChecks(TypedDict, total=False):
     """
 
     commits_messages: "PullRequestChecksCommitsMessages"
+    """
+    pull request checks commits messages.
+
+    Check the pull request commits messages
+
+    Aggregation type: oneOf
+    """
+
     commits_spell: "PullRequestChecksCommitsSpelling"
+    """
+    pull request checks commits spelling.
+
+    Aggregation type: oneOf
+    """
+
     pull_request_spell: "PullRequestChecksPullRequestSpelling"
+    """
+    pull request checks pull request spelling.
+
+    Aggregation type: oneOf
+    """
+
     pull_request_labels: "PullRequestChecksRequestLabels"
+    """
+    pull request checks request labels.
+
+    According the create changelog configuration
+    """
+
     add_issue_link: "PullRequestChecksAddIssueLink"
+    """ pull request checks add issue link. """
 
 
 PullRequestChecksAddIssueLink = bool
@@ -811,7 +952,7 @@ pull request checks commits messages.
 
 Check the pull request commits messages
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -881,7 +1022,7 @@ PullRequestChecksCommitsSpelling = Union["PullRequestChecksCommitsSpellingConfig
 """
 pull request checks commits spelling.
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -904,7 +1045,7 @@ PullRequestChecksPullRequestSpelling = Union["PullRequestChecksPullRequestSpelli
 """
 pull request checks pull request spelling.
 
-oneOf
+Aggregation type: oneOf
 """
 
 
@@ -939,7 +1080,18 @@ class Version(TypedDict, total=False):
     """
 
     branch_to_version_re: "VersionTransform"
+    """
+    Version transform.
+
+    A version transformer definition
+    """
+
     tag_to_version_re: "VersionTransform"
+    """
+    Version transform.
+
+    A version transformer definition
+    """
 
 
 VersionTransform = list["_VersionTransformItem"]
@@ -977,7 +1129,7 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
     default:
       - --app-vulns
 
-    oneOf
+    Aggregation type: oneOf
     """
 
     test_args: Union[list[str], Literal[False]]
@@ -990,7 +1142,7 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
       - --app-vulns
       - --severity-threshold=critical
 
-    oneOf
+    Aggregation type: oneOf
     """
 
 
