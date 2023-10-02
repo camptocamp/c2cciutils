@@ -39,7 +39,7 @@ python = ">=3.10,<3.11"
 
 [tool.poetry.group.dev.dependencies]
 prospector = { version = "1.10.2", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
-prospector-profile-duplicated = "0.1.0"
+prospector-profile-duplicated = "0.3.0"
 
 [build-system]
 requires = [
