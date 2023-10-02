@@ -547,11 +547,11 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "multi-repo-automation"
-version = "0.3.1"
+version = "1.0.0"
 description = "Library for automation updates on multiple repositories."
 category = "main"
 optional = true
-python-versions = ">=3.8,<4.0"
+python-versions = ">=3.9,<4.0"
 
 [package.dependencies]
 configupdater = "*"
@@ -560,6 +560,7 @@ PyYAML = "*"
 requests = "*"
 "ruamel.yaml" = "*"
 tomlkit = "*"
+typing_extensions = "*"
 
 [package.extras]
 update-stabilization-branches = ["c2cciutils"]
@@ -1238,7 +1239,7 @@ python-versions = "*"
 name = "typing-extensions"
 version = "4.7.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -1295,7 +1296,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "7e82105f77efdfbf47cbdbc38245f0b3dda83e35e9d2e0794c6e497e60352649"
+content-hash = "8ca8ff5ebd55762f57614e61b2a7676499b20d8243e75a0ccbea1bac27132f13"
 
 [metadata.files]
 astroid = [
@@ -1663,8 +1664,8 @@ more-itertools = [
     {file = "more_itertools-10.1.0-py3-none-any.whl", hash = "sha256:64e0735fcfdc6f3464ea133afe8ea4483b1c5fe3a3d69852e6503b43a0b222e6"},
 ]
 multi-repo-automation = [
-    {file = "multi_repo_automation-0.3.1-py3-none-any.whl", hash = "sha256:1cf5a29fb196317f0b3252ccc7e215095afa358214755549c413d596512acb98"},
-    {file = "multi_repo_automation-0.3.1.tar.gz", hash = "sha256:a8fd0c2ef19e59accfec565f3165eb52b950628abe2abb565f5e33a0d81758ee"},
+    {file = "multi_repo_automation-1.0.0-py3-none-any.whl", hash = "sha256:9a261e6e99f123375bd511863b654a641a9289b6d3a4a40e9a8acf50223e212d"},
+    {file = "multi_repo_automation-1.0.0.tar.gz", hash = "sha256:b76387ab5f14850f422c5ceda75abd89b1b451a1cdc272fdeab87cea495eff28"},
 ]
 mypy = [
     {file = "mypy-1.5.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:f33592ddf9655a4894aef22d134de7393e95fcbdc2d15c1ab65828eee5c66c70"},
