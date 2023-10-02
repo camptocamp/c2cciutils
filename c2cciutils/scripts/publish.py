@@ -206,31 +206,31 @@ def main() -> None:
                 headers=c2cciutils.add_authorization_header({}),
                 timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
             )
-            if (
-                security_response.ok
-                and docker_config.get("latest", c2cciutils.configuration.PUBLISH_DOCKER_LATEST_DEFAULT)
-                is True
-            ):
+            if security_response.ok:
                 security_text = security_response.text
+            elif security_response.status_code != 404:
+                print(f"::error:: {security_response.status_code} {security_response.text}")
+                sys.exit(1)
 
         security = c2cciutils.security.Security(security_text)
-        version_index = security.headers.index("Version")
+        version_index = security.headers.index("Version") if "Version" in security.headers else -1
         alternate_tag_index = (
             security.headers.index("Alternate Tag") if "Alternate Tag" in security.headers else -1
         )
 
         row_index = -1
-        for index, row in enumerate(security.data):
-            if row[version_index] == version:
-                row_index = index
-                break
+        if version_index >= 0:
+            for index, row in enumerate(security.data):
+                if row[version_index] == version:
+                    row_index = index
+                    break
 
         alt_tags = set()
         if alternate_tag_index >= 0 and row_index >= 0:
             alt_tags = {
                 t.strip() for t in security.data[row_index][alternate_tag_index].split(",") if t.strip()
             }
-        if security.data[-1][version_index] == version:
+        if version_index >= 0 and security.data[-1][version_index] == version:
             add_latest = True
             for data in security.data:
                 row_tags = {t.strip() for t in data[alternate_tag_index].split(",") if t.strip()}
