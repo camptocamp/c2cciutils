@@ -9,6 +9,8 @@ import subprocess  # nosec
 import multi_repo_automation as mra
 import ruamel.yaml.comments
 
+import c2cciutils
+
 
 def main() -> None:
     """Create a new version with its stabilization branch."""
@@ -102,7 +104,27 @@ If you run the tool without any version it will check that everything is OK rega
 
     # # # Do the changes for the new version # # #
 
-    stabilization_branches = mra.get_stabilization_branches(repo)
+    remotes = [r for r in mra.run(["git", "remote"], stdout=subprocess.PIPE).stdout.split() if r != ""]
+    remote_branches = [
+        b.strip()[len("remotes/") :]
+        for b in mra.run(["git", "branch", "--all"], stdout=subprocess.PIPE).stdout.split()
+        if b != "" and b.strip().startswith("remotes/")
+    ]
+    if "upstream" in remotes:
+        remote_branches = [b[len("upstream") + 1 :] for b in remote_branches if b.startswith("upstream/")]
+    elif "origin" in remotes:
+        remote_branches = [b[len("origin") + 1 :] for b in remote_branches if b.startswith("origin/")]
+    else:
+        remote_branches = ["/".join(b.split("/")[1:]) for b in remote_branches]
+
+    config = c2cciutils.get_config()
+    branch_re = c2cciutils.compile_re(config["version"].get("branch_to_version_re", []))
+    branches_match = [c2cciutils.match(b, branch_re) for b in remote_branches]
+    version_branch = {m.groups()[0] if m.groups() else b: b for m, c, b in branches_match if m is not None}
+
+    stabilization_branches = [
+        version_branch.get(version, version) for version in mra.get_stabilization_versions(repo)
+    ]
     modified_files = []
 
     if version:
