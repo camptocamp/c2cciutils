@@ -83,6 +83,7 @@ PyYAML = "6.0.1"
 tomlkit = { version = "0.12.1", optional = true }
 multi-repo-automation = { version="0.3.1", optional = true }
 cryptography = "41.0.4"
+urllib3 = "2.0.6"
 
 [tool.poetry.extras]
 audit = []
