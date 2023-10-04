@@ -111,6 +111,7 @@ certifi = "2023.7.22"
 cryptography = "41.0.4"
 pyOpenSSL = "23.2.0"
 Pygments = "2.15.1"
+urllib3 = "1.26.17"
 
 [tool.poetry.extras]
 audit = []
