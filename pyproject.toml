@@ -112,6 +112,7 @@ protobuf = { version = "4.21.12", optional = true }
 cryptography = "41.0.4"
 certifi = "2023.7.22"
 Pygments = "2.15.1"
+urllib3 = { version = "1.26.17", optional = true }
 
 [tool.poetry.extras]
 audit = ["pipenv"]
