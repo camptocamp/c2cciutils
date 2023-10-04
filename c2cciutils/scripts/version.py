@@ -199,7 +199,7 @@ If you run the tool without any version it will check that everything is OK rega
         "create",
         f"--title={message}",
         "--body=",
-        "--head=new_version",
+        f"--head={branch_name}",
         f"--base={repo.get('master_branch', 'master')}",
     )
 
