@@ -175,7 +175,9 @@ If you run the tool without any version it will check that everything is OK rega
                         renovate_config.data,
                     )
                 else:
-                    renovate_config.add({"baseBranches": stabilization_branches_with_master}, "baseBranches")
+                    renovate_config.add(
+                        f"baseBranches: {json.dumps(stabilization_branches_with_master)},\n", "baseBranches"
+                    )
 
     if stabilization_branches and os.path.exists(".github/workflows/audit.yaml"):
         modified_files.append(".github/workflows/audit.yaml")
