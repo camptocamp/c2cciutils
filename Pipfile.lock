@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f634a0c70364b7eba03481d4deaa751f649ac75142a4eeb3293f0d080e94a6c1"
+            "sha256": "cc34d0631c8b1fa5dbae47d6a9f9971cdf4f032efa452980de337da88a816482"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -835,11 +835,11 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:24d6a242c28d29af46c3fae832c36db3bbebcc533dd1bb549172cd739c82df21",
-                "sha256:94a757d178c9be92ef5539b8840d48dc9cf1b2709c9d6b588232a055c524458b"
+                "sha256:34b97092d7e0a3a8cf7cd10e386f401b3737364026c45e622aa02903dffe0f07",
+                "sha256:f8ecc1bba5667413457c529ab955bf8c67b45db799d159066261719e328580a0"
             ],
             "index": "pypi",
-            "version": "==1.26.17"
+            "version": "==1.26.18"
         },
         "virtualenv": {
             "hashes": [
@@ -896,7 +896,7 @@
                 "sha256:76b122c08ef4ce2eedcd4d1abd8e641114bfc6c2867f49f3c41facf65bf19f5e",
                 "sha256:cc1c8b182eb3013e24bd475ff2e9295af86c1a38eb1aff128dac8962a9ce3c03"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==0.3.7"
         },
         "dodgy": {
@@ -1011,7 +1011,7 @@
                 "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
                 "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==0.1.2"
         },
         "mypy": {
@@ -1221,7 +1221,7 @@
                 "sha256:2b38e2fe9ca72c9a00170a1a2d20c63c790d0e10ef1fe35eba76e1e7b1d7d245",
                 "sha256:5c14d22737e6d5084ef4771b62d5d4363165b403455a30a1c8ca39dc7b644bef"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==13.6.0"
         },
         "setoptconf-tmp": {
