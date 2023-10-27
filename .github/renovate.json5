@@ -108,5 +108,10 @@
       matchPackageNames: ['python'],
       enabled: false,
     },
+    /** Disable node-vm2 upgrade */
+    {
+      matchPackageNames: ['node-vm2'],
+      enabled: false,
+    },
   ],
 }
