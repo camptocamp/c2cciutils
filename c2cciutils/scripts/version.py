@@ -175,7 +175,9 @@ If you run the tool without any version it will check that everything is OK rega
                         renovate_config.data,
                     )
                 else:
-                    renovate_config.add({"baseBranches": stabilization_branches_with_master}, "baseBranches")
+                    renovate_config.add(
+                        f"baseBranches: {json.dumps(stabilization_branches_with_master)},\n", "baseBranches"
+                    )
 
     if stabilization_branches and os.path.exists(".github/workflows/audit.yaml"):
         modified_files.append(".github/workflows/audit.yaml")
@@ -220,23 +222,22 @@ If you run the tool without any version it will check that everything is OK rega
     )
 
     # Create a pull request
-    url_proc = mra.gh(
+    url = mra.gh(
         "pr",
         "create",
         f"--title={message}",
         "--body=",
         f"--head={branch_name}",
         f"--base={repo.get('master_branch', 'master')}",
-    )
+    ).strip()
 
     # Go back to your old branch
     subprocess.run(["git", "checkout", old_branch_name, "--"], check=True)
 
-    url = url_proc.stdout.strip()
-    if url_proc.returncode != 0 or not url:
-        mra.gh("browse")
-    else:
+    if url:
         subprocess.run([mra.get_browser(), url], check=True)
+    else:
+        mra.gh("browse")
 
 
 if __name__ == "__main__":
