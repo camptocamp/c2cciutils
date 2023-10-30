@@ -32,7 +32,7 @@ class Security:
         markdown_instance = markdown.Markdown(extensions=[TableExtension()])
 
         elem = markdown_instance.parser.parseDocument(
-            [s for s in status.split("\n") if s != "" and s[0] != "#" and s[0] != "["]
+            [s for s in status.split("\n") if s != "" and s[0] == "|"]
         )
         self._pe(elem.getroot())
 
