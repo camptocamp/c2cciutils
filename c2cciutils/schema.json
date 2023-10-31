@@ -12,51 +12,51 @@
       "type": "boolean"
     },
     "audit_snyk": {
-      "title": "Audit with snyk",
-      "description": "The audit snyk configuration",
+      "title": "Audit with Snyk",
+      "description": "The audit Snyk configuration",
       "oneOf": [
         {
-          "title": "Audit snyk config",
+          "title": "Audit Snyk config",
           "description": "The audit Pipfile configuration",
           "type": "object",
           "properties": {
             "test_arguments": {
-              "description": "The snyk test arguments",
+              "description": "The Snyk test arguments",
               "title": "audit snyk test arguments",
               "default": ["--all-projects", "--fail-on=all", "--severity-threshold=medium"],
               "type": "array",
               "items": { "type": "string" }
             },
             "monitor_arguments": {
-              "description": "The snyk monitor arguments",
+              "description": "The Snyk monitor arguments",
               "title": "audit snyk monitor arguments",
               "default": ["--all-projects"],
               "type": "array",
               "items": { "type": "string" }
             },
             "fix_arguments": {
-              "description": "The snyk fix arguments",
+              "description": "The Snyk fix arguments",
               "title": "audit snyk fix arguments",
               "default": ["--all-projects"],
               "type": "array",
               "items": { "type": "string" }
             },
             "fix_github_create_pull_request_arguments": {
-              "description": "The snyk fix pull request extra arguments",
+              "description": "The Snyk fix pull request extra arguments",
               "title": "audit snyk fix pull request arguments",
               "default": ["--fill", "--label=dependencies"],
               "type": "array",
               "items": { "type": "string" }
             },
             "pip_install_arguments": {
-              "description": "The snyk pip install arguments",
+              "description": "The Snyk pip install arguments",
               "title": "audit snyk pip install arguments",
               "default": ["--user"],
               "type": "array",
               "items": { "type": "string" }
             },
             "pipenv_sync_arguments": {
-              "description": "The snyk pipenv sync arguments",
+              "description": "The Snyk pipenv sync arguments",
               "title": "audit snyk pipenv sync arguments",
               "default": [],
               "type": "array",
@@ -304,7 +304,7 @@
               "properties": {
                 "monitor_args": {
                   "description": "The arguments to pass to the Snyk container monitor command",
-                  "title": "Publish docker snyk monitor args",
+                  "title": "Publish Docker Snyk monitor args",
                   "default": ["--app-vulns"],
                   "oneOf": [
                     {
@@ -318,7 +318,7 @@
                 },
                 "test_args": {
                   "description": "The arguments to pass to the Snyk container test command",
-                  "title": "Publish docker snyk test args",
+                  "title": "Publish Docker Snyk test args",
                   "default": ["--app-vulns", "--severity-threshold=critical"],
                   "oneOf": [
                     {

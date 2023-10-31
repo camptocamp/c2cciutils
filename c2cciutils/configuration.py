@@ -10,31 +10,31 @@ AUDIT_DEFAULT = {"snyk": True, "outdated_versions": True}
 
 
 AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: list[Any] = []
-""" Default value of the field path 'Audit snyk config files_no_install' """
+""" Default value of the field path 'Audit Snyk config files_no_install' """
 
 
 AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
-""" Default value of the field path 'Audit snyk config fix_arguments' """
+""" Default value of the field path 'Audit Snyk config fix_arguments' """
 
 
 AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT = ["--fill", "--label=dependencies"]
-""" Default value of the field path 'Audit snyk config fix_github_create_pull_request_arguments' """
+""" Default value of the field path 'Audit Snyk config fix_github_create_pull_request_arguments' """
 
 
 AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
-""" Default value of the field path 'Audit snyk config monitor_arguments' """
+""" Default value of the field path 'Audit Snyk config monitor_arguments' """
 
 
 AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT: list[Any] = []
-""" Default value of the field path 'Audit snyk config pipenv_sync_arguments' """
+""" Default value of the field path 'Audit Snyk config pipenv_sync_arguments' """
 
 
 AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT = ["--user"]
-""" Default value of the field path 'Audit snyk config pip_install_arguments' """
+""" Default value of the field path 'Audit Snyk config pip_install_arguments' """
 
 
 AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
-""" Default value of the field path 'Audit snyk config test_arguments' """
+""" Default value of the field path 'Audit Snyk config test_arguments' """
 
 
 class Audit(TypedDict, total=False):
@@ -57,9 +57,9 @@ class Audit(TypedDict, total=False):
 
     snyk: "AuditWithSnyk"
     """
-    Audit with snyk.
+    Audit with Snyk.
 
-    The audit snyk configuration
+    The audit Snyk configuration
 
     Aggregation type: oneOf
     """
@@ -75,7 +75,7 @@ Audit of outdated version
 
 class AuditSnykConfig(TypedDict, total=False):
     """
-    Audit snyk config.
+    Audit Snyk config.
 
     The audit Pipfile configuration
     """
@@ -84,7 +84,7 @@ class AuditSnykConfig(TypedDict, total=False):
     """
     audit snyk test arguments.
 
-    The snyk test arguments
+    The Snyk test arguments
 
     default:
       - --all-projects
@@ -96,7 +96,7 @@ class AuditSnykConfig(TypedDict, total=False):
     """
     audit snyk monitor arguments.
 
-    The snyk monitor arguments
+    The Snyk monitor arguments
 
     default:
       - --all-projects
@@ -106,7 +106,7 @@ class AuditSnykConfig(TypedDict, total=False):
     """
     audit snyk fix arguments.
 
-    The snyk fix arguments
+    The Snyk fix arguments
 
     default:
       - --all-projects
@@ -116,7 +116,7 @@ class AuditSnykConfig(TypedDict, total=False):
     """
     audit snyk fix pull request arguments.
 
-    The snyk fix pull request extra arguments
+    The Snyk fix pull request extra arguments
 
     default:
       - --fill
@@ -127,7 +127,7 @@ class AuditSnykConfig(TypedDict, total=False):
     """
     audit snyk pip install arguments.
 
-    The snyk pip install arguments
+    The Snyk pip install arguments
 
     default:
       - --user
@@ -137,7 +137,7 @@ class AuditSnykConfig(TypedDict, total=False):
     """
     audit snyk pipenv sync arguments.
 
-    The snyk pipenv sync arguments
+    The Snyk pipenv sync arguments
 
     default:
       []
@@ -156,9 +156,9 @@ class AuditSnykConfig(TypedDict, total=False):
 
 AuditWithSnyk = Union["AuditSnykConfig", bool]
 """
-Audit with snyk.
+Audit with Snyk.
 
-The audit snyk configuration
+The audit Snyk configuration
 
 Aggregation type: oneOf
 """
@@ -1122,7 +1122,7 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
 
     monitor_args: Union[list[str], Literal[False]]
     """
-    Publish docker snyk monitor args.
+    Publish Docker Snyk monitor args.
 
     The arguments to pass to the Snyk container monitor command
 
@@ -1134,7 +1134,7 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
 
     test_args: Union[list[str], Literal[False]]
     """
-    Publish docker snyk test args.
+    Publish Docker Snyk test args.
 
     The arguments to pass to the Snyk container test command
 

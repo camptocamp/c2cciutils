@@ -21,11 +21,11 @@ ApplicationConfiguration = TypedDict(
         "type": "TheTypeOfFile",
         # The filename to get.
         #
-        # The filename to get in the GitHub release
+        # The name of the file to get in the GitHub release
         "get-file-name": str,
         # The created tile name.
         #
-        # The name of the final tile name we will create
+        # The name of the final tile we will create
         "to-file-name": str,
         # The tile name to get in the tar file.
         "tar-file-name": str,

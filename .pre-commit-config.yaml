@@ -153,5 +153,8 @@ repos:
             |c2cciutils/schema\-applications\.json
           )$
         args:
-          - --fields=description,title
+          - --fields=description
           - --spelling=.github/spell-ignore-words.txt
+          - --ignore-numbers
+          - --ignore-acronyms
+          - --en-us

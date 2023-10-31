@@ -23,12 +23,12 @@
       },
       "get-file-name": {
         "title": "The filename to get",
-        "description": "The filename to get in the GitHub release",
+        "description": "The name of the file to get in the GitHub release",
         "type": "string"
       },
       "to-file-name": {
         "title": "The created tile name",
-        "description": "The name of the final tile name we will create",
+        "description": "The name of the final tile we will create",
         "type": "string"
       },
       "tar-file-name": {
