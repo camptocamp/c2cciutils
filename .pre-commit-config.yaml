@@ -143,3 +143,18 @@ repos:
           - --output-format=pylint
         additional_dependencies:
           - prospector-profile-duplicated==0.3.0 # pypi
+  - repo: https://github.com/mheap/json-schema-spell-checker
+    rev: master
+    hooks:
+      - id: json-schema-spell-checker
+        files: |-
+          (?x)^(
+            c2cciutils/schema\.json
+            |c2cciutils/schema\-applications\.json
+          )$
+        args:
+          - --fields=description
+          - --spelling=.github/spell-ignore-words.txt
+          - --ignore-numbers
+          - --ignore-acronyms
+          - --en-us

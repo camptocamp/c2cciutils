@@ -40,20 +40,20 @@ _C2C CI utils configuration file_
 ## Definitions
 
 - <a id="definitions/audit_outdated_versions"></a>**`audit_outdated_versions`** _(boolean)_: Audit of outdated version.
-- <a id="definitions/audit_snyk"></a>**`audit_snyk`**: The audit snyk configuration.
+- <a id="definitions/audit_snyk"></a>**`audit_snyk`**: The audit Snyk configuration.
   - **One of**
     - _object_: The audit Pipfile configuration.
-      - **`test_arguments`** _(array)_: The snyk test arguments. Default: `["--all-projects", "--fail-on=all", "--severity-threshold=medium"]`.
+      - **`test_arguments`** _(array)_: The Snyk test arguments. Default: `["--all-projects", "--fail-on=all", "--severity-threshold=medium"]`.
         - **Items** _(string)_
-      - **`monitor_arguments`** _(array)_: The snyk monitor arguments. Default: `["--all-projects"]`.
+      - **`monitor_arguments`** _(array)_: The Snyk monitor arguments. Default: `["--all-projects"]`.
         - **Items** _(string)_
-      - **`fix_arguments`** _(array)_: The snyk fix arguments. Default: `["--all-projects"]`.
+      - **`fix_arguments`** _(array)_: The Snyk fix arguments. Default: `["--all-projects"]`.
         - **Items** _(string)_
-      - **`fix_github_create_pull_request_arguments`** _(array)_: The snyk fix pull request extra arguments. Default: `["--fill", "--label=dependencies"]`.
+      - **`fix_github_create_pull_request_arguments`** _(array)_: The Snyk fix pull request extra arguments. Default: `["--fill", "--label=dependencies"]`.
         - **Items** _(string)_
-      - **`pip_install_arguments`** _(array)_: The snyk pip install arguments. Default: `["--user"]`.
+      - **`pip_install_arguments`** _(array)_: The Snyk pip install arguments. Default: `["--user"]`.
         - **Items** _(string)_
-      - **`pipenv_sync_arguments`** _(array)_: The snyk pipenv sync arguments. Default: `[]`.
+      - **`pipenv_sync_arguments`** _(array)_: The Snyk pipenv sync arguments. Default: `[]`.
         - **Items** _(string)_
       - **`files_no_install`** _(array)_: The list of files to not install. Default: `[]`.
         - **Items** _(string)_
