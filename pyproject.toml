@@ -108,7 +108,7 @@ requires = [
     "poetry-dynamic-versioning[plugin]>=0.19.0",
     "poetry-plugin-tweak-dependencies-version",
     "poetry-dynamic-versioning",
-    "poetry-plugin-drop-python-upper-constraint",
+    # "poetry-plugin-drop-python-upper-constraint",
 ]
 build-backend = "poetry.core.masonry.api"
 
