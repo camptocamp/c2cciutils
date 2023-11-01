@@ -42,15 +42,16 @@ FROM base AS run
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+COPY .nvmrc /tmp
 RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
-    . /etc/os-release \
-    && apt-get update \
+    apt-get update \
     && apt-get --assume-yes upgrade \
     && apt-get install --assume-yes --no-install-recommends apt-transport-https gnupg curl \
-    && echo "deb https://deb.nodesource.com/node_16.x ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/nodesource.list \
-    && curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+    && NODE_MAJOR="$(cat /tmp/.nvmrc)" \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_${NODE_MAJOR}.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
+    && curl --silent https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor --output=/etc/apt/keyrings/nodesource.gpg \
     && apt-get update \
-    && apt-get install --assume-yes --no-install-recommends nodejs libmagic1 git python3-dev libpq-dev gcc python-is-python3
+    && apt-get install --assume-yes --no-install-recommends "nodejs=${NODE_MAJOR}.*" libmagic1 git python3-dev libpq-dev gcc python-is-python3
 
 RUN python3 -m compileall -q -- *
 
