@@ -5,3 +5,4 @@
 !poetry.lock
 !c2cciutils/
 c2cciutils/node_modules
+!.nvmrc
