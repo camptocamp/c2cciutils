@@ -42,7 +42,7 @@ repos:
       - id: check-poetry
       - id: lock-poetry
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.2.6
     hooks:
       - id: codespell
         exclude: ^(.*/)?poetry\.lock$
@@ -93,7 +93,7 @@ repos:
         args:
           - --py38-plus
   - repo: https://github.com/PyCQA/prospector
-    rev: 1.10.2
+    rev: v1.10.3
     hooks:
       - id: prospector
         args:
