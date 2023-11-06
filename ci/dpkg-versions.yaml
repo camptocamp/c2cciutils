@@ -35,7 +35,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/hostname: 3.23ubuntu2
   ubuntu_22_04/init-system-helpers: '1.62'
   ubuntu_22_04/keyutils: 1.6.1-2ubuntu3
-  ubuntu_22_04/krb5: 1.19.2-2ubuntu0.2
+  ubuntu_22_04/krb5: 1.19.2-2ubuntu0.3
   ubuntu_22_04/libassuan: 2.5.5-1build1
   ubuntu_22_04/libcap-ng: 0.7.9-2.2build3
   ubuntu_22_04/libcap2: 2.44-1build3
