@@ -572,3 +572,59 @@ def snyk_exec() -> tuple[str, dict[str, str]]:
         subprocess.run(["snyk", "config", "set", f"org={env['SNYK_ORG']}"], check=True, env=env)
 
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), "node_modules/snyk/bin/snyk"), env
+
+
+def create_pull_request_if_needed(
+    current_branch: str,
+    new_branch: str,
+    commit_message: str,
+    pull_request_extra_arguments: Optional[list[str]] = None,
+) -> bool:
+    """
+    Create a pull request if there are changes.
+    """
+
+    if pull_request_extra_arguments is None:
+        pull_request_extra_arguments = []
+
+    diff_proc = subprocess.run(["git", "diff", "--quiet"])  # pylint: disable=subprocess-run-check
+    if diff_proc.returncode != 0:
+        print("::group::Diff")
+        sys.stdout.flush()
+        sys.stderr.flush()
+        subprocess.run(["git", "diff"], check=True)
+        print("::endgroup::")
+
+        git_hash = subprocess.run(
+            ["git", "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE, encoding="utf-8"
+        ).stdout.strip()
+        subprocess.run(["git", "checkout", "-b", new_branch], check=True)
+        subprocess.run(["git", "add", "--all"], check=True)
+        subprocess.run(["git", "commit", f"--message={commit_message}"], check=True)
+        if os.environ.get("TEST") != "TRUE":
+            subprocess.run(
+                ["git", "push", "--force", "origin", f"snyk-fix/{current_branch}"],
+                check=True,
+            )
+            env = os.environ.copy()
+            if "GH_TOKEN" not in env:
+                if "GITHUB_TOKEN" in env:
+                    env["GH_TOKEN"] = env["GITHUB_TOKEN"]
+                else:
+                    env["GH_TOKEN"] = str(c2cciutils.gopass("gs/ci/github/token/gopass"))
+            subprocess.run(
+                [
+                    "gh",
+                    "pr",
+                    "create",
+                    f"--base={current_branch}",
+                    *pull_request_extra_arguments,
+                ],
+                check=True,
+                env=env,
+            )
+        else:
+            subprocess.run(["git", "reset", "--hard"], check=True)
+        subprocess.run(["git", "checkout", git_hash], check=True)
+
+    return diff_proc.returncode != 0
