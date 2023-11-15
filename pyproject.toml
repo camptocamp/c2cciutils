@@ -63,6 +63,7 @@ c2cciutils-docker-logs = "c2cciutils.scripts.docker_logs:main"
 c2cciutils-trigger-image-update = "c2cciutils.scripts.trigger_image_update:main"
 c2cciutils-download-applications = "c2cciutils.scripts.download_applications:main"
 c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
+c2cciutils-docker-versions-update = "c2cciutils.scripts.docker_versions_update:main"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
