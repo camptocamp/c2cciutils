@@ -162,54 +162,19 @@ def snyk(
     print("::endgroup::")
 
     if not args.fix:
-        diff_proc = subprocess.run(["git", "diff", "--quiet"])  # pylint: disable=subprocess-run-check
-        if diff_proc.returncode != 0:
-            print("::error::There is some changes to commit")
-            print("::group::Diff")
-            sys.stdout.flush()
-            sys.stderr.flush()
-            subprocess.run(["git", "diff"], check=True)
-            print("::endgroup::")
+        current_branch = c2cciutils.get_branch(args.branch)
+        fix_github_create_pull_request_arguments = config.get(
+            "fix_github_create_pull_request_arguments",
+            c2cciutils.configuration.AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT,
+        )
+        has_diff = c2cciutils.create_pull_request_if_needed(
+            current_branch,
+            f"snyk-fix/{current_branch}",
+            "Snyk auto fix",
+            [f"--body={snyk_fix_message}", *fix_github_create_pull_request_arguments],
+        )
 
-            current_branch = c2cciutils.get_branch(args.branch)
-            git_hash = subprocess.run(
-                ["git", "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE, encoding="utf-8"
-            ).stdout.strip()
-            subprocess.run(["git", "checkout", "-b", f"snyk-fix/{current_branch}"], check=True)
-            subprocess.run(["git", "add", "--all"], check=True)
-            subprocess.run(["git", "commit", "--message=Snyk auto fix"], check=True)
-            if os.environ.get("TEST") != "TRUE":
-                subprocess.run(
-                    ["git", "push", "--force", "origin", f"snyk-fix/{current_branch}"],
-                    check=True,
-                )
-                env = os.environ.copy()
-                if "GH_TOKEN" not in env:
-                    if "GITHUB_TOKEN" in env:
-                        env["GH_TOKEN"] = env["GITHUB_TOKEN"]
-                    else:
-                        env["GH_TOKEN"] = str(c2cciutils.gopass("gs/ci/github/token/gopass"))
-                fix_github_create_pull_request_arguments = config.get(
-                    "fix_github_create_pull_request_arguments",
-                    c2cciutils.configuration.AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT,
-                )
-                subprocess.run(
-                    [
-                        "gh",
-                        "pr",
-                        "create",
-                        f"--base={current_branch}",
-                        f"--body={snyk_fix_message}",
-                        *fix_github_create_pull_request_arguments,
-                    ],
-                    check=True,
-                    env=env,
-                )
-            else:
-                subprocess.run(["git", "reset", "--hard"], check=True)
-            subprocess.run(["git", "checkout", git_hash], check=True)
-
-    return install_success and test_success and diff_proc.returncode == 0
+    return install_success and test_success and not has_diff
 
 
 def outdated_versions(
