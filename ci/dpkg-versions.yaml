@@ -63,7 +63,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/mpdecimal: 2.5.1-2build2
   ubuntu_22_04/ncurses: 6.3-2ubuntu0.1
   ubuntu_22_04/nettle: 3.7.3-1build2
-  ubuntu_22_04/nghttp2: 1.43.0-1build3
+  ubuntu_22_04/nghttp2: 1.43.0-1ubuntu0.1
   ubuntu_22_04/nodejs: 16.17.1-deb-1nodesource1
   ubuntu_22_04/npth: 1.6-3build2
   ubuntu_22_04/openldap: 2.5.16+dfsg-0ubuntu0.22.04.1
