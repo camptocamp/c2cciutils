@@ -73,7 +73,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/mpfr4: 4.1.0-3build3
   ubuntu_22_04/ncurses: 6.3-2ubuntu0.1
   ubuntu_22_04/nettle: 3.7.3-1build2
-  ubuntu_22_04/nghttp2: 1.43.0-1build3
+  ubuntu_22_04/nghttp2: 1.43.0-1ubuntu0.1
   ubuntu_22_04/node-jquery: 3.6.0+dfsg+~3.5.13-1
   ubuntu_22_04/nodejs: 16.17.1-deb-1nodesource1
   ubuntu_22_04/npth: 1.6-3build2
