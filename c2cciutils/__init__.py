@@ -603,7 +603,7 @@ def create_pull_request_if_needed(
         subprocess.run(["git", "commit", f"--message={commit_message}"], check=True)
         if os.environ.get("TEST") != "TRUE":
             subprocess.run(
-                ["git", "push", "--force", "origin", f"snyk-fix/{current_branch}"],
+                ["git", "push", "--force", "origin", new_branch],
                 check=True,
             )
             env = os.environ.copy()
