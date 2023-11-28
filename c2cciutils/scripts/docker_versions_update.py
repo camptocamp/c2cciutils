@@ -27,6 +27,8 @@ def main() -> None:
                 if dist not in cache:
                     correspondence = {
                         "ubuntu_22_04": ("22.04", "jammy"),
+                        "debian_11": ("11", "bullseye"),
+                        "debian_12": ("12", "bookworm"),
                     }
                     if dist in correspondence:
                         tag, dist_name = correspondence[dist]
