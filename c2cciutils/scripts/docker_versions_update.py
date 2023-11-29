@@ -49,22 +49,23 @@ def main() -> None:
                             ],
                             check=True,
                         )
-                        # Create a temporary file
-                        with tempfile.NamedTemporaryFile(mode="w", encoding=("utf-8")) as sources_list:
-                            sources_list.write(
-                                "\n".join(
-                                    [
-                                        f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security main restricted",
-                                        f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security universe",
-                                        f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security multiverse",
-                                        "",
-                                    ]
+                        if images == "ubuntu":
+                            with tempfile.NamedTemporaryFile(mode="w", encoding=("utf-8")) as sources_list:
+                                sources_list.write(
+                                    "\n".join(
+                                        [
+                                            f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security main restricted",
+                                            f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security universe",
+                                            f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security multiverse",
+                                            "",
+                                        ]
+                                    )
                                 )
-                            )
-                            sources_list.flush()
-                            subprocess.run(
-                                ["docker", "cp", sources_list.name, "apt:/etc/apt/sources.list"], check=True
-                            )
+                                sources_list.flush()
+                                subprocess.run(
+                                    ["docker", "cp", sources_list.name, "apt:/etc/apt/sources.list"],
+                                    check=True,
+                                )
 
                         subprocess.run(["docker", "exec", "apt", "apt-get", "update"], check=True)
 
