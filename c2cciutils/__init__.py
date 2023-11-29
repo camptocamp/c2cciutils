@@ -585,7 +585,7 @@ def create_pull_request_if_needed(
     """
 
     if pull_request_extra_arguments is None:
-        pull_request_extra_arguments = []
+        pull_request_extra_arguments = ["--fill"]
 
     diff_proc = subprocess.run(["git", "diff", "--quiet"])  # pylint: disable=subprocess-run-check
     if diff_proc.returncode != 0:
