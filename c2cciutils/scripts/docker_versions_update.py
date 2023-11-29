@@ -26,12 +26,12 @@ def main() -> None:
                 dist, package = package_full.split("/")
                 if dist not in cache:
                     correspondence = {
-                        "ubuntu_22_04": ("22.04", "jammy"),
-                        "debian_11": ("11", "bullseye"),
-                        "debian_12": ("12", "bookworm"),
+                        "ubuntu_22_04": ("ubuntu", "22.04", "jammy"),
+                        "debian_11": ("debian", "11", "bullseye"),
+                        "debian_12": ("debian", "12", "bookworm"),
                     }
                     if dist in correspondence:
-                        tag, dist_name = correspondence[dist]
+                        images, tag, dist_name = correspondence[dist]
                         subprocess.run(
                             ["docker", "rm", "--force", "apt"], stderr=subprocess.DEVNULL, check=False
                         )
@@ -44,7 +44,7 @@ def main() -> None:
                                 "--detach",
                                 "--name=apt",
                                 "--entrypoint=",
-                                f"ubuntu:{tag}",
+                                f"{images}:{tag}",
                                 "tail",
                                 "--follow",
                                 "/dev/null",
