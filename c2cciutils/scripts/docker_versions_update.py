@@ -1,6 +1,7 @@
 import argparse
 import re
 import subprocess  # nosec
+import sys
 import tempfile
 
 import ruamel.yaml
@@ -91,9 +92,12 @@ def main() -> None:
         yaml.dump(versions_config, versions_file)
 
     current_branch = c2cciutils.get_branch(args.branch)
-    c2cciutils.create_pull_request_if_needed(
+    has_diff = c2cciutils.create_pull_request_if_needed(
         current_branch, f"dpkg-update/{current_branch}", "Update dpkg package versions"
     )
+    if has_diff:
+        print("There is a diff, please check the pull request")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
