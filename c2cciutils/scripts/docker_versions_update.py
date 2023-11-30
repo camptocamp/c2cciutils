@@ -2,7 +2,6 @@ import argparse
 import re
 import subprocess  # nosec
 import sys
-import tempfile
 
 import ruamel.yaml
 
@@ -27,12 +26,12 @@ def main() -> None:
                 dist, package = package_full.split("/")
                 if dist not in cache:
                     correspondence = {
-                        "ubuntu_22_04": ("ubuntu", "22.04", "jammy"),
-                        "debian_11": ("debian", "11", "bullseye"),
-                        "debian_12": ("debian", "12", "bookworm"),
+                        "ubuntu_22_04": ("ubuntu", "22.04"),
+                        "debian_11": ("debian", "11"),
+                        "debian_12": ("debian", "12"),
                     }
                     if dist in correspondence:
-                        images, tag, dist_name = correspondence[dist]
+                        images, tag = correspondence[dist]
                         subprocess.run(
                             ["docker", "rm", "--force", "apt"], stderr=subprocess.DEVNULL, check=False
                         )
@@ -52,23 +51,6 @@ def main() -> None:
                             ],
                             check=True,
                         )
-                        if images == "ubuntu":
-                            with tempfile.NamedTemporaryFile(mode="w", encoding=("utf-8")) as sources_list:
-                                sources_list.write(
-                                    "\n".join(
-                                        [
-                                            f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security main restricted",
-                                            f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security universe",
-                                            f"deb http://archive.ubuntu.com/ubuntu/ {dist_name}-security multiverse",
-                                            "",
-                                        ]
-                                    )
-                                )
-                                sources_list.flush()
-                                subprocess.run(
-                                    ["docker", "cp", sources_list.name, "apt:/etc/apt/sources.list"],
-                                    check=True,
-                                )
 
                         subprocess.run(["docker", "exec", "apt", "apt-get", "update"], check=True)
 
