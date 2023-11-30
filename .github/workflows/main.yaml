@@ -11,13 +11,17 @@ on:
       - example-project/**
   pull_request:
 
+permissions:
+  actions: write
+  contents: write
+
 env:
   HAS_SECRETS: ${{ secrets.HAS_SECRETS }}
 
 jobs:
   main:
-    runs-on: ubuntu-22.04
     name: Continuous integration
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
@@ -81,9 +85,21 @@ jobs:
         if: |
           env.HAS_SECRETS == 'HAS_SECRETS'
 
+      - name: Trigger changelog workflow
+        uses: actions/github-script@v7
+        with:
+          script: |-
+            if (process.env.GITHUB_REF_TYPE == 'tag') {
+                console.log('Trigger changelog');
+                await github.rest.repos.createDispatchEvent({
+                    owner: 'camptocamp',
+                    repo: 'helm-mutualize',
+                    event_type: 'changelog',
+                });
+            }
   k8s:
-    runs-on: ubuntu-22.04
     name: Kubernetes
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
@@ -120,8 +136,8 @@ jobs:
         if: always()
 
   audit:
-    runs-on: ubuntu-22.04
     name: Audit
+    runs-on: ubuntu-22.04
     timeout-minutes: 10
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
