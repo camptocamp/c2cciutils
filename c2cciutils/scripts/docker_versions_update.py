@@ -3,7 +3,7 @@ import re
 import subprocess  # nosec
 import sys
 
-import ruamel.yaml
+import yaml
 
 import c2cciutils
 
@@ -18,9 +18,8 @@ def main() -> None:
     args = argparser.parse_args()
 
     cache: dict[str, dict[str, str]] = {}
-    yaml = ruamel.yaml.YAML()  # default_flow_style=False)
     with open("ci/dpkg-versions.yaml", encoding="utf-8") as versions_file:
-        versions_config = yaml.load(versions_file)
+        versions_config = yaml.load(versions_file, Loader=yaml.SafeLoader)
         for versions in versions_config.values():
             for package_full in versions.keys():
                 dist, package = package_full.split("/")
@@ -71,7 +70,7 @@ def main() -> None:
                     versions[package_full] = cache[dist][package]
 
     with open("ci/dpkg-versions.yaml", "w", encoding="utf-8") as versions_file:
-        yaml.dump(versions_config, versions_file)
+        yaml.dump(versions_config, versions_file, Dumper=yaml.SafeDumper)
 
     current_branch = c2cciutils.get_branch(args.branch)
     has_diff = c2cciutils.create_pull_request_if_needed(
