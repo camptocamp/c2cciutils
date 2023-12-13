@@ -11,7 +11,6 @@ jobs:
     name: Auto reviews updates
     runs-on: ubuntu-22.04
     timeout-minutes: 5
-    if: github.event.pull_request.user.login == 'renovate[bot]'
 
     steps:
       - uses: actions/github-script@v6
@@ -23,3 +22,28 @@ jobs:
               pull_number: context.payload.pull_request.number,
               event: 'APPROVE',
             })
+          if: github.event.pull_request.user.login == 'renovate[bot]'
+      - uses: actions/github-script@v6
+        with:
+          script: |-
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              event: 'APPROVE',
+            });
+            github.graphql(`
+              mutation {
+                enablePullRequestAutoMerge(input: {
+                  pullRequestId: "${context.payload.pull_request.node_id}",
+                  mergeMethod: SQUASH,
+                }) {
+                  pullRequest {
+                    autoMergeRequest {
+                      enabledAt
+                    }
+                  }
+                }
+              }
+            `)
+          if: github.event.pull_request.user.login == 'c2c-bot-gis-ci' and startsWith(github.head_ref, 'dpkg-update/')
