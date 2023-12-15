@@ -22,7 +22,7 @@ jobs:
               pull_number: context.payload.pull_request.number,
               event: 'APPROVE',
             })
-          if: github.event.pull_request.user.login == 'renovate[bot]'
+        if: github.event.pull_request.user.login == 'renovate[bot]'
       - uses: actions/github-script@v6
         with:
           script: |-
@@ -46,4 +46,4 @@ jobs:
                 }
               }
             `)
-          if: github.event.pull_request.user.login == 'c2c-bot-gis-ci' and startsWith(github.head_ref, 'dpkg-update/')
+        if: github.event.pull_request.user.login == 'c2c-bot-gis-ci' and startsWith(github.head_ref, 'dpkg-update/')
