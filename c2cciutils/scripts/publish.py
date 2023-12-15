@@ -257,7 +257,7 @@ def main() -> None:
                     tag_src = tag_config.format(version="latest")
                     image_source = f"{image_conf['name']}:{tag_src}"
                     images_src.add(image_source)
-                    tag_snyk = tag_config.format(version=args.snyk_version or version)
+                    tag_snyk = tag_config.format(version=args.snyk_version or version).lower()
                     image_snyk = f"{image_conf['name']}:{tag_snyk}"
 
                     # Workaround sine we have the business plan
