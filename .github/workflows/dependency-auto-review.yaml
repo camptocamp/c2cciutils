@@ -46,4 +46,4 @@ jobs:
                 }
               }
             `)
-        if: github.event.pull_request.user.login == 'c2c-bot-gis-ci' and startsWith(github.head_ref, 'dpkg-update/')
+        if: github.event.pull_request.user.login == 'c2c-bot-gis-ci' && startsWith(github.head_ref, 'dpkg-update/')
