@@ -392,6 +392,9 @@ def main() -> None:
 
         if not dpkg_success:
             current_versions_in_images = {}
+            if os.path.exists("ci/dpkg-versions.yaml"):
+                with open("ci/dpkg-versions.yaml", encoding="utf-8") as dpkg_versions_file:
+                    current_versions_in_images = yaml.load(dpkg_versions_file, Loader=yaml.SafeLoader)
             for image in images_src:
                 _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(image)
                 current_versions_in_images[image] = {k: str(v) for k, v in versions_image.items()}
