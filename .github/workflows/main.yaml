@@ -93,7 +93,7 @@ jobs:
                 console.log('Trigger changelog');
                 await github.rest.repos.createDispatchEvent({
                     owner: 'camptocamp',
-                    repo: 'helm-mutualize',
+                    repo: 'c2cciutils',
                     event_type: 'changelog',
                 });
             }
