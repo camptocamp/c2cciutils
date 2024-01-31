@@ -11,3 +11,5 @@ publish:
       - version_tag
       - version_branch
       - rebuild
+checks:
+  codespell: false
