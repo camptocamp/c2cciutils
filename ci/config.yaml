@@ -13,3 +13,4 @@ audit:
       - example-project/ci/requirements.txt
 checks:
   required_workflows: false
+  codespell: false
