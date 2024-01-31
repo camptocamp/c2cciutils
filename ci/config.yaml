@@ -13,6 +13,7 @@ checks:
       - '1.1'
 
   required_workflows: false
+  codespell: false
 publish:
   pypi:
     packages:
