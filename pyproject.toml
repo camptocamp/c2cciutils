@@ -106,10 +106,10 @@ codespell = { version = "2.2.6", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0.1"
-pyOpenSSL = "23.2.0"
+pyOpenSSL = "24.0.0"
 tomlkit = { version = "0.11.8", optional = true }
 certifi = "2023.7.22"
-cryptography = "41.0.7"
+cryptography = "42.0.2"
 markdown-it-py = "2.2.0"
 Pygments = "2.15.1"
 urllib3 = "1.26.18"
