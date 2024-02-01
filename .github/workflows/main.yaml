@@ -50,7 +50,7 @@ jobs:
       - run: python3 -m pip install --user --force-reinstall dist/c2cciutils-0.0.0-py3-none-any.whl[checks,publish]
       - run: rm -rf dist build
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -163,7 +163,7 @@ jobs:
 
       - name: Check .tool-versions file existence
         id: tool-versions
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: .tool-versions
       - uses: asdf-vm/actions/install@v3
