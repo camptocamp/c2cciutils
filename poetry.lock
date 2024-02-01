@@ -289,7 +289,7 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.dev0)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.111.0"
+version = "2.116.0"
 description = "Google API Client Library for Python"
 category = "main"
 optional = true
@@ -448,6 +448,17 @@ test = ["async-timeout", "pytest", "pytest-asyncio (>=0.17)", "pytest-trio", "te
 trio = ["async_generator", "trio"]
 
 [[package]]
+name = "json5"
+version = "0.9.14"
+description = "A Python implementation of the JSON5 data format."
+category = "main"
+optional = true
+python-versions = "*"
+
+[package.extras]
+dev = ["hypothesis"]
+
+[[package]]
 name = "keyring"
 version = "24.3.0"
 description = "Store and access your passwords safely."
@@ -545,23 +556,22 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "multi-repo-automation"
-version = "1.0.0"
+version = "1.1.0"
 description = "Library for automation updates on multiple repositories."
 category = "main"
 optional = true
-python-versions = ">=3.9,<4.0"
+python-versions = ">=3.9"
 
 [package.dependencies]
+c2cciutils = "*"
 configupdater = "*"
 identify = "*"
+json5 = "*"
 PyYAML = "*"
 requests = "*"
 "ruamel.yaml" = "*"
 tomlkit = "*"
 typing_extensions = "*"
-
-[package.extras]
-update-stabilization-branches = ["c2cciutils"]
 
 [[package]]
 name = "mypy"
@@ -1295,7 +1305,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "a79374a1704c4aca33ca99fda1dee30ae8ab389150b71d83a9b407ceb1ecf455"
+content-hash = "5645dff485c231401f0b9360a87b9df1e604fb081c169c9ac93206a4e9383f56"
 
 [metadata.files]
 astroid = [
@@ -1550,8 +1560,8 @@ google-api-core = [
     {file = "google_api_core-2.15.0-py3-none-any.whl", hash = "sha256:2aa56d2be495551e66bbff7f729b790546f87d5c90e74781aa77233bcb395a8a"},
 ]
 google-api-python-client = [
-    {file = "google-api-python-client-2.111.0.tar.gz", hash = "sha256:3a45a53c031478d1c82c7162dd25c9a965247bca6bd438af0838a9d9b8219405"},
-    {file = "google_api_python_client-2.111.0-py2.py3-none-any.whl", hash = "sha256:b605adee2d09a843b97a59925757802904679e44e5599708cedb8939900dfbc7"},
+    {file = "google-api-python-client-2.116.0.tar.gz", hash = "sha256:f9f32361e16114d62929638fe07f77be30216b079ad316dc2ced859d9f72e5ad"},
+    {file = "google_api_python_client-2.116.0-py2.py3-none-any.whl", hash = "sha256:846e44417c6b7385fa5f5a46cb6b9d23327754c560830245ee53a577c5e44cec"},
 ]
 google-auth = [
     {file = "google-auth-2.25.2.tar.gz", hash = "sha256:42f707937feb4f5e5a39e6c4f343a17300a459aaf03141457ba505812841cc40"},
@@ -1596,6 +1606,10 @@ isort = [
 jeepney = [
     {file = "jeepney-0.8.0-py3-none-any.whl", hash = "sha256:c0a454ad016ca575060802ee4d590dd912e35c122fa04e70306de3d076cce755"},
     {file = "jeepney-0.8.0.tar.gz", hash = "sha256:5efe48d255973902f6badc3ce55e2aa6c5c3b3bc642059ef3a91247bcfcc5806"},
+]
+json5 = [
+    {file = "json5-0.9.14-py2.py3-none-any.whl", hash = "sha256:740c7f1b9e584a468dbb2939d8d458db3427f2c93ae2139d05f47e453eae964f"},
+    {file = "json5-0.9.14.tar.gz", hash = "sha256:9ed66c3a6ca3510a976a9ef9b8c0787de24802724ab1860bc0153c7fdd589b02"},
 ]
 keyring = [
     {file = "keyring-24.3.0-py3-none-any.whl", hash = "sha256:4446d35d636e6a10b8bce7caa66913dd9eca5fd222ca03a3d42c38608ac30836"},
@@ -1664,8 +1678,8 @@ more-itertools = [
     {file = "more_itertools-10.1.0-py3-none-any.whl", hash = "sha256:64e0735fcfdc6f3464ea133afe8ea4483b1c5fe3a3d69852e6503b43a0b222e6"},
 ]
 multi-repo-automation = [
-    {file = "multi_repo_automation-1.0.0-py3-none-any.whl", hash = "sha256:9a261e6e99f123375bd511863b654a641a9289b6d3a4a40e9a8acf50223e212d"},
-    {file = "multi_repo_automation-1.0.0.tar.gz", hash = "sha256:b76387ab5f14850f422c5ceda75abd89b1b451a1cdc272fdeab87cea495eff28"},
+    {file = "multi_repo_automation-1.1.0-py3-none-any.whl", hash = "sha256:77c829174902f7e3ce36360c7ec8b03a6689535d8987b616e42831faff385074"},
+    {file = "multi_repo_automation-1.1.0.tar.gz", hash = "sha256:436c5522a7500a90627a0400d9716cf32f4971e8625956e74116761fe58d4e9d"},
 ]
 mypy = [
     {file = "mypy-1.8.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:485a8942f671120f76afffff70f259e1cd0f0cfe08f81c05d8816d958d4577d3"},
