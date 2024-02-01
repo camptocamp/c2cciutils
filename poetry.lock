@@ -477,7 +477,7 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "Markdown"
-version = "3.5.1"
+version = "3.5.2"
 description = "Python implementation of John Gruber's Markdown."
 category = "main"
 optional = false
@@ -1194,11 +1194,11 @@ urllib3 = ">=1.26.0"
 
 [[package]]
 name = "types-Markdown"
-version = "3.5.0.3"
+version = "3.5.0.20240129"
 description = "Typing stubs for Markdown"
 category = "dev"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 
 [[package]]
 name = "types-PyYAML"
@@ -1210,22 +1210,22 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.31.0.20231231"
+version = "2.31.0.20240125"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 
 [package.dependencies]
 urllib3 = ">=2"
 
 [[package]]
 name = "types-setuptools"
-version = "69.0.0.0"
+version = "69.0.0.20240125"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 
 [[package]]
 name = "types-toml"
@@ -1295,7 +1295,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "b500115570d5fec9c8839b3bd137621995a398f53df17e47c91ddef8571e2b47"
+content-hash = "a79374a1704c4aca33ca99fda1dee30ae8ab389150b71d83a9b407ceb1ecf455"
 
 [metadata.files]
 astroid = [
@@ -1641,8 +1641,8 @@ lazy-object-proxy = [
     {file = "lazy_object_proxy-1.10.0-pp310.pp311.pp312.pp38.pp39-none-any.whl", hash = "sha256:80fa48bd89c8f2f456fc0765c11c23bf5af827febacd2f523ca5bc1893fcc09d"},
 ]
 Markdown = [
-    {file = "Markdown-3.5.1-py3-none-any.whl", hash = "sha256:5874b47d4ee3f0b14d764324d2c94c03ea66bee56f2d929da9f2508d65e722dc"},
-    {file = "Markdown-3.5.1.tar.gz", hash = "sha256:b65d7beb248dc22f2e8a31fb706d93798093c308dc1aba295aedeb9d41a813bd"},
+    {file = "Markdown-3.5.2-py3-none-any.whl", hash = "sha256:d43323865d89fc0cb9b20c75fc8ad313af307cc087e84b657d9eec768eddeadd"},
+    {file = "Markdown-3.5.2.tar.gz", hash = "sha256:e1ac7b3dc550ee80e602e71c1d168002f062e49f1b11e26a36264dafd4df2ef8"},
 ]
 markdown-it-py = [
     {file = "markdown-it-py-3.0.0.tar.gz", hash = "sha256:e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"},
@@ -1852,6 +1852,7 @@ PyYAML = [
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
+    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
     {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
     {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
     {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
@@ -2022,20 +2023,20 @@ twine = [
     {file = "twine-4.0.2.tar.gz", hash = "sha256:9e102ef5fdd5a20661eb88fad46338806c3bd32cf1db729603fe3697b1bc83c8"},
 ]
 types-Markdown = [
-    {file = "types-Markdown-3.5.0.3.tar.gz", hash = "sha256:9afd38a8f53e19d43de3f8d89742b3674b5736767806ed9356d64ccb09f76439"},
-    {file = "types_Markdown-3.5.0.3-py3-none-any.whl", hash = "sha256:2299b9086c695f408a3ebabf820f1fba3b239f1b3bfdbb32bf42d530b42cdd83"},
+    {file = "types-Markdown-3.5.0.20240129.tar.gz", hash = "sha256:9acd36fef264d9ed5a96345c45f7d80f0d967059e92213998b3046fbb64f67fc"},
+    {file = "types_Markdown-3.5.0.20240129-py3-none-any.whl", hash = "sha256:d6861d9d68e8268a5346d8a43d14727e6c636ebc6d49f2b8fc034c25996d35dd"},
 ]
 types-PyYAML = [
     {file = "types-PyYAML-6.0.12.12.tar.gz", hash = "sha256:334373d392fde0fdf95af5c3f1661885fa10c52167b14593eb856289e1855062"},
     {file = "types_PyYAML-6.0.12.12-py3-none-any.whl", hash = "sha256:c05bc6c158facb0676674b7f11fe3960db4f389718e19e62bd2b84d6205cfd24"},
 ]
 types-requests = [
-    {file = "types-requests-2.31.0.20231231.tar.gz", hash = "sha256:0f8c0c9764773384122813548d9eea92a5c4e1f33ed54556b508968ec5065cee"},
-    {file = "types_requests-2.31.0.20231231-py3-none-any.whl", hash = "sha256:2e2230c7bc8dd63fa3153c1c0ae335f8a368447f0582fc332f17d54f88e69027"},
+    {file = "types-requests-2.31.0.20240125.tar.gz", hash = "sha256:03a28ce1d7cd54199148e043b2079cdded22d6795d19a2c2a6791a4b2b5e2eb5"},
+    {file = "types_requests-2.31.0.20240125-py3-none-any.whl", hash = "sha256:9592a9a4cb92d6d75d9b491a41477272b710e021011a2a3061157e2fb1f1a5d1"},
 ]
 types-setuptools = [
-    {file = "types-setuptools-69.0.0.0.tar.gz", hash = "sha256:b0a06219f628c6527b2f8ce770a4f47550e00d3e8c3ad83e2dc31bc6e6eda95d"},
-    {file = "types_setuptools-69.0.0.0-py3-none-any.whl", hash = "sha256:8c86195bae2ad81e6dea900a570fe9d64a59dbce2b11cc63c046b03246ea77bf"},
+    {file = "types-setuptools-69.0.0.20240125.tar.gz", hash = "sha256:22ad498cb585b22ce8c97ada1fccdf294a2e0dd7dc984a28535a84ea82f45b3f"},
+    {file = "types_setuptools-69.0.0.20240125-py3-none-any.whl", hash = "sha256:00835f959ff24ebc32c55da8df9d46e8df25e3c4bfacb43e98b61fde51a4bc41"},
 ]
 types-toml = [
     {file = "types-toml-0.10.8.7.tar.gz", hash = "sha256:58b0781c681e671ff0b5c0319309910689f4ab40e8a2431e205d70c94bb6efb1"},
