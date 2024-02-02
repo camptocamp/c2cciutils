@@ -71,7 +71,7 @@ markdown-table = "2020.12.3"
 python-magic = "0.4.27"
 requests = "2.31.0"
 Markdown = "3.5.2"
-google-api-python-client = { version = "2.116.0", optional = true }
+google-api-python-client = { version = "2.111.0", optional = true }
 google-auth-httplib2 = { version = "0.2.0", optional = true }
 google-auth-oauthlib = { version = "1.2.0", optional = true }
 "ruamel.yaml" = "0.18.5"
@@ -82,7 +82,7 @@ toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0.1"
 tomlkit = { version = "0.12.3", optional = true }
-multi-repo-automation = { version="1.1.0", optional = true }
+multi-repo-automation = { version="1.0.0", optional = true }
 
 [tool.poetry.extras]
 audit = []
