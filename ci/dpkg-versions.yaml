@@ -9,7 +9,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/binutils-x86-64-linux-gnu: 2.38-4ubuntu2.5
   ubuntu_22_04/bsdutils: 1:2.37.2-4ubuntu3
   ubuntu_22_04/ca-certificates: 20230311ubuntu0.22.04.1
-  ubuntu_22_04/coreutils: 8.32-4.1ubuntu1
+  ubuntu_22_04/coreutils: 8.32-4.1ubuntu1.1
   ubuntu_22_04/cpp: 4:11.2.0-1ubuntu1
   ubuntu_22_04/cpp-11: 11.4.0-1ubuntu1~22.04
   ubuntu_22_04/curl: 7.81.0-1ubuntu1.15
