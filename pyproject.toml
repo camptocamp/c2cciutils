@@ -81,9 +81,9 @@ codespell = { version = "2.2.6", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0.1"
-tomlkit = { version = "0.12.3", optional = true }
+tomlkit = { version = "0.12.4", optional = true }
 multi-repo-automation = { version="0.3.1", optional = true }
-cryptography = "42.0.4"
+cryptography = "42.0.5"
 urllib3 = "2.0.7"
 
 [tool.poetry.extras]
@@ -97,7 +97,7 @@ version = ["multi-repo-automation"]
 [tool.poetry.group.dev.dependencies]
 # pylint = "2.15.6"
 prospector = { version = "1.10.3", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
-types-requests = "2.31.0.20240125"
+types-requests = "2.31.0.20240218"
 types-pyyaml = "6.0.12.12"
 types-setuptools = "68.0.0.3"
 types-markdown = "3.4.2.10"
