@@ -170,7 +170,7 @@ test-randomorder = ["pytest-randomly"]
 
 [[package]]
 name = "debian-inspector"
-version = "31.1.0"
+version = "31.0.0"
 description = "Utilities to parse Debian package, copyright and control files."
 category = "main"
 optional = false
@@ -181,8 +181,8 @@ attrs = ">=19.2,<20.1.0 || >20.1.0"
 chardet = ">=3.0.0"
 
 [package.extras]
-docs = ["Sphinx (>=5.0.2)", "doc8 (>=0.11.2)", "sphinx-autobuild", "sphinx-copybutton", "sphinx-reredirects (>=0.1.2)", "sphinx-rtd-dark-mode (>=1.3.0)", "sphinx-rtd-theme (>=1.0.0)", "sphinxcontrib-apidoc (>=0.3.0)"]
-testing = ["aboutcode-toolkit (>=7.0.2)", "black", "commoncode", "isort", "pycodestyle (>=2.8.0)", "pytest (>=6,!=7.0.0)", "pytest-xdist (>=2)", "twine"]
+docs = ["Sphinx (>=3.3.1)", "doc8 (>=0.8.1)", "sphinx-rtd-theme (>=0.5.0)", "sphinxcontrib-apidoc (>=0.3.0)"]
+testing = ["aboutcode-toolkit (>=6.0.0)", "black", "commoncode", "pytest (>=6,!=7.0.0)", "pytest-xdist (>=2)"]
 
 [[package]]
 name = "defusedxml"
@@ -290,7 +290,7 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.dev0)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.120.0"
+version = "2.111.0"
 description = "Google API Client Library for Python"
 category = "main"
 optional = true
@@ -449,17 +449,6 @@ test = ["async-timeout", "pytest", "pytest-asyncio (>=0.17)", "pytest-trio", "te
 trio = ["async_generator", "trio"]
 
 [[package]]
-name = "json5"
-version = "0.9.18"
-description = "A Python implementation of the JSON5 data format."
-category = "main"
-optional = true
-python-versions = ">=3.8"
-
-[package.extras]
-dev = ["hypothesis"]
-
-[[package]]
 name = "keyring"
 version = "24.3.1"
 description = "Store and access your passwords safely."
@@ -557,22 +546,23 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "multi-repo-automation"
-version = "1.1.0"
+version = "1.0.0"
 description = "Library for automation updates on multiple repositories."
 category = "main"
 optional = true
-python-versions = ">=3.9"
+python-versions = ">=3.9,<4.0"
 
 [package.dependencies]
-c2cciutils = "*"
 configupdater = "*"
 identify = "*"
-json5 = "*"
 PyYAML = "*"
 requests = "*"
 "ruamel.yaml" = "*"
 tomlkit = "*"
 typing_extensions = "*"
+
+[package.extras]
+update-stabilization-branches = ["c2cciutils"]
 
 [[package]]
 name = "mypy"
@@ -1232,7 +1222,7 @@ urllib3 = ">=2"
 
 [[package]]
 name = "types-setuptools"
-version = "69.1.0.20240301"
+version = "69.0.0.20240125"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
@@ -1248,7 +1238,7 @@ python-versions = "*"
 
 [[package]]
 name = "typing-extensions"
-version = "4.10.0"
+version = "4.9.0"
 description = "Backported and Experimental Type Hints for Python 3.8+"
 category = "main"
 optional = false
@@ -1307,7 +1297,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "4716de5fe70a648d9ca3753da65e324a16cc2c3833638098accd712738410d10"
+content-hash = "cb67f4b185ad7c8ad7294fe7505bc837dc6d156aa2923456c98dca243313b5d7"
 
 [metadata.files]
 astroid = [
@@ -1531,8 +1521,8 @@ cryptography = [
     {file = "cryptography-42.0.5.tar.gz", hash = "sha256:6fe07eec95dfd477eb9530aef5bead34fec819b3aaf6c5bd6d20565da607bfe1"},
 ]
 debian-inspector = [
-    {file = "debian_inspector-31.1.0-py3-none-any.whl", hash = "sha256:77dfeb34492dd49d8593d4f7146ffa3f71fca703737824e09d7472e0eafca567"},
-    {file = "debian_inspector-31.1.0.tar.gz", hash = "sha256:ebcfbc17064f10bd3b6d2122cdbc97b71a494af0ebbafaf9a8ceadfe8b164f99"},
+    {file = "debian_inspector-31.0.0-py3-none-any.whl", hash = "sha256:db477fd2da64f832ad0d24797052055c44d530c79fa3df417b18cb00d26cfddc"},
+    {file = "debian_inspector-31.0.0.tar.gz", hash = "sha256:46094f953464b269bb09855eadeee3c92cb6b487a0bfa26eba537b52cc3d6b47"},
 ]
 defusedxml = [
     {file = "defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"},
@@ -1571,8 +1561,8 @@ google-api-core = [
     {file = "google_api_core-2.17.1-py3-none-any.whl", hash = "sha256:610c5b90092c360736baccf17bd3efbcb30dd380e7a6dc28a71059edb8bd0d8e"},
 ]
 google-api-python-client = [
-    {file = "google-api-python-client-2.120.0.tar.gz", hash = "sha256:a0c8769cad9576768bcb3191cb1f550f6ab3290cba042badb0fb17bba03f70cc"},
-    {file = "google_api_python_client-2.120.0-py2.py3-none-any.whl", hash = "sha256:e2cdf4497bfc758fb44a4b487920cc1ca0571c2428187697a8e43e3b9feba1c9"},
+    {file = "google-api-python-client-2.111.0.tar.gz", hash = "sha256:3a45a53c031478d1c82c7162dd25c9a965247bca6bd438af0838a9d9b8219405"},
+    {file = "google_api_python_client-2.111.0-py2.py3-none-any.whl", hash = "sha256:b605adee2d09a843b97a59925757802904679e44e5599708cedb8939900dfbc7"},
 ]
 google-auth = [
     {file = "google-auth-2.28.1.tar.gz", hash = "sha256:34fc3046c257cedcf1622fc4b31fc2be7923d9b4d44973d481125ecc50d83885"},
@@ -1617,10 +1607,6 @@ isort = [
 jeepney = [
     {file = "jeepney-0.8.0-py3-none-any.whl", hash = "sha256:c0a454ad016ca575060802ee4d590dd912e35c122fa04e70306de3d076cce755"},
     {file = "jeepney-0.8.0.tar.gz", hash = "sha256:5efe48d255973902f6badc3ce55e2aa6c5c3b3bc642059ef3a91247bcfcc5806"},
-]
-json5 = [
-    {file = "json5-0.9.18-py2.py3-none-any.whl", hash = "sha256:3f20193ff8dfdec6ab114b344e7ac5d76fac453c8bab9bdfe1460d1d528ec393"},
-    {file = "json5-0.9.18.tar.gz", hash = "sha256:ecb8ac357004e3522fb989da1bf08b146011edbd14fdffae6caad3bd68493467"},
 ]
 keyring = [
     {file = "keyring-24.3.1-py3-none-any.whl", hash = "sha256:df38a4d7419a6a60fea5cef1e45a948a3e8430dd12ad88b0f423c5c143906218"},
@@ -1689,8 +1675,8 @@ more-itertools = [
     {file = "more_itertools-10.2.0-py3-none-any.whl", hash = "sha256:686b06abe565edfab151cb8fd385a05651e1fdf8f0a14191e4439283421f8684"},
 ]
 multi-repo-automation = [
-    {file = "multi_repo_automation-1.1.0-py3-none-any.whl", hash = "sha256:77c829174902f7e3ce36360c7ec8b03a6689535d8987b616e42831faff385074"},
-    {file = "multi_repo_automation-1.1.0.tar.gz", hash = "sha256:436c5522a7500a90627a0400d9716cf32f4971e8625956e74116761fe58d4e9d"},
+    {file = "multi_repo_automation-1.0.0-py3-none-any.whl", hash = "sha256:9a261e6e99f123375bd511863b654a641a9289b6d3a4a40e9a8acf50223e212d"},
+    {file = "multi_repo_automation-1.0.0.tar.gz", hash = "sha256:b76387ab5f14850f422c5ceda75abd89b1b451a1cdc272fdeab87cea495eff28"},
 ]
 mypy = [
     {file = "mypy-1.8.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:485a8942f671120f76afffff70f259e1cd0f0cfe08f81c05d8816d958d4577d3"},
@@ -2060,16 +2046,16 @@ types-requests = [
     {file = "types_requests-2.31.0.20240218-py3-none-any.whl", hash = "sha256:a82807ec6ddce8f00fe0e949da6d6bc1fbf1715420218a9640d695f70a9e5a9b"},
 ]
 types-setuptools = [
-    {file = "types-setuptools-69.1.0.20240301.tar.gz", hash = "sha256:f99cf5a7f5c281c55f16ba860da68cb2cd8f3b3a472f78ec8e744240fc3aa09e"},
-    {file = "types_setuptools-69.1.0.20240301-py3-none-any.whl", hash = "sha256:2033afa8efe3f566ec18997c4b614664b2ed9653160d941745389ad61a50d1f6"},
+    {file = "types-setuptools-69.0.0.20240125.tar.gz", hash = "sha256:22ad498cb585b22ce8c97ada1fccdf294a2e0dd7dc984a28535a84ea82f45b3f"},
+    {file = "types_setuptools-69.0.0.20240125-py3-none-any.whl", hash = "sha256:00835f959ff24ebc32c55da8df9d46e8df25e3c4bfacb43e98b61fde51a4bc41"},
 ]
 types-toml = [
     {file = "types-toml-0.10.8.7.tar.gz", hash = "sha256:58b0781c681e671ff0b5c0319309910689f4ab40e8a2431e205d70c94bb6efb1"},
     {file = "types_toml-0.10.8.7-py3-none-any.whl", hash = "sha256:61951da6ad410794c97bec035d59376ce1cbf4453dc9b6f90477e81e4442d631"},
 ]
 typing-extensions = [
-    {file = "typing_extensions-4.10.0-py3-none-any.whl", hash = "sha256:69b1a937c3a517342112fb4c6df7e72fc39a38e7891a5730ed4985b5214b5475"},
-    {file = "typing_extensions-4.10.0.tar.gz", hash = "sha256:b0abd7c89e8fb96f98db18d86106ff1d90ab692004eb746cf6eda2682f91b3cb"},
+    {file = "typing_extensions-4.9.0-py3-none-any.whl", hash = "sha256:af72aea155e91adfc61c3ae9e0e342dbc0cba726d6cba4b6c72c1f34e47291cd"},
+    {file = "typing_extensions-4.9.0.tar.gz", hash = "sha256:23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783"},
 ]
 uritemplate = [
     {file = "uritemplate-4.1.1-py2.py3-none-any.whl", hash = "sha256:830c08b8d99bdd312ea4ead05994a38e8936266f84b9a7878232db50b044e02e"},
