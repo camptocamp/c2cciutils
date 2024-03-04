@@ -61,6 +61,7 @@ class Audit(TypedDict, total=False):
     The audit Snyk configuration
 
     Aggregation type: oneOf
+    Subtype: "AuditSnykConfig"
     """
 
 
@@ -160,6 +161,7 @@ Audit with Snyk.
 The audit Snyk configuration
 
 Aggregation type: oneOf
+Subtype: "AuditSnykConfig"
 """
 
 
@@ -292,6 +294,10 @@ DB_CONFIGURATION_DEFAULT: dict[str, Any] = {}
 """ Default value of the field path 'K8s configuration db' """
 
 
+DISPATCH_CONFIG_DEFAULT: dict[str, Any] = {}
+""" Default value of the field path 'Publish Docker config dispatch oneof0' """
+
+
 DOCKER_DISPATCH_EVENT_TYPE_DEFAULT = "image-update"
 """ Default value of the field path 'dispatch config event-type' """
 
@@ -333,6 +339,9 @@ DbConfiguration = TypedDict(
 # dispatch config.
 #
 # Send a dispatch event to an other repository
+#
+# default:
+#   {}
 DispatchConfig = TypedDict(
     "DispatchConfig",
     {
@@ -495,6 +504,10 @@ PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT = ["--app-vulns", "--severity-threshold=cr
 """ Default value of the field path 'Publish Docker config snyk test_args' """
 
 
+PUBLISH_GOOGLE_CALENDAR_CONFIG_DEFAULT: dict[str, Any] = {}
+""" Default value of the field path 'Publish Google calendar oneof0' """
+
+
 PUBLISH_GOOGLE_CALENDAR_DEFAULT: dict[str, Any] = {}
 """ Default value of the field path 'publish_google_calendar' """
 
@@ -505,6 +518,10 @@ PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT = ["version_branch", "version_tag", "rebuild"
 
 PUBLISH_PIP_PACKAGE_GROUP_DEFAULT = "default"
 """ Default value of the field path 'publish pypi package group' """
+
+
+PUBLISH_PYPI_CONFIG_DEFAULT: dict[str, Any] = {}
+""" Default value of the field path 'publish pypi oneof0' """
 
 
 PUBLISH_PYPI_DEFAULT: dict[str, Any] = {}
@@ -647,6 +664,7 @@ class Publish(TypedDict, total=False):
     The configuration used to publish on Docker
 
     Aggregation type: oneOf
+    Subtype: "PublishDockerConfig"
     """
 
     pypi: "PublishPypi"
@@ -659,6 +677,7 @@ class Publish(TypedDict, total=False):
       {}
 
     Aggregation type: oneOf
+    Subtype: "PublishPypiConfig"
     """
 
     helm: "PublishHelm"
@@ -668,6 +687,7 @@ class Publish(TypedDict, total=False):
     Configuration to publish Helm charts on GitHub release
 
     Aggregation type: oneOf
+    Subtype: "PublishHelmConfig"
     """
 
     google_calendar: "PublishGoogleCalendar"
@@ -680,6 +700,7 @@ class Publish(TypedDict, total=False):
       {}
 
     Aggregation type: oneOf
+    Subtype: "PublishGoogleCalendarConfig"
     """
 
 
@@ -690,6 +711,7 @@ Publish Docker.
 The configuration used to publish on Docker
 
 Aggregation type: oneOf
+Subtype: "PublishDockerConfig"
 """
 
 
@@ -728,7 +750,7 @@ class PublishDockerConfig(TypedDict, total=False):
         - rebuild
     """
 
-    dispatch: Union["DispatchConfig", Literal[False]]
+    dispatch: Union["DispatchConfig", "_PublishDockerConfigDispatchOneof1"]
     """
     Send a dispatch event to an other repository
 
@@ -736,6 +758,7 @@ class PublishDockerConfig(TypedDict, total=False):
       {}
 
     Aggregation type: oneOf
+    Subtype: "DispatchConfig"
     """
 
     snyk: "_PublishDockerConfigSnyk"
@@ -788,7 +811,7 @@ class PublishDockerRepository(TypedDict, total=False):
     """
 
 
-PublishGoogleCalendar = Union["PublishGoogleCalendarConfig", Literal[False]]
+PublishGoogleCalendar = Union["PublishGoogleCalendarConfig", "_PublishGoogleCalendarOneof1"]
 """
 Publish Google calendar.
 
@@ -798,6 +821,7 @@ default:
   {}
 
 Aggregation type: oneOf
+Subtype: "PublishGoogleCalendarConfig"
 """
 
 
@@ -806,6 +830,9 @@ class PublishGoogleCalendarConfig(TypedDict, total=False):
     Publish Google calendar config.
 
     The configuration to publish on Google Calendar
+
+    default:
+      {}
     """
 
     on: list[str]
@@ -826,6 +853,7 @@ publish helm.
 Configuration to publish Helm charts on GitHub release
 
 Aggregation type: oneOf
+Subtype: "PublishHelmConfig"
 """
 
 
@@ -843,7 +871,7 @@ class PublishHelmConfig(TypedDict, total=False):
     """ The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script """
 
 
-PublishPypi = Union["PublishPypiConfig", Literal[False]]
+PublishPypi = Union["PublishPypiConfig", "_PublishPypiOneof1"]
 """
 publish pypi.
 
@@ -853,6 +881,7 @@ default:
   {}
 
 Aggregation type: oneOf
+Subtype: "PublishPypiConfig"
 """
 
 
@@ -861,6 +890,9 @@ class PublishPypiConfig(TypedDict, total=False):
     publish pypi config.
 
     Configuration to publish on pypi
+
+    default:
+      {}
     """
 
     packages: list["PublishPypiPackage"]
@@ -914,6 +946,7 @@ class PullRequestChecks(TypedDict, total=False):
     Check the pull request commits messages
 
     Aggregation type: oneOf
+    Subtype: "PullRequestChecksCommitsMessagesConfiguration"
     """
 
     commits_spell: "PullRequestChecksCommitsSpelling"
@@ -921,6 +954,7 @@ class PullRequestChecks(TypedDict, total=False):
     pull request checks commits spelling.
 
     Aggregation type: oneOf
+    Subtype: "PullRequestChecksCommitsSpellingConfiguration"
     """
 
     pull_request_spell: "PullRequestChecksPullRequestSpelling"
@@ -928,6 +962,7 @@ class PullRequestChecks(TypedDict, total=False):
     pull request checks pull request spelling.
 
     Aggregation type: oneOf
+    Subtype: "PullRequestChecksPullRequestSpellingConfiguration"
     """
 
     pull_request_labels: "PullRequestChecksRequestLabels"
@@ -952,6 +987,7 @@ pull request checks commits messages.
 Check the pull request commits messages
 
 Aggregation type: oneOf
+Subtype: "PullRequestChecksCommitsMessagesConfiguration"
 """
 
 
@@ -1022,6 +1058,7 @@ PullRequestChecksCommitsSpelling = Union["PullRequestChecksCommitsSpellingConfig
 pull request checks commits spelling.
 
 Aggregation type: oneOf
+Subtype: "PullRequestChecksCommitsSpellingConfiguration"
 """
 
 
@@ -1045,6 +1082,7 @@ PullRequestChecksPullRequestSpelling = Union["PullRequestChecksPullRequestSpelli
 pull request checks pull request spelling.
 
 Aggregation type: oneOf
+Subtype: "PullRequestChecksPullRequestSpellingConfiguration"
 """
 
 
@@ -1105,6 +1143,34 @@ _PUBLISH_DOCKER_CONFIG_DISPATCH_DEFAULT: dict[str, Any] = {}
 """ Default value of the field path 'Publish Docker config dispatch' """
 
 
+_PUBLISH_DOCKER_CONFIG_DISPATCH_ONEOF1_DEFAULT: dict[str, Any] = {}
+""" Default value of the field path 'Publish Docker config dispatch oneof1' """
+
+
+_PUBLISH_DOCKER_SNYK_MONITOR_ARGS_ONEOF0_DEFAULT = ["--app-vulns"]
+""" Default value of the field path 'Publish Docker Snyk monitor args oneof0' """
+
+
+_PUBLISH_DOCKER_SNYK_MONITOR_ARGS_ONEOF1_DEFAULT = ["--app-vulns"]
+""" Default value of the field path 'Publish Docker Snyk monitor args oneof1' """
+
+
+_PUBLISH_DOCKER_SNYK_TEST_ARGS_ONEOF0_DEFAULT = ["--app-vulns", "--severity-threshold=critical"]
+""" Default value of the field path 'Publish Docker Snyk test args oneof0' """
+
+
+_PUBLISH_DOCKER_SNYK_TEST_ARGS_ONEOF1_DEFAULT = ["--app-vulns", "--severity-threshold=critical"]
+""" Default value of the field path 'Publish Docker Snyk test args oneof1' """
+
+
+_PUBLISH_GOOGLE_CALENDAR_ONEOF1_DEFAULT: dict[str, Any] = {}
+""" Default value of the field path 'Publish Google calendar oneof1' """
+
+
+_PUBLISH_PYPI_ONEOF1_DEFAULT: dict[str, Any] = {}
+""" Default value of the field path 'publish pypi oneof1' """
+
+
 class _PrintVersionsVersionsItem(TypedDict, total=False):
     cmd: list[str]
     """ The command that should be used """
@@ -1116,10 +1182,17 @@ class _PrintVersionsVersionsItem(TypedDict, total=False):
     """ Prefix added when we print the version """
 
 
+_PublishDockerConfigDispatchOneof1 = Literal[False]
+"""
+default:
+  {}
+"""
+
+
 class _PublishDockerConfigSnyk(TypedDict, total=False):
     """Checks the published images with Snyk"""
 
-    monitor_args: Union[list[str], Literal[False]]
+    monitor_args: Union["_PublishDockerSnykMonitorArgsOneof0", "_PublishDockerSnykMonitorArgsOneof1"]
     """
     Publish Docker Snyk monitor args.
 
@@ -1131,7 +1204,7 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
     Aggregation type: oneOf
     """
 
-    test_args: Union[list[str], Literal[False]]
+    test_args: Union["_PublishDockerSnykTestArgsOneof0", "_PublishDockerSnykTestArgsOneof1"]
     """
     Publish Docker Snyk test args.
 
@@ -1143,6 +1216,50 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
 
     Aggregation type: oneOf
     """
+
+
+_PublishDockerSnykMonitorArgsOneof0 = list[str]
+"""
+default:
+  - --app-vulns
+"""
+
+
+_PublishDockerSnykMonitorArgsOneof1 = Literal[False]
+"""
+default:
+  - --app-vulns
+"""
+
+
+_PublishDockerSnykTestArgsOneof0 = list[str]
+"""
+default:
+  - --app-vulns
+  - --severity-threshold=critical
+"""
+
+
+_PublishDockerSnykTestArgsOneof1 = Literal[False]
+"""
+default:
+  - --app-vulns
+  - --severity-threshold=critical
+"""
+
+
+_PublishGoogleCalendarOneof1 = Literal[False]
+"""
+default:
+  {}
+"""
+
+
+_PublishPypiOneof1 = Literal[False]
+"""
+default:
+  {}
+"""
 
 
 _VersionTransformItem = TypedDict(
