@@ -73,7 +73,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/nettle: 3.7.3-1build2
   ubuntu_22_04/nghttp2: 1.43.0-1ubuntu0.1
   ubuntu_22_04/node-jquery: 3.6.0+dfsg+~3.5.13-1
-  ubuntu_22_04/nodejs: 12.22.9~dfsg-1ubuntu3.3
+  ubuntu_22_04/nodejs: 12.22.9~dfsg-1ubuntu3.4
   ubuntu_22_04/npth: 1.6-3build2
   ubuntu_22_04/openldap: 2.5.16+dfsg-0ubuntu0.22.04.1
   ubuntu_22_04/openssl: 3.0.2-0ubuntu1.15
