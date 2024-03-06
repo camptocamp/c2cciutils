@@ -33,7 +33,7 @@ def main() -> None:
         timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
         headers=c2cciutils.add_authorization_header({}),
     )
-    commits_response.raise_for_status()
+    c2cciutils.check_response(commits_response)
     commits = commits_response.json()
 
     full_config = c2cciutils.get_config()
