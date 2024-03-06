@@ -206,6 +206,7 @@ def main() -> None:
                 headers=c2cciutils.add_authorization_header({}),
                 timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
             )
+            c2cciutils.check_response(security_response, False)
             if security_response.ok:
                 security_text = security_response.text
             elif security_response.status_code != 404:
