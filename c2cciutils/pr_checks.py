@@ -263,7 +263,7 @@ def add_issue_link(github_event: dict[str, Any], **kwargs: Any) -> bool:
         timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
         headers=c2cciutils.add_authorization_header({}),
     )
-    comments_response.raise_for_status()
+    c2cciutils.check_response(comments_response)
     comments = comments_response.json()
 
     for comment in comments:
