@@ -110,7 +110,7 @@
     /** Disable poetry upgrade to 1.2.2 */
     {
       matchPackageNames: ['poetry'],
-      matchVersions: ['1.2.2'],
+      allowedVersions: ['!/1.2.2/'],
       enabled: false,
     },
     /** Only LTS version of Node */
