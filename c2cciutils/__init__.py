@@ -585,6 +585,19 @@ def add_authorization_header(headers: Dict[str, str]) -> Dict[str, str]:
         return headers
 
 
+def check_response(response: requests.Response, raise_for_status: bool = True) -> Any:
+    """
+    Check the response and raise an exception if it's not ok.
+
+    Also print the X-Ratelimit- headers to get information about the rate limiting.
+    """
+    for header in response.headers:
+        if header.lower().startswith("x-ratelimit-"):
+            print(f"{header}: {response.headers[header]}")
+    if raise_for_status:
+        response.raise_for_status()
+
+
 def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> Any:
     """
     Get a graphql result from GitHub.
@@ -615,9 +628,11 @@ def graphql(query_file: str, variables: Dict[str, Any], default: Any = None) -> 
             }
         ),
     )
-    if http_response.status_code == 401 and default is not None:
+    if http_response.status_code in (401, 403) and default is not None:
+        print(f"::warning::GraphQL error: {http_response.status_code}, use default value")
+        check_response(http_response, False)
         return default
-    http_response.raise_for_status()
+    check_response(http_response)
     json_response = http_response.json()
 
     if "errors" in json_response:
