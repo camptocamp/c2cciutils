@@ -184,6 +184,7 @@ def main() -> None:
             headers=c2cciutils.add_authorization_header({}),
             timeout=30,
         )
+        c2cciutils.check_response(security_response, False)
         if security_response.ok and docker_config["latest"] is True:
             security = c2cciutils.security.Security(security_response.text)
             version_index = security.headers.index("Version")
