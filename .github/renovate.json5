@@ -14,11 +14,6 @@
     automerge: true,
     schedule: 'after 5pm on the first day of the month',
   },
-  force: {
-    constraints: {
-      poetry: '1.2.1',
-    },
-  },
   regexManagers: [
     /** Do updates on pre-commit additional dependencies */
     {
@@ -110,6 +105,12 @@
     /** Disable node-vm2 upgrade */
     {
       matchPackageNames: ['node-vm2'],
+      enabled: false,
+    },
+    /** Disable poetry upgrade to 1.2.2 */
+    {
+      matchPackageNames: ['poetry'],
+      matchVersions: ['1.2.2'],
       enabled: false,
     },
     /** Only LTS version of Node */
