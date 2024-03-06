@@ -203,6 +203,7 @@ def main() -> None:
             headers=c2cciutils.add_authorization_header({}),
             timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
         )
+        c2cciutils.check_response(security_response, False)
         if (
             security_response.ok
             and docker_config.get("latest", c2cciutils.configuration.PUBLISH_DOCKER_LATEST_DEFAULT) is True
