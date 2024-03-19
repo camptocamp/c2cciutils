@@ -85,7 +85,7 @@ jsonschema = "4.6.2"
 jsonschema-gentypes = "1.0.0"
 node-vm2 = "0.4.5"
 defusedxml = "0.7.1"
-black = "22.3.0"
+black = "24.3.0"
 click = "8.1.7"
 isort = "5.10.1"
 twine = "4.0.2"
@@ -103,14 +103,14 @@ pygments = "2.15.1"
 urllib3 = "1.26.18"
 
 [tool.poetry.dev-dependencies]
-prospector = { version = "1.7.7", extras = [
+prospector = { version = "1.9.0", extras = [
     "with_bandit",
     "with_mypy",
     "with_pyroma"
 ] }
 pylint = "2.14.5"
 mypy = "0.961"
-flake8 = "4.0.1"
+flake8 = "5.0.4"
 types-requests = "2.27.31"
 types-pyyaml = "6.0.12.12"
 types-setuptools = "57.4.18"

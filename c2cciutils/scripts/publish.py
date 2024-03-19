@@ -165,9 +165,11 @@ def main() -> None:
     google_calendar = None
     google_calendar_config = cast(
         c2cciutils.configuration.PublishGoogleCalendarConfig,
-        config.get("publish", {}).get("google_calendar", {})
-        if config.get("publish", {}).get("google_calendar", False)
-        else {},
+        (
+            config.get("publish", {}).get("google_calendar", {})
+            if config.get("publish", {}).get("google_calendar", False)
+            else {}
+        ),
     )
 
     docker_config = cast(
