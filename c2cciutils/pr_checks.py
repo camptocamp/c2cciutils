@@ -3,6 +3,7 @@ The pull request checking functions.
 
 Commits, messages and labels.
 """
+
 import os
 import re
 import subprocess  # nosec

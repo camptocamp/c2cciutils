@@ -214,14 +214,16 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
                     else {}
                 ),
             },
-            "versions": {
-                "extra_versions": [master_branch],
-                "backport_labels": True,
-                "audit": True,
-                "branches": True,
-            }
-            if based_on_master
-            else False,
+            "versions": (
+                {
+                    "extra_versions": [master_branch],
+                    "backport_labels": True,
+                    "audit": True,
+                    "branches": True,
+                }
+                if based_on_master
+                else False
+            ),
             "black": True,
             "isort": True,
             "codespell": True,
