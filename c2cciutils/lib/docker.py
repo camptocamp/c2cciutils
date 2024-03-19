@@ -1,6 +1,7 @@
 """
 Some utility functions for Docker images.
 """
+
 import os
 import subprocess  # nosec: B404
 from typing import Dict, Optional, Tuple, cast
