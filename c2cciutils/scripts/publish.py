@@ -393,7 +393,7 @@ def main() -> None:
 
         if not dpkg_success:
             current_versions_in_images = {}
-            if os.path.exists("ci/dpkg-versions.yaml"):
+            if dpkg_config_found:
                 with open("ci/dpkg-versions.yaml", encoding="utf-8") as dpkg_versions_file:
                     current_versions_in_images = yaml.load(dpkg_versions_file, Loader=yaml.SafeLoader)
             for image in images_src:
@@ -405,6 +405,14 @@ def main() -> None:
                 )
             print("Current versions of the Debian packages in Docker images:")
             print(yaml.dump(current_versions_in_images, Dumper=yaml.SafeDumper, default_flow_style=False))
+            if dpkg_config_found:
+                with open("ci/dpkg-versions.yaml", "w", encoding="utf-8") as dpkg_versions_file:
+                    yaml.dump(
+                        current_versions_in_images,
+                        dpkg_versions_file,
+                        Dumper=yaml.SafeDumper,
+                        default_flow_style=False,
+                    )
 
             if dpkg_config_found:
                 success = False
