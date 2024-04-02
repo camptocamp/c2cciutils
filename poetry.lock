@@ -294,7 +294,7 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.dev0)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.121.0"
+version = "2.124.0"
 description = "Google API Client Library for Python"
 category = "main"
 optional = true
@@ -302,9 +302,9 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 google-api-core = ">=1.31.5,<2.0.0 || >2.3.0,<3.0.0.dev0"
-google-auth = ">=1.19.0,<3.0.0.dev0"
-google-auth-httplib2 = ">=0.1.0"
-httplib2 = ">=0.15.0,<1.dev0"
+google-auth = ">=1.32.0,<2.24.0 || >2.24.0,<2.25.0 || >2.25.0,<3.0.0.dev0"
+google-auth-httplib2 = ">=0.2.0,<1.0.0"
+httplib2 = ">=0.19.0,<1.dev0"
 uritemplate = ">=3.0.1,<5"
 
 [[package]]
@@ -519,7 +519,7 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "Markdown"
-version = "3.5.2"
+version = "3.6"
 description = "Python implementation of John Gruber's Markdown."
 category = "main"
 optional = false
@@ -753,7 +753,7 @@ with_vulture = ["vulture (>=1.5)"]
 
 [[package]]
 name = "prospector-profile-duplicated"
-version = "1.1.0"
+version = "1.2.0"
 description = "Profile that can be used to disable the duplicated or conflict rules between Prospector and other tools"
 category = "dev"
 optional = false
@@ -1251,7 +1251,7 @@ urllib3 = ">=1.26.0"
 
 [[package]]
 name = "types-Markdown"
-version = "3.5.0.20240311"
+version = "3.6.0.20240316"
 description = "Typing stubs for Markdown"
 category = "dev"
 optional = false
@@ -1278,7 +1278,7 @@ urllib3 = ">=2"
 
 [[package]]
 name = "types-setuptools"
-version = "69.1.0.20240310"
+version = "69.2.0.20240317"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
@@ -1353,7 +1353,7 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "012ca57d5ba41f73951f974ff89a9229a7ad467887a3c834a97a869569ea1b0e"
+content-hash = "e4ca30562ef97f47e0f7cc465b9ee71a4074c7c054da567e8a6028b14f754f02"
 
 [metadata.files]
 astroid = [
@@ -1617,8 +1617,8 @@ google-api-core = [
     {file = "google_api_core-2.18.0-py3-none-any.whl", hash = "sha256:5a63aa102e0049abe85b5b88cb9409234c1f70afcda21ce1e40b285b9629c1d6"},
 ]
 google-api-python-client = [
-    {file = "google-api-python-client-2.121.0.tar.gz", hash = "sha256:df863ece4db8b36ce1053ebd983e43fbc5b664209eed78e82cc84ae56ddac6c0"},
-    {file = "google_api_python_client-2.121.0-py2.py3-none-any.whl", hash = "sha256:bb4da677150dd16c45818620baca8a63208c6f4180a0691ad1c1708b384c10be"},
+    {file = "google-api-python-client-2.124.0.tar.gz", hash = "sha256:f6d3258420f7c76b0f5266b5e402e6f804e30351b018a10083f4a46c3ec33773"},
+    {file = "google_api_python_client-2.124.0-py2.py3-none-any.whl", hash = "sha256:07dc674449ed353704b1169fdee792f74438d024261dad71b6ce7bb9c683d51f"},
 ]
 google-auth = [
     {file = "google-auth-2.29.0.tar.gz", hash = "sha256:672dff332d073227550ffc7457868ac4218d6c500b155fe6cc17d2b13602c360"},
@@ -1720,8 +1720,8 @@ lazy-object-proxy = [
     {file = "lazy_object_proxy-1.10.0-pp310.pp311.pp312.pp38.pp39-none-any.whl", hash = "sha256:80fa48bd89c8f2f456fc0765c11c23bf5af827febacd2f523ca5bc1893fcc09d"},
 ]
 Markdown = [
-    {file = "Markdown-3.5.2-py3-none-any.whl", hash = "sha256:d43323865d89fc0cb9b20c75fc8ad313af307cc087e84b657d9eec768eddeadd"},
-    {file = "Markdown-3.5.2.tar.gz", hash = "sha256:e1ac7b3dc550ee80e602e71c1d168002f062e49f1b11e26a36264dafd4df2ef8"},
+    {file = "Markdown-3.6-py3-none-any.whl", hash = "sha256:48f276f4d8cfb8ce6527c8f79e2ee29708508bf4d40aa410fbc3b4ee832c850f"},
+    {file = "Markdown-3.6.tar.gz", hash = "sha256:ed4f41f6daecbeeb96e576ce414c41d2d876daa9a16cb35fa8ed8c2ddfad0224"},
 ]
 markdown-it-py = [
     {file = "markdown-it-py-3.0.0.tar.gz", hash = "sha256:e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"},
@@ -1830,8 +1830,8 @@ prospector = [
     {file = "prospector-1.10.3.tar.gz", hash = "sha256:f29ab19fd430869eb34490761af77406d2cfedd9b50292cf4d8db0288c9d764a"},
 ]
 prospector-profile-duplicated = [
-    {file = "prospector_profile_duplicated-1.1.0-py2.py3-none-any.whl", hash = "sha256:e444dc283a6ceea938c2af344ebf7313912f428259013fe9b35b590b14d1e730"},
-    {file = "prospector_profile_duplicated-1.1.0.tar.gz", hash = "sha256:c057daab1ee78636f212233e23c91518cb69aa5dabc218ec8e99436f95fa5aef"},
+    {file = "prospector_profile_duplicated-1.2.0-py2.py3-none-any.whl", hash = "sha256:48d7e2376788c82597f8e17707a402e4885f116f67145674120b784d3ea11d42"},
+    {file = "prospector_profile_duplicated-1.2.0.tar.gz", hash = "sha256:15465da9d5b07035693374a6bb12159d0993ef85948e94f958f5632861f577f5"},
 ]
 proto-plus = [
     {file = "proto-plus-1.23.0.tar.gz", hash = "sha256:89075171ef11988b3fa157f5dbd8b9cf09d65fffee97e29ce403cd8defba19d2"},
@@ -2106,8 +2106,8 @@ twine = [
     {file = "twine-5.0.0.tar.gz", hash = "sha256:89b0cc7d370a4b66421cc6102f269aa910fe0f1861c124f573cf2ddedbc10cf4"},
 ]
 types-Markdown = [
-    {file = "types-Markdown-3.5.0.20240311.tar.gz", hash = "sha256:4c58ef33ee278183c540a58e599cbe97090f655302b6ef65a1084c4b32d748a4"},
-    {file = "types_Markdown-3.5.0.20240311-py3-none-any.whl", hash = "sha256:508fedc02601aa8943d0adbb390e2b4f00deab07870a51b411f6653d8e29e390"},
+    {file = "types-Markdown-3.6.0.20240316.tar.gz", hash = "sha256:de9fb84860b55b647b170ca576895fcca61b934a6ecdc65c31932c6795b440b8"},
+    {file = "types_Markdown-3.6.0.20240316-py3-none-any.whl", hash = "sha256:d3ecd26a940781787c7b57a0e3c9d77c150db64e12989ef687059edc83dfd78a"},
 ]
 types-PyYAML = [
     {file = "types-PyYAML-6.0.12.20240311.tar.gz", hash = "sha256:a9e0f0f88dc835739b0c1ca51ee90d04ca2a897a71af79de9aec5f38cb0a5342"},
@@ -2118,8 +2118,8 @@ types-requests = [
     {file = "types_requests-2.31.0.20240311-py3-none-any.whl", hash = "sha256:47872893d65a38e282ee9f277a4ee50d1b28bd592040df7d1fdaffdf3779937d"},
 ]
 types-setuptools = [
-    {file = "types-setuptools-69.1.0.20240310.tar.gz", hash = "sha256:fc0e1082f55c974611bce844b1e5beb2d1a895501f4a464e48305592a4268100"},
-    {file = "types_setuptools-69.1.0.20240310-py3-none-any.whl", hash = "sha256:7801245ecaf371d24f1154924c8f1f0efdc53977339bf79886b5b10890af6478"},
+    {file = "types-setuptools-69.2.0.20240317.tar.gz", hash = "sha256:b607c4c48842ef3ee49dc0c7fe9c1bad75700b071e1018bb4d7e3ac492d47048"},
+    {file = "types_setuptools-69.2.0.20240317-py3-none-any.whl", hash = "sha256:cf91ff7c87ab7bf0625c3f0d4d90427c9da68561f3b0feab77977aaf0bbf7531"},
 ]
 types-toml = [
     {file = "types-toml-0.10.8.20240310.tar.gz", hash = "sha256:3d41501302972436a6b8b239c850b26689657e25281b48ff0ec06345b8830331"},
