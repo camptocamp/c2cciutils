@@ -107,25 +107,25 @@ _C2C CI utils configuration file_
           - _object_: Send a dispatch event to an other repository.
             - **`repository`** _(string)_: The repository name to be triggered. Default: `"camptocamp/argocd-gs-gmf-apps"`.
             - **`event-type`** _(string)_: The event type to be triggered. Default: `"image-update"`.
-          -
+          - : Must be: `false`.
       - **`snyk`** _(object)_: Checks the published images with Snyk.
         - **`monitor_args`**: The arguments to pass to the Snyk container monitor command. Default: `["--app-vulns"]`.
           - **One of**
             - _array_
               - **Items** _(string)_
-            -
+            - : Must be: `false`.
         - **`test_args`**: The arguments to pass to the Snyk container test command. Default: `["--app-vulns", "--severity-threshold=critical"]`.
           - **One of**
             - _array_
               - **Items** _(string)_
-            -
-    -
+            - : Must be: `false`.
+    - : Must be: `false`.
 - <a id="definitions/publish_google_calendar"></a>**`publish_google_calendar`**: The configuration to publish on Google Calendar. Default: `{}`.
   - **One of**
     - _object_: The configuration to publish on Google Calendar.
       - **`on`** _(array)_: Default: `["version_branch", "version_tag", "rebuild"]`.
         - **Items** _(string)_
-    -
+    - : Must be: `false`.
 - <a id="definitions/publish_pypi"></a>**`publish_pypi`**: Configuration to publish on pypi. Default: `{}`.
   - **One of**
     - _object_: Configuration to publish on pypi.
@@ -137,7 +137,7 @@ _C2C CI utils configuration file_
             - **Items** _(string)_
       - **`versions`** _(array)_: The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script.
         - **Items** _(string)_
-    -
+    - : Must be: `false`.
 - <a id="definitions/publish_helm"></a>**`publish_helm`**: Configuration to publish Helm charts on GitHub release.
   - **One of**
     - _object_: Configuration to publish on Helm charts on GitHub release.
@@ -145,7 +145,7 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
       - **`versions`** _(array)_: The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script.
         - **Items** _(string)_
-    -
+    - : Must be: `false`.
 - <a id="definitions/print_versions"></a>**`print_versions`** _(object)_: The print versions configuration.
   - **`versions`** _(array)_: Default: `[{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "twine", "cmd": ["twine", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "make", "cmd": ["make", "--version"], "prefix": "make "}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker-compose", "cmd": ["docker-compose", "--version"]}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "kubectl", "cmd": ["kubectl", "version"]}, {"name": "helm", "cmd": ["helm", "version"]}]`.
     - **Items** _(object)_
