@@ -112,6 +112,7 @@ cryptography = "42.0.5"
 pyOpenSSL = "24.0.0"
 Pygments = "2.15.1"
 urllib3 = "1.26.18"
+idna = "3.7"
 
 [tool.poetry.extras]
 audit = []
