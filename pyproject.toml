@@ -98,7 +98,7 @@ version = ["multi-repo-automation"]
 [tool.poetry.group.dev.dependencies]
 # pylint = "2.15.6"
 prospector = { version = "1.10.3", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
-types-requests = "2.31.0.20240311"
+types-requests = "2.31.0.20240406"
 types-pyyaml = "6.0.12.20240311"
 types-setuptools = "68.0.0.3"
 types-markdown = "3.4.2.10"
