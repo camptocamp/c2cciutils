@@ -2,32 +2,8 @@
 
 ## Publishing
 
-The main goals of C2C CI utils is to offer the commands and the workflows to have the following project structure:
-
-Have stabilization branches named by default `<major>.<minor>`.
-Have the release named by default `<major>.<minor>.<patch>`.
-
-With C2C CI utils you can publish a python package and a Docker image from the same repository.
-
-The default publishing are:
-
-- Push on the `<major>.<minor>` branch will publish Docker images.
-- Create the tag `<major>.<minor>.<patch>` will publish the Docker images, and the Python package.
-- Push on a feature branch (whatever other name) will publish the Docker images.
-- Delete a feature branch will delete the Docker images.
-- Push on the `master` branch will publish the Docker images with the master tag (Publishing a python package is also possible).
-- The version at the last line of the `SECURITY.md` of the `master` branch will be also published using the `latest` tag,
-  this will respect the `tags` present in the configuration
-- In the `SECURITY.md` file of the `master` branch we can also add a column `Alternate Tag` to publish the Docker images with another tag,
-  this will respect the `tags` present in the configuration (only for Docker).
-
-The Docker images are published on Docker Hub and GitHub Container Registry.
-
-You can run the publishing locally in dry-run mode:
-
-```bash
-GITHUB_REF=... c2cciutils-publish --dry-run ...
-```
+The main goals of C2C CI utils is to offer the commands to publish the project,
+see the [documentation](https://github.com/camptocamp/c2cciutils/wiki/Publishing).
 
 ## Changelog
 
