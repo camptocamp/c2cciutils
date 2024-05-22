@@ -5,3 +5,9 @@ repos:
       - id: prettier
         additional_dependencies:
           - prettier@2.8.4
+  - repo: https://github.com/sbrunner/hooks
+    rev: 1.0.0
+    hooks:
+      - id: poetry-lock
+        additional_dependencies:
+          - poetry==1.4.2 # pypi
