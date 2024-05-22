@@ -1073,11 +1073,11 @@ md = ["cmarkgfm (>=0.8.0)"]
 
 [[package]]
 name = "requests"
-version = "2.31.0"
+version = "2.32.0"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 
 [package.dependencies]
 certifi = ">=2017.4.17"
@@ -1087,7 +1087,7 @@ urllib3 = ">=1.21.1,<3"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "requests-oauthlib"
@@ -1460,7 +1460,7 @@ publish_plugins = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "523d655fceec81f6acae4f52d9af8c692db16b6a00520907bc59bc6649a63cd5"
+content-hash = "646d6701f1bc5a846e7871779afa14b8fea57aee5b7ac396a5c975f6bb8e8e62"
 
 [metadata.files]
 astroid = [
@@ -2146,8 +2146,8 @@ readme-renderer = [
     {file = "readme_renderer-37.3.tar.gz", hash = "sha256:cd653186dfc73055656f090f227f5cb22a046d7f71a841dfa305f55c9a513273"},
 ]
 requests = [
-    {file = "requests-2.31.0-py3-none-any.whl", hash = "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f"},
-    {file = "requests-2.31.0.tar.gz", hash = "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"},
+    {file = "requests-2.32.0-py3-none-any.whl", hash = "sha256:f2c3881dddb70d056c5bd7600a4fae312b2a300e39be6a118d30b90bd27262b5"},
+    {file = "requests-2.32.0.tar.gz", hash = "sha256:fa5490319474c82ef1d2c9bc459d3652e3ae4ef4c4ebdd18a21145a47ca4b6b8"},
 ]
 requests-oauthlib = [
     {file = "requests-oauthlib-1.3.1.tar.gz", hash = "sha256:75beac4a47881eeb94d5ea5d6ad31ef88856affe2332b9aafb52c6452ccf0d7a"},
