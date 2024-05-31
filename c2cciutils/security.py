@@ -8,6 +8,13 @@ from typing import Optional
 import markdown
 from markdown.extensions.tables import TableExtension
 
+HEADER_VERSION = "Version"
+HEADER_ALTERNATE_TAG = "Alternate Tag"
+HEADER_SUPPORT_UNTIL = "Supported Until"
+SUPPORT_TO_BE_DEFINED = "To be defined"
+SUPPORT_BEST_EFFORT = "Best effort"
+SUPPORT_UNSUPPORTED = "Unsupported"
+
 
 class Security:
     """
@@ -18,12 +25,13 @@ class Security:
     data: list[list[str]]
     _row: Optional[list[str]] = None
 
-    def __init__(self, status: str):
+    def __init__(self, status: str, check: bool = True):
         """
         Initialize.
 
         Arguments:
             status: the content of the SECURITY.md file.
+            check: Set to `False` to skip the check.
         """
 
         self.headers = []
@@ -39,6 +47,52 @@ class Security:
         self.data = [r for r in self.data if len([c for c in r if c is not None]) > 0]
         for row in self.data:
             row.append("")
+
+        self.version_index = self.headers.index(HEADER_VERSION) if HEADER_VERSION in self.headers else -1
+        self.alternate_tag_index = (
+            self.headers.index(HEADER_ALTERNATE_TAG) if HEADER_ALTERNATE_TAG in self.headers else -1
+        )
+        self.support_until_index = (
+            self.headers.index(HEADER_SUPPORT_UNTIL) if HEADER_SUPPORT_UNTIL in self.headers else -1
+        )
+
+        if check:
+            if not self.check(verbose=0):
+                raise ValueError("SECURITY.md file is not valid.")
+
+    def check(self, verbose: int = -1) -> bool:
+        """
+        Check the content.
+
+        Arguments:
+            verbose: the verbosity level, `-1` for no output, `0` for errors only, `1` for all.
+
+        Return:
+            `True` if the content is valid, `False` otherwise.
+        """
+
+        success = True
+        if self.version_index == -1:
+            if verbose >= 0:
+                print("`Version` column not found.")
+            success = False
+        elif verbose >= 1:
+            print(f"`Version` column found at index {self.version_index}.")
+
+        if self.alternate_tag_index == -1:
+            if verbose >= 1:
+                print("Optional `Alternate Tag` column not found.")
+        elif verbose >= 1:
+            print(f"`Alternate Tag` column found at index {self.alternate_tag_index}.")
+
+        if self.support_until_index == -1:
+            if verbose >= 0:
+                print("`Support Until` column not found.")
+            success = False
+        elif verbose >= 1:
+            print(f"`Support Until` column found at index {self.support_until_index}.")
+
+        return success
 
     def _pe(self, elem: xml.etree.ElementTree.Element) -> None:
         """
