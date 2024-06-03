@@ -214,10 +214,8 @@ def main() -> None:
                 sys.exit(1)
 
         security = c2cciutils.security.Security(security_text)
-        version_index = security.headers.index("Version") if "Version" in security.headers else -1
-        alternate_tag_index = (
-            security.headers.index("Alternate Tag") if "Alternate Tag" in security.headers else -1
-        )
+        version_index = security.version_index
+        alternate_tag_index = security.alternate_tag_index
 
         row_index = -1
         if version_index >= 0:

@@ -45,8 +45,6 @@ class Security:
         self._pe(elem.getroot())
 
         self.data = [r for r in self.data if len([c for c in r if c is not None]) > 0]
-        for row in self.data:
-            row.append("")
 
         self.version_index = self.headers.index(HEADER_VERSION) if HEADER_VERSION in self.headers else -1
         self.alternate_tag_index = (
@@ -56,7 +54,8 @@ class Security:
             self.headers.index(HEADER_SUPPORT_UNTIL) if HEADER_SUPPORT_UNTIL in self.headers else -1
         )
 
-        if check:
+        # Check the content if the content isn't empty
+        if check and status:
             if not self.check(verbose=0):
                 raise ValueError("SECURITY.md file is not valid.")
 

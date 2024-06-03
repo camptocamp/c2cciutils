@@ -211,12 +211,16 @@ def outdated_versions(
     with open("SECURITY.md", encoding="utf-8") as security_file:
         security = c2cciutils.security.Security(security_file.read())
 
-    version_index = security.headers.index("Version")
-    date_index = security.headers.index("Supported Until")
+    version_index = security.version_index
+    date_index = security.support_until_index
 
     for row in security.data:
         str_date = row[date_index]
-        if str_date not in ("Unsupported", "Best effort", "To be defined"):
+        if str_date not in (
+            c2cciutils.security.SUPPORT_TO_BE_DEFINED,
+            c2cciutils.security.SUPPORT_BEST_EFFORT,
+            c2cciutils.security.SUPPORT_UNSUPPORTED,
+        ):
             date = datetime.datetime.strptime(row[date_index], "%d/%m/%Y")
             if date < datetime.datetime.now():
                 c2cciutils.error(
