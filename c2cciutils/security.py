@@ -10,7 +10,7 @@ from markdown.extensions.tables import TableExtension
 
 HEADER_VERSION = "Version"
 HEADER_ALTERNATE_TAG = "Alternate Tag"
-HEADER_SUPPORT_UNTIL = "Supported Until"
+HEADER_SUPPORTED_UNTIL = "Supported Until"
 SUPPORT_TO_BE_DEFINED = "To be defined"
 SUPPORT_BEST_EFFORT = "Best effort"
 SUPPORT_UNSUPPORTED = "Unsupported"
@@ -51,7 +51,7 @@ class Security:
             self.headers.index(HEADER_ALTERNATE_TAG) if HEADER_ALTERNATE_TAG in self.headers else -1
         )
         self.support_until_index = (
-            self.headers.index(HEADER_SUPPORT_UNTIL) if HEADER_SUPPORT_UNTIL in self.headers else -1
+            self.headers.index(HEADER_SUPPORTED_UNTIL) if HEADER_SUPPORTED_UNTIL in self.headers else -1
         )
 
         # Check the content if the content isn't empty
@@ -86,10 +86,10 @@ class Security:
 
         if self.support_until_index == -1:
             if verbose >= 0:
-                print("`Support Until` column not found.")
+                print("`Supported Until` column not found.")
             success = False
         elif verbose >= 1:
-            print(f"`Support Until` column found at index {self.support_until_index}.")
+            print(f"`Supported Until` column found at index {self.support_until_index}.")
 
         return success
 
