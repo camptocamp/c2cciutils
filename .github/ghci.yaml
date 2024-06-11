@@ -1,3 +1,4 @@
 # yaml-language-server: $schema=https://geoservices-int.camptocamp.com/github/schema.json
 
-profile: helm
+changelog:
+  create-release: false
