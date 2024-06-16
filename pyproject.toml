@@ -84,7 +84,7 @@ debian-inspector = "31.0.0"
 PyYAML = "6.0.1"
 tomlkit = { version = "0.12.5", optional = true }
 multi-repo-automation = { version="0.3.1", optional = true }
-cryptography = "42.0.7"
+cryptography = "42.0.8"
 urllib3 = "2.0.7"
 idna = "3.7"
 
