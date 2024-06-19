@@ -14,11 +14,6 @@
     automerge: true,
     schedule: 'after 5pm on the first day of the month',
   },
-  force: {
-    constraints: {
-      poetry: '1.2.1',
-    },
-  },
   regexManagers: [
     /** Do updates on pre-commit additional dependencies */
     {
@@ -67,7 +62,7 @@
     },
     /** Group Poetry packages */
     {
-      matchDepNames: ['poetry', 'poetry-.*'],
+      matchPackagePrefixes: ['poetry'],
       groupName: 'Poetry',
       automerge: true,
     },
