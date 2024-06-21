@@ -94,13 +94,13 @@ toml = "0.10.2"
 dparse = "0.5.2"
 oauthlib = "3.2.2"
 protobuf = "3.20.3"
-cryptography = "42.0.7"
+cryptography = "42.0.8"
 certifi = "2023.7.22"
 pyopenssl = "24.0.0"
 pyyaml = "6.0.1"
 wheel = "0.38.4"
 pygments = "2.15.1"
-urllib3 = "1.26.18"
+urllib3 = "1.26.19"
 idna = { version = "3.7", optional = true }
 
 [tool.poetry.dev-dependencies]
