@@ -112,7 +112,7 @@ protobuf = { version = "4.21.12", optional = true }
 cryptography = "42.0.8"
 certifi = "2023.7.22"
 Pygments = "2.15.1"
-urllib3 = { version = "1.26.18", optional = true }
+urllib3 = { version = "1.26.19", optional = true }
 idna = { version = "3.7", optional = true }
 
 [tool.poetry.extras]
