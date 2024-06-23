@@ -19,7 +19,7 @@ strict = true
 
 [tool.poetry]
 name = "c2cciutils"
-version = "0.0.0"
+version = "0.0.1.dev1"
 description = "Common utilities for Camptocamp CI"
 readme = "README.md"
 authors = ["Camptocamp <info@camptocamp.com>"]
@@ -142,7 +142,7 @@ requires = [
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry-dynamic-versioning]
-enable = true
+enable = false
 vcs = "git"
 pattern = "^(?P<base>\\d+(\\.\\d+)*)"
 format-jinja = """
