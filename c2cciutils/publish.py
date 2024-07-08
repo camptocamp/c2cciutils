@@ -301,7 +301,13 @@ def pip(
                             use_poetry = True
                             break
                     subprocess.run(
-                        ["pip", "install", *pyproject.get("build-system", {}).get("requires", [])], check=True
+                        [
+                            "pip",
+                            "install",
+                            "importlib-metadata<8.0.0",
+                            *pyproject.get("build-system", {}).get("requires", []),
+                        ],
+                        check=True,
                     )
                 if use_poetry:
                     freeze = subprocess.run(["pip", "freeze"], check=True, stdout=subprocess.PIPE)
