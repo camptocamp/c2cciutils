@@ -80,7 +80,7 @@ urllib3 = "==1.26.19"
 virtualenv = "==20.13.4"
 virtualenv-clone = "==0.5.7"
 webencodings = "==0.5.1"
-zipp = "==3.7.0"
+zipp = "==3.19.1"
 
 [dev-packages]
 prospector = {version = "==1.6.0", extras = ["with_bandit", "with_mypy"]}
