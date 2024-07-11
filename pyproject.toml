@@ -8,3 +8,9 @@ include_trailing_comma = true
 force_grid_wrap = false
 use_parentheses = true
 line_length = 110
+
+[tool.poetry]
+name = "c2cciutils"
+version = "0.0.0"
+description = "Utils used by Camptocamp in the CI"
+authors = ["Camptocamp <info@camptocamp.com>"]
