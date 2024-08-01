@@ -80,12 +80,12 @@ urllib3 = "==1.26.19"
 virtualenv = "==20.13.4"
 virtualenv-clone = "==0.5.7"
 webencodings = "==0.5.1"
-zipp = "==3.19.1"
+zipp = "==3.19.2"
 
 [dev-packages]
 prospector = {version = "==1.6.0", extras = ["with_bandit", "with_mypy"]}
 types-requests = "==2.27.31"
-types-pyyaml = "==6.0.12.20240311"
+types-pyyaml = "==6.0.12.20240724"
 types-setuptools = "==57.4.18"
 types-markdown = "==3.3.31"
 # Lock dependencies
