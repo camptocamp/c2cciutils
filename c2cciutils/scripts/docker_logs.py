@@ -21,7 +21,7 @@ def main() -> None:
 
     if os.path.exists("docker-compose.yaml"):
         _print("::group::Docker Compose ps")
-        subprocess.run(["docker-compose", "ps"], check=False)
+        subprocess.run(["docker", "compose", "ps"], check=False)
         _print("::endgroup::")
 
     _print("::group::Docker ps")
