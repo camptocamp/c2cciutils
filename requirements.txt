@@ -5,3 +5,4 @@ poetry-plugin-tweak-dependencies-version==1.0.0
 pip==23.3.2
 pre-commit==3.3.3
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
+certifi>=2024.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
