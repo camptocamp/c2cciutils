@@ -74,7 +74,7 @@ requests = "2.32.3"
 Markdown = "3.6"
 google-api-python-client = { version = "2.135.0", optional = true }
 google-auth-httplib2 = { version = "0.2.0", optional = true }
-google-auth-oauthlib = { version = "1.2.0", optional = true }
+google-auth-oauthlib = { version = "1.2.1", optional = true }
 "ruamel.yaml" = "0.18.6"
 defusedxml = "0.7.1"
 twine = { version = "5.1.1", optional = true }
@@ -96,8 +96,8 @@ version = ["multi-repo-automation"]
 [tool.poetry.group.dev.dependencies]
 # pylint = "2.15.6"
 prospector = { version = "1.10.3", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
-types-requests = "2.32.0.20240622"
-types-pyyaml = "6.0.12.20240311"
+types-requests = "2.32.0.20240712"
+types-pyyaml = "6.0.12.20240724"
 types-setuptools = "71.1.0.20240806"
 types-markdown = "3.6.0.20240316"
 types-toml = "0.10.8.20240310"
