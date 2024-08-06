@@ -353,7 +353,7 @@ httplib2 = ">=0.19.0"
 
 [[package]]
 name = "google-auth-oauthlib"
-version = "1.2.0"
+version = "1.2.1"
 description = "Google Authentication Library"
 category = "main"
 optional = true
@@ -560,7 +560,7 @@ mdurl = ">=0.1,<1.0"
 
 [package.extras]
 benchmarking = ["psutil", "pytest", "pytest-benchmark"]
-code_style = ["pre-commit (>=3.0,<4.0)"]
+code-style = ["pre-commit (>=3.0,<4.0)"]
 compare = ["commonmark (>=0.9,<1.0)", "markdown (>=3.4,<4.0)", "mistletoe (>=1.0,<2.0)", "mistune (>=2.0,<3.0)", "panflute (>=2.3,<3.0)"]
 linkify = ["linkify-it-py (>=1,<3)"]
 plugins = ["mdit-py-plugins"]
@@ -761,12 +761,12 @@ setoptconf-tmp = ">=0.3.1,<0.4.0"
 toml = ">=0.10.2,<0.11.0"
 
 [package.extras]
-with_bandit = ["bandit (>=1.5.1)"]
-with_everything = ["bandit (>=1.5.1)", "mypy (>=0.600)", "pyright (>=1.1.3)", "pyroma (>=2.4)", "vulture (>=1.5)"]
-with_mypy = ["mypy (>=0.600)"]
-with_pyright = ["pyright (>=1.1.3)"]
-with_pyroma = ["pyroma (>=2.4)"]
-with_vulture = ["vulture (>=1.5)"]
+with-bandit = ["bandit (>=1.5.1)"]
+with-everything = ["bandit (>=1.5.1)", "mypy (>=0.600)", "pyright (>=1.1.3)", "pyroma (>=2.4)", "vulture (>=1.5)"]
+with-mypy = ["mypy (>=0.600)"]
+with-pyright = ["pyright (>=1.1.3)"]
+with-pyroma = ["pyroma (>=2.4)"]
+with-vulture = ["vulture (>=1.5)"]
 
 [[package]]
 name = "prospector-profile-duplicated"
@@ -918,8 +918,8 @@ pylint = ">=2.0,<3"
 pylint-plugin-utils = ">=0.7"
 
 [package.extras]
-for_tests = ["coverage", "django-tables2", "django-tastypie", "factory-boy", "pylint (>=2.13)", "pytest", "wheel"]
-with_django = ["Django"]
+for-tests = ["coverage", "django-tables2", "django-tastypie", "factory-boy", "pylint (>=2.13)", "pytest", "wheel"]
+with-django = ["Django"]
 
 [[package]]
 name = "pylint-flask"
@@ -1270,8 +1270,8 @@ optional = false
 python-versions = ">=3.8"
 
 [[package]]
-name = "types-PyYAML"
-version = "6.0.12.20240311"
+name = "types-pyyaml"
+version = "6.0.12.20240724"
 description = "Typing stubs for PyYAML"
 category = "dev"
 optional = false
@@ -1279,7 +1279,7 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "types-requests"
-version = "2.32.0.20240622"
+version = "2.32.0.20240712"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
@@ -1357,15 +1357,15 @@ test = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more-it
 [extras]
 audit = []
 checks = []
-pr_checks = ["codespell"]
+pr-checks = ["codespell"]
 publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "tomlkit"]
-publish_plugins = []
+publish-plugins = []
 version = ["multi-repo-automation"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "9db240c4cdc1446541a452df6f26137f1abdf7af622de8d3a7f8024fb7bf1430"
+content-hash = "1a07368b132abdbf5565c7f548f36f6d36251aab3f49da9a04744b92846acfe4"
 
 [metadata.files]
 astroid = [
@@ -1645,8 +1645,8 @@ google-auth-httplib2 = [
     {file = "google_auth_httplib2-0.2.0-py2.py3-none-any.whl", hash = "sha256:b65a0a2123300dd71281a7bf6e64d65a0759287df52729bdd1ae2e47dc311a3d"},
 ]
 google-auth-oauthlib = [
-    {file = "google-auth-oauthlib-1.2.0.tar.gz", hash = "sha256:292d2d3783349f2b0734a0a0207b1e1e322ac193c2c09d8f7c613fb7cc501ea8"},
-    {file = "google_auth_oauthlib-1.2.0-py2.py3-none-any.whl", hash = "sha256:297c1ce4cb13a99b5834c74a1fe03252e1e499716718b190f56bcb9c4abc4faf"},
+    {file = "google_auth_oauthlib-1.2.1-py2.py3-none-any.whl", hash = "sha256:2d58a27262d55aa1b87678c3ba7142a080098cbc2024f903c62355deb235d91f"},
+    {file = "google_auth_oauthlib-1.2.1.tar.gz", hash = "sha256:afd0cad092a2eaa53cd8e8298557d6de1034c6cb4a740500b5357b648af97263"},
 ]
 googleapis-common-protos = [
     {file = "googleapis-common-protos-1.63.0.tar.gz", hash = "sha256:17ad01b11d5f1d0171c06d3ba5c04c54474e883b66b949722b4938ee2694ef4e"},
@@ -2125,13 +2125,13 @@ types-Markdown = [
     {file = "types-Markdown-3.6.0.20240316.tar.gz", hash = "sha256:de9fb84860b55b647b170ca576895fcca61b934a6ecdc65c31932c6795b440b8"},
     {file = "types_Markdown-3.6.0.20240316-py3-none-any.whl", hash = "sha256:d3ecd26a940781787c7b57a0e3c9d77c150db64e12989ef687059edc83dfd78a"},
 ]
-types-PyYAML = [
-    {file = "types-PyYAML-6.0.12.20240311.tar.gz", hash = "sha256:a9e0f0f88dc835739b0c1ca51ee90d04ca2a897a71af79de9aec5f38cb0a5342"},
-    {file = "types_PyYAML-6.0.12.20240311-py3-none-any.whl", hash = "sha256:b845b06a1c7e54b8e5b4c683043de0d9caf205e7434b3edc678ff2411979b8f6"},
+types-pyyaml = [
+    {file = "types-PyYAML-6.0.12.20240724.tar.gz", hash = "sha256:cf7b31ae67e0c5b2919c703d2affc415485099d3fe6666a6912f040fd05cb67f"},
+    {file = "types_PyYAML-6.0.12.20240724-py3-none-any.whl", hash = "sha256:e5becec598f3aa3a2ddf671de4a75fa1c6856fbf73b2840286c9d50fae2d5d48"},
 ]
 types-requests = [
-    {file = "types-requests-2.32.0.20240622.tar.gz", hash = "sha256:ed5e8a412fcc39159d6319385c009d642845f250c63902718f605cd90faade31"},
-    {file = "types_requests-2.32.0.20240622-py3-none-any.whl", hash = "sha256:97bac6b54b5bd4cf91d407e62f0932a74821bc2211f22116d9ee1dd643826caf"},
+    {file = "types-requests-2.32.0.20240712.tar.gz", hash = "sha256:90c079ff05e549f6bf50e02e910210b98b8ff1ebdd18e19c873cd237737c1358"},
+    {file = "types_requests-2.32.0.20240712-py3-none-any.whl", hash = "sha256:f754283e152c752e46e70942fa2a146b5bc70393522257bb85bd1ef7e019dcc3"},
 ]
 types-setuptools = [
     {file = "types-setuptools-71.1.0.20240806.tar.gz", hash = "sha256:ae5e7b4d643ab9e99fc00ac00041804118cabe72a56183c30d524fb064897ad6"},
