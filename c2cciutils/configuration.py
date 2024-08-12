@@ -464,7 +464,7 @@ PRINT_VERSIONS_VERSIONS_DEFAULT = [
     {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
     {"name": "make", "cmd": ["make", "--version"], "prefix": "make "},
     {"name": "docker", "cmd": ["docker", "--version"]},
-    {"name": "docker compose", "cmd": ["docker", "compose", "--version"]},
+    {"name": "docker compose", "cmd": ["docker", "compose", "version"]},
     {"name": "java", "cmd": ["java", "-version"]},
     {"name": "kubectl", "cmd": ["kubectl", "version"]},
     {"name": "helm", "cmd": ["helm", "version"]},
@@ -622,7 +622,7 @@ class PrintVersions(TypedDict, total=False):
       - cmd:
         - docker
         - compose
-        - --version
+        - version
         name: docker compose
       - cmd:
         - java
