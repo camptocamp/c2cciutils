@@ -19,7 +19,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/diffutils: 1:3.8-0ubuntu2
   ubuntu_22_04/dirmngr: 2.2.27-3ubuntu2.1
   ubuntu_22_04/dpkg: 1.21.1ubuntu2.3
-  ubuntu_22_04/e2fsprogs: 1.46.5-2ubuntu1.1
+  ubuntu_22_04/e2fsprogs: 1.46.5-2ubuntu1.2
   ubuntu_22_04/findutils: 4.8.0-1ubuntu3
   ubuntu_22_04/gcc: 4:11.2.0-1ubuntu1
   ubuntu_22_04/gcc-11: 11.4.0-1ubuntu1~22.04
@@ -60,7 +60,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libcap-ng0: 0.7.9-2.2build3
   ubuntu_22_04/libcap2: 1:2.44-1ubuntu0.22.04.1
   ubuntu_22_04/libcc1-0: 12.3.0-1ubuntu1~22.04
-  ubuntu_22_04/libcom-err2: 1.46.5-2ubuntu1.1
+  ubuntu_22_04/libcom-err2: 1.46.5-2ubuntu1.2
   ubuntu_22_04/libcrypt-dev: 1:4.4.27-1
   ubuntu_22_04/libcrypt1: 1:4.4.27-1
   ubuntu_22_04/libctf-nobfd0: 2.38-4ubuntu2.6
@@ -72,7 +72,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/liberror-perl: 0.17029-1
   ubuntu_22_04/libexpat1: 2.4.7-1ubuntu0.3
   ubuntu_22_04/libexpat1-dev: 2.4.7-1ubuntu0.3
-  ubuntu_22_04/libext2fs2: 1.46.5-2ubuntu1.1
+  ubuntu_22_04/libext2fs2: 1.46.5-2ubuntu1.2
   ubuntu_22_04/libffi8: 3.4.2-4
   ubuntu_22_04/libgcc-11-dev: 11.4.0-1ubuntu1~22.04
   ubuntu_22_04/libgcc-s1: 12.3.0-1ubuntu1~22.04
@@ -143,7 +143,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libsepol2: 3.3-1build1
   ubuntu_22_04/libsmartcols1: 2.37.2-4ubuntu3.4
   ubuntu_22_04/libsqlite3-0: 3.37.2-2ubuntu0.3
-  ubuntu_22_04/libss2: 1.46.5-2ubuntu1.1
+  ubuntu_22_04/libss2: 1.46.5-2ubuntu1.2
   ubuntu_22_04/libssh-4: 0.9.6-2ubuntu0.22.04.3
   ubuntu_22_04/libssl-dev: 3.0.2-0ubuntu1.17
   ubuntu_22_04/libssl3: 3.0.2-0ubuntu1.17
@@ -163,7 +163,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libzstd1: 1.4.8+dfsg-3build1
   ubuntu_22_04/linux-libc-dev: 5.15.0-119.129
   ubuntu_22_04/login: 1:4.8.1-2ubuntu2.2
-  ubuntu_22_04/logsave: 1.46.5-2ubuntu1.1
+  ubuntu_22_04/logsave: 1.46.5-2ubuntu1.2
   ubuntu_22_04/lsb-base: 11.1.0ubuntu4
   ubuntu_22_04/mawk: 1.3.4.20200120-3
   ubuntu_22_04/media-types: 7.0.0
