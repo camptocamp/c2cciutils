@@ -125,8 +125,8 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libpq5: 14.13-0ubuntu0.22.04.1
   ubuntu_22_04/libprocps8: 2:3.3.17-6ubuntu2.1
   ubuntu_22_04/libpsl5: 0.21.0-1.2build2
-  ubuntu_22_04/libpython3-dev: 3.10.6-1~22.04
-  ubuntu_22_04/libpython3-stdlib: 3.10.6-1~22.04
+  ubuntu_22_04/libpython3-dev: 3.10.6-1~22.04.1
+  ubuntu_22_04/libpython3-stdlib: 3.10.6-1~22.04.1
   ubuntu_22_04/libpython3.10: 3.10.12-1~22.04.5
   ubuntu_22_04/libpython3.10-dev: 3.10.12-1~22.04.5
   ubuntu_22_04/libpython3.10-minimal: 3.10.12-1~22.04.5
@@ -179,11 +179,11 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/pinentry-curses: 1.1.1-1build2
   ubuntu_22_04/procps: 2:3.3.17-6ubuntu2.1
   ubuntu_22_04/python-is-python3: 3.9.2-2
-  ubuntu_22_04/python3: 3.10.6-1~22.04
-  ubuntu_22_04/python3-dev: 3.10.6-1~22.04
+  ubuntu_22_04/python3: 3.10.6-1~22.04.1
+  ubuntu_22_04/python3-dev: 3.10.6-1~22.04.1
   ubuntu_22_04/python3-distutils: 3.10.8-1~22.04
   ubuntu_22_04/python3-lib2to3: 3.10.8-1~22.04
-  ubuntu_22_04/python3-minimal: 3.10.6-1~22.04
+  ubuntu_22_04/python3-minimal: 3.10.6-1~22.04.1
   ubuntu_22_04/python3-pip: 22.0.2+dfsg-1ubuntu0.4
   ubuntu_22_04/python3-pkg-resources: 59.6.0-1.2ubuntu0.22.04.1
   ubuntu_22_04/python3-setuptools: 59.6.0-1.2ubuntu0.22.04.1
