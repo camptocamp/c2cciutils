@@ -60,6 +60,12 @@
       groupName: 'all minor versions',
       automerge: true,
     },
+    /** Group and auto merge the CI dependencies */
+    {
+      matchFileNames: ['.github/**', '.pre-commit-config.yaml', 'ci/**'],
+      groupName: 'CI dependencies',
+      automerge: true,
+    },
     /** Group Poetry packages */
     {
       matchPackagePrefixes: ['poetry'],
@@ -104,12 +110,6 @@
       allowedVersions: '/(0|2|4|6|8)$/',
       enabled: false,
       matchDepNames: ['node'],
-    },
-    /** Group and auto merge the CI dependencies */
-    {
-      matchFileNames: ['.github/**', '.pre-commit-config.yaml', 'ci/**'],
-      groupName: 'CI dependencies',
-      automerge: true,
     },
     /** On branch 1.2 and 1.3 don't upgrade types-pyyaml */
     {
