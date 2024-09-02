@@ -105,7 +105,7 @@ twine = { version = "4.0.2", optional = true }
 codespell = { version = "2.2.6", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
-PyYAML = "6.0.1"
+PyYAML = "6.0.2"
 pyOpenSSL = "24.0.0"
 tomlkit = { version = "0.11.8", optional = true }
 importlib-metadata = { version = "7.2.1", optional = true }
@@ -113,9 +113,9 @@ certifi = "2024.7.4"
 cryptography = { version = "42.0.8", optional = true }
 markdown-it-py = { version = "2.2.0", optional = true }
 Pygments = { version = "2.15.1", optional = true }
-urllib3 = { version = "1.26.19", optional = true }
+urllib3 = { version = "1.26.20", optional = true }
 idna = { version = "3.7", optional = true }
-zipp = "3.19.1"
+zipp = "3.19.3"
 
 [tool.poetry.extras]
 audit = []
@@ -128,7 +128,7 @@ pr_checks = ["codespell"]
 # pylint = "2.15.6"
 prospector = { version = "1.9.0", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
 types-requests = "2.28.11.17"
-types-pyyaml = "6.0.12.20240724"
+types-pyyaml = "6.0.12.20240808"
 types-setuptools = "65.7.0.4"
 types-markdown = "3.4.2.10"
 types-toml = "0.10.8.20240310"
