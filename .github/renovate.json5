@@ -123,6 +123,7 @@
      */
     {
       matchDepNames: ['cryptography'],
+      enabled: true,
       automerge: true,
       schedule: 'at any time',
     },
