@@ -13,6 +13,7 @@ from re import Match
 from typing import Optional, cast
 
 import requests
+import security_md
 import yaml
 
 import c2cciutils
@@ -21,7 +22,6 @@ import c2cciutils.env
 import c2cciutils.lib.docker
 import c2cciutils.publish
 import c2cciutils.scripts.download_applications
-import c2cciutils.security
 from c2cciutils.publish import GoogleCalendar
 from c2cciutils.scripts.trigger_image_update import dispatch
 
@@ -213,7 +213,7 @@ def main() -> None:
                 print(f"::error:: {security_response.status_code} {security_response.text}")
                 sys.exit(1)
 
-        security = c2cciutils.security.Security(security_text)
+        security = security_md.Security(security_text)
         version_index = security.version_index
         alternate_tag_index = security.alternate_tag_index
 
