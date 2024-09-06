@@ -106,16 +106,15 @@ codespell = { version = "2.2.6", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
 PyYAML = "6.0.2"
-pyOpenSSL = "24.0.0"
 tomlkit = { version = "0.11.8", optional = true }
 importlib-metadata = { version = "7.2.1", optional = true }
-certifi = "2024.7.4"
+certifi = { version = "2024.7.4", optional = true }
 cryptography = { version = "43.0.1", optional = true }
 markdown-it-py = { version = "2.2.0", optional = true }
 Pygments = { version = "2.15.1", optional = true }
 urllib3 = { version = "1.26.20", optional = true }
 idna = { version = "3.7", optional = true }
-zipp = "3.19.3"
+zipp = { version = "3.19.3", optional = true }
 
 [tool.poetry.extras]
 audit = []
