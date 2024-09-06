@@ -117,5 +117,14 @@
       enabled: false,
       matchDepNames: ['types-pyyaml'],
     },
+    /**
+     * Immediately update the version of the cryptography package
+     * To quickly fix CVE
+     */
+    {
+      matchDepNames: ['cryptography'],
+      automerge: true,
+      schedule: 'at any time',
+    },
   ],
 }
