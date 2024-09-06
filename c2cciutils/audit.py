@@ -9,9 +9,10 @@ import subprocess  # nosec
 import sys
 from argparse import Namespace
 
+import security_md
+
 import c2cciutils
 import c2cciutils.configuration
-import c2cciutils.security
 
 
 def print_versions(
@@ -209,7 +210,7 @@ def outdated_versions(
         return True
 
     with open("SECURITY.md", encoding="utf-8") as security_file:
-        security = c2cciutils.security.Security(security_file.read())
+        security = security_md.Security(security_file.read())
 
     version_index = security.version_index
     date_index = security.support_until_index
@@ -217,9 +218,9 @@ def outdated_versions(
     for row in security.data:
         str_date = row[date_index]
         if str_date not in (
-            c2cciutils.security.SUPPORT_TO_BE_DEFINED,
-            c2cciutils.security.SUPPORT_BEST_EFFORT,
-            c2cciutils.security.SUPPORT_UNSUPPORTED,
+            security_md.SUPPORT_TO_BE_DEFINED,
+            security_md.SUPPORT_BEST_EFFORT,
+            security_md.SUPPORT_UNSUPPORTED,
         ):
             date = datetime.datetime.strptime(row[date_index], "%d/%m/%Y")
             if date < datetime.datetime.now():
