@@ -27,11 +27,8 @@ def main() -> None:
         print(yaml.dump(c2cciutils.get_config(), default_flow_style=False, Dumper=yaml.SafeDumper))
 
     if args.version:
-        for pkg in ("c2cciutils", "black", "isort"):
-            try:
-                print(f"{pkg} {pkg_resources.get_distribution(pkg).version}")
-            except pkg_resources.DistributionNotFound:
-                print(f"{pkg} missing")
+        version = pkg_resources.get_distribution("c2cciutils").version
+        print(f"c2cciutils {version}")
 
     if args.ls_files_mime:
         for file_name in c2cciutils.get_git_files_mime(args.ls_files_mime):
