@@ -27,9 +27,7 @@ jobs:
 
     steps:
       - run: docker system prune --all --force
-      - run: dpkg -l
       - run: pip install pyOpenSSL --upgrade
-      - run: python3 -m pip freeze
 
       - uses: actions/checkout@v4
         with:

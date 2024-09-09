@@ -456,18 +456,15 @@ K8S_DB_CHART_OPTIONS_DEFAULT = {
 
 
 PRINT_VERSIONS_VERSIONS_DEFAULT = [
-    {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
     {"name": "python", "cmd": ["python3", "--version"]},
     {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
-    {"name": "twine", "cmd": ["twine", "--version"]},
     {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
     {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
-    {"name": "make", "cmd": ["make", "--version"], "prefix": "make "},
+    {"name": "make", "cmd": ["make", "--version"]},
     {"name": "docker", "cmd": ["docker", "--version"]},
     {"name": "docker compose", "cmd": ["docker", "compose", "version"]},
     {"name": "java", "cmd": ["java", "-version"]},
-    {"name": "kubectl", "cmd": ["kubectl", "version"]},
-    {"name": "helm", "cmd": ["helm", "version"]},
+    {"name": "helm", "cmd": ["helm", "version"], "prefix": "HELM: "},
 ]
 """ Default value of the field path 'Print versions versions' """
 
@@ -583,10 +580,6 @@ class PrintVersions(TypedDict, total=False):
 
     default:
       - cmd:
-        - c2cciutils
-        - --version
-        name: c2cciutils
-      - cmd:
         - python3
         - --version
         name: python
@@ -596,10 +589,6 @@ class PrintVersions(TypedDict, total=False):
         - pip
         - --version
         name: pip
-      - cmd:
-        - twine
-        - --version
-        name: twine
       - cmd:
         - node
         - --version
@@ -614,7 +603,6 @@ class PrintVersions(TypedDict, total=False):
         - make
         - --version
         name: make
-        prefix: 'make '
       - cmd:
         - docker
         - --version
@@ -629,13 +617,10 @@ class PrintVersions(TypedDict, total=False):
         - -version
         name: java
       - cmd:
-        - kubectl
-        - version
-        name: kubectl
-      - cmd:
         - helm
         - version
         name: helm
+        prefix: 'HELM: '
     """
 
 

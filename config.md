@@ -147,7 +147,7 @@ _C2C CI utils configuration file_
         - **Items** _(string)_
     - : Must be: `false`.
 - <a id="definitions/print_versions"></a>**`print_versions`** _(object)_: The print versions configuration.
-  - **`versions`** _(array)_: Default: `[{"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]}, {"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "twine", "cmd": ["twine", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "make", "cmd": ["make", "--version"], "prefix": "make "}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker compose", "cmd": ["docker", "compose", "version"]}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "kubectl", "cmd": ["kubectl", "version"]}, {"name": "helm", "cmd": ["helm", "version"]}]`.
+  - **`versions`** _(array)_: Default: `[{"name": "python", "cmd": ["python3", "--version"]}, {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]}, {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]}, {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]}, {"name": "make", "cmd": ["make", "--version"]}, {"name": "docker", "cmd": ["docker", "--version"]}, {"name": "docker compose", "cmd": ["docker", "compose", "version"]}, {"name": "java", "cmd": ["java", "-version"]}, {"name": "helm", "cmd": ["helm", "version"], "prefix": "HELM: "}]`.
     - **Items** _(object)_
       - **`cmd`** _(array)_: The command that should be used.
         - **Items** _(string)_
