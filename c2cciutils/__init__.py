@@ -193,16 +193,13 @@ def get_config(branch: Optional[str] = None) -> c2cciutils.configuration.Configu
             "print_versions": {
                 "versions": [
                     {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-                    {"name": "codespell", "cmd": ["codespell", "--version"], "prefix": "codespell "},
                     {"name": "java", "cmd": ["java", "-version"]},
                     {"name": "python", "cmd": ["python3", "--version"]},
                     {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
                     {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
                     {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
                     {"name": "docker", "cmd": ["docker", "--version"]},
-                    {"name": "docker-compose", "cmd": ["docker-compose", "--version"]},
-                    {"name": "kubectl", "cmd": ["kubectl", "version"]},
-                    {"name": "k3d/k3s", "cmd": ["k3d", "--version"]},
+                    {"name": "docker compose", "cmd": ["docker", "compose", "version"]},
                 ]
             },
             "print_config": True,
