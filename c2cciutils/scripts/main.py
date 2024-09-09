@@ -27,7 +27,7 @@ def main() -> None:
         print(yaml.dump(c2cciutils.get_config(), default_flow_style=False, Dumper=yaml.SafeDumper))
 
     if args.version:
-        for pkg in ("c2cciutils", "black", "isort"):
+        for pkg in ("c2cciutils", "black", "isort", "codespell"):
             try:
                 print(f"{pkg} {pkg_resources.get_distribution(pkg).version}")
             except pkg_resources.DistributionNotFound:
