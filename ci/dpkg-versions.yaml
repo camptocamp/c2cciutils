@@ -12,7 +12,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/ca-certificates: 20230311ubuntu0.22.04.1
   ubuntu_22_04/cdebconf: 0.261ubuntu1
   ubuntu_22_04/coreutils: 8.32-4.1ubuntu1.2
-  ubuntu_22_04/curl: 7.81.0-1ubuntu1.17
+  ubuntu_22_04/curl: 7.81.0-1ubuntu1.18
   ubuntu_22_04/cyrus-sasl2: 2.1.27+dfsg2-3ubuntu1.2
   ubuntu_22_04/dash: 0.5.11+git20210903+057cd650a4ed-3build1
   ubuntu_22_04/db5.3: 5.3.28+dfsg1-0.8ubuntu3
@@ -21,7 +21,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/diffutils: 1:3.8-0ubuntu2
   ubuntu_22_04/dpkg: 1.21.1ubuntu2.3
   ubuntu_22_04/e2fsprogs: 1.46.5-2ubuntu1.2
-  ubuntu_22_04/expat: 2.4.7-1ubuntu0.3
+  ubuntu_22_04/expat: 2.4.7-1ubuntu0.4
   ubuntu_22_04/file: 1:5.41-3ubuntu0.1
   ubuntu_22_04/findutils: 4.8.0-1ubuntu3
   ubuntu_22_04/gcc-11: 11.4.0-1ubuntu1~22.04
@@ -88,7 +88,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/python-pip: 20.3.4+dfsg-4
   ubuntu_22_04/python3-defaults: 3.10.6-1~22.04
   ubuntu_22_04/python3-stdlib-extensions: 3.10.8-1~22.04
-  ubuntu_22_04/python3.10: 3.10.12-1~22.04.5
+  ubuntu_22_04/python3.10: 3.10.12-1~22.04.6
   ubuntu_22_04/readline: 8.1.2-1
   ubuntu_22_04/rpcsvc-proto: 1.4.2-0ubuntu6
   ubuntu_22_04/rtmpdump: 2.4+20151223.gitfa8646d.1-2build4
