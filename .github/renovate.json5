@@ -127,5 +127,10 @@
       automerge: true,
       schedule: 'at any time',
     },
+    /** For security reason don't takes the too early packages on stabilization branches */
+    {
+      matchBaseBranches: ['/^[0-9]+\\.[0-9]+$/'],
+      minimumReleaseAge: '7 days',
+    },
   ],
 }
