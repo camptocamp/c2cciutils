@@ -2,8 +2,6 @@
 The auditing functions.
 """
 
-import datetime
-import json
 import os.path
 import subprocess  # nosec
 import sys
@@ -176,59 +174,3 @@ def snyk(
         )
 
     return install_success and test_success and not has_diff
-
-
-def outdated_versions(
-    config: None,
-    full_config: c2cciutils.configuration.Configuration,
-    args: Namespace,
-) -> bool:
-    """
-    Check that the versions from the SECURITY.md are not outdated.
-
-    Arguments:
-        config: The audit section config
-        full_config: All the CI config
-        args: The parsed command arguments
-    """
-    del config, full_config
-
-    repo = c2cciutils.get_repository().split("/")
-    json_response = c2cciutils.graphql(
-        "default_branch.graphql",
-        {"name": repo[1], "owner": repo[0]},
-    )
-
-    if "errors" in json_response:
-        raise RuntimeError(json.dumps(json_response["errors"], indent=2))
-    if json_response["repository"]["defaultBranchRef"]["name"] != c2cciutils.get_branch(args.branch):
-        return True
-
-    success = True
-
-    if not os.path.exists("SECURITY.md"):
-        return True
-
-    with open("SECURITY.md", encoding="utf-8") as security_file:
-        security = security_md.Security(security_file.read())
-
-    version_index = security.version_index
-    date_index = security.support_until_index
-
-    for row in security.data:
-        str_date = row[date_index]
-        if str_date not in (
-            security_md.SUPPORT_TO_BE_DEFINED,
-            security_md.SUPPORT_BEST_EFFORT,
-            security_md.SUPPORT_UNSUPPORTED,
-        ):
-            date = datetime.datetime.strptime(row[date_index], "%d/%m/%Y")
-            if date < datetime.datetime.now():
-                c2cciutils.error(
-                    "versions",
-                    f"The version '{row[version_index]}' is outdated, it can be set to "
-                    "'Unsupported', 'Best effort' or 'To be defined'",
-                    "SECURITY.md",
-                )
-                success = False
-    return success
