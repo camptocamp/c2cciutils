@@ -47,13 +47,6 @@ class Audit(TypedDict, total=False):
       snyk: true
     """
 
-    outdated_versions: "AuditOutdatedVersions"
-    """
-    Audit outdated versions.
-
-    Audit of outdated version
-    """
-
     snyk: "AuditWithSnyk"
     """
     Audit with Snyk.
@@ -63,14 +56,6 @@ class Audit(TypedDict, total=False):
     Aggregation type: oneOf
     Subtype: "AuditSnykConfig"
     """
-
-
-AuditOutdatedVersions = bool
-"""
-Audit outdated versions.
-
-Audit of outdated version
-"""
 
 
 class AuditSnykConfig(TypedDict, total=False):

@@ -390,13 +390,18 @@ def main() -> None:
             dpkg_success &= c2cciutils.lib.docker.check_versions(versions_config.get(image, {}), image)
 
         if not dpkg_success:
-            current_versions_in_images = {}
+            current_versions_in_images: dict[str, dict[str, str]] = {}
             if dpkg_config_found:
                 with open("ci/dpkg-versions.yaml", encoding="utf-8") as dpkg_versions_file:
                     current_versions_in_images = yaml.load(dpkg_versions_file, Loader=yaml.SafeLoader)
             for image in images_src:
                 _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(image)
-                current_versions_in_images[image] = {k: str(v) for k, v in versions_image.items()}
+                for dpkg_package, package_version in versions_image.items():
+                    if dpkg_package not in current_versions_in_images[image]:
+                        current_versions_in_images[image][dpkg_package] = str(package_version)
+                for dpkg_package in current_versions_in_images[image].keys():
+                    if dpkg_package not in versions_image:
+                        del current_versions_in_images[image][dpkg_package]
             if dpkg_config_found:
                 print(
                     "::error::Some packages are have a greater version in the config raster then in the image."

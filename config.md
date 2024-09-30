@@ -7,7 +7,6 @@ _C2C CI utils configuration file_
 - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
 - **`codespell`**: Refer to _[#/definitions/codespell](#definitions/codespell)_.
 - **`audit`** _(object)_: The audit configuration. Default: `{"snyk": true, "outdated_versions": true}`.
-  - **`outdated_versions`**: Refer to _[#/definitions/audit_outdated_versions](#definitions/audit_outdated_versions)_.
   - **`snyk`**: Refer to _[#/definitions/audit_snyk](#definitions/audit_snyk)_.
 - **`pr-checks`** _(object)_: The PR check configuration. Default: `{"commits_messages": true, "commits_spell": true, "pull_request_spell": true, "pull_request_labels": true, "add_issue_link": true}`.
   - **`commits_messages`**: Refer to _[#/definitions/pr_checks_commits_messages](#definitions/pr_checks_commits_messages)_.
@@ -39,7 +38,6 @@ _C2C CI utils configuration file_
 
 ## Definitions
 
-- <a id="definitions/audit_outdated_versions"></a>**`audit_outdated_versions`** _(boolean)_: Audit of outdated version.
 - <a id="definitions/audit_snyk"></a>**`audit_snyk`**: The audit Snyk configuration.
   - **One of**
     - _object_: The audit Pipfile configuration.

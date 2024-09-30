@@ -6,11 +6,6 @@
   "description": "C2C CI utils configuration file",
   "additionalProperties": false,
   "definitions": {
-    "audit_outdated_versions": {
-      "title": "Audit outdated versions",
-      "description": "Audit of outdated version",
-      "type": "boolean"
-    },
     "audit_snyk": {
       "title": "Audit with Snyk",
       "description": "The audit Snyk configuration",
@@ -513,7 +508,6 @@
         "outdated_versions": true
       },
       "properties": {
-        "outdated_versions": { "$ref": "#/definitions/audit_outdated_versions" },
         "snyk": { "$ref": "#/definitions/audit_snyk" }
       }
     },
