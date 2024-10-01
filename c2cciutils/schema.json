@@ -504,8 +504,7 @@
       "description": "The audit configuration",
       "type": "object",
       "default": {
-        "snyk": true,
-        "outdated_versions": true
+        "snyk": true
       },
       "properties": {
         "snyk": { "$ref": "#/definitions/audit_snyk" }

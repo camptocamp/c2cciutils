@@ -4,7 +4,7 @@ Automatically generated file from a JSON schema.
 
 from typing import Any, Literal, TypedDict, Union
 
-AUDIT_DEFAULT = {"snyk": True, "outdated_versions": True}
+AUDIT_DEFAULT = {"snyk": True}
 """ Default value of the field path 'configuration audit' """
 
 
@@ -43,7 +43,6 @@ class Audit(TypedDict, total=False):
     The audit configuration
 
     default:
-      outdated_versions: true
       snyk: true
     """
 
@@ -227,7 +226,6 @@ Configuration = TypedDict(
         # | The audit configuration
         # |
         # | default:
-        # |   outdated_versions: true
         # |   snyk: true
         "audit": "Audit",
         # | Pull request checks.
