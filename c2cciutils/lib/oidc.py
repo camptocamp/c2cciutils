@@ -11,7 +11,7 @@ import os
 import sys
 from typing import NoReturn
 
-import id as oidc_id  # pylint: disable=import-error
+import id as oidc_id
 import requests
 
 
