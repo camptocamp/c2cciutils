@@ -60,16 +60,16 @@
       groupName: 'all minor versions',
       automerge: true,
     },
-    /** Group and auto merge the CI dependencies */
-    {
-      matchFileNames: ['.github/**', '.pre-commit-config.yaml', 'ci/**'],
-      groupName: 'CI dependencies',
-      automerge: true,
-    },
     /** Group Poetry packages */
     {
       matchPackagePrefixes: ['poetry'],
       groupName: 'Poetry',
+      automerge: true,
+    },
+    /** Group and auto merge the CI dependencies */
+    {
+      matchFileNames: ['.github/**', '.pre-commit-config.yaml', 'ci/**'],
+      groupName: 'CI dependencies',
       automerge: true,
     },
     /** Accept only the patch on stabilization branches */

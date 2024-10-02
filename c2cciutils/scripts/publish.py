@@ -20,6 +20,7 @@ import c2cciutils
 import c2cciutils.configuration
 import c2cciutils.env
 import c2cciutils.lib.docker
+import c2cciutils.lib.oidc
 import c2cciutils.publish
 import c2cciutils.scripts.download_applications
 from c2cciutils.publish import GoogleCalendar
@@ -170,6 +171,9 @@ def main() -> None:
         config.get("publish", {}).get("pypi", {}) if config.get("publish", {}).get("pypi", False) else {},
     )
     if pypi_config:
+        if pypi_config["packages"]:
+            c2cciutils.lib.oidc.pypi_login()
+
         for package in pypi_config["packages"]:
             if package.get("group", c2cciutils.configuration.PUBLISH_PIP_PACKAGE_GROUP_DEFAULT) == args.group:
                 publish = version_type in pypi_config.get("versions", [])

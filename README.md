@@ -224,6 +224,17 @@ Then by default:
 - Commit on `master` branch after the tag 1.3.0 => release `1.4.0.dev1`
 - Commit on `1.3` branch after the tag 1.3.0 => release `1.3.1.dev1`
 
+#### Authentication
+
+If the file `~/.pypirc` exists we consider that we ar already logged in also
+we will do the login with the `pypi` server with OpenID Connect (OIDC).
+
+The OIDC login is recommended because it didn't needs any additional secrets,
+but it need some configuration on pypi in the package,
+see the [GitHub Documentation](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-pypi#adding-the-identity-provider-to-pypi).
+
+#### Integration if the package directly in a Docker image
+
 To make it working in the `Dockerfile` you should have in the `poetry` stage:
 
 ```Dockerfile
