@@ -173,7 +173,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: python3 -m pip install --requirement=requirements.txt
-      - run: ~/.local/bin/poetry build
+      - run: poetry build
         env:
           POETRY_DYNAMIC_VERSIONING_BYPASS: 0.0.0
 
