@@ -61,7 +61,7 @@ class GoogleCalendar:
         self._update_creds()
         self.service = build("calendar", "v3", credentials=self.creds)
 
-    def init_calendar_service(self) -> Credentials:
+    def init_calendar_service(self) -> Credentials:  # type: ignore
         """
         Initialize the calendar service.
         """
@@ -74,10 +74,10 @@ class GoogleCalendar:
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
+                creds.refresh(Request())  # type: ignore
             else:
                 if self.token:
-                    creds = Credentials(
+                    creds = Credentials(  # type: ignore
                         self.token,
                         refresh_token=self.refresh_token,
                         token_uri=self.token_uri,
@@ -176,13 +176,6 @@ class GoogleCalendar:
 
         event_result = self.service.events().insert(calendarId=self.calendar_id, body=body).execute()
         print(f"Created event with id: {event_result['id']}")
-
-    def _print_credentials(self) -> None:
-        """
-        Print the credentials.
-        """
-        # UNSAFE: DO NEVER PRINT CREDENTIALS IN CI ENVIRONMENT, DEBUG ONLY!!!!
-        print(self.creds.to_json())
 
     def save_credentials_to_gopass(self) -> None:
         """
