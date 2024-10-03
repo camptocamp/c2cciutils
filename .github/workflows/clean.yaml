@@ -20,8 +20,10 @@ jobs:
           ci-gpg-private-key: ${{secrets.CI_GPG_PRIVATE_KEY}}
           github-gopass-ci-token: ${{secrets.GOPASS_CI_GITHUB_TOKEN}}
 
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: python3 -m pip install --user c2cciutils
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install c2cciutils
 
       - name: Clean Docker hub tags
         run: c2cciutils-clean
