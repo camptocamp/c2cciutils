@@ -93,7 +93,7 @@ repos:
         args:
           - --py38-plus
   - repo: https://github.com/PyCQA/prospector
-    rev: v1.10.3
+    rev: v1.11.0
     hooks:
       - id: prospector
         args:
