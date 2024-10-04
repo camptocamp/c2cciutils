@@ -106,12 +106,6 @@
       enabled: false,
       matchDepNames: ['node-vm2'],
     },
-    /** Disable poetry upgrade to 1.2.2 */
-    {
-      allowedVersions: ['/1.2.2/'],
-      enabled: false,
-      matchDepNames: ['poetry'],
-    },
     /** Only LTS version of Node */
     {
       allowedVersions: '/(0|2|4|6|8)$/',
