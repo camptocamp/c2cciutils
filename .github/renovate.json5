@@ -108,7 +108,7 @@
     },
     /** Disable poetry upgrade to 1.2.2 */
     {
-      allowedVersions: ['!/1.2.2/'],
+      allowedVersions: ['/1.2.2/'],
       enabled: false,
       matchDepNames: ['poetry'],
     },
