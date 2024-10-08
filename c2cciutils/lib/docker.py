@@ -26,7 +26,6 @@ def get_dpkg_packages_versions(
     Where `debian_11` corresponds on last path element for 'Debian 11'
     from https://repology.org/repositories/statistics
     """
-
     dpkg_configuration = c2cciutils.get_config().get("dpkg", {})
 
     os_release = {}
@@ -127,7 +126,6 @@ def check_versions(
     The versions of packages in the image should be present in the config file.
     The versions of packages in the image shouldn't be older than the versions of the config file.
     """
-
     result, versions_image = get_dpkg_packages_versions(image, default_distribution, default_release)
     if not result:
         return False

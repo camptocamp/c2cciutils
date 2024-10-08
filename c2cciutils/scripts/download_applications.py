@@ -17,7 +17,6 @@ from c2cciutils import applications_definition
 
 def main() -> None:
     """Download applications from GitHub releases or any other URLs to the ~/.local/bin folder."""
-
     argparser = argparse.ArgumentParser(
         description="""Download applications from GitHub releases or any other URLs to the ~/.local/bin folder.
             Based on tow files, the first contains the information about from where to download the applications,
@@ -60,7 +59,6 @@ def download_applications(
     applications: applications_definition.ApplicationsConfiguration, versions: dict[str, str]
 ) -> None:
     """Download the versions of applications specified in the configuration."""
-
     bin_path = os.path.join(os.environ["HOME"], ".local", "bin")
     if not os.path.exists(bin_path):
         os.makedirs(bin_path)

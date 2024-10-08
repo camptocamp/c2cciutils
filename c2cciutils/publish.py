@@ -72,7 +72,7 @@ class GoogleCalendar:
             with open(self.credentials_pickle_file, "rb") as token:
                 creds = pickle.load(token)  # nosec
         # If there are no (valid) credentials available, let the user log in.
-        if not creds or not creds.valid:
+        if not creds or not creds.valid:  # pylint: disable=possibly-used-before-assignment
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())  # type: ignore
             else:
@@ -194,6 +194,9 @@ class GoogleCalendar:
             c2cciutils.gopass_put(secret, key)
 
     def __del__(self) -> None:
+        """
+        Delete the credentials file.
+        """
         if os.path.exists(self.credentials_pickle_file):
             os.remove(self.credentials_pickle_file)
 
@@ -228,7 +231,9 @@ def main_calendar() -> None:
         parser.print_help()
 
     if args.show_events_since:
-        google_calendar.print_latest_events(args.show_events_since)
+        google_calendar.print_latest_events(  # pylint: disable=possibly-used-before-assignment
+            args.show_events_since
+        )
 
     if args.refresh_gopass_credentials:
         google_calendar.save_credentials_to_gopass()
@@ -250,7 +255,6 @@ def pip(
         publish: If False only check the package
         package: The package configuration
     """
-
     print(f"::group::{'Publishing' if publish else 'Checking'} '{package.get('path')}' to pypi")
     sys.stdout.flush()
     sys.stderr.flush()
@@ -349,7 +353,6 @@ def docker(
         dst_tags: Publish using the provided tags
         images_full: The list of published images (with tag), used to build the dispatch event
     """
-
     print(
         f"::group::Publishing {image_config['name']} to the server {name} using the tags {', '.join(dst_tags)}"
     )
@@ -409,7 +412,6 @@ def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, toke
         commit_sha: The sha of the current commit
         token: The GitHub token
     """
-
     print(f"::group::Publishing Helm chart from '{folder}' to GitHub release")
     sys.stdout.flush()
     sys.stderr.flush()

@@ -14,7 +14,6 @@ import c2cciutils
 
 def main() -> None:
     """Create a new version with its stabilization branch."""
-
     args_parser = argparse.ArgumentParser(
         description="Create a new version with its stabilization branch",
         usage="""

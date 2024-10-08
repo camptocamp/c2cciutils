@@ -7,7 +7,6 @@ import c2cciutils.lib.docker
 
 def main() -> None:
     """Dump the actual versions of packages in image to file ci/dpkg-versions.yaml."""
-
     argparser = argparse.ArgumentParser(
         description="Dump the actual versions of packages in image to file ci/dpkg-versions.yaml."
     )

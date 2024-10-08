@@ -25,7 +25,6 @@ def clean(image: str, tag: str, token: str) -> None:
         tag: The tag that should be deleted
         token: The token used to be authenticated on Docker hub
     """
-
     print(f"Delete image '{image}:{tag}'.")
 
     response = requests.head(

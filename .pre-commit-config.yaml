@@ -128,6 +128,7 @@ repos:
           - --output-format=pylint
         additional_dependencies:
           - prospector-profile-duplicated==1.6.0 # pypi
+          - prospector-profile-utils==1.9.1 # pypi
   - repo: https://github.com/mheap/json-schema-spell-checker
     rev: main
     hooks:

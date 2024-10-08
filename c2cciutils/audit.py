@@ -7,8 +7,6 @@ import subprocess  # nosec
 import sys
 from argparse import Namespace
 
-import security_md
-
 import c2cciutils
 import c2cciutils.configuration
 
@@ -160,6 +158,7 @@ def snyk(
     snyk_fix_message = snyk_fix_proc.stdout.strip()
     print("::endgroup::")
 
+    has_diff = False
     if not args.fix:
         current_branch = c2cciutils.get_branch(args.branch)
         fix_github_create_pull_request_arguments = config.get(
