@@ -403,7 +403,7 @@ def main() -> None:
                 for dpkg_package, package_version in versions_image.items():
                     if dpkg_package not in current_versions_in_images[image]:
                         current_versions_in_images[image][dpkg_package] = str(package_version)
-                for dpkg_package in current_versions_in_images[image].keys():
+                for dpkg_package in list(current_versions_in_images[image].keys()):
                     if dpkg_package not in versions_image:
                         del current_versions_in_images[image][dpkg_package]
             if dpkg_config_found:
