@@ -16,3 +16,9 @@ pylint:
 bandit:
   options:
     config: .bandit.yaml
+
+pycodestyle:
+  disable:
+    # Buggy checks that don't detect strings
+    - W604 # backticks are deprecated, use 'repr()'
+    - E221 # multiple spaces before operator

@@ -105,14 +105,15 @@ This strongly suggests a server configuration or downtime issue; wait
 a few minutes and try again.
 
 You can monitor PyPI's status here: https://status.python.org/
-"""
+"""  # noqa: E702
         )
 
     # On failure, the JSON response includes the list of errors that
     # occurred during minting.
     if not mint_token_resp.ok:
         reasons = "\n".join(
-            f'* `{error["code"]}`: {error["description"]}' for error in mint_token_payload["errors"]
+            f'* `{error["code"]}`: {error["description"]}'
+            for error in mint_token_payload["errors"]  # noqa: W604
         )
 
         rendered_claims = _render_claims(oidc_token)
@@ -159,7 +160,7 @@ def pypi_login() -> None:
     pypirc_filename = os.path.expanduser("~/.pypirc")
 
     if os.path.exists(pypirc_filename):
-        print(f"::info::{pypirc_filename} already exists; consider as already logged in.")
+        print(f"::info::{pypirc_filename} already exists; consider as already logged in.")  # noqa: E702
         return
 
     if "ACTIONS_ID_TOKEN_REQUEST_TOKEN" not in os.environ:
