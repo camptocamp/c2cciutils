@@ -5,7 +5,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-cux"]
 RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
     sed -i '/-backports /d' /etc/apt/sources.list \
     && apt-get update \
-    && apt-get install --yes --no-install-recommends python3-pip binutils
+    && apt-get install --yes --no-install-recommends binutils python3-pip python3-venv \
+    && python3 -m venv /venv
+
+ENV PATH=/venv/bin:$PATH
 
 # Used to convert the locked packages by poetry to pip requirements format
 # We don't directly use `poetry install` because it force to use a virtual environment.
