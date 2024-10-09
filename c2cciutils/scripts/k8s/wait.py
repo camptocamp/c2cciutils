@@ -54,7 +54,7 @@ def _check_container_status(pod: Any, status: Any, is_init: bool = False) -> boo
         status_message = status_message.strip()
         if status_message == "Completed":
             return True
-        print(f'::group::Container not ready in {pod["metadata"]["name"]}: {status_message}')
+        print(f'::group::Container not ready in {pod["metadata"]["name"]}: {status_message}')  # noqa: E713
         if status_message_long != status_message:
             print(status_message_long)
         print(json.dumps(status, indent=4))
@@ -68,7 +68,7 @@ def _check_pod_status(pods: Any) -> bool:
         for condition in pod["status"].get("conditions", []):
             if not condition["status"]:
                 print(
-                    f'::group::Pod not ready in {pod["metadata"]["name"]}: {condition.get("message", condition["type"])}'
+                    f'::group::Pod not ready in {pod["metadata"]["name"]}: {condition.get("message", condition["type"])}'  # noqa: E713
                 )
                 print(json.dumps(condition, indent=4))
                 print("::endgroup::")
