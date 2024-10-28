@@ -320,23 +320,6 @@ files = [
 ]
 
 [[package]]
-name = "codespell"
-version = "2.3.0"
-description = "Codespell"
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "codespell-2.3.0-py3-none-any.whl", hash = "sha256:a9c7cef2501c9cfede2110fd6d4e5e62296920efe9abfb84648df866e47f58d1"},
-    {file = "codespell-2.3.0.tar.gz", hash = "sha256:360c7d10f75e65f67bad720af7007e1060a5d395670ec11a7ed1fed9dd17471f"},
-]
-
-[package.extras]
-dev = ["Pygments", "build", "chardet", "pre-commit", "pytest", "pytest-cov", "pytest-dependency", "ruff", "tomli", "twine"]
-hard-encoding-detection = ["chardet"]
-toml = ["tomli"]
-types = ["chardet (>=5.1.0)", "mypy", "pytest", "pytest-cov", "pytest-dependency"]
-
-[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -1594,17 +1577,6 @@ trove-classifiers = ">=2022.6.26"
 test = ["setuptools (>=60)", "zest.releaser[recommended]"]
 
 [[package]]
-name = "python-magic"
-version = "0.4.27"
-description = "File type identification using libmagic"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-files = [
-    {file = "python-magic-0.4.27.tar.gz", hash = "sha256:c1ba14b08e4a5f5c31a302b7721239695b2f0f058d125bd5ce1ee36b9d9d3c3b"},
-    {file = "python_magic-0.4.27-py2.py3-none-any.whl", hash = "sha256:c212960ad306f700aa0d01e5d7a325d20548ff97eb9920dcd29513174f0294d3"},
-]
-
-[[package]]
 name = "pywin32-ctypes"
 version = "0.2.3"
 description = "A (partial) reimplementation of pywin32 using ctypes/cffi"
@@ -2105,28 +2077,6 @@ files = [
 urllib3 = ">=2"
 
 [[package]]
-name = "types-setuptools"
-version = "75.1.0.20240917"
-description = "Typing stubs for setuptools"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "types-setuptools-75.1.0.20240917.tar.gz", hash = "sha256:12f12a165e7ed383f31def705e5c0fa1c26215dd466b0af34bd042f7d5331f55"},
-    {file = "types_setuptools-75.1.0.20240917-py3-none-any.whl", hash = "sha256:06f78307e68d1bbde6938072c57b81cf8a99bc84bd6dc7e4c5014730b097dc0c"},
-]
-
-[[package]]
-name = "types-toml"
-version = "0.10.8.20240310"
-description = "Typing stubs for toml"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "types-toml-0.10.8.20240310.tar.gz", hash = "sha256:3d41501302972436a6b8b239c850b26689657e25281b48ff0ec06345b8830331"},
-    {file = "types_toml-0.10.8.20240310-py3-none-any.whl", hash = "sha256:627b47775d25fa29977d9c70dc0cbab3f314f32c8d8d0c012f2ef5de7aaec05d"},
-]
-
-[[package]]
 name = "typing-extensions"
 version = "4.12.2"
 description = "Backported and Experimental Type Hints for Python 3.8+"
@@ -2187,12 +2137,12 @@ type = ["pytest-mypy"]
 [extras]
 audit = []
 checks = []
-pr-checks = ["codespell"]
-publish = ["google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "id", "tomlkit", "twine"]
+pr-checks = []
+publish = ["google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "id", "twine"]
 publish-plugins = []
 version = ["multi-repo-automation"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "6f60e9aae0f334cf0f8eb36867117f0b7fdf82059d27a85ff82da99c95ae70f6"
+content-hash = "f3d500fde213d74e71e47038aaaa1b066b321f264df0987b99381c6cd65c06a8"
