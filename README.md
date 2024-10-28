@@ -10,15 +10,6 @@ see the [documentation](https://github.com/camptocamp/c2cciutils/wiki/Publishing
 When we create a tag by default with the `changelog` workflow a release is created on GitHub, a changelog is
 generated and added to the release.
 
-## Security
-
-The security is managed by the `c2cciutils-audit` command with Snyk, it will audit the dependencies of the project on every
-stabilization branches, if possible a pull request is created automatically to update the dependencies.
-
-When we publish a Docker image the generated image is monitored by Snyk, this means that Snyk will search
-for all the dependencies and send the list to the Snyk web site to be monitored.
-We also do a test of the image and log the result (This will never cause the build to fail).
-
 ## Checks
 
 C2C CI utils will no more provide a tool to do a check of the project, this is replaced by `pre-commit`,
@@ -53,21 +44,16 @@ workflow will delete the workflows older than 500 days.
 
 C2cciutils make easier to have those workflows in a project:
 
-- `audit.yaml`: Audit the stabilization branches of the application against vulnerabilities in the python and node dependency
 - `auto-review.yaml`: Auto review the Renovate pull requests
 - `backport.yaml`: Trigger the backports (work with labels)
 - `clean.yaml`: Clean the Docker images related on a deleted feature branch
 - `main.yaml`: Main workflow especially with the c2cciutils-checks command
-- `changelog.yaml`: Generate the changelog and create the release on GitHub
-- `delete-old-workflows-run.yaml`: Delete the old workflows
-- `pr-checks.yaml`: Run the checks on the pull requests
 
 All the provided commands used in the workflow:
 
 - `c2cciutils`: some generic tools.
 - `c2cciutils-version`: Create a new version of the project.
-- `c2cciutils-checks`: Run the checks on the code (those checks don't need any project dependencies).
-- `c2cciutils-audit`: Do the audit, the main difference with checks is that it can change between runs on the same code.
+- `c2cciutils-env`: Print some environment information.
 - `c2cciutils-publish`: Publish the project.
 - `c2cciutils-clean`: Delete Docker images on Docker Hub after corresponding branch have been deleted.
 
@@ -128,7 +114,6 @@ You can override the configuration with the file `ci/config.yaml`.
 At the base of the configuration you have:
 
 - `version`: Contains some regular expressions to find the versions branches and tags, and to convert them into application versions.
-- `audit`: The audit configuration, see `c2cciutils/audit.py` for more information.
 - `publish`: The publishing configuration, see `c2cciutils/publish.py` for more information.
 
 Many actions can be disabled by setting the corresponding configuration part to `False`.
@@ -239,7 +224,7 @@ To make it working in the `Dockerfile` you should have in the `poetry` stage:
 
 ```Dockerfile
 ENV POETRY_DYNAMIC_VERSIONING_BYPASS=dev
-RUN poetry export --extras=checks --extras=publish --extras=audit --output=requirements.txt \
+RUN poetry export --extras=checks --extras=publish --output=requirements.txt \
     && poetry export --with=dev --output=requirements-dev.txt
 ```
 

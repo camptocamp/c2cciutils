@@ -10,11 +10,11 @@ import pickle  # nosec
 import re
 import subprocess  # nosec
 import sys
+import tomllib
 import uuid
 from typing import Optional
 
 import ruamel.yaml
-import tomlkit
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -289,8 +289,8 @@ def pip(
             if os.path.exists(os.path.join(cwd, "pyproject.toml")):
                 use_poetry = False
                 if "build_command" not in package:
-                    with open(os.path.join(cwd, "pyproject.toml"), encoding="utf-8") as project_file:
-                        pyproject = tomlkit.load(project_file)
+                    with open(os.path.join(cwd, "pyproject.toml"), "rb") as project_file:
+                        pyproject = tomllib.load(project_file)
                     re_splitter = re.compile(r"[<>=]+")
                     for requirement in pyproject.get("build-system", {}).get("requires", []):
                         requirement_split = re_splitter.split(requirement)

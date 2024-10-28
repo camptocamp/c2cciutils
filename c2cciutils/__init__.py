@@ -11,7 +11,6 @@ import sys
 from re import Match, Pattern
 from typing import Any, Optional, TypedDict, cast
 
-import magic
 import requests
 import ruamel.yaml
 
@@ -126,8 +125,6 @@ def get_config() -> c2cciutils.configuration.Configuration:
 
     default_config = {
         "publish": publish_config,
-        "pr-checks": c2cciutils.configuration.PULL_REQUEST_CHECKS_DEFAULT,
-        "audit": c2cciutils.configuration.AUDIT_DEFAULT,
     }
     merge(default_config, config)
 
@@ -411,160 +408,6 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
     return cast(dict[str, Any], json_response["data"])
 
 
-def get_git_files_mime(
-    mime_type: Optional[list[str]] = None,
-    extensions: Optional[list[str]] = None,
-    ignore_patterns_re: Optional[list[str]] = None,
-) -> list[str]:
-    """
-    Get list of paths from git with all the files that have the specified mime type.
-
-    Arguments:
-        mime_type: The considered MIME type
-        extensions: The considered extensions
-        ignore_patterns_re: A list of regular expressions of files that we should ignore
-    """
-    if mime_type is None:
-        mime_type = ["text/x-python", "text/x-script.python"]
-    if extensions is None:
-        extensions = [".py"]
-    ignore_patterns_compiled = [re.compile(p) for p in ignore_patterns_re or []]
-    result = []
-
-    for filename in subprocess.check_output(["git", "ls-files"]).decode().strip().split("\n"):
-        if os.path.isfile(filename) and (
-            os.path.splitext(filename)[1] in extensions or magic.from_file(filename, mime=True) in mime_type
-        ):
-            accept = True
-            for pattern in ignore_patterns_compiled:
-                if pattern.search(filename):
-                    accept = False
-                    break
-            if accept:
-                result.append(filename)
-    return result
-
-
-def get_branch(branch: Optional[str], master_branch: str = "master") -> str:
-    """
-    Get the branch name.
-
-    Arguments:
-        branch: The forced to use branch name
-        master_branch: The master branch name, can be used as default value
-
-    Return the branch name
-    """
-    if branch is not None:
-        return branch
-    try:
-        branch = (
-            subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True, stdout=subprocess.PIPE)
-            .stdout.decode()
-            .strip()
-        )
-    except subprocess.CalledProcessError as exception:
-        print(f"Error getting branch: {exception}")
-        branch = "HEAD"
-
-    if branch == "HEAD":
-        branch = os.environ.get("GITHUB_HEAD_REF", master_branch)
-        assert branch is not None
-    return branch
-
-
-def get_based_on_master(
-    repo: list[str],
-    override_current_branch: Optional[str],
-    master_branch: str,
-    config: c2cciutils.configuration.Configuration,
-) -> bool:
-    """
-    Check that we are not on a release branch (to avoid errors in versions check).
-
-    This function will check the last 20 commits in current branch,
-    and for each other branch (max 50) check if any commit in last 10 commits is the current one.
-
-    Arguments:
-        repo: The repository [<organization>, <name>]
-        override_current_branch: The branch to use instead of the current one
-        master_branch: The master branch name
-        config: The full configuration
-    """
-    if os.environ.get("GITHUB_REF", "").startswith("refs/tags/"):
-        # The tags are never consider as based on master
-        return False
-    current_branch = get_branch(override_current_branch, master_branch)
-    if current_branch == master_branch:
-        return True
-    branches_re = compile_re(config["version"].get("branch_to_version_re", []))
-    if does_match(current_branch, branches_re):
-        return False
-    if os.environ.get("GITHUB_BASE_REF"):
-        return os.environ.get("GITHUB_BASE_REF") == master_branch
-    commits_repository_json = graphql(
-        "commits.graphql", {"name": repo[1], "owner": repo[0], "branch": current_branch}
-    ).get("repository", {})
-    commits_json = (
-        commits_repository_json.get("ref", {}).get("target", {}).get("history", {}).get("nodes", [])
-        if commits_repository_json.get("ref")
-        else []
-    )
-    branches_json = [
-        branch
-        for branch in (
-            graphql("branches.graphql", {"name": repo[1], "owner": repo[0]})["repository"]["refs"]["nodes"]
-        )
-        if branch["name"] != current_branch and does_match(branch["name"], branches_re)
-    ]
-    based_branch = master_branch
-    found = False
-    for commit in commits_json:
-        for branch in branches_json:
-            commits = [
-                branch_commit
-                for branch_commit in branch["target"]["history"]["nodes"]
-                if commit["oid"] == branch_commit["oid"]
-            ]
-            if commits:
-                based_branch = branch["name"]
-                found = True
-                break
-        if found:
-            break
-    return based_branch == master_branch
-
-
-def get_codespell_command(config: c2cciutils.configuration.Configuration, fix: bool = False) -> list[str]:
-    """
-    Get the codespell command.
-
-    Arguments:
-        config: The full configuration
-        fix: If we should fix the errors
-    """
-    codespell_config = config.get("codespell", {})
-    codespell_config = codespell_config if isinstance(codespell_config, dict) else {}
-    command = ["codespell"]
-    if fix:
-        command.append("--write-changes")
-    for spell_ignore_file in (
-        ".github/spell-ignore-words.txt",
-        "spell-ignore-words.txt",
-        ".spell-ignore-words.txt",
-    ):
-        if os.path.exists(spell_ignore_file):
-            command.append(f"--ignore-words={spell_ignore_file}")
-            break
-    dictionaries = codespell_config.get(
-        "internal_dictionaries", c2cciutils.configuration.CODESPELL_DICTIONARIES_DEFAULT
-    )
-    if dictionaries:
-        command.append("--builtin=" + ",".join(dictionaries))
-    command += codespell_config.get("arguments", c2cciutils.configuration.CODESPELL_ARGUMENTS_DEFAULT)
-    return command
-
-
 def snyk_exec() -> tuple[str, dict[str, str]]:
     """Get the Snyk cli executable path."""
     if not os.path.exists(os.path.join(os.path.dirname(__file__), "node_modules")):
@@ -580,58 +423,3 @@ def snyk_exec() -> tuple[str, dict[str, str]]:
         subprocess.run(["snyk", "config", "set", f"org={env['SNYK_ORG']}"], check=True, env=env)
 
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), "node_modules/snyk/bin/snyk"), env
-
-
-def create_pull_request_if_needed(
-    current_branch: str,
-    new_branch: str,
-    commit_message: str,
-    pull_request_extra_arguments: Optional[list[str]] = None,
-) -> bool:
-    """
-    Create a pull request if there are changes.
-    """
-    if pull_request_extra_arguments is None:
-        pull_request_extra_arguments = ["--fill"]
-
-    diff_proc = subprocess.run(["git", "diff", "--quiet"])  # pylint: disable=subprocess-run-check
-    if diff_proc.returncode != 0:
-        print("::group::Diff")
-        sys.stdout.flush()
-        sys.stderr.flush()
-        subprocess.run(["git", "diff"], check=True)
-        print("::endgroup::")
-
-        git_hash = subprocess.run(
-            ["git", "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE, encoding="utf-8"
-        ).stdout.strip()
-        subprocess.run(["git", "checkout", "-b", new_branch], check=True)
-        subprocess.run(["git", "add", "--all"], check=True)
-        subprocess.run(["git", "commit", f"--message={commit_message}"], check=True)
-        if os.environ.get("TEST") != "TRUE":
-            subprocess.run(
-                ["git", "push", "--force", "origin", new_branch],
-                check=True,
-            )
-            env = os.environ.copy()
-            if "GH_TOKEN" not in env:
-                if "GITHUB_TOKEN" in env:
-                    env["GH_TOKEN"] = env["GITHUB_TOKEN"]
-                else:
-                    env["GH_TOKEN"] = str(c2cciutils.gopass("gs/ci/github/token/gopass"))
-            subprocess.run(
-                [
-                    "gh",
-                    "pr",
-                    "create",
-                    f"--base={current_branch}",
-                    *pull_request_extra_arguments,
-                ],
-                check=True,
-                env=env,
-            )
-        else:
-            subprocess.run(["git", "reset", "--hard"], check=True)
-        subprocess.run(["git", "checkout", git_hash], check=True)
-
-    return diff_proc.returncode != 0

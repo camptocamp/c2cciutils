@@ -4,273 +4,61 @@ Automatically generated file from a JSON schema.
 
 from typing import Any, Literal, TypedDict, Union
 
-AUDIT_DEFAULT = {"snyk": True}
-""" Default value of the field path 'configuration audit' """
 
-
-AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: list[Any] = []
-""" Default value of the field path 'Audit Snyk config files_no_install' """
-
-
-AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
-""" Default value of the field path 'Audit Snyk config fix_arguments' """
-
-
-AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT = ["--fill", "--label=dependencies"]
-""" Default value of the field path 'Audit Snyk config fix_github_create_pull_request_arguments' """
-
-
-AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
-""" Default value of the field path 'Audit Snyk config monitor_arguments' """
-
-
-AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT: list[Any] = []
-""" Default value of the field path 'Audit Snyk config pipenv_sync_arguments' """
-
-
-AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT = ["--user"]
-""" Default value of the field path 'Audit Snyk config pip_install_arguments' """
-
-
-AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
-""" Default value of the field path 'Audit Snyk config test_arguments' """
-
-
-class Audit(TypedDict, total=False):
+class Configuration(TypedDict, total=False):
     """
-    Audit.
+    configuration.
 
-    The audit configuration
+    C2C CI utils configuration file
+    """
+
+    print_versions: "PrintVersions"
+    """
+    Print versions.
+
+    The print versions configuration
+    """
+
+    publish: "Publish"
+    """
+    Publish.
+
+    The publishing configurations
 
     default:
-      snyk: true
+      docker:
+        images: <auto-detected>
+      helm:
+        folders: <auto-detected>
+        versions:
+        - version_tag
+      pypi:
+        packages: <auto-detected>
+        versions:
+        - version_tag
     """
 
-    snyk: "AuditWithSnyk"
+    version: "Version"
     """
-    Audit with Snyk.
+    Version.
 
-    The audit Snyk configuration
-
-    Aggregation type: oneOf
-    Subtype: "AuditSnykConfig"
+    The version configurations
     """
 
-
-class AuditSnykConfig(TypedDict, total=False):
+    k8s: "K8SConfiguration"
     """
-    Audit Snyk config.
-
-    The audit Pipfile configuration
-    """
-
-    test_arguments: list[str]
-    """
-    audit snyk test arguments.
-
-    The Snyk test arguments
+    K8s configuration.
 
     default:
-      - --all-projects
-      - --fail-on=all
-      - --severity-threshold=medium
+      {}
     """
 
-    monitor_arguments: list[str]
+    dpkg: "Dpkg"
     """
-    audit snyk monitor arguments.
+    dpkg.
 
-    The Snyk monitor arguments
-
-    default:
-      - --all-projects
+    The configuration use t manage the dpkg packages
     """
-
-    fix_arguments: list[str]
-    """
-    audit snyk fix arguments.
-
-    The Snyk fix arguments
-
-    default:
-      - --all-projects
-    """
-
-    fix_github_create_pull_request_arguments: list[str]
-    """
-    audit snyk fix pull request arguments.
-
-    The Snyk fix pull request extra arguments
-
-    default:
-      - --fill
-      - --label=dependencies
-    """
-
-    pip_install_arguments: list[str]
-    """
-    audit snyk pip install arguments.
-
-    The Snyk pip install arguments
-
-    default:
-      - --user
-    """
-
-    pipenv_sync_arguments: list[str]
-    """
-    audit snyk pipenv sync arguments.
-
-    The Snyk pipenv sync arguments
-
-    default:
-      []
-    """
-
-    files_no_install: list[str]
-    """
-    audit snyk files no install.
-
-    The list of files to not install
-
-    default:
-      []
-    """
-
-
-AuditWithSnyk = Union["AuditSnykConfig", bool]
-"""
-Audit with Snyk.
-
-The audit Snyk configuration
-
-Aggregation type: oneOf
-Subtype: "AuditSnykConfig"
-"""
-
-
-CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]
-""" Default value of the field path 'Codespell arguments' """
-
-
-CODESPELL_DICTIONARIES_DEFAULT = ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]
-""" Default value of the field path 'Codespell internal_dictionaries' """
-
-
-CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]
-""" Default value of the field path 'Codespell ignore_re' """
-
-
-class Codespell(TypedDict, total=False):
-    """
-    Codespell.
-
-    The codespell check configuration
-    """
-
-    internal_dictionaries: list[str]
-    """
-    codespell dictionaries.
-
-    List of argument that will be added to the codespell command
-
-    default:
-      - clear
-      - rare
-      - informal
-      - code
-      - names
-      - en-GB_to_en-US
-    """
-
-    arguments: list[str]
-    """
-    codespell arguments.
-
-    List of argument that will be added to the codespell command
-
-    default:
-      - --quiet-level=2
-      - --check-filenames
-      - --ignore-words-list=ro
-    """
-
-    ignore_re: list[str]
-    r"""
-    codespell ignore regular expression.
-
-    List of regular expression that should be ignored
-
-    default:
-      - (.*/)?poetry\.lock
-      - (.*/)?package-lock\.json
-    """
-
-
-# | configuration.
-# |
-# | C2C CI utils configuration file
-Configuration = TypedDict(
-    "Configuration",
-    {
-        # | Print versions.
-        # |
-        # | The print versions configuration
-        "print_versions": "PrintVersions",
-        # | Codespell.
-        # |
-        # | The codespell check configuration
-        "codespell": "Codespell",
-        # | Audit.
-        # |
-        # | The audit configuration
-        # |
-        # | default:
-        # |   snyk: true
-        "audit": "Audit",
-        # | Pull request checks.
-        # |
-        # | The PR check configuration
-        # |
-        # | default:
-        # |   add_issue_link: true
-        # |   commits_messages: true
-        # |   commits_spell: true
-        # |   pull_request_labels: true
-        # |   pull_request_spell: true
-        "pr-checks": "PullRequestChecks",
-        # | Publish.
-        # |
-        # | The publishing configurations
-        # |
-        # | default:
-        # |   docker:
-        # |     images: <auto-detected>
-        # |   helm:
-        # |     folders: <auto-detected>
-        # |     versions:
-        # |     - version_tag
-        # |   pypi:
-        # |     packages: <auto-detected>
-        # |     versions:
-        # |     - version_tag
-        "publish": "Publish",
-        # | Version.
-        # |
-        # | The version configurations
-        "version": "Version",
-        # | K8s configuration.
-        # |
-        # | default:
-        # |   {}
-        "k8s": "K8SConfiguration",
-        # | dpkg.
-        # |
-        # | The configuration use t manage the dpkg packages
-        "dpkg": "Dpkg",
-    },
-    total=False,
-)
 
 
 DB_CONFIGURATION_DEFAULT: dict[str, Any] = {}
@@ -506,48 +294,6 @@ PUBLISH_PYPI_CONFIG_DEFAULT: dict[str, Any] = {}
 
 PUBLISH_PYPI_DEFAULT: dict[str, Any] = {}
 """ Default value of the field path 'publish_pypi' """
-
-
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIRST_CAPITAL_DEFAULT = True
-""" Default value of the field path 'pull request checks commits messages configuration check_first_capital' """
-
-
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIXUP_DEFAULT = True
-""" Default value of the field path 'pull request checks commits messages configuration check_fixup' """
-
-
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_MIN_HEAD_LENGTH_DEFAULT = 5
-""" Default value of the field path 'pull request checks commits messages configuration min_head_length' """
-
-
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_MERGE_COMMITS_DEFAULT = True
-""" Default value of the field path 'pull request checks commits messages configuration check_no_merge_commits' """
-
-
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_OWN_REVERT_DEFAULT = True
-""" Default value of the field path 'pull request checks commits messages configuration check_no_own_revert' """
-
-
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_ONLY_HEAD_DEFAULT = True
-""" Default value of the field path 'pull request checks commits spelling configuration only_head' """
-
-
-PULL_REQUEST_CHECKS_COMMITS_MESSAGES_SQUASH_DEFAULT = True
-""" Default value of the field path 'pull request checks commits messages configuration check_squash' """
-
-
-PULL_REQUEST_CHECKS_DEFAULT = {
-    "commits_messages": True,
-    "commits_spell": True,
-    "pull_request_spell": True,
-    "pull_request_labels": True,
-    "add_issue_link": True,
-}
-""" Default value of the field path 'configuration pr-checks' """
-
-
-PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT = True
-""" Default value of the field path 'pull request checks pull request spelling configuration only_head' """
 
 
 class PrintVersions(TypedDict, total=False):
@@ -892,190 +638,6 @@ class PublishPypiPackage(TypedDict, total=False):
 
     build_command: list[str]
     """ The command used to do the build """
-
-
-class PullRequestChecks(TypedDict, total=False):
-    """
-    Pull request checks.
-
-    The PR check configuration
-
-    default:
-      add_issue_link: true
-      commits_messages: true
-      commits_spell: true
-      pull_request_labels: true
-      pull_request_spell: true
-    """
-
-    commits_messages: "PullRequestChecksCommitsMessages"
-    """
-    pull request checks commits messages.
-
-    Check the pull request commits messages
-
-    Aggregation type: oneOf
-    Subtype: "PullRequestChecksCommitsMessagesConfiguration"
-    """
-
-    commits_spell: "PullRequestChecksCommitsSpelling"
-    """
-    pull request checks commits spelling.
-
-    Aggregation type: oneOf
-    Subtype: "PullRequestChecksCommitsSpellingConfiguration"
-    """
-
-    pull_request_spell: "PullRequestChecksPullRequestSpelling"
-    """
-    pull request checks pull request spelling.
-
-    Aggregation type: oneOf
-    Subtype: "PullRequestChecksPullRequestSpellingConfiguration"
-    """
-
-    pull_request_labels: "PullRequestChecksRequestLabels"
-    """
-    pull request checks request labels.
-
-    According the create changelog configuration
-    """
-
-    add_issue_link: "PullRequestChecksAddIssueLink"
-    """ pull request checks add issue link. """
-
-
-PullRequestChecksAddIssueLink = bool
-""" pull request checks add issue link. """
-
-
-PullRequestChecksCommitsMessages = Union["PullRequestChecksCommitsMessagesConfiguration", bool]
-"""
-pull request checks commits messages.
-
-Check the pull request commits messages
-
-Aggregation type: oneOf
-Subtype: "PullRequestChecksCommitsMessagesConfiguration"
-"""
-
-
-class PullRequestChecksCommitsMessagesConfiguration(TypedDict, total=False):
-    """
-    pull request checks commits messages configuration.
-
-    The commit message check configuration
-    """
-
-    check_fixup: bool
-    """
-    pull request checks commits messages fixup.
-
-    Check that we don't have one fixup commit in the pull request
-
-    default: True
-    """
-
-    check_squash: bool
-    """
-    pull request checks commits messages squash.
-
-    Check that we don't have one squash commit in the pull request
-
-    default: True
-    """
-
-    check_first_capital: bool
-    """
-    pull request checks commits messages first capital.
-
-    Check that the all the commits message starts with a capital letter
-
-    default: True
-    """
-
-    min_head_length: int
-    """
-    pull request checks commits messages min head length.
-
-    Check that the commits message head is at least this long, use 0 to disable
-
-    default: 5
-    """
-
-    check_no_merge_commits: bool
-    """
-    pull request checks commits messages no merge commits.
-
-    Check that we don't have merge commits in the pull request
-
-    default: True
-    """
-
-    check_no_own_revert: bool
-    """
-    pull request checks commits messages no own revert.
-
-    Check that we don't have reverted one of our commits in the pull request
-
-    default: True
-    """
-
-
-PullRequestChecksCommitsSpelling = Union["PullRequestChecksCommitsSpellingConfiguration", bool]
-"""
-pull request checks commits spelling.
-
-Aggregation type: oneOf
-Subtype: "PullRequestChecksCommitsSpellingConfiguration"
-"""
-
-
-class PullRequestChecksCommitsSpellingConfiguration(TypedDict, total=False):
-    """
-    pull request checks commits spelling configuration.
-
-    Configuration used to check the spelling of the commits
-    """
-
-    only_head: bool
-    """
-    pull request checks commits messages only head.
-
-    default: True
-    """
-
-
-PullRequestChecksPullRequestSpelling = Union["PullRequestChecksPullRequestSpellingConfiguration", bool]
-"""
-pull request checks pull request spelling.
-
-Aggregation type: oneOf
-Subtype: "PullRequestChecksPullRequestSpellingConfiguration"
-"""
-
-
-class PullRequestChecksPullRequestSpellingConfiguration(TypedDict, total=False):
-    """
-    pull request checks pull request spelling configuration.
-
-    Configuration used to check the spelling of the title and body of the pull request
-    """
-
-    only_head: bool
-    """
-    pull request checks only head.
-
-    default: True
-    """
-
-
-PullRequestChecksRequestLabels = bool
-"""
-pull request checks request labels.
-
-According the create changelog configuration
-"""
 
 
 class Version(TypedDict, total=False):

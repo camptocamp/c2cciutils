@@ -5,15 +5,6 @@ _C2C CI utils configuration file_
 ## Properties
 
 - **`print_versions`**: Refer to _[#/definitions/print_versions](#definitions/print_versions)_.
-- **`codespell`**: Refer to _[#/definitions/codespell](#definitions/codespell)_.
-- **`audit`** _(object)_: The audit configuration. Default: `{"snyk": true}`.
-  - **`snyk`**: Refer to _[#/definitions/audit_snyk](#definitions/audit_snyk)_.
-- **`pr-checks`** _(object)_: The PR check configuration. Default: `{"commits_messages": true, "commits_spell": true, "pull_request_spell": true, "pull_request_labels": true, "add_issue_link": true}`.
-  - **`commits_messages`**: Refer to _[#/definitions/pr_checks_commits_messages](#definitions/pr_checks_commits_messages)_.
-  - **`commits_spell`**: Refer to _[#/definitions/pr_checks_commits_spell](#definitions/pr_checks_commits_spell)_.
-  - **`pull_request_spell`**: Refer to _[#/definitions/pr_checks_pull_request_spell](#definitions/pr_checks_pull_request_spell)_.
-  - **`pull_request_labels`**: Refer to _[#/definitions/pr_checks_pull_request_labels](#definitions/pr_checks_pull_request_labels)_.
-  - **`add_issue_link`**: Refer to _[#/definitions/pr_checks_add_issue_link](#definitions/pr_checks_add_issue_link)_.
 - **`publish`** _(object)_: The publishing configurations. Default: `{"pypi": {"versions": ["version_tag"], "packages": "<auto-detected>"}, "docker": {"images": "<auto-detected>"}, "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"}}`.
   - **`docker`**: Refer to _[#/definitions/publish_docker](#definitions/publish_docker)_.
   - **`pypi`**: Refer to _[#/definitions/publish_pypi](#definitions/publish_pypi)_.
@@ -38,53 +29,6 @@ _C2C CI utils configuration file_
 
 ## Definitions
 
-- <a id="definitions/audit_snyk"></a>**`audit_snyk`**: The audit Snyk configuration.
-  - **One of**
-    - _object_: The audit Pipfile configuration.
-      - **`test_arguments`** _(array)_: The Snyk test arguments. Default: `["--all-projects", "--fail-on=all", "--severity-threshold=medium"]`.
-        - **Items** _(string)_
-      - **`monitor_arguments`** _(array)_: The Snyk monitor arguments. Default: `["--all-projects"]`.
-        - **Items** _(string)_
-      - **`fix_arguments`** _(array)_: The Snyk fix arguments. Default: `["--all-projects"]`.
-        - **Items** _(string)_
-      - **`fix_github_create_pull_request_arguments`** _(array)_: The Snyk fix pull request extra arguments. Default: `["--fill", "--label=dependencies"]`.
-        - **Items** _(string)_
-      - **`pip_install_arguments`** _(array)_: The Snyk pip install arguments. Default: `["--user"]`.
-        - **Items** _(string)_
-      - **`pipenv_sync_arguments`** _(array)_: The Snyk pipenv sync arguments. Default: `[]`.
-        - **Items** _(string)_
-      - **`files_no_install`** _(array)_: The list of files to not install. Default: `[]`.
-        - **Items** _(string)_
-    - _boolean_
-- <a id="definitions/codespell"></a>**`codespell`** _(object)_: The codespell check configuration.
-  - **`internal_dictionaries`** _(array)_: List of argument that will be added to the codespell command. Default: `["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]`.
-    - **Items** _(string)_
-  - **`arguments`** _(array)_: List of argument that will be added to the codespell command. Default: `["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]`.
-    - **Items** _(string)_
-  - **`ignore_re`** _(array)_: List of regular expression that should be ignored. Default: `["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]`.
-    - **Items** _(string)_
-- <a id="definitions/pr_checks_commits_messages"></a>**`pr_checks_commits_messages`**: Check the pull request commits messages.
-  - **One of**
-    - _object_: The commit message check configuration.
-      - **`check_fixup`** _(boolean)_: Check that we don't have one fixup commit in the pull request. Default: `true`.
-      - **`check_squash`** _(boolean)_: Check that we don't have one squash commit in the pull request. Default: `true`.
-      - **`check_first_capital`** _(boolean)_: Check that the all the commits message starts with a capital letter. Default: `true`.
-      - **`min_head_length`** _(integer)_: Check that the commits message head is at least this long, use 0 to disable. Default: `5`.
-      - **`check_no_merge_commits`** _(boolean)_: Check that we don't have merge commits in the pull request. Default: `true`.
-      - **`check_no_own_revert`** _(boolean)_: Check that we don't have reverted one of our commits in the pull request. Default: `true`.
-    - _boolean_
-- <a id="definitions/pr_checks_commits_spell"></a>**`pr_checks_commits_spell`**
-  - **One of**
-    - _object_: Configuration used to check the spelling of the commits.
-      - **`only_head`** _(boolean)_: Default: `true`.
-    - _boolean_
-- <a id="definitions/pr_checks_pull_request_spell"></a>**`pr_checks_pull_request_spell`**
-  - **One of**
-    - _object_: Configuration used to check the spelling of the title and body of the pull request.
-      - **`only_head`** _(boolean)_: Default: `true`.
-    - _boolean_
-- <a id="definitions/pr_checks_pull_request_labels"></a>**`pr_checks_pull_request_labels`** _(boolean)_: According the create changelog configuration.
-- <a id="definitions/pr_checks_add_issue_link"></a>**`pr_checks_add_issue_link`** _(boolean)_
 - <a id="definitions/publish_docker"></a>**`publish_docker`**: The configuration used to publish on Docker.
   - **One of**
     - _object_: The configuration used to publish on Docker.
