@@ -401,8 +401,8 @@ def main() -> None:
             for image in images_src:
                 _, versions_image = c2cciutils.lib.docker.get_dpkg_packages_versions(image)
                 for dpkg_package, package_version in versions_image.items():
-                    if dpkg_package not in current_versions_in_images[image]:
-                        current_versions_in_images[image][dpkg_package] = str(package_version)
+                    if dpkg_package not in current_versions_in_images.get(image, {}):
+                        current_versions_in_images.setdefault(image, {})[dpkg_package] = str(package_version)
                 for dpkg_package in list(current_versions_in_images[image].keys()):
                     if dpkg_package not in versions_image:
                         del current_versions_in_images[image][dpkg_package]
