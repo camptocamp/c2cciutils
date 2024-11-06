@@ -55,5 +55,5 @@ jobs:
         run: docker build --tag=${GITHUB_REPOSITORY} .
 
       - name: Publish
-        run: c2cciutils-publish
+        run: tag-publish
         if: env.HAS_SECRETS == 'HAS_SECRETS'

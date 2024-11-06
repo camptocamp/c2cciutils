@@ -87,9 +87,10 @@ jobs:
         run: make build
 
       - name: Publish
-        run: c2cciutils-publish
-        if: |
-          env.HAS_SECRETS == 'HAS_SECRETS'
+        run: tag-publish
+        if: env.HAS_SECRETS == 'HAS_SECRETS'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: git diff --exit-code --patch > /tmp/dpkg-versions.patch || true
         if: failure()

@@ -1,4 +1,3 @@
 # https://docs.renovatebot.com/modules/datasource/#github-releases-datasource
 k3d-io/k3d: v5.8.3 # github-releases
 postgresql: 16.4.14 # helm - https://charts.bitnami.com/bitnami
-helm/chart-releaser: v1.7.0 # github-releases
