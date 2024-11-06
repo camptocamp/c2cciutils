@@ -2,7 +2,6 @@ dpkg
 repology.org
 pypi
 Snyk
-c2cciutils-publish
 fixup
 codespell
 pipenv

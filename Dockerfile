@@ -9,7 +9,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     && apt-get upgrade --yes \
     && apt-get install --yes --no-install-recommends apt-utils \
     && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install --yes tzdata \
-    && apt-get install --yes --no-install-recommends binutils python3-pip python3-venv \
+    && apt-get install --yes --no-install-recommends binutils git python3-pip python3-venv \
     && python3 -m venv /venv
 
 ENV PATH=/venv/bin:$PATH
@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/root/.cache \
 # Do the conversion
 COPY poetry.lock pyproject.toml ./
 ENV POETRY_DYNAMIC_VERSIONING_BYPASS=0.0.0
-RUN poetry export --extras=checks --extras=publish --extras=audit --extras=version --output=requirements.txt \
+RUN poetry export --output=requirements.txt \
     && poetry export --with=dev --output=requirements-dev.txt
 
 # Base, the biggest thing is to install the Python packages
@@ -49,25 +49,12 @@ FROM base AS run
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY .nvmrc /tmp
-RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
-    apt-get update \
-    && apt-get --assume-yes upgrade \
-    && apt-get install --assume-yes --no-install-recommends apt-transport-https gnupg curl \
-    && NODE_MAJOR="$(cat /tmp/.nvmrc)" \
-    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_${NODE_MAJOR}.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
-    && curl --silent https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor --output=/etc/apt/keyrings/nodesource.gpg \
-    && apt-get update \
-    && apt-get install --assume-yes --no-install-recommends "nodejs=${NODE_MAJOR}.*" libmagic1 git python3-dev libpq-dev gcc python-is-python3
-
 RUN python3 -m compileall -q -- *
 
 COPY . ./
 ARG VERSION=dev
 RUN --mount=type=cache,target=/root/.cache \
-    --mount=type=cache,target=/root/.npm \
-    cd c2cciutils && npm install && cd - \
-    && POETRY_DYNAMIC_VERSIONING_BYPASS=${VERSION} python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
+    POETRY_DYNAMIC_VERSIONING_BYPASS=${VERSION} python3 -m pip install --disable-pip-version-check --no-deps --editable=. \
     && python3 -m pip freeze > /requirements.txt \
     && python3 -m compileall -q /app/c2cciutils
 

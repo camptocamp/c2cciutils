@@ -1,9 +1,0 @@
-{
-  "name": "c2ccicheck",
-  "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "dependencies": {
-    "snyk": "1.1294.0"
-  }
-}
