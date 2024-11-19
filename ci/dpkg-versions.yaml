@@ -12,7 +12,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/coreutils: 8.32-4.1ubuntu1.2
   ubuntu_22_04/cpp: 4:11.2.0-1ubuntu1
   ubuntu_22_04/cpp-11: 11.4.0-1ubuntu1~22.04
-  ubuntu_22_04/curl: 7.81.0-1ubuntu1.18
+  ubuntu_22_04/curl: 7.81.0-1ubuntu1.19
   ubuntu_22_04/dash: 0.5.11+git20210903+057cd650a4ed-3build1
   ubuntu_22_04/debconf: 1.5.79ubuntu1
   ubuntu_22_04/debianutils: 5.5-1ubuntu2
@@ -65,8 +65,8 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libcrypt1: 1:4.4.27-1
   ubuntu_22_04/libctf-nobfd0: 2.38-4ubuntu2.6
   ubuntu_22_04/libctf0: 2.38-4ubuntu2.6
-  ubuntu_22_04/libcurl3-gnutls: 7.81.0-1ubuntu1.18
-  ubuntu_22_04/libcurl4: 7.81.0-1ubuntu1.18
+  ubuntu_22_04/libcurl3-gnutls: 7.81.0-1ubuntu1.19
+  ubuntu_22_04/libcurl4: 7.81.0-1ubuntu1.19
   ubuntu_22_04/libdb5.3: 5.3.28+dfsg1-0.8ubuntu3
   ubuntu_22_04/libdebconfclient0: 0.261ubuntu1
   ubuntu_22_04/liberror-perl: 0.17029-1
@@ -127,10 +127,10 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libpsl5: 0.21.0-1.2build2
   ubuntu_22_04/libpython3-dev: 3.10.6-1~22.04.1
   ubuntu_22_04/libpython3-stdlib: 3.10.6-1~22.04.1
-  ubuntu_22_04/libpython3.10: 3.10.12-1~22.04.6
-  ubuntu_22_04/libpython3.10-dev: 3.10.12-1~22.04.6
-  ubuntu_22_04/libpython3.10-minimal: 3.10.12-1~22.04.6
-  ubuntu_22_04/libpython3.10-stdlib: 3.10.12-1~22.04.6
+  ubuntu_22_04/libpython3.10: 3.10.12-1~22.04.7
+  ubuntu_22_04/libpython3.10-dev: 3.10.12-1~22.04.7
+  ubuntu_22_04/libpython3.10-minimal: 3.10.12-1~22.04.7
+  ubuntu_22_04/libpython3.10-stdlib: 3.10.12-1~22.04.7
   ubuntu_22_04/libquadmath0: 12.3.0-1ubuntu1~22.04
   ubuntu_22_04/libreadline8: 8.1.2-1
   ubuntu_22_04/librtmp1: 2.4+20151223.gitfa8646d.1-2build4
@@ -161,7 +161,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libuuid1: 2.37.2-4ubuntu3.4
   ubuntu_22_04/libxxhash0: 0.8.1-1
   ubuntu_22_04/libzstd1: 1.4.8+dfsg-3build1
-  ubuntu_22_04/linux-libc-dev: 5.15.0-125.135
+  ubuntu_22_04/linux-libc-dev: 5.15.0-126.136
   ubuntu_22_04/login: 1:4.8.1-2ubuntu2.2
   ubuntu_22_04/logsave: 1.46.5-2ubuntu1.2
   ubuntu_22_04/lsb-base: 11.1.0ubuntu4
@@ -188,9 +188,9 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/python3-pkg-resources: 59.6.0-1.2ubuntu0.22.04.2
   ubuntu_22_04/python3-setuptools: 59.6.0-1.2ubuntu0.22.04.2
   ubuntu_22_04/python3-wheel: 0.37.1-2ubuntu0.22.04.1
-  ubuntu_22_04/python3.10: 3.10.12-1~22.04.6
-  ubuntu_22_04/python3.10-dev: 3.10.12-1~22.04.6
-  ubuntu_22_04/python3.10-minimal: 3.10.12-1~22.04.6
+  ubuntu_22_04/python3.10: 3.10.12-1~22.04.7
+  ubuntu_22_04/python3.10-dev: 3.10.12-1~22.04.7
+  ubuntu_22_04/python3.10-minimal: 3.10.12-1~22.04.7
   ubuntu_22_04/readline-common: 8.1.2-1
   ubuntu_22_04/rpcsvc-proto: 1.4.2-0ubuntu6
   ubuntu_22_04/sed: 4.8-1ubuntu2
