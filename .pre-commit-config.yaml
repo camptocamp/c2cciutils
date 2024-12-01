@@ -28,7 +28,7 @@ repos:
             |^c2cciutils/schema.*\.json$
           )
   - repo: https://github.com/sbrunner/jsonschema-validator
-    rev: 0.1.0
+    rev: 0.3.2
     hooks:
       - id: jsonschema-validator
         files: |-
@@ -60,7 +60,7 @@ repos:
           - poetry==1.8.4 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2024.3.1 # pypi
+          - pipenv==2024.4.0 # pypi
       - id: helm-lock
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
@@ -80,7 +80,7 @@ repos:
     hooks:
       - id: git-check
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.29.4
+    rev: 0.30.0
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
@@ -119,7 +119,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/prospector
-    rev: v1.12.1
+    rev: v1.13.3
     hooks:
       - id: prospector
         args:
@@ -127,8 +127,8 @@ repos:
           - --die-on-tool-error
           - --output-format=pylint
         additional_dependencies:
-          - prospector-profile-duplicated==1.6.0 # pypi
-          - prospector-profile-utils==1.9.1 # pypi
+          - prospector-profile-duplicated==1.8.0 # pypi
+          - prospector-profile-utils==1.12.2 # pypi
   - repo: https://github.com/mheap/json-schema-spell-checker
     rev: main
     hooks:
