@@ -1,6 +1,4 @@
-"""
-Automatically generated file from a JSON schema.
-"""
+"""Automatically generated file from a JSON schema."""
 
 from typing import Any, Literal, TypedDict, Union
 
@@ -721,7 +719,7 @@ default:
 
 
 class _PublishDockerConfigSnyk(TypedDict, total=False):
-    """Checks the published images with Snyk"""
+    """Checks the published images with Snyk."""
 
     monitor_args: Union["_PublishDockerSnykMonitorArgsOneof0", "_PublishDockerSnykMonitorArgsOneof1"]
     """

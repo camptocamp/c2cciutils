@@ -149,9 +149,11 @@ If you run the tool without any version it will check that everything is OK rega
     stabilization_branches_with_master = [*stabilization_branches, repo.get("master_branch", "master")]
 
     for labels in mra.gh_json("label", ["name"], "list"):
-        if labels["name"].startswith("backport "):
-            if labels["name"].replace("backport ", "") not in stabilization_branches_with_master:
-                mra.gh("label", "delete", labels["name"], "--yes")
+        if (
+            labels["name"].startswith("backport ")
+            and labels["name"].replace("backport ", "") not in stabilization_branches_with_master
+        ):
+            mra.gh("label", "delete", labels["name"], "--yes")
 
     for branch in stabilization_branches_with_master:
         mra.gh(

@@ -1,3 +1,1 @@
-"""
-Example project.
-"""
+"""Example project."""

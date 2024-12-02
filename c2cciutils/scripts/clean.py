@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-"""
-The clean main function.
-"""
+"""The clean main function."""
 
 import argparse
 import json
@@ -24,6 +22,7 @@ def clean(image: str, tag: str, token: str) -> None:
         image: The image name that should be deleted (<organization>/<name>)
         tag: The tag that should be deleted
         token: The token used to be authenticated on Docker hub
+
     """
     print(f"Delete image '{image}:{tag}'.")
 
@@ -51,9 +50,7 @@ def clean(image: str, tag: str, token: str) -> None:
 
 
 def main() -> None:
-    """
-    Run the main function.
-    """
+    """Run the main function."""
     parser = argparse.ArgumentParser(
         description=(
             "Clean the Docker images on Docker Hub for the branch we delete "
@@ -87,10 +84,7 @@ def main() -> None:
     with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as event_file:
         event = json.loads(event_file.read())
         print(yaml.dump(event))
-        if "pull_request" in event:
-            ref = str(event["number"])
-        else:
-            ref = event["ref"]
+        ref = str(event["number"]) if "pull_request" in event else event["ref"]
 
     ref = ref.replace("/", "_")
 

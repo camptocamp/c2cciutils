@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-"""
-The publish script.
-"""
+"""The publish script."""
 
 import argparse
 import os
@@ -34,6 +32,7 @@ def match(tpe: str, base_re: str) -> Optional[Match[str]]:
     Arguments:
         tpe: The type of ref we want to match (heads, tag, ...)
         base_re: The regular expression to match the value
+
     """
     if base_re[0] == "^":
         base_re = base_re[1:]
@@ -50,6 +49,7 @@ def to_version(full_config: c2cciutils.configuration.Configuration, value: str, 
         full_config: The full configuration
         value: The value to be transformed
         kind: The name of the transformer in the configuration
+
     """
     item_re = c2cciutils.compile_re(
         cast(
@@ -63,9 +63,7 @@ def to_version(full_config: c2cciutils.configuration.Configuration, value: str, 
 
 
 def main() -> None:
-    """
-    Run the publish.
-    """
+    """Run the publish."""
     parser = argparse.ArgumentParser(description="Publish the project.")
     parser.add_argument("--group", default="default", help="The publishing group")
     parser.add_argument("--version", help="The version to publish to")
@@ -311,23 +309,22 @@ def main() -> None:
                                         conf, name, image_conf, tag_src, tags, images_full
                                     )
 
-                    if google_calendar_publish:
-                        if version_type in google_calendar_config.get(
-                            "on", c2cciutils.configuration.PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT
-                        ):
-                            if not google_calendar:
-                                google_calendar = GoogleCalendar()
-                            summary = f"{image_conf['name']}:{', '.join(tags_calendar)}"
-                            description = "\n".join(
-                                [
-                                    f"Published the image {image_conf['name']}",
-                                    f"Published on: {', '.join(docker_config['repository'].keys())}",
-                                    f"With tags: {', '.join(tags_calendar)}",
-                                    f"For version type: {version_type}",
-                                ]
-                            )
+                    if google_calendar_publish and version_type in google_calendar_config.get(
+                        "on", c2cciutils.configuration.PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT
+                    ):
+                        if not google_calendar:
+                            google_calendar = GoogleCalendar()
+                        summary = f"{image_conf['name']}:{', '.join(tags_calendar)}"
+                        description = "\n".join(
+                            [
+                                f"Published the image {image_conf['name']}",
+                                f"Published on: {', '.join(docker_config['repository'].keys())}",
+                                f"With tags: {', '.join(tags_calendar)}",
+                                f"For version type: {version_type}",
+                            ]
+                        )
 
-                            google_calendar.create_event(summary, description)
+                        google_calendar.create_event(summary, description)
 
         if args.dry_run:
             sys.exit(0)

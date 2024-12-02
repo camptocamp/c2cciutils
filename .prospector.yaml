@@ -2,23 +2,12 @@ inherits:
   - utils:base
   - utils:no-design-checks
   - utils:fix
+  - utils:unsafe
   - duplicated
-
-doc-warnings: true
 
 ignore-paths:
   - c2cciutils/configuration.py
 
-pylint:
-  disable:
-    - missing-module-docstring
-
 bandit:
-  options:
-    config: .bandit.yaml
-
-pycodestyle:
   disable:
-    # Buggy checks that don't detect strings
-    - W604 # backticks are deprecated, use 'repr()'
-    - E221 # multiple spaces before operator
+    - B113 # Call to requests without timeout (didn't work)

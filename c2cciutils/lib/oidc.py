@@ -154,8 +154,10 @@ def pypi_login() -> None:
     Connect to PyPI using OpenID Connect and mint a token for the user.
 
     See Also
+    --------
     - https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect
     - https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-pypi
+
     """
     pypirc_filename = os.path.expanduser("~/.pypirc")
 
