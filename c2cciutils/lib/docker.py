@@ -1,6 +1,4 @@
-"""
-Some utility functions for Docker images.
-"""
+"""Some utility functions for Docker images."""
 
 import os
 import subprocess  # nosec: B404
@@ -102,9 +100,7 @@ def get_dpkg_packages_versions(
 
 
 def get_versions_config() -> tuple[dict[str, dict[str, str]], bool]:
-    """
-    Get the versions from the config file.
-    """
+    """Get the versions from the config file."""
     if os.path.exists("ci/dpkg-versions.yaml"):
         with open("ci/dpkg-versions.yaml", encoding="utf-8") as versions_file:
             return (

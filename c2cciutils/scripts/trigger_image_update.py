@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-"""
-Trigger an image update on the argocd repository.
-"""
+"""Trigger an image update on the argocd repository."""
 
 import argparse
 import os.path
@@ -60,10 +58,8 @@ def main() -> None:
 
 
 def dispatch(repository: str, event_type: str, images_full: list[str]) -> None:
-    """
-    Trigger an image update on the argocd repository.
-    """
-    id_ = random.randint(1, 100000)  # nosec
+    """Trigger an image update on the argocd repository."""
+    id_ = random.randint(1, 100000)  # noqa: S311
     print(f"Triggering {event_type}:{id_} on {repository} with {','.join(images_full)}")
 
     response = requests.post(

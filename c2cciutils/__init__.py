@@ -1,6 +1,4 @@
-"""
-c2cciutils shared utils function.
-"""
+"""c2cciutils shared utils function."""
 
 import glob
 import json
@@ -18,9 +16,7 @@ import c2cciutils.configuration
 
 
 def get_repository() -> str:
-    """
-    Get the current GitHub repository like `organization/project`.
-    """
+    """Get the current GitHub repository like `organization/project`."""
     if "GITHUB_REPOSITORY" in os.environ:
         return os.environ["GITHUB_REPOSITORY"]
 
@@ -44,11 +40,12 @@ def merge(default_config: Any, config: Any) -> Any:
     Arguments:
         default_config: The default config that will be applied
         config: The base config, will be modified
+
     """
     if not isinstance(default_config, dict) or not isinstance(config, dict):
         return config
 
-    for key in default_config.keys():
+    for key in default_config:
         if key not in config:
             config[key] = default_config[key]
         else:
@@ -73,9 +70,7 @@ def get_master_branch(repo: list[str]) -> tuple[str, bool]:
 
 
 def get_config() -> c2cciutils.configuration.Configuration:
-    """
-    Get the configuration, with project and auto detections.
-    """
+    """Get the configuration, with project and auto detections."""
     config: c2cciutils.configuration.Configuration = {}
     if os.path.exists("ci/config.yaml"):
         with open("ci/config.yaml", encoding="utf-8") as open_file:
@@ -155,6 +150,7 @@ def error(
         line: The line number of the error
         col: The column number of the error
         error_type: The kind of error (error or warning)
+
     """
     result = ""
     on_ci = os.environ.get("CI", "false").lower() == "true"
@@ -197,6 +193,7 @@ def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = 
         prefix: The version prefix
 
     Return the compiled transform config.
+
     """
     result = []
     for conf in config:
@@ -226,6 +223,7 @@ def match(
 
     Returns the re match object, the matched config and the value as a tuple
     On no match it returns None, value
+
     """
     for conf in config:
         matched = conf["from"].match(value)
@@ -243,6 +241,7 @@ def does_match(value: str, config: list[VersionTransform]) -> bool:
         config: The result of `compile`
 
     Returns True it it does match else False
+
     """
     matched, _, _ = match(value, config)
     return matched is not None
@@ -262,6 +261,7 @@ def get_value(matched: Optional[Match[str]], config: Optional[VersionTransform],
         value: The default value on returned no match
 
     Return the value
+
     """
     return matched.expand(config.get("to", r"\1")) if matched is not None and config is not None else value
 
@@ -272,6 +272,7 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
 
     Arguments:
         config: The print configuration
+
     """
     for version in config.get("versions", c2cciutils.configuration.PRINT_VERSIONS_VERSIONS_DEFAULT):
         try:
@@ -310,6 +311,7 @@ def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
         default: the value to return if gopass is not found
 
     Return the value
+
     """
     try:
         return subprocess.check_output(["gopass", "show", key]).strip().decode()
@@ -326,6 +328,7 @@ def gopass_put(secret: str, key: str) -> None:
     Arguments:
         secret: The secret value
         key: The key
+
     """
     subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
 
@@ -338,6 +341,7 @@ def add_authorization_header(headers: dict[str, str]) -> dict[str, str]:
         headers: The headers
 
     Return the headers (to be chained)
+
     """
     try:
         token = (
@@ -375,6 +379,7 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
 
     Return the data result
     In case of error it throw an exception
+
     """
     with open(os.path.join(os.path.dirname(__file__), query_file), encoding="utf-8") as query_open:
         query = query_open.read()

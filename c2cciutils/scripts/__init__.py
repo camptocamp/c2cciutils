@@ -1,3 +1,1 @@
-"""
-The scripts main functions.
-"""
+"""The scripts main functions."""

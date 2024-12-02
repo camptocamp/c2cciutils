@@ -1,6 +1,4 @@
-"""
-The publishing functions.
-"""
+"""The publishing functions."""
 
 import argparse
 import datetime
@@ -10,11 +8,11 @@ import pickle  # nosec
 import re
 import subprocess  # nosec
 import sys
-import tomllib
 import uuid
 from typing import Optional
 
 import ruamel.yaml
+import tomllib
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -24,17 +22,13 @@ import c2cciutils.configuration
 
 
 class GoogleCalendar:
-    """
-    Interact with the Google Calendar API.
-    """
+    """Interact with the Google Calendar API."""
 
     # pylint: disable=too-many-instance-attributes
     def __init__(self) -> None:
-        """
-        Initialize.
-        """
+        """Initialize."""
         self.scopes = ["https://www.googleapis.com/auth/calendar"]  # in fact it is better to hard-code this
-        self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", f"/tmp/{uuid.uuid4()}.pickle")
+        self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", f"/tmp/{uuid.uuid4()}.pickle")  # noqa: S108
         self.credentials_json_file = os.environ.get(
             "GOOGLE_CREDS_JSON_FILE", "~/google-credentials-c2cibot.json"
         )  # used to refresh the refresh_token or to initialize the credentials the first time
@@ -62,15 +56,13 @@ class GoogleCalendar:
         self.service = build("calendar", "v3", credentials=self.creds)
 
     def init_calendar_service(self) -> Credentials:  # type: ignore
-        """
-        Initialize the calendar service.
-        """
+        """Initialize the calendar service."""
         # The file token pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
         if os.path.exists(self.credentials_pickle_file):
             with open(self.credentials_pickle_file, "rb") as token:
-                creds = pickle.load(token)  # nosec
+                creds = pickle.load(token)  # noqa: S301
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:  # pylint: disable=possibly-used-before-assignment
             if creds and creds.expired and creds.refresh_token:
@@ -95,9 +87,7 @@ class GoogleCalendar:
                 pickle.dump(creds, token)
 
     def _update_creds(self) -> None:
-        """
-        Update the credentials.
-        """
+        """Update the credentials."""
         self.client_id = self.creds.client_id
         self.client_secret = self.creds.client_secret
         self.token = self.creds.token
@@ -105,9 +95,7 @@ class GoogleCalendar:
         self.refresh_token = self.creds.refresh_token
 
     def print_all_calendars(self) -> None:
-        """
-        Print all calendar events.
-        """
+        """Print all calendar events."""
         # list all the calendars that the user has access to.
         # used to debug credentials
         print("Getting list of calendars")
@@ -129,6 +117,7 @@ class GoogleCalendar:
 
         Arguments:
             time_min: The time to be considered.
+
         """
         now = datetime.datetime.utcnow()
         if not time_min:
@@ -163,6 +152,7 @@ class GoogleCalendar:
         Arguments:
             summary: The event summary
             description: The event description
+
         """
         now = datetime.datetime.now()
         start = now.isoformat()
@@ -178,9 +168,7 @@ class GoogleCalendar:
         print(f"Created event with id: {event_result['id']}")
 
     def save_credentials_to_gopass(self) -> None:
-        """
-        Save the calendar credentials to gopass.
-        """
+        """Save the calendar credentials to gopass."""
         objects_to_save = {
             "gs/ci/google_calendar/calendarId": self.calendar_id,
             "gs/ci/google_calendar/token": self.token,
@@ -194,17 +182,13 @@ class GoogleCalendar:
             c2cciutils.gopass_put(secret, key)
 
     def __del__(self) -> None:
-        """
-        Delete the credentials file.
-        """
+        """Delete the credentials file."""
         if os.path.exists(self.credentials_pickle_file):
             os.remove(self.credentials_pickle_file)
 
 
 def main_calendar() -> None:
-    """
-    Run the calendar main function.
-    """
+    """Run the calendar main function."""
     parser = argparse.ArgumentParser(
         description="Interact with google API for the Docker publishing calendar"
     )
@@ -254,6 +238,7 @@ def pip(
                     version_branch, feature_branch, feature_tag (for pull request)
         publish: If False only check the package
         package: The package configuration
+
     """
     print(f"::group::{'Publishing' if publish else 'Checking'} '{package.get('path')}' to pypi")
     sys.stdout.flush()
@@ -352,6 +337,7 @@ def docker(
         tag_src: The source tag (usually latest)
         dst_tags: Publish using the provided tags
         images_full: The list of published images (with tag), used to build the dispatch event
+
     """
     print(
         f"::group::Publishing {image_config['name']} to the server {name} using the tags {', '.join(dst_tags)}"
@@ -411,6 +397,7 @@ def helm(folder: str, version: str, owner: str, repo: str, commit_sha: str, toke
         repo: The GitHub repository name
         commit_sha: The sha of the current commit
         token: The GitHub token
+
     """
     print(f"::group::Publishing Helm chart from '{folder}' to GitHub release")
     sys.stdout.flush()
