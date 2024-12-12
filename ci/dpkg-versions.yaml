@@ -12,8 +12,8 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/ca-certificates: '20240203'
   ubuntu_24_04/coreutils: 9.4-3ubuntu6
   ubuntu_24_04/cpp: 4:13.2.0-7ubuntu1
-  ubuntu_24_04/cpp-13: 13.2.0-23ubuntu4
-  ubuntu_24_04/cpp-13-x86-64-linux-gnu: 13.2.0-23ubuntu4
+  ubuntu_24_04/cpp-13: 13.3.0-6ubuntu2~24.04
+  ubuntu_24_04/cpp-13-x86-64-linux-gnu: 13.3.0-6ubuntu2~24.04
   ubuntu_24_04/cpp-x86-64-linux-gnu: 4:13.2.0-7ubuntu1
   ubuntu_24_04/curl: 8.5.0-2ubuntu10.5
   ubuntu_24_04/dash: 0.5.12-6ubuntu5
@@ -25,9 +25,9 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/e2fsprogs: 1.47.0-2.4~exp1ubuntu4.1
   ubuntu_24_04/findutils: 4.9.0-5build1
   ubuntu_24_04/gcc: 4:13.2.0-7ubuntu1
-  ubuntu_24_04/gcc-13: 13.2.0-23ubuntu4
-  ubuntu_24_04/gcc-13-base: 13.2.0-23ubuntu4
-  ubuntu_24_04/gcc-13-x86-64-linux-gnu: 13.2.0-23ubuntu4
+  ubuntu_24_04/gcc-13: 13.3.0-6ubuntu2~24.04
+  ubuntu_24_04/gcc-13-base: 13.3.0-6ubuntu2~24.04
+  ubuntu_24_04/gcc-13-x86-64-linux-gnu: 13.3.0-6ubuntu2~24.04
   ubuntu_24_04/gcc-14-base: 14.2.0-4ubuntu2~24.04
   ubuntu_24_04/gcc-x86-64-linux-gnu: 4:13.2.0-7ubuntu1
   ubuntu_24_04/git: 1:2.43.0-1ubuntu7.1
@@ -77,7 +77,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/libexpat1-dev: 2.6.1-2ubuntu0.2
   ubuntu_24_04/libext2fs2t64: 1.47.0-2.4~exp1ubuntu4.1
   ubuntu_24_04/libffi8: 3.4.6-1build1
-  ubuntu_24_04/libgcc-13-dev: 13.2.0-23ubuntu4
+  ubuntu_24_04/libgcc-13-dev: 13.3.0-6ubuntu2~24.04
   ubuntu_24_04/libgcc-s1: 14.2.0-4ubuntu2~24.04
   ubuntu_24_04/libgcrypt20: 1.10.3-2build1
   ubuntu_24_04/libgdbm-compat4t64: 1.23-5.1build1
