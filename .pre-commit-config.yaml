@@ -57,7 +57,7 @@ repos:
       - id: copyright
       - id: poetry-lock
         additional_dependencies:
-          - poetry==1.8.4 # pypi
+          - poetry==1.8.5 # pypi
       - id: pipenv-lock
         additional_dependencies:
           - pipenv==2024.1.0 # pypi
