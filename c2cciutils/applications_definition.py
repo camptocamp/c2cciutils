@@ -1,6 +1,6 @@
 """Automatically generated file from a JSON schema."""
 
-from typing import Literal, TypedDict, Union
+from typing import Literal, TypedDict
 
 # | Application configuration.
 # |
@@ -41,7 +41,7 @@ All the applications configuration
 """
 
 
-TheTypeOfFile = Union[Literal["tar"]]
+TheTypeOfFile = Literal["tar"]
 """
 The type of file.
 
