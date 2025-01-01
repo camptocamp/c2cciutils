@@ -2040,24 +2040,24 @@ urllib3 = ">=1.26.0"
 
 [[package]]
 name = "types-markdown"
-version = "3.7.0.20240822"
+version = "3.7.0.20241204"
 description = "Typing stubs for Markdown"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types-Markdown-3.7.0.20240822.tar.gz", hash = "sha256:183557c9f4f865bdefd8f5f96a38145c31819271cde111d35557c3bd2069e78d"},
-    {file = "types_Markdown-3.7.0.20240822-py3-none-any.whl", hash = "sha256:bec91c410aaf2470ffdb103e38438fbcc53689b00133f19e64869eb138432ad7"},
+    {file = "types_Markdown-3.7.0.20241204-py3-none-any.whl", hash = "sha256:f96146c367ea9c82bfe9903559d72706555cc2a1a3474c58ebba03b418ab18da"},
+    {file = "types_markdown-3.7.0.20241204.tar.gz", hash = "sha256:ecca2b25cd23163fd28ed5ba34d183d731da03e8a5ed3a20b60daded304c5410"},
 ]
 
 [[package]]
 name = "types-pyyaml"
-version = "6.0.12.20240917"
+version = "6.0.12.20241221"
 description = "Typing stubs for PyYAML"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types-PyYAML-6.0.12.20240917.tar.gz", hash = "sha256:d1405a86f9576682234ef83bcb4e6fff7c9305c8b1fbad5e0bcd4f7dbdc9c587"},
-    {file = "types_PyYAML-6.0.12.20240917-py3-none-any.whl", hash = "sha256:392b267f1c0fe6022952462bf5d6523f31e37f6cea49b14cee7ad634b6301570"},
+    {file = "types_PyYAML-6.0.12.20241221-py3-none-any.whl", hash = "sha256:0657a4ff8411a030a2116a196e8e008ea679696b5b1a8e1a6aa8ebb737b34688"},
+    {file = "types_pyyaml-6.0.12.20241221.tar.gz", hash = "sha256:4f149aa893ff6a46889a30af4c794b23833014c469cc57cbc3ad77498a58996f"},
 ]
 
 [[package]]
@@ -2143,4 +2143,4 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "349935ddd4de1c32ca345cdd17db4d516b4e6fc869b74d9beb31b1b0a0b081b3"
+content-hash = "56ef87997a8e352ac35733b55e17d8e161c6f58ae16271677ff57a8e9f03c480"
