@@ -85,7 +85,7 @@ zipp = "==3.19.3"
 [dev-packages]
 prospector = {version = "==1.6.0", extras = ["with_bandit", "with_mypy"]}
 types-requests = "==2.27.31"
-types-pyyaml = "==6.0.12.20240917"
+types-pyyaml = "==6.0.12.20241221"
 types-setuptools = "==57.4.18"
 types-markdown = "==3.3.31"
 # Lock dependencies
