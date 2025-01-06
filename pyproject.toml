@@ -74,7 +74,7 @@ twine = { version = "6.0.1", optional = true }
 debian-inspector = "31.1.0"
 PyYAML = "6.0.2"
 multi-repo-automation = { version="1.5.0", optional = true }
-security-md = "0.2.3"
+security-md = "1.0.0"
 id = { version="1.5.0", optional = true }
 
 [tool.poetry.extras]

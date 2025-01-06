@@ -1795,13 +1795,13 @@ jeepney = ">=0.6"
 
 [[package]]
 name = "security-md"
-version = "0.2.3"
+version = "1.0.0"
 description = "Common utilities for Camptocamp CI"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "security_md-0.2.3-py3-none-any.whl", hash = "sha256:e95e454d7c7b9786a7af16c8d5fa657cdad575d76b74c69d4b1f3f88548bbd82"},
-    {file = "security_md-0.2.3.tar.gz", hash = "sha256:cc766d03b01d1f5e49ed616480cc5f92469eb5e278466f71066b7acbd011adad"},
+    {file = "security_md-1.0.0-py3-none-any.whl", hash = "sha256:813cf89038f4303dfedf6adc4ed435fad8b4f701a98ca4bd9c6b9b1210773ff2"},
+    {file = "security_md-1.0.0.tar.gz", hash = "sha256:5acedaa2fd5f90fe907ebaaf9b47d1887f4ba26b57bebac1a7d97ac3bcc99c6b"},
 ]
 
 [package.dependencies]
@@ -2095,4 +2095,4 @@ version = ["multi-repo-automation"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0"
-content-hash = "7b7bef273f313edfad8df5f79a657aad978dc472aa186db8d011bf74385d7725"
+content-hash = "ecf5e8fe08bcc24298c8406bb35b2b2f98c2fd2ec9f3cffa5655e367bd2f7bd3"
