@@ -1,0 +1,53 @@
+name: Test output
+
+on:
+  push:
+
+jobs:
+  matrix:
+    runs-on: ubuntu-24.04
+    name: Matrix
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - '1'
+          - '2'
+          - '3'
+
+    outputs:
+      success-1: ${{ steps.success.outputs.success-1 }}
+      success-2: ${{ steps.success.outputs.success-2 }}
+      success-3: ${{ steps.success.outputs.success-3 }}
+
+    steps:
+      - id: success
+        run: echo "::set-output name=success-${{ matrix.version }}::true"
+
+  error:
+    runs-on: ubuntu-24.04
+    name: Error
+    timeout-minutes: 15
+
+    steps:
+      - run: 'false'
+
+  success:
+    runs-on: ubuntu-24.04
+    name: Success
+    timeout-minutes: 15
+    if: always()
+    needs:
+      - matrix
+      - error
+
+    steps:
+      - run: echo ${{ needs.matrix.outputs.success-1 }}
+      - run: echo ${{ needs.matrix.outputs.success-2 }}
+      - run: echo ${{ needs.matrix.outputs.success-3 }}
+      - run: '[[ "${{ needs.matrix.outputs.success-1 }}" == "true" ]]'
+      - run: '[[ "${{ needs.matrix.outputs.success-2 }}" == "true" ]]'
+      - run: '[[ "${{ needs.matrix.outputs.success-3 }}" == "true" ]]'
+      - run: '[[ "${{ needs.error.outputs.success }}" == "true" ]]'
