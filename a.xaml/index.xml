@@ -1,0 +1,1 @@
+<?xml-stylesheet type="text/xsl" href="mypy-html.xslt"?><mypy-report-index name="index"><file module="project" name="example-project/project/__init__.py" total="14" any="2" empty="9" imprecise="0" precise="3" unanalyzed="0"/></mypy-report-index>

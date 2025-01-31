@@ -1,0 +1,16 @@
+<?xml-stylesheet type="text/xsl" href="../../../mypy-html.xslt"?>
+<mypy-report-file name="example-project/project/__init__.py" module="project">
+<line any_info="No Anys on this line!" content="&quot;&quot;&quot;" number="1" precision="empty"/>
+<line any_info="No Anys on this line!" content="Example project." number="2" precision="empty"/>
+<line any_info="No Anys on this line!" content="&quot;&quot;&quot;" number="3" precision="empty"/>
+<line any_info="No Anys on this line!" content="" number="4" precision="empty"/>
+<line any_info="No Anys on this line!" content="import abc" number="5" precision="precise"/>
+<line any_info="No Anys on this line!" content="" number="6" precision="empty"/>
+<line any_info="No Anys on this line!" content="" number="7" precision="empty"/>
+<line any_info="No Anys on this line!" content="class Animal(abc.ABC):" number="8" precision="precise"/>
+<line any_info="No Anys on this line!" content="    @abc.abstractmethod" number="9" precision="empty"/>
+<line any_info="No Anys on this line!" content="    def make_sound(self):" number="10" precision="any"/>
+<line any_info="No Anys on this line!" content="        pass" number="11" precision="any"/>
+<line any_info="No Anys on this line!" content="" number="12" precision="empty"/>
+<line any_info="No Anys on this line!" content="" number="13" precision="empty"/>
+<line any_info="No Anys on this line!" content="sheep = Animal()  # [abstract-class-instantiated]" number="14" precision="precise"/></mypy-report-file>
