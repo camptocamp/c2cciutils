@@ -60,7 +60,7 @@ repos:
           - poetry==1.8.5 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2024.4.0 # pypi
+          - pipenv==2024.4.1 # pypi
       - id: helm-lock
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
@@ -93,7 +93,7 @@ repos:
           - --builtin-schema
           - github-workflows-require-timeout
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 39.91.0
+    rev: 39.91.4
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/sirwart/ripsecrets
@@ -102,7 +102,7 @@ repos:
       - id: ripsecrets
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.4
+    rev: v0.8.6
     hooks:
       - id: ruff-format
         args:
@@ -118,7 +118,7 @@ repos:
         additional_dependencies:
           - prospector-profile-duplicated==1.10.4 # pypi
           - prospector-profile-utils==1.15.1 # pypi
-          - ruff==0.8.4 # pypi
+          - ruff==0.8.6 # pypi
   - repo: https://github.com/mheap/json-schema-spell-checker
     rev: main
     hooks:
