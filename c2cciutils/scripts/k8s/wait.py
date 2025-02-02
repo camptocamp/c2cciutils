@@ -11,13 +11,13 @@ from typing import Any
 def _check_deployment_status(deployments: Any) -> bool:
     for deployment in deployments["items"]:
         if not deployment["status"]:
-            print(f'Waiting status for {deployment["metadata"]["name"]}')
+            print(f"Waiting status for {deployment['metadata']['name']}")
             return False
 
         for condition in deployment["status"].get("conditions", []):
             if not condition["status"]:
                 print(
-                    f'::group::Deployment {deployment["metadata"]["name"]} not ready: {condition["message"]}'
+                    f"::group::Deployment {deployment['metadata']['name']} not ready: {condition['message']}"
                 )
                 print(json.dumps(condition, indent=4))
                 print("::endgroup::")
@@ -25,7 +25,7 @@ def _check_deployment_status(deployments: Any) -> bool:
 
         if deployment["status"].get("unavailableReplicas", 0) != 0:
             print(
-                f'::group::Deployment {deployment["metadata"]["name"]} not ready there is {deployment["status"].get("unavailableReplicas", 0)} '
+                f"::group::Deployment {deployment['metadata']['name']} not ready there is {deployment['status'].get('unavailableReplicas', 0)} "
                 "unavailable replicas"
             )
             print(json.dumps(deployment["status"], indent=4))
@@ -54,7 +54,7 @@ def _check_container_status(pod: Any, status: Any, is_init: bool = False) -> boo
         status_message = status_message.strip()
         if status_message == "Completed":
             return True
-        print(f'::group::Container not ready in {pod["metadata"]["name"]}: {status_message}')  # noqa: E713
+        print(f"::group::Container not ready in {pod['metadata']['name']}: {status_message}")  # noqa: E713
         if status_message_long != status_message:
             print(status_message_long)
         print(json.dumps(status, indent=4))
@@ -68,7 +68,7 @@ def _check_pod_status(pods: Any) -> bool:
         for condition in pod["status"].get("conditions", []):
             if not condition["status"]:
                 print(
-                    f'::group::Pod not ready in {pod["metadata"]["name"]}: {condition.get("message", condition["type"])}'  # noqa: E713
+                    f"::group::Pod not ready in {pod['metadata']['name']}: {condition.get('message', condition['type'])}"  # noqa: E713
                 )
                 print(json.dumps(condition, indent=4))
                 print("::endgroup::")
@@ -82,7 +82,7 @@ def _check_pod_status(pods: Any) -> bool:
                 return False
 
         if pod["status"].get("phase") not in ("Running", "Succeeded"):
-            print(f'::group::The Pod {pod["metadata"]["name"]} is not ready: {pod["status"].get("phase")}')
+            print(f"::group::The Pod {pod['metadata']['name']} is not ready: {pod['status'].get('phase')}")
             return False
 
     return True
