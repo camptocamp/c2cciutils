@@ -28,7 +28,7 @@ class GoogleCalendar:
     def __init__(self) -> None:
         """Initialize."""
         self.scopes = ["https://www.googleapis.com/auth/calendar"]  # in fact it is better to hard-code this
-        self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", f"/tmp/{uuid.uuid4()}.pickle")  # noqa: S108
+        self.credentials_pickle_file = os.environ.get("TMP_CREDS_FILE", f"/tmp/{uuid.uuid4()}.pickle")  # noqa: S108 # nosec
         self.credentials_json_file = os.environ.get(
             "GOOGLE_CREDS_JSON_FILE", "~/google-credentials-c2cibot.json"
         )  # used to refresh the refresh_token or to initialize the credentials the first time
@@ -62,7 +62,7 @@ class GoogleCalendar:
         # time.
         if os.path.exists(self.credentials_pickle_file):
             with open(self.credentials_pickle_file, "rb") as token:
-                creds = pickle.load(token)  # noqa: S301
+                creds = pickle.load(token)  # noqa: S301 # nosec
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:  # pylint: disable=possibly-used-before-assignment
             if creds and creds.expired and creds.refresh_token:
@@ -99,7 +99,7 @@ class GoogleCalendar:
         # list all the calendars that the user has access to.
         # used to debug credentials
         print("Getting list of calendars")
-        calendars_result = self.service.calendarList().list().execute()
+        calendars_result = self.service.calendarList().list().execute()  # pylint: disable=no-member
 
         calendars = calendars_result.get("items", [])
 
@@ -123,7 +123,7 @@ class GoogleCalendar:
         if not time_min:
             time_min = datetime.datetime.utcnow() - datetime.timedelta(days=30)
         events_result = (
-            self.service.events()
+            self.service.events()  # pylint: disable=no-member
             .list(
                 calendarId=self.calendar_id,
                 timeMin=time_min.isoformat() + "Z",
@@ -164,7 +164,7 @@ class GoogleCalendar:
             "end": {"dateTime": end, "timeZone": "Europe/Zurich"},
         }
 
-        event_result = self.service.events().insert(calendarId=self.calendar_id, body=body).execute()
+        event_result = self.service.events().insert(calendarId=self.calendar_id, body=body).execute()  # pylint: disable=no-member
         print(f"Created event with id: {event_result['id']}")
 
     def save_credentials_to_gopass(self) -> None:
