@@ -30,11 +30,11 @@ def main() -> None:
 
     # Store in /tmp/docker-logs-timestamp the current timestamp to avoid printing same logs multiple times.
     timestamp_args = []
-    if os.path.exists("/tmp/docker-logs-timestamp"):  # noqa: S108
-        with open("/tmp/docker-logs-timestamp", encoding="utf-8") as timestamp_file:  # noqa: S108
+    if os.path.exists("/tmp/docker-logs-timestamp"):  # noqa: S108 # nosec
+        with open("/tmp/docker-logs-timestamp", encoding="utf-8") as timestamp_file:  # noqa: S108 # nosec
             timestamp_args = [f"--since={timestamp_file.read().strip()}Z"]
 
-    with open("/tmp/docker-logs-timestamp", "w", encoding="utf-8") as timestamp_file:  # noqa: S108
+    with open("/tmp/docker-logs-timestamp", "w", encoding="utf-8") as timestamp_file:  # noqa: S108 # nosec
         timestamp_file.write(datetime.utcnow().isoformat())
 
     for name in (
