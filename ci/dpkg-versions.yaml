@@ -42,7 +42,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/krb5: 1.19.2-2ubuntu0.3
   ubuntu_22_04/libassuan: 2.5.5-1build1
   ubuntu_22_04/libcap-ng: 0.7.9-2.2build3
-  ubuntu_22_04/libcap2: 1:2.44-1ubuntu0.22.04.1
+  ubuntu_22_04/libcap2: 1:2.44-1ubuntu0.22.04.2
   ubuntu_22_04/liberror-perl: 0.17029-1
   ubuntu_22_04/libffi: 3.4.2-4
   ubuntu_22_04/libgcrypt20: 1.9.4-3ubuntu3
