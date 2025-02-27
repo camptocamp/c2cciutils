@@ -42,7 +42,10 @@ jobs:
           patterns: pypi docker
         if: env.HAS_SECRETS == 'HAS_SECRETS'
 
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - run: python3 -m pip install --user --requirement=requirements.txt
       - run: poetry build
         env:
@@ -124,7 +127,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - run: python3 -m pip install --user --requirement=requirements.txt
       - run: poetry build
         env:
