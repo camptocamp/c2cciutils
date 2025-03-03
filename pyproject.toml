@@ -1,21 +1,9 @@
-[tool.black]
+[tool.ruff]
+target-version = "py39"
 line-length = 110
-target-version = ["py39"]
 
-[tool.isort]
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = false
-use_parentheses = true
-line_length = 110
-
-[tool.mypy]
-python_version = "3.11"
-ignore_missing_imports = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_return_any = true
-strict = true
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
 
 [tool.poetry]
 name = "c2cciutils"
@@ -28,13 +16,19 @@ repository = "https://github.com/camptocamp/c2cciutils"
 license = "FreeBSD"
 packages = [{ include = "c2cciutils" }]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Typing :: Typed",
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Typing :: Typed',
 ]
 include = [
     "c2cciutils/py.typed",
@@ -60,29 +54,21 @@ requests = "2.32.3"
 PyYAML = "6.0.2"
 
 [tool.poetry.group.dev.dependencies]
-prospector = { version = "1.14.1", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff"] }
+prospector = { version = "1.14.1", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff", "with_ruff", "with_pyroma"] }
 prospector-profile-duplicated = "1.10.4"
 prospector-profile-utils = "1.17.0"
 types-requests = "2.32.0.20250301"
 types-pyyaml = "6.0.12.20241230"
-
-[build-system]
-requires = [
-    "poetry-core>=1.0.0",
-    "poetry-dynamic-versioning[plugin]>=0.19.0",
-    "poetry-plugin-tweak-dependencies-version",
-    "poetry-dynamic-versioning",
-    # "poetry-plugin-drop-python-upper-constraint",
-]
-build-backend = "poetry.core.masonry.api"
 
 [tool.poetry-dynamic-versioning]
 enable = true
 vcs = "git"
 pattern = "^(?P<base>\\d+(\\.\\d+)*)"
 format-jinja = """
-{%- if env.get("VERSION_TYPE") == "version_branch" -%}
-{{serialize_pep440(bump_version(base, 1 if env.get("IS_MASTER") == "TRUE" else 2), dev=distance)}}
+{%- if env.get("VERSION_TYPE") == "default_branch" -%}
+{{serialize_pep440(bump_version(base, 1), dev=distance)}}
+{%- elif env.get("VERSION_TYPE") == "stabilization_branch" -%}
+{{serialize_pep440(bump_version(base, 2), dev=distance)}}
 {%- elif distance == 0 -%}
 {{serialize_pep440(base)}}
 {%- else -%}
@@ -95,3 +81,13 @@ default = "major"
 codespell = "full"
 cryptography = "present"
 certifi = "present"
+
+[build-system]
+requires = [
+    "poetry-core>=1.0.0",
+    "poetry-dynamic-versioning[plugin]>=0.19.0",
+    "poetry-plugin-tweak-dependencies-version",
+    "poetry-dynamic-versioning",
+    # "poetry-plugin-drop-python-upper-constraint",
+]
+build-backend = "poetry.core.masonry.api"
