@@ -65,9 +65,9 @@ def get_config() -> c2cciutils.configuration.Configuration:
 def error(
     checker: str,
     message: str,
-    file: Optional[str] = None,
-    line: Optional[int] = None,
-    col: Optional[int] = None,
+    file: str | None = None,
+    line: int | None = None,
+    col: int | None = None,
     error_type: str = "error",
 ) -> None:
     """
@@ -142,7 +142,7 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
     return True
 
 
-def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
+def gopass(key: str, default: str | None = None) -> str | None:
     """
     Get a value from gopass.
 
