@@ -5,6 +5,7 @@ import os.path
 import re
 import subprocess  # nosec
 import sys
+from pathlib import Path
 from typing import Any, Optional, cast
 
 import requests
@@ -52,8 +53,9 @@ def get_master_branch(repo: list[str]) -> tuple[str, bool]:
 def get_config() -> c2cciutils.configuration.Configuration:
     """Get the configuration, with project and auto detections."""
     config: c2cciutils.configuration.Configuration = {}
-    if os.path.exists("ci/config.yaml"):
-        with open("ci/config.yaml", encoding="utf-8") as open_file:
+    config_path = Path("ci/config.yaml")
+    if config_path.exists():
+        with config_path.open(encoding="utf-8") as open_file:
             yaml_ = ruamel.yaml.YAML()
             config = yaml_.load(open_file)
 
@@ -176,8 +178,9 @@ def add_authorization_header(headers: dict[str, str]) -> dict[str, str]:
             else gopass("gs/ci/github/token/gopass")
         )
         headers["Authorization"] = f"Bearer {token}"
-        return headers
     except FileNotFoundError:
+        return headers
+    else:
         return headers
 
 
@@ -207,7 +210,7 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
     In case of error it throw an exception
 
     """
-    with open(os.path.join(os.path.dirname(__file__), query_file), encoding="utf-8") as query_open:
+    with (Path(__file__).parent / query_file).open(encoding="utf-8") as query_open:
         query = query_open.read()
 
     http_response = requests.post(
@@ -227,13 +230,15 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
     )
     if http_response.status_code in (401, 403) and default is not None:
         print(f"::warning::GraphQL error: {http_response.status_code}, use default value")
-        check_response(http_response, False)
+        check_response(http_response, raise_for_status=False)
         return default
     check_response(http_response)
     json_response = http_response.json()
 
     if "errors" in json_response:
-        raise RuntimeError(f"GraphQL error: {json.dumps(json_response['errors'], indent=2)}")
+        message = f"GraphQL error: {json.dumps(json_response['errors'], indent=2)}"
+        raise RuntimeError(message)
     if "data" not in json_response:
-        raise RuntimeError(f"GraphQL no data: {json.dumps(json_response, indent=2)}")
+        message = f"GraphQL no data: {json.dumps(json_response, indent=2)}"
+        raise RuntimeError(message)
     return cast(dict[str, Any], json_response["data"])

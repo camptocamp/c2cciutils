@@ -5,8 +5,8 @@ import os
 import subprocess  # nosec
 import tarfile
 import urllib
-from glob import glob
 from io import BytesIO
+from pathlib import Path
 from typing import Optional, cast
 
 import requests
@@ -28,9 +28,9 @@ def main() -> None:
     argparser.add_argument("--versions-file", required=True)
     args = argparser.parse_args()
 
-    with open(args.versions_file, encoding="utf-8") as config_file:
+    with Path(args.versions_file).open(encoding="utf-8") as config_file:
         versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
-    with open(args.applications_file, encoding="utf-8") as config_file:
+    with Path(args.applications_file).open(encoding="utf-8") as config_file:
         applications = cast(
             applications_definition.ApplicationsConfiguration,
             yaml.load(config_file, Loader=yaml.SafeLoader),
@@ -40,15 +40,13 @@ def main() -> None:
 
 def download_c2cciutils_applications(name: Optional[str] = None) -> None:
     """Download the applications defined in the c2cciutils package."""
-    with open(
-        os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications-versions.yaml"),
-        encoding="utf-8",
-    ) as config_file:
+    with (
+        Path(__file__)
+        .parent.parent.joinpath("applications-versions.yaml")
+        .open(encoding="utf-8") as config_file
+    ):
         versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
-    with open(
-        os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications.yaml"),
-        encoding="utf-8",
-    ) as config_file:
+    with Path(__file__).parent.parent.joinpath("applications.yaml").open(encoding="utf-8") as config_file:
         applications = cast(
             applications_definition.ApplicationsConfiguration,
             yaml.load(config_file, Loader=yaml.SafeLoader),
@@ -63,14 +61,14 @@ def download_applications(
     versions: dict[str, str],
 ) -> None:
     """Download the versions of applications specified in the configuration."""
-    bin_path = os.path.join(os.environ["HOME"], ".local", "bin")
-    if not os.path.exists(bin_path):
-        os.makedirs(bin_path)
+    bin_path = Path(os.environ["HOME"]) / ".local" / "bin"
+    if not bin_path.exists():
+        bin_path.mkdir(parents=True)
 
     for key, app in applications.items():
         # The versions file is used to don't re-download an already downloaded application
-        version_file = os.path.join(bin_path, f"{app['to-file-name']}-version-{versions[key]}")
-        if not os.path.exists(version_file):
+        version_file = bin_path / f"{app['to-file-name']}-version-{versions[key]}"
+        if not version_file.exists():
             print(f"Download {app['to-file-name']} version {versions[key]}")
             version = versions[key]
             version_quote = urllib.parse.quote_plus(version)
@@ -96,16 +94,15 @@ def download_applications(
             else:
                 content = response.content
 
-            with open(os.path.join(bin_path, app["to-file-name"]), "wb") as destination_file:
+            with (bin_path / app["to-file-name"]).open("wb") as destination_file:
                 destination_file.write(content)
 
             for command in app.get("finish-commands", []):
                 subprocess.run(command, check=True, cwd=bin_path)
 
-            for file_name in glob(f"{app['to-file-name']}-version-*"):
-                os.remove(file_name)
-            with open(version_file, "w", encoding="utf-8") as _:
-                pass
+            for file_name in Path().glob(f"{app['to-file-name']}-version-*"):
+                Path(file_name).unlink()
+            version_file.touch()
 
 
 if __name__ == "__main__":

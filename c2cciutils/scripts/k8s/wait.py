@@ -75,7 +75,7 @@ def _check_pod_status(pods: Any) -> bool:
                 return False
 
         for status in pod["status"].get("initContainerStatuses", []):
-            if not _check_container_status(pod, status, True):
+            if not _check_container_status(pod, status, is_init=True):
                 return False
         for status in pod["status"].get("containerStatuses", []):
             if not _check_container_status(pod, status):

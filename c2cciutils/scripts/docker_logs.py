@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import argparse
-import os
 import subprocess  # nosec
 import sys
 from datetime import datetime
+from pathlib import Path
 
 
 def _print(message: str) -> None:
@@ -19,7 +19,7 @@ def main() -> None:
     )
     parser.parse_args()
 
-    if os.path.exists("docker-compose.yaml"):
+    if Path("docker-compose.yaml").exists():
         _print("::group::Docker Compose ps")
         subprocess.run(["docker", "compose", "ps", "--all"], check=False)
         _print("::endgroup::")
@@ -30,12 +30,13 @@ def main() -> None:
 
     # Store in /tmp/docker-logs-timestamp the current timestamp to avoid printing same logs multiple times.
     timestamp_args = []
-    if os.path.exists("/tmp/docker-logs-timestamp"):  # noqa: S108 # nosec
-        with open("/tmp/docker-logs-timestamp", encoding="utf-8") as timestamp_file:  # noqa: S108 # nosec
+    timestamp_file_path = Path("/tmp/docker-logs-timestamp")  # noqa: S108
+    if timestamp_file_path.exists():  # nosec
+        with timestamp_file_path.open(encoding="utf-8") as timestamp_file:  # nosec
             timestamp_args = [f"--since={timestamp_file.read().strip()}Z"]
 
-    with open("/tmp/docker-logs-timestamp", "w", encoding="utf-8") as timestamp_file:  # noqa: S108 # nosec
-        timestamp_file.write(datetime.utcnow().isoformat())
+    with timestamp_file_path.open("w", encoding="utf-8") as timestamp_file:  # nosec
+        timestamp_file.write(datetime.now(tz=datetime.timezone.utc).isoformat())
 
     for name in (
         subprocess.run(
@@ -48,7 +49,7 @@ def main() -> None:
     ):
         if name:
             _print(f"::group::{name}: New logs")
-            subprocess.run(["docker", "logs"] + timestamp_args + [name], check=False)
+            subprocess.run(["docker", "logs", *timestamp_args, name], check=False)
             _print("::endgroup::")
 
 

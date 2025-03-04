@@ -4,6 +4,7 @@ import argparse
 import os
 import subprocess  # nosec
 import sys
+from pathlib import Path
 from typing import cast
 
 import yaml
@@ -33,13 +34,8 @@ def main() -> None:
     parser.add_argument("--cleanup", action="store_true", help="Drop the database")
 
     config = c2cciutils.get_config()
-    with open(
-        os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-            "applications-versions.yaml",
-        ),
-        encoding="utf-8",
-    ) as config_file:
+    config_path = Path(__file__).resolve().parents[2] / "applications-versions.yaml"
+    with config_path.open(encoding="utf-8") as config_file:
         versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
 
     args = parser.parse_args()
@@ -83,7 +79,8 @@ def main() -> None:
 
     if args.script:
         _print("::group::Add data")
-        with open(args.script, encoding="utf-8") as script:
+        script_path = Path(args.script)
+        with script_path.open(encoding="utf-8") as script:
             subprocess.run(
                 [
                     "kubectl",

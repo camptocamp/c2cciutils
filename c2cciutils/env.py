@@ -2,6 +2,7 @@ import json
 import os
 import subprocess  # nosec
 import sys
+from pathlib import Path
 
 import ruamel.yaml
 import yaml
@@ -45,7 +46,7 @@ def print_environment_variables() -> None:
 def print_github_event_file() -> None:
     """Print the GitHub event file."""
     if "GITHUB_EVENT_PATH" in os.environ:
-        with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as event:
+        with Path(os.environ["GITHUB_EVENT_PATH"]).open(encoding="utf-8") as event:
             print(event.read())
 
 
@@ -101,7 +102,7 @@ def print_environment(config: c2cciutils.configuration.Configuration, prefix: st
         try:
             sys.stdout.flush()
             sys.stderr.flush()
-            function()  # type: ignore
+            function()  # type: ignore[m]
         except subprocess.CalledProcessError as error:
             print(f"::error::Error: {error}")
             print("::endgroup::")
