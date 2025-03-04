@@ -35,7 +35,8 @@ def main() -> None:
     config = c2cciutils.get_config()
     with open(
         os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "applications-versions.yaml",
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+            "applications-versions.yaml",
         ),
         encoding="utf-8",
     ) as config_file:

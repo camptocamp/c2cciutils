@@ -39,7 +39,9 @@ def main() -> None:
 
     for name in (
         subprocess.run(
-            ["docker", "ps", "--all", "--format", "{{ .Names }}"], check=True, stdout=subprocess.PIPE,
+            ["docker", "ps", "--all", "--format", "{{ .Names }}"],
+            check=True,
+            stdout=subprocess.PIPE,
         )
         .stdout.decode()
         .split("\n")

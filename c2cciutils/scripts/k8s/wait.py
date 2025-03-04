@@ -100,7 +100,10 @@ def main() -> None:
     )
     parser.add_argument("--no-deployments", dest="deployments", action="store_false")
     parser.add_argument(
-        "--nb-try", default=20, type=int, help="Number of try to wait for the application to be ready",
+        "--nb-try",
+        default=20,
+        type=int,
+        help="Number of try to wait for the application to be ready",
     )
     parser.add_argument("--sleep", default=10, type=int, help="Sleep time before each try")
 
