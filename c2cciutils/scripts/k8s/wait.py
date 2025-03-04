@@ -17,7 +17,7 @@ def _check_deployment_status(deployments: Any) -> bool:
         for condition in deployment["status"].get("conditions", []):
             if not condition["status"]:
                 print(
-                    f"::group::Deployment {deployment['metadata']['name']} not ready: {condition['message']}"
+                    f"::group::Deployment {deployment['metadata']['name']} not ready: {condition['message']}",
                 )
                 print(json.dumps(condition, indent=4))
                 print("::endgroup::")
@@ -26,7 +26,7 @@ def _check_deployment_status(deployments: Any) -> bool:
         if deployment["status"].get("unavailableReplicas", 0) != 0:
             print(
                 f"::group::Deployment {deployment['metadata']['name']} not ready there is {deployment['status'].get('unavailableReplicas', 0)} "
-                "unavailable replicas"
+                "unavailable replicas",
             )
             print(json.dumps(deployment["status"], indent=4))
             print("::endgroup::")
@@ -54,7 +54,7 @@ def _check_container_status(pod: Any, status: Any, is_init: bool = False) -> boo
         status_message = status_message.strip()
         if status_message == "Completed":
             return True
-        print(f"::group::Container not ready in {pod['metadata']['name']}: {status_message}")  # noqa: E713
+        print(f"::group::Container not ready in {pod['metadata']['name']}: {status_message}")
         if status_message_long != status_message:
             print(status_message_long)
         print(json.dumps(status, indent=4))
@@ -68,14 +68,14 @@ def _check_pod_status(pods: Any) -> bool:
         for condition in pod["status"].get("conditions", []):
             if not condition["status"]:
                 print(
-                    f"::group::Pod not ready in {pod['metadata']['name']}: {condition.get('message', condition['type'])}"  # noqa: E713
+                    f"::group::Pod not ready in {pod['metadata']['name']}: {condition.get('message', condition['type'])}",
                 )
                 print(json.dumps(condition, indent=4))
                 print("::endgroup::")
                 return False
 
         for status in pod["status"].get("initContainerStatuses", []):
-            if not _check_container_status(pod, status, True):
+            if not _check_container_status(pod, status, is_init=True):
                 return False
         for status in pod["status"].get("containerStatuses", []):
             if not _check_container_status(pod, status):
@@ -100,7 +100,10 @@ def main() -> None:
     )
     parser.add_argument("--no-deployments", dest="deployments", action="store_false")
     parser.add_argument(
-        "--nb-try", default=20, type=int, help="Number of try to wait for the application to be ready"
+        "--nb-try",
+        default=20,
+        type=int,
+        help="Number of try to wait for the application to be ready",
     )
     parser.add_argument("--sleep", default=10, type=int, help="Sleep time before each try")
 

@@ -2,12 +2,19 @@ inherits:
   - utils:base
   - utils:no-design-checks
   - utils:fix
-  - utils:unsafe
   - duplicated
 
 ignore-paths:
   - c2cciutils/configuration.py
 
+mypy:
+  options:
+    python-version: '3.10'
+
 bandit:
   disable:
     - B113 # Call to requests without timeout (didn't work)
+
+ruff:
+  options:
+    target-version: py310

@@ -5,7 +5,8 @@ import os.path
 import re
 import subprocess  # nosec
 import sys
-from typing import Any, Optional, cast
+from pathlib import Path
+from typing import Any, cast
 
 import requests
 import ruamel.yaml
@@ -37,7 +38,9 @@ def get_master_branch(repo: list[str]) -> tuple[str, bool]:
     success = False
     try:
         default_branch_json = graphql(
-            "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False
+            "default_branch.graphql",
+            {"name": repo[1], "owner": repo[0]},
+            default=False,
         )
         success = default_branch_json is not False
         master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"] if success else "master"
@@ -50,8 +53,9 @@ def get_master_branch(repo: list[str]) -> tuple[str, bool]:
 def get_config() -> c2cciutils.configuration.Configuration:
     """Get the configuration, with project and auto detections."""
     config: c2cciutils.configuration.Configuration = {}
-    if os.path.exists("ci/config.yaml"):
-        with open("ci/config.yaml", encoding="utf-8") as open_file:
+    config_path = Path("ci/config.yaml")
+    if config_path.exists():
+        with config_path.open(encoding="utf-8") as open_file:
             yaml_ = ruamel.yaml.YAML()
             config = yaml_.load(open_file)
 
@@ -61,9 +65,9 @@ def get_config() -> c2cciutils.configuration.Configuration:
 def error(
     checker: str,
     message: str,
-    file: Optional[str] = None,
-    line: Optional[int] = None,
-    col: Optional[int] = None,
+    file: str | None = None,
+    line: int | None = None,
+    col: int | None = None,
     error_type: str = "error",
 ) -> None:
     """
@@ -138,7 +142,7 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
     return True
 
 
-def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
+def gopass(key: str, default: str | None = None) -> str | None:
     """
     Get a value from gopass.
 
@@ -174,8 +178,9 @@ def add_authorization_header(headers: dict[str, str]) -> dict[str, str]:
             else gopass("gs/ci/github/token/gopass")
         )
         headers["Authorization"] = f"Bearer {token}"
-        return headers
     except FileNotFoundError:
+        return headers
+    else:
         return headers
 
 
@@ -205,7 +210,7 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
     In case of error it throw an exception
 
     """
-    with open(os.path.join(os.path.dirname(__file__), query_file), encoding="utf-8") as query_open:
+    with (Path(__file__).parent / query_file).open(encoding="utf-8") as query_open:
         query = query_open.read()
 
     http_response = requests.post(
@@ -214,24 +219,26 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
             {
                 "query": query,
                 "variables": variables,
-            }
+            },
         ),
         headers=add_authorization_header(
             {
                 "Content-Type": "application/json",
-            }
+            },
         ),
         timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )
     if http_response.status_code in (401, 403) and default is not None:
         print(f"::warning::GraphQL error: {http_response.status_code}, use default value")
-        check_response(http_response, False)
+        check_response(http_response, raise_for_status=False)
         return default
     check_response(http_response)
     json_response = http_response.json()
 
     if "errors" in json_response:
-        raise RuntimeError(f"GraphQL error: {json.dumps(json_response['errors'], indent=2)}")
+        message = f"GraphQL error: {json.dumps(json_response['errors'], indent=2)}"
+        raise RuntimeError(message)
     if "data" not in json_response:
-        raise RuntimeError(f"GraphQL no data: {json.dumps(json_response, indent=2)}")
+        message = f"GraphQL no data: {json.dumps(json_response, indent=2)}"
+        raise RuntimeError(message)
     return cast(dict[str, Any], json_response["data"])
