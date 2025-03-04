@@ -6,7 +6,7 @@ import re
 import subprocess  # nosec
 import sys
 from pathlib import Path
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import requests
 import ruamel.yaml

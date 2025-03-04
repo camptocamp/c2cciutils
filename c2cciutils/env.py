@@ -102,7 +102,7 @@ def print_environment(config: c2cciutils.configuration.Configuration, prefix: st
         try:
             sys.stdout.flush()
             sys.stderr.flush()
-            function()  # type: ignore[m]
+            function()  # type: ignore[operator]
         except subprocess.CalledProcessError as error:
             print(f"::error::Error: {error}")
             print("::endgroup::")

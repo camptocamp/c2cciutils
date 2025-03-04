@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
+import datetime
 import subprocess  # nosec
 import sys
-from datetime import datetime
 from pathlib import Path
 
 
@@ -30,13 +30,13 @@ def main() -> None:
 
     # Store in /tmp/docker-logs-timestamp the current timestamp to avoid printing same logs multiple times.
     timestamp_args = []
-    timestamp_file_path = Path("/tmp/docker-logs-timestamp")  # noqa: S108
+    timestamp_file_path = Path("/tmp/docker-logs-timestamp")  # noqa: S108 # nosec
     if timestamp_file_path.exists():  # nosec
         with timestamp_file_path.open(encoding="utf-8") as timestamp_file:  # nosec
             timestamp_args = [f"--since={timestamp_file.read().strip()}Z"]
 
     with timestamp_file_path.open("w", encoding="utf-8") as timestamp_file:  # nosec
-        timestamp_file.write(datetime.now(tz=datetime.timezone.utc).isoformat())
+        timestamp_file.write(datetime.datetime.now(tz=datetime.timezone.utc).isoformat())
 
     for name in (
         subprocess.run(
