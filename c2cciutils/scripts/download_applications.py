@@ -22,7 +22,7 @@ def main() -> None:
             Based on tow files, the first contains the information about from where to download the applications,
             how to extract the application from the archive, and the executable name.
             The second file contains the versions of the applications to download,
-            this file is usually updated by Renovate."""
+            this file is usually updated by Renovate.""",
     )
     argparser.add_argument("--applications-file", required=True)
     argparser.add_argument("--versions-file", required=True)
@@ -32,7 +32,7 @@ def main() -> None:
         versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
     with open(args.applications_file, encoding="utf-8") as config_file:
         applications = cast(
-            applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader)
+            applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader),
         )
     download_applications(applications, versions)
 
@@ -45,10 +45,10 @@ def download_c2cciutils_applications(name: Optional[str] = None) -> None:
     ) as config_file:
         versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
     with open(
-        os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications.yaml"), encoding="utf-8"
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "applications.yaml"), encoding="utf-8",
     ) as config_file:
         applications = cast(
-            applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader)
+            applications_definition.ApplicationsConfiguration, yaml.load(config_file, Loader=yaml.SafeLoader),
         )
     if name is not None:
         applications = {name: applications[name]}
@@ -56,7 +56,7 @@ def download_c2cciutils_applications(name: Optional[str] = None) -> None:
 
 
 def download_applications(
-    applications: applications_definition.ApplicationsConfiguration, versions: dict[str, str]
+    applications: applications_definition.ApplicationsConfiguration, versions: dict[str, str],
 ) -> None:
     """Download the versions of applications specified in the configuration."""
     bin_path = os.path.join(os.environ["HOME"], ".local", "bin")

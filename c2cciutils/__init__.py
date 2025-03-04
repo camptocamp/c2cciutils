@@ -37,7 +37,7 @@ def get_master_branch(repo: list[str]) -> tuple[str, bool]:
     success = False
     try:
         default_branch_json = graphql(
-            "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False
+            "default_branch.graphql", {"name": repo[1], "owner": repo[0]}, default=False,
         )
         success = default_branch_json is not False
         master_branch = default_branch_json["repository"]["defaultBranchRef"]["name"] if success else "master"
@@ -214,12 +214,12 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
             {
                 "query": query,
                 "variables": variables,
-            }
+            },
         ),
         headers=add_authorization_header(
             {
                 "Content-Type": "application/json",
-            }
+            },
         ),
         timeout=int(os.environ.get("C2CCIUTILS_TIMEOUT", "30")),
     )

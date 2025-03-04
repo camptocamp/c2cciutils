@@ -15,7 +15,7 @@ def _print(message: str) -> None:
 def main() -> None:
     """Print the list of running docker containers and their logs formatted for GitHub CI."""
     parser = argparse.ArgumentParser(
-        description=("Print the list of running docker containers and their logs formatted for GitHub CI.")
+        description=("Print the list of running docker containers and their logs formatted for GitHub CI."),
     )
     parser.parse_args()
 
@@ -39,7 +39,7 @@ def main() -> None:
 
     for name in (
         subprocess.run(
-            ["docker", "ps", "--all", "--format", "{{ .Names }}"], check=True, stdout=subprocess.PIPE
+            ["docker", "ps", "--all", "--format", "{{ .Names }}"], check=True, stdout=subprocess.PIPE,
         )
         .stdout.decode()
         .split("\n")
