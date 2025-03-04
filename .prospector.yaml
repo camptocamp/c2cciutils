@@ -9,7 +9,7 @@ ignore-paths:
 
 mypy:
   options:
-    python-version: '3.9'
+    python-version: '3.10'
 
 bandit:
   disable:
@@ -17,4 +17,4 @@ bandit:
 
 ruff:
   options:
-    target-version: py39
+    target-version: py310

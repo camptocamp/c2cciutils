@@ -1,5 +1,5 @@
 [tool.ruff]
-target-version = "py39"
+target-version = "py310"
 line-length = 110
 
 [tool.ruff.lint.pydocstyle]
@@ -23,7 +23,6 @@ classifiers = [
     'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
@@ -48,10 +47,11 @@ c2cciutils-k8s-logs = "c2cciutils.scripts.k8s.logs:main"
 c2cciutils-docker-logs = "c2cciutils.scripts.docker_logs:main"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<4.0"
+python = ">=3.10,<4.0"
 requests = "2.32.3"
 "ruamel.yaml" = "0.18.10"
 PyYAML = "6.0.2"
+applications-download = "1.3.3"
 
 [tool.poetry.group.dev.dependencies]
 prospector = { version = "1.14.1", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff", "with_ruff", "with_pyroma"] }

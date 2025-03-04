@@ -19,7 +19,4 @@ generate:
     root_name: Configuration
     api_arguments:
       additional_properties: Only explicit
-  - source: c2cciutils/schema-applications.json
-    destination: c2cciutils/applications_definition.py
-    root_name: ApplicationsConfiguration
-python_version: '3.9'
+python_version: '3.10'

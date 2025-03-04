@@ -4,9 +4,10 @@ import argparse
 import subprocess  # nosec
 import sys
 
+import applications_download
+
 import c2cciutils
 import c2cciutils.configuration
-import c2cciutils.scripts.download_applications
 
 
 def _print(message: str) -> None:
@@ -22,7 +23,8 @@ def main() -> None:
     config = c2cciutils.get_config()
 
     _print("::group::Install")
-    c2cciutils.scripts.download_applications.download_c2cciutils_applications("k3d-io/k3d")
+    apps = applications_download.Applications()
+    apps.install("k3d-io/k3d")
     _print("::endgroup::")
 
     _print("::group::Create cluster")

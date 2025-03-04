@@ -48,12 +48,6 @@ repos:
           - --pre-commit
           - c2cciutils/schema.json
           - config.md
-      - id: jsonschema2md
-        files: c2cciutils/schema-applications.json
-        args:
-          - --pre-commit
-          - c2cciutils/schema-applications.json
-          - applications.md
   - repo: https://github.com/sbrunner/hooks
     rev: 1.4.0
     hooks:

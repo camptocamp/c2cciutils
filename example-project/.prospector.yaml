@@ -5,7 +5,7 @@ inherits:
 
 mypy:
   options:
-    python-version: '3.9'
+    python-version: '3.10'
     ignore-missing-imports: true
     warn:
       - redundant-casts
@@ -18,4 +18,4 @@ bandit:
     config: .bandit.yaml
 ruff:
   options:
-    target-version: py39
+    target-version: py310
