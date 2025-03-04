@@ -55,13 +55,9 @@ repos:
     rev: 1.2.1
     hooks:
       - id: copyright
-      - id: poetry-lock
+      - id: poetry2-lock
         additional_dependencies:
           - poetry==2.0.1 # pypi
-      - id: pipenv-lock
-        additional_dependencies:
-          - pipenv==2024.4.1 # pypi
-      - id: helm-lock
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:
@@ -69,7 +65,6 @@ repos:
         exclude: |-
           (?x)(
             (.*/)?poetry\.lock$
-            |^test/Pipfile\.lock$
           )
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1

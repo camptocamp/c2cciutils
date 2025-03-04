@@ -155,28 +155,6 @@ Select a formatter:
 - Configure Default Formatter...
 - Select the formatter
 
-## Use Renovate to trigger a new build instead of the legacy rebuild
-
-Run the command `c2cciutils-docker-versions-gen camptocamp/image[:tag]` to generate a file that is a kind of package lock of the Debian packages in the file `ci/dpkg-versions.yaml`.
-
-Add in your renovate configuration:
-
-```javascript
-  regexManagers: [
-    {
-      fileMatch: ['^ci/dpkg-versions.yaml$'],
-      matchStrings: [" *(?<depName>[^'\\s]+): '?(?<currentValue>[^'\\s/]*[0-9][^'\\s/]*)'?"],
-      datasourceTemplate: 'repology',
-      versioningTemplate: 'loose',
-    },
-  ],
-```
-
-When a new version of a Debian package will be available:
-
-- Renovate will automatically open a pull request to update the file `ci/dpkg-versions.yaml`.
-- And the continuous integration will build a new fresh Docker image with latest versions of all Debian packages.
-
 ## Kubernetes
 
 C2cciutils provide some commands for Kubernetes.
