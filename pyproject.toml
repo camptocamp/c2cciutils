@@ -60,9 +60,9 @@ requests = "2.32.3"
 PyYAML = "6.0.2"
 
 [tool.poetry.group.dev.dependencies]
-prospector = { version = "1.14.1", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff"] }
+prospector = { version = "1.15.2", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff"] }
 prospector-profile-duplicated = "1.10.4"
-prospector-profile-utils = "1.17.0"
+prospector-profile-utils = "1.22.3"
 types-requests = "2.32.0.20250301"
 types-pyyaml = "6.0.12.20241230"
 
