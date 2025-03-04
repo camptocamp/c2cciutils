@@ -1,11 +1,2 @@
-dpkg
-repology.org
-pypi
-Snyk
-c2cciutils-publish
-fixup
-codespell
-pipenv
-Pipfile
 C2C
 utils

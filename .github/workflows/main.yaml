@@ -55,8 +55,6 @@ jobs:
           key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
           restore-keys: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}\npre-commit-"
       - run: pre-commit run --all-files
-        env:
-          SKIP: poetry-lock,pipenv-lock,helm-lock
       - run: git diff --exit-code --patch > /tmp/pre-commit.patch || true
         if: failure()
       - uses: actions/upload-artifact@v4
@@ -87,9 +85,10 @@ jobs:
         run: make build
 
       - name: Publish
-        run: c2cciutils-publish
-        if: |
-          env.HAS_SECRETS == 'HAS_SECRETS'
+        run: tag-publish
+        if: env.HAS_SECRETS == 'HAS_SECRETS'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: git diff --exit-code --patch > /tmp/dpkg-versions.patch || true
         if: failure()

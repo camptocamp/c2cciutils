@@ -40,8 +40,6 @@ jobs:
           key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
           restore-keys: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}\npre-commit-"
       - run: pre-commit run --all-files
-        env:
-          SKIP: poetry-lock
         if: matrix.python-version != '3.7'
       - run: git diff && false
         if: failure()
@@ -55,5 +53,5 @@ jobs:
         run: docker build --tag=${GITHUB_REPOSITORY} .
 
       - name: Publish
-        run: c2cciutils-publish
+        run: tag-publish
         if: env.HAS_SECRETS == 'HAS_SECRETS'

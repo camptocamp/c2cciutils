@@ -1,13 +1,11 @@
 """c2cciutils shared utils function."""
 
-import glob
 import json
 import os.path
 import re
 import subprocess  # nosec
 import sys
-from re import Match, Pattern
-from typing import Any, Optional, TypedDict, cast
+from typing import Any, Optional, cast
 
 import requests
 import ruamel.yaml
@@ -33,26 +31,6 @@ def get_repository() -> str:
     return "camptocamp/project"
 
 
-def merge(default_config: Any, config: Any) -> Any:
-    """
-    Deep merge the dictionaries (on dictionaries only, not on arrays).
-
-    Arguments:
-        default_config: The default config that will be applied
-        config: The base config, will be modified
-
-    """
-    if not isinstance(default_config, dict) or not isinstance(config, dict):
-        return config
-
-    for key in default_config:
-        if key not in config:
-            config[key] = default_config[key]
-        else:
-            merge(default_config[key], config[key])
-    return config
-
-
 def get_master_branch(repo: list[str]) -> tuple[str, bool]:
     """Get the name of the master branch."""
     master_branch = "master"
@@ -76,52 +54,6 @@ def get_config() -> c2cciutils.configuration.Configuration:
         with open("ci/config.yaml", encoding="utf-8") as open_file:
             yaml_ = ruamel.yaml.YAML()
             config = yaml_.load(open_file)
-
-    repository = get_repository()
-    repo = repository.split("/")
-    master_branch, _ = get_master_branch(repo)
-
-    merge(
-        {
-            "version": {
-                "tag_to_version_re": [
-                    {"from": r"([0-9]+.[0-9]+.[0-9]+)", "to": r"\1"},
-                ],
-                "branch_to_version_re": [
-                    {"from": r"([0-9]+.[0-9]+)", "to": r"\1"},
-                    {"from": master_branch, "to": master_branch},
-                ],
-            }
-        },
-        config,
-    )
-
-    has_docker_files = bool(
-        subprocess.run(
-            ["git", "ls-files", "*/Dockerfile*", "Dockerfile*"], stdout=subprocess.PIPE, check=True
-        ).stdout
-    )
-    has_python_package = bool(
-        subprocess.run(
-            ["git", "ls-files", "setup.py", "*/setup.py"], stdout=subprocess.PIPE, check=True
-        ).stdout
-    ) or bool(
-        subprocess.run(
-            ["git", "ls-files", "pyproject.toml", "*/pyproject.toml"], stdout=subprocess.PIPE, check=True
-        ).stdout
-    )
-
-    publish_config = merge(c2cciutils.configuration.PUBLISH_DEFAULT, {})
-    publish_config["pypi"]["packages"] = [{"path": "."}] if has_python_package else []
-    publish_config["docker"]["images"] = [{"name": get_repository()}] if has_docker_files else []
-    publish_config["helm"]["folders"] = [
-        os.path.dirname(f) for f in glob.glob("./**/Chart.yaml", recursive=True)
-    ]
-
-    default_config = {
-        "publish": publish_config,
-    }
-    merge(default_config, config)
 
     return config
 
@@ -168,102 +100,6 @@ def error(
         print(f"::{error_type} {result}")
     else:
         print(f"[{error_type}] {result}")
-
-
-VersionTransform = TypedDict(
-    "VersionTransform",
-    {
-        # The from regular expression
-        "from": Pattern[str],
-        # The expand regular expression: https://docs.python.org/3/library/re.html#re.Match.expand
-        "to": str,
-    },
-    total=False,
-)
-
-
-def compile_re(config: c2cciutils.configuration.VersionTransform, prefix: str = "") -> list[VersionTransform]:
-    """
-    Compile the from as a regular expression of a dictionary of the config list.
-
-    to be used with convert and match
-
-    Arguments:
-        config: The transform config
-        prefix: The version prefix
-
-    Return the compiled transform config.
-
-    """
-    result = []
-    for conf in config:
-        new_conf = cast(VersionTransform, dict(conf))
-
-        from_re = conf.get("from", r"(.*)")
-        if from_re[0] == "^":
-            from_re = from_re[1:]
-        if from_re[-1] != "$":
-            from_re += "$"
-        from_re = f"^{re.escape(prefix)}{from_re}"
-
-        new_conf["from"] = re.compile(from_re)
-        result.append(new_conf)
-    return result
-
-
-def match(
-    value: str, config: list[VersionTransform]
-) -> tuple[Optional[Match[str]], Optional[VersionTransform], str]:
-    """
-    Get the matched version.
-
-    Arguments:
-        value: That we want to match with
-        config: The result of `compile`
-
-    Returns the re match object, the matched config and the value as a tuple
-    On no match it returns None, value
-
-    """
-    for conf in config:
-        matched = conf["from"].match(value)
-        if matched is not None:
-            return matched, conf, value
-    return None, None, value
-
-
-def does_match(value: str, config: list[VersionTransform]) -> bool:
-    """
-    Check if the version match with the config patterns.
-
-    Arguments:
-        value: That we want to match with
-        config: The result of `compile`
-
-    Returns True it it does match else False
-
-    """
-    matched, _, _ = match(value, config)
-    return matched is not None
-
-
-def get_value(matched: Optional[Match[str]], config: Optional[VersionTransform], value: str) -> str:
-    """
-    Get the final value.
-
-    `match`, `config` and `value` are the result of `match`.
-
-    The `config` should have a `to` key with an expand template.
-
-    Arguments:
-        matched: The matched object to a regular expression
-        config: The result of `compile`
-        value: The default value on returned no match
-
-    Return the value
-
-    """
-    return matched.expand(config.get("to", r"\1")) if matched is not None and config is not None else value
 
 
 def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
@@ -319,18 +155,6 @@ def gopass(key: str, default: Optional[str] = None) -> Optional[str]:
         if default is not None:
             return default
         raise
-
-
-def gopass_put(secret: str, key: str) -> None:
-    """
-    Put an entry in gopass.
-
-    Arguments:
-        secret: The secret value
-        key: The key
-
-    """
-    subprocess.check_output(["gopass", "insert", "--force", key], input=secret.encode())
 
 
 def add_authorization_header(headers: dict[str, str]) -> dict[str, str]:
@@ -411,20 +235,3 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
     if "data" not in json_response:
         raise RuntimeError(f"GraphQL no data: {json.dumps(json_response, indent=2)}")
     return cast(dict[str, Any], json_response["data"])
-
-
-def snyk_exec() -> tuple[str, dict[str, str]]:
-    """Get the Snyk cli executable path."""
-    if not os.path.exists(os.path.join(os.path.dirname(__file__), "node_modules")):
-        subprocess.run(["npm", "install"], cwd=os.path.dirname(__file__), check=True)  # nosec
-
-    env = {**os.environ}
-    env["FORCE_COLOR"] = "true"
-    if "SNYK_TOKEN" not in env:
-        token = gopass("gs/ci/snyk/token")
-        if token is not None:
-            env["SNYK_TOKEN"] = token
-    if "SNYK_ORG" in env:
-        subprocess.run(["snyk", "config", "set", f"org={env['SNYK_ORG']}"], check=True, env=env)
-
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "node_modules/snyk/bin/snyk"), env

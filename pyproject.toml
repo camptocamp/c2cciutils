@@ -47,43 +47,17 @@ exclude = ["c2cciutils/node_modules/**/test"]
 [tool.poetry.scripts]
 c2cciutils = "c2cciutils.scripts.main:main"
 c2cciutils-env = "c2cciutils.scripts.env:main"
-c2cciutils-publish = "c2cciutils.scripts.publish:main"
-c2cciutils-version = "c2cciutils.scripts.version:main"
-c2cciutils-clean = "c2cciutils.scripts.clean:main"
-c2cciutils-checks = "c2cciutils.scripts.env:main"
-c2cciutils-google-calendar = "c2cciutils.publish:main_calendar"
 c2cciutils-k8s-install = "c2cciutils.scripts.k8s.install:main"
 c2cciutils-k8s-db = "c2cciutils.scripts.k8s.db:main"
 c2cciutils-k8s-wait = "c2cciutils.scripts.k8s.wait:main"
 c2cciutils-k8s-logs = "c2cciutils.scripts.k8s.logs:main"
-c2cciutils-pin-pipenv = "c2cciutils.scripts.pin_pipenv:main"
 c2cciutils-docker-logs = "c2cciutils.scripts.docker_logs:main"
-c2cciutils-trigger-image-update = "c2cciutils.scripts.trigger_image_update:main"
-c2cciutils-download-applications = "c2cciutils.scripts.download_applications:main"
-c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 requests = "2.32.3"
-google-api-python-client = { version = "2.160.0", optional = true }
-google-auth-httplib2 = { version = "0.2.0", optional = true }
-google-auth-oauthlib = { version = "1.2.1", optional = true }
 "ruamel.yaml" = "0.18.10"
-defusedxml = "0.7.1"
-twine = { version = "6.1.0", optional = true }
-debian-inspector = "31.1.0"
 PyYAML = "6.0.2"
-multi-repo-automation = { version="1.5.0", optional = true }
-security-md = "1.0.0"
-id = { version="1.5.0", optional = true }
-
-[tool.poetry.extras]
-audit = []
-checks = []
-publish = ["twine", "google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib", "id"]
-publish_plugins = []
-pr_checks = []
-version = ["multi-repo-automation"]
 
 [tool.poetry.group.dev.dependencies]
 prospector = { version = "1.14.1", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff"] }
@@ -91,7 +65,6 @@ prospector-profile-duplicated = "1.10.4"
 prospector-profile-utils = "1.17.0"
 types-requests = "2.32.0.20250301"
 types-pyyaml = "6.0.12.20241230"
-types-markdown = "3.7.0.20241204"
 
 [build-system]
 requires = [
