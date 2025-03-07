@@ -19,7 +19,7 @@ def get_repository() -> str:
     if "GITHUB_REPOSITORY" in os.environ:
         return os.environ["GITHUB_REPOSITORY"]
 
-    remote_lines = subprocess.check_output(["git", "remote", "--verbose"]).decode().split("\n")
+    remote_lines = subprocess.check_output(["git", "remote", "--verbose"]).decode().split("\n")  # noqa: S603,S607
     remote_match = (
         re.match(r".*git@github.com:(.*).git .*", remote_lines[0]) if len(remote_lines) >= 1 else None
     )
@@ -118,7 +118,7 @@ def print_versions(config: c2cciutils.configuration.PrintVersions) -> bool:
         try:
             sys.stdout.flush()
             sys.stderr.flush()
-            current_version = subprocess.check_output(version.get("cmd", [])).decode()
+            current_version = subprocess.check_output(version.get("cmd", [])).decode()  # noqa: S603
             print(f"{version.get('prefix', '')}{current_version}")
         except PermissionError as exception:
             error(
@@ -154,7 +154,7 @@ def gopass(key: str, default: str | None = None) -> str | None:
 
     """
     try:
-        return subprocess.check_output(["gopass", "show", key]).strip().decode()
+        return subprocess.check_output(["gopass", "show", key]).strip().decode()  # noqa: S603,S607
     except FileNotFoundError:
         if default is not None:
             return default

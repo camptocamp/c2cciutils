@@ -18,34 +18,34 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.namespace:
-        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)
+        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)  # noqa: S603,S607
 
     try:
         _print("::group::Events")
-        subprocess.run(["kubectl", "get", "events"], check=False)
+        subprocess.run(["kubectl", "get", "events"], check=False)  # noqa: S603,S607
         _print("::endgroup::")
 
         _print("::group::Deployments")
-        subprocess.run(["kubectl", "get", "deployments", "--output=wide"], check=False)
+        subprocess.run(["kubectl", "get", "deployments", "--output=wide"], check=False)  # noqa: S603,S607
         _print("::endgroup::")
 
         _print("::group::Pods")
-        subprocess.run(["kubectl", "get", "pods", "--output=wide"], check=False)
+        subprocess.run(["kubectl", "get", "pods", "--output=wide"], check=False)  # noqa: S603,S607
         _print("::endgroup::")
 
         for name in (
-            subprocess.run(["kubectl", "get", "pods", "--output=name"], check=True, stdout=subprocess.PIPE)
+            subprocess.run(["kubectl", "get", "pods", "--output=name"], check=True, stdout=subprocess.PIPE)  # noqa: S603,S607
             .stdout.decode()
             .split("\n")
         ):
             if name:
                 _print(f"::group::{name}: Describe")
-                subprocess.run(["kubectl", "describe", name], check=False)
+                subprocess.run(["kubectl", "describe", name], check=False)  # noqa: S603,S607
                 _print("::endgroup::")
 
                 for container in (
-                    subprocess.run(
-                        ["kubectl", "get", name, "--output=jsonpath={.spec.initContainers[*].name}"],
+                    subprocess.run(  # noqa: S603,S607,RUF100
+                        ["kubectl", "get", name, "--output=jsonpath={.spec.initContainers[*].name}"],  # noqa: S607
                         check=True,
                         stdout=subprocess.PIPE,
                     )
@@ -54,12 +54,12 @@ def main() -> None:
                 ):
                     if name:
                         _print(f"::group::{name} {container}: Logs")
-                        subprocess.run(["kubectl", "logs", name, container], check=False)
+                        subprocess.run(["kubectl", "logs", name, container], check=False)  # noqa: S603,S607
                         _print("::endgroup::")
 
                 for container in (
-                    subprocess.run(
-                        ["kubectl", "get", name, "--output=jsonpath={.spec.containers[*].name}"],
+                    subprocess.run(  # noqa: S603,S607,RUF100
+                        ["kubectl", "get", name, "--output=jsonpath={.spec.containers[*].name}"],  # noqa: S607
                         check=True,
                         stdout=subprocess.PIPE,
                     )
@@ -67,7 +67,7 @@ def main() -> None:
                     .split()
                 ):
                     _print(f"::group::{name} {container}: Logs")
-                    subprocess.run(["kubectl", "logs", name, container], check=False)
+                    subprocess.run(["kubectl", "logs", name, container], check=False)  # noqa: S603,S607
                     _print("::endgroup::")
     except subprocess.CalledProcessError as exception:
         # No exit error

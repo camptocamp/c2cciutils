@@ -33,7 +33,7 @@ def main() -> None:
         .get("k3d", {})
         .get("install-commands", c2cciutils.configuration.K3D_INSTALL_COMMANDS_DEFAULT)
     ):
-        subprocess.run(cmd, check=True)
+        subprocess.run(cmd, check=True)  # noqa: S603
     _print("::endgroup::")
 
 
