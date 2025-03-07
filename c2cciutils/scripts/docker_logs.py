@@ -21,11 +21,11 @@ def main() -> None:
 
     if Path("docker-compose.yaml").exists():
         _print("::group::Docker Compose ps")
-        subprocess.run(["docker", "compose", "ps", "--all"], check=False)
+        subprocess.run(["docker", "compose", "ps", "--all"], check=False)  # noqa: S603,S607
         _print("::endgroup::")
 
     _print("::group::Docker ps")
-    subprocess.run(["docker", "ps"], check=False)
+    subprocess.run(["docker", "ps"], check=False)  # noqa: S603,S607
     _print("::endgroup::")
 
     # Store in /tmp/docker-logs-timestamp the current timestamp to avoid printing same logs multiple times.
@@ -39,8 +39,8 @@ def main() -> None:
         timestamp_file.write(datetime.datetime.now(tz=datetime.timezone.utc).isoformat())
 
     for name in (
-        subprocess.run(
-            ["docker", "ps", "--all", "--format", "{{ .Names }}"],
+        subprocess.run(  # noqa: S603,S607,RUF100
+            ["docker", "ps", "--all", "--format", "{{ .Names }}"],  # noqa: S607
             check=True,
             stdout=subprocess.PIPE,
         )
@@ -49,7 +49,7 @@ def main() -> None:
     ):
         if name:
             _print(f"::group::{name}: New logs")
-            subprocess.run(["docker", "logs", *timestamp_args, name], check=False)
+            subprocess.run(["docker", "logs", *timestamp_args, name], check=False)  # noqa: S603,S607
             _print("::endgroup::")
 
 

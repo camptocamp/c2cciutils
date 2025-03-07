@@ -42,19 +42,19 @@ def main() -> None:
 
     if args.cleanup:
         _print("::group::Cleanup the database")
-        subprocess.run([os.environ.get("HELM", "helm"), "uninstall", "test-pg"], check=False)
+        subprocess.run([os.environ.get("HELM", "helm"), "uninstall", "test-pg"], check=False)  # noqa: S603
         _print("::endgroup::")
         sys.exit(0)
 
     _print("::group::Add repo")
-    subprocess.run(
+    subprocess.run(  # noqa: S603
         [os.environ.get("HELM", "helm"), "repo", "add", "bitnami", "https://charts.bitnami.com/bitnami"],
         check=True,
     )
     _print("::endgroup::")
 
     _print("::group::Install chart")
-    subprocess.run(
+    subprocess.run(  # noqa: S603
         [
             os.environ.get("HELM", "helm"),
             "install",
@@ -74,15 +74,15 @@ def main() -> None:
     _print("::endgroup::")
 
     _print("::group::Wait ready")
-    subprocess.run(["c2cciutils-k8s-wait", "--selector=app.kubernetes.io/name=postgresql"], check=True)
+    subprocess.run(["c2cciutils-k8s-wait", "--selector=app.kubernetes.io/name=postgresql"], check=True)  # noqa: S603,S607
     _print("::endgroup::")
 
     if args.script:
         _print("::group::Add data")
         script_path = Path(args.script)
         with script_path.open(encoding="utf-8") as script:
-            subprocess.run(
-                [
+            subprocess.run(  # noqa: S603,S607,RUF100
+                [  # noqa: S607
                     "kubectl",
                     "run",
                     "test-pg-postgresql-client",

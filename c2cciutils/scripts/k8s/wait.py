@@ -110,15 +110,15 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.namespace:
-        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)
+        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)  # noqa: S603,S607
 
     for _ in range(args.nb_try):
         time.sleep(args.sleep)
         success = True
         deployements_names = []
         if args.deployments:
-            deployments = subprocess.run(
-                ["kubectl", "get", "deployments", "--output=json"],
+            deployments = subprocess.run(  # noqa: S603,S607,RUF100
+                ["kubectl", "get", "deployments", "--output=json"],  # noqa: S607
                 stdout=subprocess.PIPE,
                 check=True,
             )
@@ -128,8 +128,8 @@ def main() -> None:
                 deployment["metadata"]["name"] for deployment in json.loads(deployments.stdout)["items"]
             ]
 
-        pods = subprocess.run(
-            ["kubectl", "get", "pods", "--output=json", f"--selector={args.selector}"],
+        pods = subprocess.run(  # noqa: S603,S607,RUF100
+            ["kubectl", "get", "pods", "--output=json", f"--selector={args.selector}"],  # noqa: S607
             stdout=subprocess.PIPE,
             check=True,
         )

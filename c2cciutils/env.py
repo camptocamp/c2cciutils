@@ -58,17 +58,17 @@ def print_github_event_object() -> None:
 
 def print_python_package_version() -> None:
     """Print the version of the Python packages."""
-    subprocess.run(["python3", "-m", "pip", "freeze", "--all"], check=False)  # pylint: disable=subprocess-run-check
+    subprocess.run(["python3", "-m", "pip", "freeze", "--all"], check=False)  # pylint: disable=subprocess-run-check # noqa: S607
 
 
 def print_node_package_version() -> None:
     """Print the version of the Python packages."""
-    subprocess.run(["npm", "list", "--global"], check=False)  # pylint: disable=subprocess-run-check
+    subprocess.run(["npm", "list", "--global"], check=False)  # pylint: disable=subprocess-run-check # noqa: S607
 
 
 def print_debian_package_version() -> None:
     """Print the version of the Python packages."""
-    subprocess.run(["dpkg", "--list"], check=False)  # pylint: disable=subprocess-run-check
+    subprocess.run(["dpkg", "--list"], check=False)  # pylint: disable=subprocess-run-check # noqa: S607
 
 
 def print_environment(config: c2cciutils.configuration.Configuration, prefix: str = "Print ") -> None:
