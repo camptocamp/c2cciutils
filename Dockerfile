@@ -34,6 +34,11 @@ RUN --mount=type=cache,target=/root/.cache \
 
 FROM base AS checker
 
+# Force to use a newer version of setuptools
+RUN python3 -m pip install --prefix=/usr --no-cache-dir --disable-pip-version-check setuptools==61.3.1 \
+    && rm -rf /usr/lib/python3/dist-packages/setuptools* \
+    && ln -s /usr/local/lib/python3/dist-packages/setuptools* /usr/lib/python3/dist-packages/
+
 RUN --mount=type=cache,target=/root/.cache \
     --mount=type=bind,from=poetry,source=/tmp,target=/poetry \
     python3 -m pip install --disable-pip-version-check --no-deps --requirement=/poetry/requirements-dev.txt
