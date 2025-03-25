@@ -36,7 +36,7 @@ def main() -> None:
     config = c2cciutils.get_config()
     config_path = Path(__file__).resolve().parents[2] / "applications-versions.yaml"
     with config_path.open(encoding="utf-8") as config_file:
-        versions = cast(dict[str, str], yaml.load(config_file, Loader=yaml.SafeLoader))
+        versions = cast("dict[str, str]", yaml.load(config_file, Loader=yaml.SafeLoader))
 
     args = parser.parse_args()
 
