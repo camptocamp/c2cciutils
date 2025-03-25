@@ -241,4 +241,4 @@ def graphql(query_file: str, variables: dict[str, Any], default: Any = None) -> 
     if "data" not in json_response:
         message = f"GraphQL no data: {json.dumps(json_response, indent=2)}"
         raise RuntimeError(message)
-    return cast(dict[str, Any], json_response["data"])
+    return cast("dict[str, Any]", json_response["data"])
