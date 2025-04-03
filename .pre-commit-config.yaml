@@ -34,7 +34,6 @@ repos:
         files: |-
           (?x)^(
             example-project/ci/config\.yaml
-            |\.github/ghci\.yaml
             |c2cciutils/applications\.yaml
             |\.github/publish\.yaml
             |jsonschema\-gentypes\.yaml
