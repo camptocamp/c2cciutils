@@ -85,7 +85,7 @@ repos:
           - --builtin-schema
           - github-workflows-require-timeout
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 39.227.2
+    rev: 40.0.5
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/sirwart/ripsecrets
@@ -144,6 +144,6 @@ repos:
           - --ignore-acronyms
           - --en-us
   - repo: https://github.com/sbrunner/python-versions-hook
-    rev: 0.8.0
+    rev: 1.0.0
     hooks:
       - id: python-versions
