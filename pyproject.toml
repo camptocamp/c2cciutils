@@ -58,7 +58,7 @@ prospector = { version = "1.16.1", extras = ["with-bandit", "with-mypy", "with-p
 prospector-profile-duplicated = "1.10.5"
 prospector-profile-utils = "1.22.3"
 types-requests = "2.32.0.20250328"
-types-pyyaml = "6.0.12.20250326"
+types-pyyaml = "6.0.12.20250402"
 
 [tool.poetry-dynamic-versioning]
 enable = true
