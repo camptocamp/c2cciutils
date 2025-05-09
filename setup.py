@@ -45,7 +45,6 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
         "Topic :: Scientific/Engineering :: GIS",
         "Typing :: Typed",
     ],
