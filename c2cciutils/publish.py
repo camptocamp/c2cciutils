@@ -279,7 +279,6 @@ def pip(
             )
             cmd.append("bdist_wheel")
         else:
-            os.mkdir(dist)
             cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", '.']
         cmd = package.get("build_command", cmd)
         subprocess.check_call(cmd, cwd=cwd, env=env)
