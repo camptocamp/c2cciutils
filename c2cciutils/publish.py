@@ -271,6 +271,7 @@ def pip(
         if not os.path.exists(dist):
             os.mkdir(dist)
         if os.path.exists(os.path.join(cwd, "setup.py")):
+            print("Publishing using setup.py")
             cmd = ["python3", "./setup.py", "egg_info", "--no-date"]
             cmd += (
                 ["--tag-build=dev" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")]
@@ -279,7 +280,7 @@ def pip(
             )
             cmd.append("bdist_wheel")
         else:
-            os.mkdir(dist)
+            print("Publishing using pip")
             cmd = ["pip", "wheel", "--no-deps", "--wheel-dir=dist", '.']
         cmd = package.get("build_command", cmd)
         subprocess.check_call(cmd, cwd=cwd, env=env)

@@ -124,6 +124,13 @@ def main() -> None:
             print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
         # By the way we replace '/' by '_' because it isn't supported by Docker
         version = "_".join(ref.split("/")[2:])
+    elif ref.startswith("refs/pull/"):
+        if version_type is None:
+            version_type = "feature_branch"
+        else:
+            print("WARNING: you specified the argument --type but not one of --version, --branch or --tag")
+        # By the way we replace '/' by '_' because it isn't supported by Docker
+        version = "_".join(ref.split("/")[2:-1])
     elif ref.startswith("refs/tags/"):
         if version_type is None:
             version_type = "feature_tag"
