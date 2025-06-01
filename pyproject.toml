@@ -6,8 +6,8 @@ line-length = 110
 convention = "numpy"
 
 [tool.poetry]
-version = "0.0.0"
 exclude = ["c2cciutils/node_modules/**/test"]
+version = "0.0.0"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
@@ -75,6 +75,7 @@ include = [
     "c2cciutils/*.json",
 ]
 requires-python = ">=3.10"
+dependencies = ["requests<3,>=2", "ruamel.yaml<1,>=0", "PyYAML<7,>=6", "applications-download<2,>=1"]
 
 [project.urls]
 repository = "https://github.com/camptocamp/c2cciutils"
