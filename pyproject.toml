@@ -90,6 +90,7 @@ urllib3 = "2.2.3"
 idna = { version="3.7", optional = true }
 certifi = "2024.7.4"
 zipp = "3.19.3"
+protobuf = "4.25.8"
 
 [tool.poetry.extras]
 audit = []
