@@ -7,3 +7,4 @@ pre-commit==3.3.3
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
 certifi>=2024.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
 virtualenv>=20.26.6 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
