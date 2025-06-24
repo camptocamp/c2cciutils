@@ -1,0 +1,12 @@
+Backport of #2298 to 1.1
+
+Error on cherry-picking: 5875230005d049bbf72e28751cd815c8bb0f5024
+
+To continue do:
+```bash
+git fetch && \
+  git checkout ghci/backport/2298-to-1.1 && \
+  git reset --hard HEAD^ && \
+  git cherry-pick 5875230005d049bbf72e28751cd815c8bb0f5024
+git push origin ghci/backport/2298-to-1.1 --force
+```
