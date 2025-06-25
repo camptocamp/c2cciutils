@@ -1,0 +1,12 @@
+Backport of #2306 to master
+
+Error on cherry-picking: 447f57bf4cfcff52f2235ce29a419de95f8d3026
+
+To continue do:
+```bash
+git fetch && \
+  git checkout ghci/backport/2306-to-master && \
+  git reset --hard HEAD^ && \
+  git cherry-pick 447f57bf4cfcff52f2235ce29a419de95f8d3026
+git push origin ghci/backport/2306-to-master --force
+```
