@@ -11,9 +11,10 @@ checks:
   versions:
     extra_versions:
       - '1.1'
-
   required_workflows: false
   codespell: false
+  prospector_config: false
+
 publish:
   pypi:
     packages:

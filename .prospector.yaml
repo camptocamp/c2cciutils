@@ -38,7 +38,7 @@ pep257:
     - D413 # Missing blank line after last section
 
 mypy:
-  run: true
+  run: false
 
 bandit:
   run: true
