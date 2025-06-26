@@ -2,16 +2,16 @@
   extends: [
     'github>camptocamp/gs-renovate-config-preset:base.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:group.json5#1.2.3',
-    'github>camptocamp/gs-renovate-config-preset:stabilization-branches.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:ci.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:preset.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:pre-commit.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:python.json5#1.2.3',
-    'github>camptocamp/gs-renovate-config-preset:security.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:docker.json5#1.2.3',
-    'github>camptocamp/gs-renovate-config-preset:own.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:json-schema.json5#1.2.3',
     'github>camptocamp/gs-renovate-config-preset:shellcheck.json5#1.2.3',
+    'github>camptocamp/gs-renovate-config-preset:stabilization-branches.json5#1.2.3',
+    'github>camptocamp/gs-renovate-config-preset:own.json5#1.2.3',
+    'github>camptocamp/gs-renovate-config-preset:security.json5#1.2.3',
   ],
   baseBranches: ['1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.7', 'master'],
   customManagers: [
@@ -25,18 +25,6 @@
     },
   ],
   packageRules: [
-    /** Automerge the patch, the minor and the dev dependency */
-    {
-      matchBaseBranches: ['master'],
-      matchUpdateTypes: ['minor', 'patch'],
-      automerge: true,
-    },
-    /** Accept only the patch on stabilization branches */
-    {
-      matchBaseBranches: ['/^[0-9]+\\.[0-9]+$/'],
-      matchUpdateTypes: ['major', 'minor', 'pin', 'digest', 'lockFileMaintenance', 'rollback', 'bump'],
-      enabled: false,
-    },
     /** Ungroup codespell */
     {
       groupName: 'codespell',
@@ -52,12 +40,6 @@
     {
       enabled: false,
       matchDepNames: ['node-vm2'],
-    },
-    /** Only LTS version of Node */
-    {
-      allowedVersions: '/(0|2|4|6|8)$/',
-      enabled: false,
-      matchDepNames: ['node'],
     },
     /** On branch 1.2 and 1.3 don't upgrade types-pyyaml */
     {
