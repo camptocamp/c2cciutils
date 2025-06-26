@@ -23,7 +23,7 @@ pipenv = "==2022.4.30"
 black = "==24.3.0"
 click = "==8.0.4"
 isort = "==5.10.1"
-twine = "==4.0.2"
+twine = "==5.1.1"
 codespell = "==2.1.0"
 # Lock dependencies
 attrs = "==21.4.0"
