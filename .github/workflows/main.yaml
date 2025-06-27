@@ -132,11 +132,6 @@ jobs:
       - name: Install
         run: c2cciutils-k8s-install
 
-      - name: Create DB
-        run: c2cciutils-k8s-db --script=test/init.sql
-
-      - run: kubectl run test-pod --restart=Never --namespace=default --image=busybox --command -- tail -f /dev/null
-
       - name: Wait
         run: c2cciutils-k8s-wait
       - name: Logs
