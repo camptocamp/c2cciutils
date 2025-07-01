@@ -41,6 +41,7 @@ python = ">=3.10,<3.13"
 prospector = { version = "1.17.2", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
 prospector-profile-duplicated = "1.10.5"
 prospector-profile-utils = "1.23.0"
+ruff = "0.12.1"
 
 [tool.poetry-dynamic-versioning]
 enable = true
