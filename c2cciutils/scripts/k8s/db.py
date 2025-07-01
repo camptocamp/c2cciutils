@@ -74,7 +74,7 @@ def main() -> None:
     _print("::endgroup::")
 
     _print("::group::Wait ready")
-    subprocess.run(["c2cciutils-k8s-wait", "--selector=app.kubernetes.io/name=postgresql"], check=True)  # noqa: S603,S607
+    subprocess.run(["c2cciutils-k8s-wait", "--selector=app.kubernetes.io/name=postgresql"], check=True)  # noqa: S607
     _print("::endgroup::")
 
     if args.script:

@@ -19,7 +19,7 @@ def get_repository() -> str:
     if "GITHUB_REPOSITORY" in os.environ:
         return os.environ["GITHUB_REPOSITORY"]
 
-    remote_lines = subprocess.check_output(["git", "remote", "--verbose"]).decode().split("\n")  # noqa: S603,S607
+    remote_lines = subprocess.check_output(["git", "remote", "--verbose"]).decode().split("\n")  # noqa: S607
     remote_match = (
         re.match(r".*git@github.com:(.*).git .*", remote_lines[0]) if len(remote_lines) >= 1 else None
     )
