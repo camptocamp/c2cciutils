@@ -18,23 +18,23 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.namespace:
-        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)  # noqa: S603,S607
+        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)  # noqa: S607
 
     try:
         _print("::group::Events")
-        subprocess.run(["kubectl", "get", "events"], check=False)  # noqa: S603,S607
+        subprocess.run(["kubectl", "get", "events"], check=False)  # noqa: S607
         _print("::endgroup::")
 
         _print("::group::Deployments")
-        subprocess.run(["kubectl", "get", "deployments", "--output=wide"], check=False)  # noqa: S603,S607
+        subprocess.run(["kubectl", "get", "deployments", "--output=wide"], check=False)  # noqa: S607
         _print("::endgroup::")
 
         _print("::group::Pods")
-        subprocess.run(["kubectl", "get", "pods", "--output=wide"], check=False)  # noqa: S603,S607
+        subprocess.run(["kubectl", "get", "pods", "--output=wide"], check=False)  # noqa: S607
         _print("::endgroup::")
 
         for name in (
-            subprocess.run(["kubectl", "get", "pods", "--output=name"], check=True, stdout=subprocess.PIPE)  # noqa: S603,S607
+            subprocess.run(["kubectl", "get", "pods", "--output=name"], check=True, stdout=subprocess.PIPE)  # noqa: S607
             .stdout.decode()
             .split("\n")
         ):

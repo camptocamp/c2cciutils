@@ -21,11 +21,11 @@ def main() -> None:
 
     if Path("docker-compose.yaml").exists():
         _print("::group::Docker Compose ps")
-        subprocess.run(["docker", "compose", "ps", "--all"], check=False)  # noqa: S603,S607
+        subprocess.run(["docker", "compose", "ps", "--all"], check=False)  # noqa: S607
         _print("::endgroup::")
 
     _print("::group::Docker ps")
-    subprocess.run(["docker", "ps"], check=False)  # noqa: S603,S607
+    subprocess.run(["docker", "ps"], check=False)  # noqa: S607
     _print("::endgroup::")
 
     # Store in /tmp/docker-logs-timestamp the current timestamp to avoid printing same logs multiple times.

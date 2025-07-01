@@ -110,7 +110,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.namespace:
-        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)  # noqa: S603,S607
+        subprocess.run(["kubectl", "config", "set-context", "--current", "--namespace=default"], check=True)  # noqa: S607
 
     for _ in range(args.nb_try):
         time.sleep(args.sleep)
