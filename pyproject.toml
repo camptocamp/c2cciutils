@@ -77,7 +77,7 @@ c2cciutils-download-applications = "c2cciutils.scripts.download_applications:mai
 c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.12,!=3.9.0,!=3.9.1"
+python = ">=3.9.3,<3.12"
 pipenv = { version = "2022.9.24", optional = true }
 safety = "2.1.1"
 markdown-table = "2020.12.3"
