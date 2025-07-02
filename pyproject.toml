@@ -107,11 +107,11 @@ tomlkit = { version = "0.11.8", optional = true }
 poetry-dynamic-versioning = { version = "0.21.5", optional = true, extras = ["plugin"] }
 poetry-plugin-tweak-dependencies-version = { version = "1.5.2", optional = true }
 poetry = { version = "1.6.1", optional = true }
-protobuf = { version = "4.21.12", optional = true }
+protobuf = "4.25.8"
 cryptography = "45.0.4"
 certifi = "2025.6.15"
 Pygments = { version = "2.15.1", optional = true }
-urllib3 = { version = "1.26.20", optional = true }
+urllib3 = "2.5.0"
 idna = { version = "3.7", optional = true }
 virtualenv = { version = "20.26.6", optional = true }
 jinja2 = "3.1.6"
