@@ -25,8 +25,8 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/gcc-11: 11.4.0-1ubuntu1~22.04
   ubuntu_22_04/gcc-11-base: 11.4.0-1ubuntu1~22.04
   ubuntu_22_04/gcc-12-base: 12.3.0-1ubuntu1~22.04
-  ubuntu_22_04/git: 1:2.34.1-1ubuntu1.13
-  ubuntu_22_04/git-man: 1:2.34.1-1ubuntu1.13
+  ubuntu_22_04/git: 1:2.34.1-1ubuntu1.14
+  ubuntu_22_04/git-man: 1:2.34.1-1ubuntu1.14
   ubuntu_22_04/gnupg: 2.2.27-3ubuntu2.4
   ubuntu_22_04/gnupg-l10n: 2.2.27-3ubuntu2.4
   ubuntu_22_04/gnupg-utils: 2.2.27-3ubuntu2.4
