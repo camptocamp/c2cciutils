@@ -1,4 +1,4 @@
 c2cciutils[checks,publish]==1.5.14
-pre-commit==3.3.3
+pre-commit==3.8.0
 certifi>=2024.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
 virtualenv>=20.26.6 # not directly required, pinned by Snyk to avoid a vulnerability
