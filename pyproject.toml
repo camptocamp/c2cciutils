@@ -109,7 +109,7 @@ poetry-plugin-tweak-dependencies-version = { version = "1.5.2", optional = true 
 poetry = { version = "1.6.1", optional = true }
 protobuf = "4.25.8"
 cryptography = "45.0.5"
-certifi = "2025.7.14"
+certifi = "2025.8.3"
 Pygments = { version = "2.15.1", optional = true }
 urllib3 = "2.5.0"
 idna = { version = "3.7", optional = true }
