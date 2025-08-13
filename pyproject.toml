@@ -95,7 +95,7 @@ dparse = "0.5.2"
 oauthlib = "3.2.2"
 pyyaml = "6.0.2"
 protobuf = { version = "3.20.3", optional = true }
-cryptography = { version = "45.0.5", optional = true }
+cryptography = { version = "45.0.6", optional = true }
 certifi = { version = "2024.12.14", optional = true }
 pyopenssl = { version = "25.1.0", optional = true }
 wheel = { version = "0.38.4", optional = true }
