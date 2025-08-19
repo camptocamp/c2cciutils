@@ -24,8 +24,8 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/expat: 2.4.7-1ubuntu0.6
   ubuntu_22_04/file: 1:5.41-3ubuntu0.1
   ubuntu_22_04/findutils: 4.8.0-1ubuntu3
-  ubuntu_22_04/gcc-11: 11.4.0-1ubuntu1~22.04
-  ubuntu_22_04/gcc-12: 12.3.0-1ubuntu1~22.04
+  ubuntu_22_04/gcc-11: 11.4.0-1ubuntu1~22.04.2
+  ubuntu_22_04/gcc-12: 12.3.0-1ubuntu1~22.04.2
   ubuntu_22_04/gcc-defaults: 1.193ubuntu1
   ubuntu_22_04/gdbm: 1.23-1
   ubuntu_22_04/git: 1:2.34.1-1ubuntu1.15
