@@ -129,10 +129,10 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/libpsl5t64: 0.21.2-1.1build1
   ubuntu_24_04/libpython3-dev: 3.12.3-0ubuntu2
   ubuntu_24_04/libpython3-stdlib: 3.12.3-0ubuntu2
-  ubuntu_24_04/libpython3.12-dev: 3.12.3-1ubuntu0.7
-  ubuntu_24_04/libpython3.12-minimal: 3.12.3-1ubuntu0.7
-  ubuntu_24_04/libpython3.12-stdlib: 3.12.3-1ubuntu0.7
-  ubuntu_24_04/libpython3.12t64: 3.12.3-1ubuntu0.7
+  ubuntu_24_04/libpython3.12-dev: 3.12.3-1ubuntu0.8
+  ubuntu_24_04/libpython3.12-minimal: 3.12.3-1ubuntu0.8
+  ubuntu_24_04/libpython3.12-stdlib: 3.12.3-1ubuntu0.8
+  ubuntu_24_04/libpython3.12t64: 3.12.3-1ubuntu0.8
   ubuntu_24_04/libquadmath0: 14.2.0-4ubuntu2~24.04
   ubuntu_24_04/libreadline8t64: 8.2-4build1
   ubuntu_24_04/librtmp1: 2.4+20151223.gitfa8646d.1-2build7
@@ -189,10 +189,10 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/python3-setuptools-whl: 68.1.2-2ubuntu1.2
   ubuntu_24_04/python3-venv: 3.12.3-0ubuntu2
   ubuntu_24_04/python3-wheel: 0.42.0-2
-  ubuntu_24_04/python3.12: 3.12.3-1ubuntu0.7
-  ubuntu_24_04/python3.12-dev: 3.12.3-1ubuntu0.7
-  ubuntu_24_04/python3.12-minimal: 3.12.3-1ubuntu0.7
-  ubuntu_24_04/python3.12-venv: 3.12.3-1ubuntu0.7
+  ubuntu_24_04/python3.12: 3.12.3-1ubuntu0.8
+  ubuntu_24_04/python3.12-dev: 3.12.3-1ubuntu0.8
+  ubuntu_24_04/python3.12-minimal: 3.12.3-1ubuntu0.8
+  ubuntu_24_04/python3.12-venv: 3.12.3-1ubuntu0.8
   ubuntu_24_04/readline-common: 8.2-4build1
   ubuntu_24_04/rpcsvc-proto: 1.4.2-0ubuntu7
   ubuntu_24_04/sed: 4.9-2build1
