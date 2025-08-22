@@ -48,7 +48,7 @@ repos:
           - c2cciutils/schema.json
           - config.md
   - repo: https://github.com/sbrunner/hooks
-    rev: 1.6.0
+    rev: 1.6.1
     hooks:
       - id: copyright
       - id: poetry2-lock
