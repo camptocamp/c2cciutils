@@ -172,7 +172,7 @@ files = [
 name = "cffi"
 version = "1.15.1"
 description = "Foreign Function Interface for Python calling C code."
-optional = false
+optional = true
 python-versions = "*"
 files = [
     {file = "cffi-1.15.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:a66d3508133af6e8548451b25058d5812812ec3798c886bf38ed24a98216fab2"},
@@ -398,7 +398,7 @@ files = [
 name = "cryptography"
 version = "45.0.6"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
-optional = false
+optional = true
 python-versions = "!=3.9.0,!=3.9.1,>=3.7"
 files = [
     {file = "cryptography-45.0.6-cp311-abi3-macosx_10_9_universal2.whl", hash = "sha256:048e7ad9e08cf4c0ab07ff7f36cc3115924e22e2266e034450a890d9e312dd74"},
@@ -1237,7 +1237,7 @@ with-vulture = ["vulture (>=1.5)"]
 name = "protobuf"
 version = "4.25.8"
 description = ""
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "protobuf-4.25.8-cp310-abi3-win32.whl", hash = "sha256:504435d831565f7cfac9f0714440028907f1975e4bed228e58e72ecfff58a1e0"},
@@ -1293,7 +1293,7 @@ files = [
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
@@ -2227,4 +2227,4 @@ publish-plugins = []
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9.2,<4.0"
-content-hash = "c7f6e073a3c545b9c5d21ca27450f353a0fc4977b30d5779bfa822c3413c7304"
+content-hash = "ada4073517fe3f472d50c90c9e17e63c6e10e92a3a465e8a160a0d8acbac70b7"

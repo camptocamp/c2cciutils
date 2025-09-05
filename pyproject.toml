@@ -109,13 +109,13 @@ PyYAML = "6.0.2"
 tomlkit = { version = "0.11.8", optional = true }
 importlib-metadata = { version = "7.2.1", optional = true }
 certifi = { version = "2025.8.3", optional = true }
-cryptography = "45.0.6"
+cryptography = { version = "45.0.6", optional = true }
 markdown-it-py = { version = "2.2.0", optional = true }
 Pygments = { version = "2.15.1", optional = true }
 urllib3 = { version = "2.5.0", optional = true }
 idna = { version = "3.7", optional = true }
 zipp = { version = "3.19.3", optional = true }
-protobuf = "4.25.8"
+protobuf = { version = "4.25.8", optional = true }
 
 [tool.poetry.extras]
 audit = []
@@ -165,3 +165,4 @@ codespell = "full"
 jsonschema-gentypes = "minor"
 cryptography = "present"
 certifi = "present"
+protobuf = "present"
