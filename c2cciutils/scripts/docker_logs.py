@@ -21,11 +21,11 @@ def main() -> None:
 
     if os.path.exists("docker-compose.yaml"):
         _print("::group::Docker Compose ps")
-        subprocess.run(["docker", "compose", "ps"], check=False)
+        subprocess.run(["docker", "compose", "ps", "--all"], check=False)
         _print("::endgroup::")
 
     _print("::group::Docker ps")
-    subprocess.run(["docker", "ps"], check=False)
+    subprocess.run(["docker", "ps", "--all"], check=False)
     _print("::endgroup::")
 
     # Store in /tmp/docker-logs-timestamp the current timestamp to avoid printing same logs multiple times.
