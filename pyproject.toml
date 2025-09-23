@@ -109,7 +109,7 @@ PyYAML = "6.0.2"
 tomlkit = { version = "0.11.8", optional = true }
 importlib-metadata = { version = "7.2.1", optional = true }
 certifi = { version = "2025.8.3", optional = true }
-cryptography = { version = "45.0.7", optional = true }
+cryptography = { version = "46.0.0", optional = true }
 markdown-it-py = { version = "2.2.0", optional = true }
 Pygments = { version = "2.15.1", optional = true }
 urllib3 = { version = "2.5.0", optional = true }
