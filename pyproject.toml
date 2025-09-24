@@ -97,7 +97,7 @@ pyyaml = "6.0.2"
 protobuf = { version = "3.20.3", optional = true }
 cryptography = { version = "45.0.7", optional = true }
 certifi = { version = "2024.12.14", optional = true }
-pyopenssl = { version = "25.2.0", optional = true }
+pyopenssl = { version = "25.3.0", optional = true }
 wheel = { version = "0.38.4", optional = true }
 pygments = { version = "2.15.1", optional = true }
 urllib3 = { version = "2.5.0", optional = true }
