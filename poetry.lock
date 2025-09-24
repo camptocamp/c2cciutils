@@ -1779,17 +1779,17 @@ pylint = ">=1.7"
 
 [[package]]
 name = "pyopenssl"
-version = "25.2.0"
+version = "25.3.0"
 description = "Python wrapper module around the OpenSSL library"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "pyopenssl-25.2.0-py3-none-any.whl", hash = "sha256:8a3d87605158baffa5d35d097539b2221908f7b15c3ee03c99cdd49e79a7d5ae"},
-    {file = "pyopenssl-25.2.0.tar.gz", hash = "sha256:71db4c6a4badb88b9804ade80886dc19b7eec3678a4a23c9029f97024c65191a"},
+    {file = "pyopenssl-25.3.0-py3-none-any.whl", hash = "sha256:1fda6fc034d5e3d179d39e59c1895c9faeaf40a79de5fc4cbbfbe0d36f4a77b6"},
+    {file = "pyopenssl-25.3.0.tar.gz", hash = "sha256:c981cb0a3fd84e8602d7afc209522773b94c1c2446a3c710a75b06fe1beae329"},
 ]
 
 [package.dependencies]
-cryptography = ">=45.0.7,<46"
+cryptography = ">=45.0.7,<47"
 typing-extensions = {version = ">=4.9", markers = "python_version < \"3.13\" and python_version >= \"3.8\""}
 
 [package.extras]
@@ -2830,4 +2830,4 @@ publish = ["google-api-python-client", "google-auth-httplib2", "google-auth-oaut
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9.3,<3.12"
-content-hash = "e4a26d28ca8c4cdef1548b8432ba647c64b3ebf572daff4eb2f57061fdfb50e3"
+content-hash = "80c2d9892b8ebc5d81ef8e0d6792f20b99559b049d751ea751305b1687eb09ab"
