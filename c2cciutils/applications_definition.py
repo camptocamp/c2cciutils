@@ -15,6 +15,9 @@ ApplicationConfiguration = TypedDict(
         #
         # URL pattern, to be used for files that didn't come from GitHub release, available arguments: {version}
         "url-pattern": str,
+        # The type of file.
+        #
+        # The type of file
         "type": "TheTypeOfFile",
         # The filename to get.
         #

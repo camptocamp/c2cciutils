@@ -1,16 +1,3 @@
-ci:
-  autoupdate_schedule: quarterly
-  skip:
-    - copyright
-    - poetry-check
-    - poetry-lock
-    - pipenv-lock
-    - helm-lock
-    - ripsecrets
-    - jsonschema-gentypes
-    - jsonschema-validator
-    - jsonschema2md
-
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.3
@@ -32,7 +19,7 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
   - repo: https://github.com/camptocamp/jsonschema-gentypes
-    rev: 2.2.3
+    rev: 2.4.0
     hooks:
       - id: jsonschema-gentypes
         files: |-
@@ -50,7 +37,7 @@ repos:
             |example-project/ci/config\.yaml
           )$
   - repo: https://github.com/sbrunner/jsonschema2md2
-    rev: 0.9.0
+    rev: 1.0.0
     hooks:
       - id: jsonschema2md
         files: c2cciutils/schema.json
@@ -65,7 +52,7 @@ repos:
           - c2cciutils/schema-applications.json
           - applications.md
   - repo: https://github.com/sbrunner/hooks
-    rev: 0.5.0
+    rev: 0.6.0
     hooks:
       - id: copyright
       - id: poetry-check
