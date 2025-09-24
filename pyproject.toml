@@ -130,7 +130,7 @@ types-PyYAML = "6.0.12.20241230"
 types-setuptools = "65.6.0.3"
 types-markdown = "3.4.2.10"
 types-toml = "0.10.8.20240310"
-typing-extensions = "4.4.0"
+typing-extensions = "4.13.2"
 jsonschema2md2 = "0.6.0"
 
 [build-system]
