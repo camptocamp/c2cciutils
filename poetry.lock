@@ -2117,13 +2117,13 @@ md = ["cmarkgfm (>=0.8.0)"]
 
 [[package]]
 name = "requests"
-version = "2.32.4"
+version = "2.32.5"
 description = "Python HTTP for Humans."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "requests-2.32.4-py3-none-any.whl", hash = "sha256:27babd3cda2a6d50b30443204ee89830707d396671944c998b5975b031ac2b2c"},
-    {file = "requests-2.32.4.tar.gz", hash = "sha256:27d0316682c8a29834d3264820024b62a36942083d52caf2f14c0591336d3422"},
+    {file = "requests-2.32.5-py3-none-any.whl", hash = "sha256:2462f94637a34fd532264295e186976db0f5d453d1cdd31473c85a6a161affb6"},
+    {file = "requests-2.32.5.tar.gz", hash = "sha256:dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"},
 ]
 
 [package.dependencies]
@@ -2849,4 +2849,4 @@ publish = ["google-api-python-client", "google-auth-httplib2", "google-auth-oaut
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9.3,<3.13"
-content-hash = "655e43f7d182231ac42919eb5b8807f5cfd3dfbdfe2a96bee337d044731b9a3c"
+content-hash = "ee2f45d4822991dcb1ecf5b8f382708dd6b97947300fbeb2c1419e2c69f6250a"
