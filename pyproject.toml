@@ -87,7 +87,7 @@ c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 python = ">=3.9.2,<4.0"
 markdown-table = "2020.12.3"
 python-magic = "0.4.27"
-requests = "2.32.4"
+requests = "2.32.5"
 Markdown = "3.4.4"
 EditorConfig = { version = "0.12.4", optional = true }
 google-api-python-client = { version = "2.66.0", optional = true }
