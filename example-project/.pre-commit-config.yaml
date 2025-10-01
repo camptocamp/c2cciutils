@@ -36,7 +36,7 @@ repos:
               ci/config\\.yaml
           )$
   - repo: https://github.com/camptocamp/c2cciutils
-    rev: 1.7.3
+    rev: 1.7.4
     hooks:
       - id: workflows-require-timeout
       - id: check-poetry
