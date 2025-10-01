@@ -63,6 +63,8 @@ def main() -> None:
             "install",
             "test-pg",
             f"--version={versions['postgresql']}",
+            "--set=image.repository=bitnamilegacy/postgresql",
+            "--set=volumePermissions.image.repository=bitnamilegacy/os-shell",
         ]
         + [
             f"--set={k}={v}"
@@ -91,7 +93,7 @@ def main() -> None:
                     "--rm",
                     "--restart=Never",
                     "--namespace=default",
-                    "--image=docker.io/bitnami/postgresql",
+                    "--image=docker.io/bitnamilegacy/postgresql",
                     "--env=PGPASSWORD=mySuperTestingPassword",
                     "--stdin=true",
                     "--command",
