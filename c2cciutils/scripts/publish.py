@@ -23,7 +23,6 @@ import c2cciutils.lib.docker
 import c2cciutils.lib.oidc
 import c2cciutils.publish
 import c2cciutils.scripts.download_applications
-from c2cciutils.publish import GoogleCalendar
 from c2cciutils.scripts.trigger_image_update import dispatch
 
 
@@ -185,13 +184,6 @@ def main() -> None:
                 else:
                     success &= c2cciutils.publish.pip(package, version, version_type, publish)
 
-    google_calendar = None
-    google_calendar_publish = config.get("publish", {}).get("google_calendar", False) is not False
-    google_calendar_config = cast(
-        c2cciutils.configuration.PublishGoogleCalendarConfig,
-        config.get("publish", {}).get("google_calendar", {}),
-    )
-
     docker_config = cast(
         c2cciutils.configuration.PublishDockerConfig,
         config.get("publish", {}).get("docker", {}) if config.get("publish", {}).get("docker", False) else {},
@@ -310,24 +302,6 @@ def main() -> None:
                                     success &= c2cciutils.publish.docker(
                                         conf, name, image_conf, tag_src, tags, images_full
                                     )
-
-                    if google_calendar_publish:
-                        if version_type in google_calendar_config.get(
-                            "on", c2cciutils.configuration.PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT
-                        ):
-                            if not google_calendar:
-                                google_calendar = GoogleCalendar()
-                            summary = f"{image_conf['name']}:{', '.join(tags_calendar)}"
-                            description = "\n".join(
-                                [
-                                    f"Published the image {image_conf['name']}",
-                                    f"Published on: {', '.join(docker_config['repository'].keys())}",
-                                    f"With tags: {', '.join(tags_calendar)}",
-                                    f"For version type: {version_type}",
-                                ]
-                            )
-
-                            google_calendar.create_event(summary, description)
 
         if args.dry_run:
             sys.exit(0)

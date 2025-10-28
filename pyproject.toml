@@ -51,7 +51,6 @@ c2cciutils-publish = "c2cciutils.scripts.publish:main"
 c2cciutils-version = "c2cciutils.scripts.version:main"
 c2cciutils-clean = "c2cciutils.scripts.clean:main"
 c2cciutils-checks = "c2cciutils.scripts.env:main"
-c2cciutils-google-calendar = "c2cciutils.publish:main_calendar"
 c2cciutils-k8s-install = "c2cciutils.scripts.k8s.install:main"
 c2cciutils-k8s-db = "c2cciutils.scripts.k8s.db:main"
 c2cciutils-k8s-wait = "c2cciutils.scripts.k8s.wait:main"
@@ -65,9 +64,6 @@ c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 requests = "2.32.5"
-google-api-python-client = { version = "2.148.0", optional = true }
-google-auth-httplib2 = { version = "0.2.0", optional = true }
-google-auth-oauthlib = { version = "1.2.2", optional = true }
 "ruamel.yaml" = "0.18.15"
 defusedxml = "0.7.1"
 twine = { version = "5.1.1", optional = true }
