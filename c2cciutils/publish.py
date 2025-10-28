@@ -15,7 +15,6 @@ import ruamel.yaml
 import c2cciutils.configuration
 
 
-
 def pip(
     package: c2cciutils.configuration.PublishPypiPackage, version: str, version_type: str, publish: bool
 ) -> bool:
