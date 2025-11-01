@@ -36,7 +36,7 @@ repos:
               ci/config\\.yaml
           )$
   - repo: https://github.com/camptocamp/c2cciutils
-    rev: 1.7.4
+    rev: 1.7.5
     hooks:
       - id: workflows-require-timeout
       - id: check-poetry
@@ -64,7 +64,7 @@ repos:
     hooks:
       - id: git-check
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.34.0
+    rev: 0.34.1
     hooks:
       - id: check-github-workflows
       - id: check-renovate
@@ -87,7 +87,7 @@ repos:
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.20.0
+    rev: v3.21.0
     hooks:
       - id: pyupgrade
         args:
