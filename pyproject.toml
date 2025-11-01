@@ -105,7 +105,7 @@ twine = { version = "4.0.2", optional = true }
 codespell = { version = "2.2.6", optional = true }
 toml = "0.10.2"
 debian-inspector = "31.0.0"
-PyYAML = "6.0.2"
+PyYAML = "6.0.3"
 tomlkit = { version = "0.11.8", optional = true }
 importlib-metadata = { version = "7.2.1", optional = true }
 certifi = { version = "2025.10.5", optional = true }
