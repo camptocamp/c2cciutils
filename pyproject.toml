@@ -108,7 +108,7 @@ debian-inspector = "31.0.0"
 PyYAML = "6.0.3"
 tomlkit = { version = "0.11.8", optional = true }
 importlib-metadata = { version = "7.2.1", optional = true }
-certifi = { version = "2025.10.5", optional = true }
+certifi = { version = "2025.11.12", optional = true }
 cryptography = { version = "46.0.3", optional = true }
 markdown-it-py = { version = "2.2.0", optional = true }
 Pygments = { version = "2.15.1", optional = true }
