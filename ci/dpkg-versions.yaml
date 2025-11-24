@@ -88,7 +88,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/python-pip: 20.3.4+dfsg-4
   ubuntu_22_04/python3-defaults: 3.10.6-1~22.04
   ubuntu_22_04/python3-stdlib-extensions: 3.10.8-1~22.04
-  ubuntu_22_04/python3.10: 3.10.12-1~22.04.11
+  ubuntu_22_04/python3.10: 3.10.12-1~22.04.12
   ubuntu_22_04/readline: 8.1.2-1
   ubuntu_22_04/rpcsvc-proto: 1.4.2-0ubuntu6
   ubuntu_22_04/rtmpdump: 2.4+20151223.gitfa8646d.1-2build4
