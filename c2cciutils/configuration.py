@@ -6,21 +6,21 @@ from typing import Any, TypedDict
 
 
 class Configuration(TypedDict, total=False):
-    """
+    r"""
     configuration.
 
     C2C CI utils configuration file
     """
 
     print_versions: "PrintVersions"
-    """
+    r"""
     Print versions.
 
     The print versions configuration
     """
 
     k8s: "K8SConfiguration"
-    """
+    r"""
     K8s configuration.
 
     default:
@@ -29,7 +29,7 @@ class Configuration(TypedDict, total=False):
 
 
 DB_CONFIGURATION_DEFAULT: dict[str, Any] = {}
-""" Default value of the field path 'K8s configuration db' """
+r""" Default value of the field path 'K8s configuration db' """
 
 
 # | DB configuration.
@@ -78,15 +78,15 @@ K3DConfiguration = TypedDict(
 
 
 K3D_CONFIGURATION_DEFAULT: dict[str, Any] = {}
-""" Default value of the field path 'K8s configuration k3d' """
+r""" Default value of the field path 'K8s configuration k3d' """
 
 
 K3D_INSTALL_COMMANDS_DEFAULT = [["k3d", "cluster", "create", "test-cluster", "--no-lb", "--no-rollback"]]
-""" Default value of the field path 'K3d configuration install-commands' """
+r""" Default value of the field path 'K3d configuration install-commands' """
 
 
 class K8SConfiguration(TypedDict, total=False):
-    """
+    r"""
     K8s configuration.
 
     default:
@@ -94,7 +94,7 @@ class K8SConfiguration(TypedDict, total=False):
     """
 
     k3d: "K3DConfiguration"
-    """
+    r"""
     K3d configuration.
 
     default:
@@ -102,7 +102,7 @@ class K8SConfiguration(TypedDict, total=False):
     """
 
     db: "DbConfiguration"
-    """
+    r"""
     DB configuration.
 
     Database configuration
@@ -113,7 +113,7 @@ class K8SConfiguration(TypedDict, total=False):
 
 
 K8S_CONFIGURATION_DEFAULT: dict[str, Any] = {}
-""" Default value of the field path 'configuration k8s' """
+r""" Default value of the field path 'configuration k8s' """
 
 
 K8S_DB_CHART_OPTIONS_DEFAULT = {
@@ -123,7 +123,7 @@ K8S_DB_CHART_OPTIONS_DEFAULT = {
     "auth.postgresPassword": "mySuperTestingPassword",
     "volumePermissions.enabled": "true",
 }
-""" Default value of the field path 'DB configuration chart-options' """
+r""" Default value of the field path 'DB configuration chart-options' """
 
 
 PRINT_VERSIONS_VERSIONS_DEFAULT = [
@@ -137,18 +137,18 @@ PRINT_VERSIONS_VERSIONS_DEFAULT = [
     {"name": "java", "cmd": ["java", "-version"]},
     {"name": "helm", "cmd": ["helm", "version"], "prefix": "HELM: "},
 ]
-""" Default value of the field path 'Print versions versions' """
+r""" Default value of the field path 'Print versions versions' """
 
 
 class PrintVersions(TypedDict, total=False):
-    """
+    r"""
     Print versions.
 
     The print versions configuration
     """
 
     versions: list["_PrintVersionsVersionsItem"]
-    """
+    r"""
     Print versions versions.
 
     default:
@@ -199,10 +199,10 @@ class PrintVersions(TypedDict, total=False):
 
 class _PrintVersionsVersionsItem(TypedDict, total=False):
     cmd: list[str]
-    """ The command that should be used """
+    r""" The command that should be used """
 
     name: str
-    """ The name """
+    r""" The name """
 
     prefix: str
-    """ Prefix added when we print the version """
+    r""" Prefix added when we print the version """
