@@ -1,2 +1,2 @@
 # https://docs.renovatebot.com/modules/datasource/#github-releases-datasource
-postgresql: 18.1.5 # helm - https://charts.bitnami.com/bitnami
+postgresql: 18.1.13 # helm - https://charts.bitnami.com/bitnami
