@@ -64,7 +64,7 @@ c2cciutils-docker-versions-gen = "c2cciutils.scripts.docker_versions_gen:main"
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 requests = "2.32.5"
-"ruamel.yaml" = "0.18.16"
+"ruamel.yaml" = "0.18.17"
 defusedxml = "0.7.1"
 twine = { version = "5.1.1", optional = true }
 debian-inspector = "31.1.1"
