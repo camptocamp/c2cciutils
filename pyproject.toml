@@ -23,7 +23,7 @@ version = "0.0.0"
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
 requests = "2.32.5"
-"ruamel.yaml" = "0.18.16"
+"ruamel.yaml" = "0.19.1"
 PyYAML = "6.0.3"
 applications-download = "1.4.0"
 
