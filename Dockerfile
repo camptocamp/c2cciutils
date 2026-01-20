@@ -27,11 +27,10 @@ RUN --mount=type=cache,target=/root/.cache \
 FROM base AS run
 
 RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
-    . /etc/os-release && \
     apt-get update && \
     apt-get --assume-yes upgrade && \
     apt-get install --assume-yes apt-transport-https gnupg curl && \
-    echo "deb https://deb.nodesource.com/node_16.x ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb https://deb.nodesource.com/node_22.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
     curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     apt-get update && \
     apt-get install --assume-yes --no-install-recommends nodejs
