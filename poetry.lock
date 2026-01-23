@@ -2073,17 +2073,20 @@ files = [
 
 [[package]]
 name = "wheel"
-version = "0.38.4"
-description = "A built-package format for Python"
+version = "0.46.2"
+description = "Command line tool for manipulating wheel files"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.9"
 files = [
-    {file = "wheel-0.38.4-py3-none-any.whl", hash = "sha256:b60533f3f5d530e971d6737ca6d58681ee434818fab630c83a734bb10c083ce8"},
-    {file = "wheel-0.38.4.tar.gz", hash = "sha256:965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac"},
+    {file = "wheel-0.46.2-py3-none-any.whl", hash = "sha256:33ae60725d69eaa249bc1982e739943c23b34b58d51f1cb6253453773aca6e65"},
+    {file = "wheel-0.46.2.tar.gz", hash = "sha256:3d79e48fde9847618a5a181f3cc35764c349c752e2fe911e65fa17faab9809b0"},
 ]
 
+[package.dependencies]
+packaging = ">=24.0"
+
 [package.extras]
-test = ["pytest (>=3.0.0)"]
+test = ["pytest (>=6.0.0)", "setuptools (>=77)"]
 
 [[package]]
 name = "wrapt"
@@ -2186,4 +2189,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9.2,<3.13"
-content-hash = "9961c97e4580518b0bd7713164a7b26b9797a0dc1bd3313965e31a5a8d0c10ae"
+content-hash = "9e8e252ad981c1aa00c3493e55359fc189777f1cf1475c600fc1d0bb640a610c"
