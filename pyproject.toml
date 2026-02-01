@@ -31,7 +31,7 @@ applications-download = "1.4.0"
 prospector = { version = "1.17.3", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff", "with_ruff", "with_pyroma"] }
 prospector-profile-duplicated = "1.11.0"
 prospector-profile-utils = "1.26.5"
-ruff = "0.14.10"
+ruff = "0.14.14"
 types-requests = "2.32.4.20260107"
 types-pyyaml = "6.0.12.20250915"
 
