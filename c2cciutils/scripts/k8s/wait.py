@@ -42,7 +42,7 @@ def _check_container_status(pod: Any, status: Any, is_init: bool = False) -> boo
     if not good:
         waiting = status["state"].get("waiting")
         terminated = status["state"].get("terminated")
-        state = waiting if waiting else terminated
+        state = waiting or terminated
         status_message = state.get("message", state.get("reason", "")) if state else ""
         if not status_message:
             state = status.get("lastState", {}).get("terminated", {})
