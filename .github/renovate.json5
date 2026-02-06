@@ -1,47 +1,47 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  extends: [
-    'github>camptocamp/gs-renovate-config-preset:base.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:group.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:ci.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:preset.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:pre-commit.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:python.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:docker.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:json-schema.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:shellcheck.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:stabilization-branches.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:own.json5#1.8.5',
-    'github>camptocamp/gs-renovate-config-preset:security.json5#1.8.5',
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>camptocamp/gs-renovate-config-preset:base.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:group.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:ci.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:preset.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:pre-commit.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:python.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:docker.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:json-schema.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:shellcheck.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:stabilization-branches.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:own.json5#1.8.5",
+    "github>camptocamp/gs-renovate-config-preset:security.json5#1.8.5",
   ],
-  baseBranchPatterns: ['1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.7', 'master'],
+  baseBranchPatterns: ["master", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7"],
   customManagers: [
     {
       matchStrings: [
-        '(?<depName>[^\\s]+): (?<currentValue>[^\\s]+) # (?<datasource>[^\\s]+) - (?<registryUrl>[^\\s]+)',
-        '(?<depName>[^\\s]+): (?<currentValue>[^\\s]+) # (?<datasource>[^h\\s][^\\s]+)',
+        "(?<depName>[^\\s]+): (?<currentValue>[^\\s]+) # (?<datasource>[^\\s]+) - (?<registryUrl>[^\\s]+)",
+        "(?<depName>[^\\s]+): (?<currentValue>[^\\s]+) # (?<datasource>[^h\\s][^\\s]+)",
       ],
-      customType: 'regex',
-      managerFilePatterns: ['/^c2cciutils/applications-versions\\.yaml$/'],
+      customType: "regex",
+      managerFilePatterns: ["/^c2cciutils/applications-versions\\.yaml$/"],
     },
   ],
   packageRules: [
     /** Ungroup codespell */
     {
-      groupName: 'codespell',
-      matchDepNames: ['codespell'],
+      groupName: "codespell",
+      matchDepNames: ["codespell"],
     },
     /** On branch 1.2 and 1.3 don't upgrade types-pyyaml */
     {
-      matchBaseBranches: ['1.2', '1.3'],
+      matchBaseBranches: ["1.2", "1.3"],
       enabled: false,
-      matchDepNames: ['types-pyyaml'],
+      matchDepNames: ["types-pyyaml"],
     },
     /** On branch 1.3 don't upgrade poetry-plugin-tweak-dependencies-version */
     {
-      matchBaseBranches: ['1.3'],
+      matchBaseBranches: ["1.3"],
       enabled: false,
-      matchDepNames: ['poetry-plugin-tweak-dependencies-version'],
+      matchDepNames: ["poetry-plugin-tweak-dependencies-version"],
     },
   ],
 }
