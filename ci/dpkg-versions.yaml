@@ -161,7 +161,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libuuid1: 2.37.2-4ubuntu3.4
   ubuntu_22_04/libxxhash0: 0.8.1-1
   ubuntu_22_04/libzstd1: 1.4.8+dfsg-3build1
-  ubuntu_22_04/linux-libc-dev: 5.15.0-168.178
+  ubuntu_22_04/linux-libc-dev: 5.15.0-170.180
   ubuntu_22_04/login: 1:4.8.1-2ubuntu2.2
   ubuntu_22_04/logsave: 1.46.5-2ubuntu1.2
   ubuntu_22_04/lsb-base: 11.1.0ubuntu4
