@@ -1,33 +1,28 @@
 FROM ubuntu:22.04 AS base
 
-RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
-    apt-get update && \
+RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends python3-pip binutils
 
 WORKDIR /app
 
 COPY requirements-pipenv.txt /tmp/
-RUN --mount=type=cache,target=/root/.cache \
-    python3 -m pip install --disable-pip-version-check --requirement=/tmp/requirements-pipenv.txt && \
+RUN python3 -m pip install --disable-pip-version-check --requirement=/tmp/requirements-pipenv.txt && \
     rm --recursive --force /tmp/*
 
 COPY Pipfile Pipfile.lock ./
-RUN --mount=type=cache,target=/root/.cache \
-    pipenv sync --system && \
+RUN pipenv sync --system && \
     rm --recursive --force /usr/local/lib/python3.*/dist-packages/tests/ /tmp/* /root/.cache/*
 
 
 FROM base AS checker
 
-RUN --mount=type=cache,target=/root/.cache \
-    pipenv sync --system --dev && \
+RUN pipenv sync --system --dev && \
     rm --recursive --force /tmp/* /root/.cache/*
 
 
 FROM base AS run
 
-RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache \
-    apt-get update && \
+RUN apt-get update && \
     apt-get --assume-yes upgrade && \
     apt-get install --assume-yes apt-transport-https gnupg curl && \
     echo "deb https://deb.nodesource.com/node_22.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
