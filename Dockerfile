@@ -3,7 +3,7 @@ FROM ubuntu:22.04 AS base
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends python3-pip binutils && \
     apt-get clean && \
-    rm -r /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -32,7 +32,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install --assume-yes --no-install-recommends nodejs && \
     apt-get clean && \
-    rm -r /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m compileall -q \
     -x '/usr/local/lib/python3.*/site-packages/pipenv/' -- *
