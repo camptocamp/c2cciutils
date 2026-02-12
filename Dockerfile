@@ -1,7 +1,9 @@
 FROM ubuntu:22.04 AS base
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends python3-pip binutils
+    DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends python3-pip binutils && \
+    apt-get clean && \
+    rm -r /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -28,7 +30,9 @@ RUN apt-get update && \
     echo "deb https://deb.nodesource.com/node_22.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
     curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     apt-get update && \
-    apt-get install --assume-yes --no-install-recommends nodejs
+    apt-get install --assume-yes --no-install-recommends nodejs && \
+    apt-get clean && \
+    rm -r /var/lib/apt/lists/*
 
 RUN python3 -m compileall -q \
     -x '/usr/local/lib/python3.*/site-packages/pipenv/' -- *
