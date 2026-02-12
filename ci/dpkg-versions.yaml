@@ -161,7 +161,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/libuuid1: 2.39.3-9ubuntu6.3
   ubuntu_24_04/libxxhash0: 0.8.2-2build1
   ubuntu_24_04/libzstd1: 1.5.5+dfsg2-2build1.1
-  ubuntu_24_04/linux-libc-dev: 6.8.0-94.96
+  ubuntu_24_04/linux-libc-dev: 6.8.0-100.100
   ubuntu_24_04/login: 1:4.13+dfsg1-4ubuntu3.2
   ubuntu_24_04/logsave: 1.47.0-2.4~exp1ubuntu4.1
   ubuntu_24_04/mawk: 1.3.4.20240123-1build1
