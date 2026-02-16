@@ -73,8 +73,8 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/libdb5.3t64: 5.3.28+dfsg2-7
   ubuntu_24_04/libdebconfclient0: 0.271ubuntu3
   ubuntu_24_04/liberror-perl: 0.17029-2
-  ubuntu_24_04/libexpat1: 2.6.1-2ubuntu0.3
-  ubuntu_24_04/libexpat1-dev: 2.6.1-2ubuntu0.3
+  ubuntu_24_04/libexpat1: 2.6.1-2ubuntu0.4
+  ubuntu_24_04/libexpat1-dev: 2.6.1-2ubuntu0.4
   ubuntu_24_04/libext2fs2t64: 1.47.0-2.4~exp1ubuntu4.1
   ubuntu_24_04/libffi8: 3.4.6-1build1
   ubuntu_24_04/libgcc-13-dev: 13.3.0-6ubuntu2~24.04
@@ -83,7 +83,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_24_04/libgdbm-compat4t64: 1.23-5.1build1
   ubuntu_24_04/libgdbm6t64: 1.23-5.1build1
   ubuntu_24_04/libgmp10: 2:6.3.0+dfsg-2ubuntu6.1
-  ubuntu_24_04/libgnutls30t64: 3.8.3-1.1ubuntu3.4
+  ubuntu_24_04/libgnutls30t64: 3.8.3-1.1ubuntu3.5
   ubuntu_24_04/libgomp1: 14.2.0-4ubuntu2~24.04
   ubuntu_24_04/libgpg-error0: 1.47-3build2.1
   ubuntu_24_04/libgprofng0: 2.42-4ubuntu2.8
