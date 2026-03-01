@@ -1104,13 +1104,13 @@ files = [
 
 [[package]]
 name = "node-vm2"
-version = "0.4.5"
+version = "0.4.7"
 description = "A binding to Node.js + vm2, helps you execute JavaScript safely."
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 files = [
-    {file = "node_vm2-0.4.5-py3-none-any.whl", hash = "sha256:bc8582aeb8c0ad19b60df10c595779ca438e4b311cbc948f68ec049e27835b84"},
-    {file = "node_vm2-0.4.5.tar.gz", hash = "sha256:127ca3eb9f252228e3a317e2cada2e3520308660ceea9466a5070625106a8c8b"},
+    {file = "node_vm2-0.4.7-py3-none-any.whl", hash = "sha256:3b2e09319d5da4cb5846b4c065cb06cbfc941fcc237c80023c9c1a65d5e5d457"},
+    {file = "node_vm2-0.4.7.tar.gz", hash = "sha256:2a5ffa77e6ddeff304fda0b3687bb59856b83ada5a3b7c57e42c579614c292d9"},
 ]
 
 [[package]]
@@ -2301,4 +2301,4 @@ publish-plugins = []
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9.2,<4.0"
-content-hash = "9a5c55d4a66b83076a27d36ded1698aff33679d4e4b1fcb09006f2c5fc3fdd60"
+content-hash = "c1831bf582c8b07d2172cfbea6dbc09211b7bf1b2ae9b77cbbf3a914ece22161"
