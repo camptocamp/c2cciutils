@@ -5,8 +5,8 @@ The main function of some utilities.
 """
 
 import argparse
+from importlib.metadata import version
 
-import pkg_resources
 import yaml
 
 import c2cciutils
@@ -29,8 +29,8 @@ def main() -> None:
     if args.version:
         for pkg in ("c2cciutils", "black", "isort", "codespell"):
             try:
-                print(f"{pkg} {pkg_resources.get_distribution(pkg).version}")
-            except pkg_resources.DistributionNotFound:
+                print(f"{pkg} {version(pkg)}")
+            except Exception:  # pylint: disable=broad-except
                 print(f"{pkg} missing")
 
     if args.ls_files_mime:
