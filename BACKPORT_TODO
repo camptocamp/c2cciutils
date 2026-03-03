@@ -1,0 +1,20 @@
+Backport of #2828 to 1.5
+
+Error on cherry-picking: 7271a72345e05e171bec26a79470fb44d11eb451
+
+To continue do:
+```bash
+git fetch && \
+  git checkout ghci/backport/2828-to-1.5 && \
+  git reset --hard HEAD^ && \
+  git cherry-pick 7271a72345e05e171bec26a79470fb44d11eb451
+```
+Resolve the conflict, then:
+```bash
+git add <file> && \
+  git cherry-pick --continue
+```
+When all the conflicts are resolved, push the branch:
+```bash
+git push origin ghci/backport/2828-to-1.5 --force
+```
