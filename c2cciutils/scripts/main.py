@@ -5,8 +5,8 @@ The main function of some utilities.
 """
 
 import argparse
+from importlib.metadata import version
 
-import pkg_resources
 import yaml
 
 import c2cciutils
@@ -26,8 +26,7 @@ def main() -> None:
         print(yaml.dump(c2cciutils.get_config(), default_flow_style=False, Dumper=yaml.SafeDumper))
 
     if args.version:
-        version = pkg_resources.get_distribution("c2cciutils").version
-        print(f"c2cciutils {version}")
+        print(f"c2cciutils {version('c2cciutils')}")
 
 
 if __name__ == "__main__":
