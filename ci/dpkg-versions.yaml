@@ -144,7 +144,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libsmartcols1: 2.37.2-4ubuntu3.5
   ubuntu_22_04/libsqlite3-0: 3.37.2-2ubuntu0.5
   ubuntu_22_04/libss2: 1.46.5-2ubuntu1.2
-  ubuntu_22_04/libssh-4: 0.9.6-2ubuntu0.22.04.6
+  ubuntu_22_04/libssh-4: 0.9.6-2ubuntu0.22.04.7
   ubuntu_22_04/libssl-dev: 3.0.2-0ubuntu1.21
   ubuntu_22_04/libssl3: 3.0.2-0ubuntu1.21
   ubuntu_22_04/libstdc++6: 12.3.0-1ubuntu1~22.04.3
@@ -161,7 +161,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libuuid1: 2.37.2-4ubuntu3.5
   ubuntu_22_04/libxxhash0: 0.8.1-1
   ubuntu_22_04/libzstd1: 1.4.8+dfsg-3build1
-  ubuntu_22_04/linux-libc-dev: 5.15.0-171.181
+  ubuntu_22_04/linux-libc-dev: 5.15.0-173.183
   ubuntu_22_04/login: 1:4.8.1-2ubuntu2.2
   ubuntu_22_04/logsave: 1.46.5-2ubuntu1.2
   ubuntu_22_04/lsb-base: 11.1.0ubuntu4
