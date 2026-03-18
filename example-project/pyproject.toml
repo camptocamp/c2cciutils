@@ -45,13 +45,13 @@ include = ["project/py.typed"]
 python = ">=3.8,<4.0"
 
 [tool.poetry.dev-dependencies]
-prospector = { version = "1.7.7", extras = [
+prospector = { version = "1.18.0", extras = [
     "with_bandit",
     "with_mypy",
     "with_pyorama"
 ] }
-pylint = "2.14.5"
-mypy = "0.961"
+pylint = "4.0.5"
+mypy = "1.19.1"
 flake8 = "4.0.1"
 
 [build-system]

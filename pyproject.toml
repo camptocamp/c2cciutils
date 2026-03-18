@@ -82,7 +82,7 @@ google-auth-httplib2 = "0.1.1"
 google-auth-oauthlib = "0.5.3"
 "ruamel.yaml" = "0.17.40"
 jsonschema = "4.6.2"
-jsonschema-gentypes = "1.0.0"
+jsonschema-gentypes = "2.13.0"
 node-vm2 = "0.4.7"
 defusedxml = "0.7.1"
 black = "24.3.0"
@@ -106,13 +106,13 @@ zipp = { version = "3.19.3", optional = true }
 virtualenv = { version = "20.36.1", optional = true }
 
 [tool.poetry.dev-dependencies]
-prospector = { version = "1.9.0", extras = [
+prospector = { version = "1.18.0", extras = [
     "with_bandit",
     "with_mypy",
     "with_pyroma"
 ] }
-pylint = "2.14.5"
-mypy = "0.961"
+pylint = "4.0.5"
+mypy = "1.19.1"
 flake8 = "5.0.4"
 types-requests = "2.27.31"
 types-pyyaml = "6.0.12.12"
