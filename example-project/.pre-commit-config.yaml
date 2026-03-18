@@ -24,11 +24,11 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
   - repo: https://github.com/sbrunner/pre-commit-copyright
-    rev: 1.1.2
+    rev: 1.6.1
     hooks:
       - id: copyright
   - repo: https://github.com/sbrunner/jsonschema-validator
-    rev: 0.1.0
+    rev: 0.3.2
     hooks:
       - id: jsonschema-validator
         files: |
@@ -36,13 +36,13 @@ repos:
               ci/config\\.yaml
           )$
   - repo: https://github.com/camptocamp/c2cciutils
-    rev: 1.6.23
+    rev: 1.7.6
     hooks:
       - id: workflows-require-timeout
       - id: check-poetry
       - id: lock-poetry
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
+    rev: v2.4.2
     hooks:
       - id: codespell
         exclude: ^(.*/)?poetry\.lock$
@@ -56,7 +56,7 @@ repos:
           - prettier-plugin-toml@0.3.1 # npm
           - '@prettier/plugin-xml@0.12.0' # npm
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
@@ -64,7 +64,7 @@ repos:
     hooks:
       - id: git-check
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.29.4
+    rev: 0.37.0
     hooks:
       - id: check-github-workflows
       - id: check-renovate
@@ -87,13 +87,13 @@ repos:
     hooks:
       - id: autoflake
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.17.0
+    rev: v3.21.2
     hooks:
       - id: pyupgrade
         args:
           - --py38-plus
   - repo: https://github.com/PyCQA/prospector
-    rev: v1.12.1
+    rev: v1.18.0
     hooks:
       - id: prospector
         args:
