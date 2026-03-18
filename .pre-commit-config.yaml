@@ -120,7 +120,7 @@ repos:
     rev: 23.7.0
     hooks:
       - id: black
-  - repo: https://github.com/PyCQA/prospector
+  - repo: https://github.com/prospector-dev/prospector
     rev: v1.10.3
     hooks:
       - id: prospector
