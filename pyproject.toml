@@ -82,7 +82,7 @@ pr_checks = []
 version = ["multi-repo-automation"]
 
 [tool.poetry.group.dev.dependencies]
-prospector = { version = "1.12.1", extras = ["with-bandit", "with-mypy", "with-pyroma"] }
+prospector = { version = "1.18.0", extras = ["with-bandit", "with-mypy", "with-pyroma"] }
 prospector-profile-duplicated = "1.6.0"
 prospector-profile-utils = "1.9.1"
 types-requests = "2.32.0.20250328"
