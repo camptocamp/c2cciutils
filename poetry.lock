@@ -2,14 +2,14 @@
 
 [[package]]
 name = "applications-download"
-version = "1.4.0"
+version = "1.5.0"
 description = "Tools used to publish Python packages, Docker images and Helm charts for GitHub tag and branch"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "applications_download-1.4.0-py3-none-any.whl", hash = "sha256:752b13e1cffdb63d25b063120feff57feabedec54622a2798a68632dd684d487"},
-    {file = "applications_download-1.4.0.tar.gz", hash = "sha256:ae85d1fb69769c3c9e98c224186f33fa760cb93ea7a6a8ab1674766d0c078c49"},
+    {file = "applications_download-1.5.0-py3-none-any.whl", hash = "sha256:44c3c1990c6509c72bebeb075f8aa154b9bb1fd0722d0df46da3150949ce00b8"},
+    {file = "applications_download-1.5.0.tar.gz", hash = "sha256:73a3b365239f7c3ce760a3520eadc2d8c71d11fc5432fa1c3c0b45575875f292"},
 ]
 
 [package.dependencies]
@@ -1456,14 +1456,14 @@ files = [
 
 [[package]]
 name = "types-requests"
-version = "2.32.4.20260107"
+version = "2.32.4.20260324"
 description = "Typing stubs for requests"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "types_requests-2.32.4.20260107-py3-none-any.whl", hash = "sha256:b703fe72f8ce5b31ef031264fe9395cac8f46a04661a79f7ed31a80fb308730d"},
-    {file = "types_requests-2.32.4.20260107.tar.gz", hash = "sha256:018a11ac158f801bfa84857ddec1650750e393df8a004a8a9ae2a9bec6fcb24f"},
+    {file = "types_requests-2.32.4.20260324-py3-none-any.whl", hash = "sha256:f83ef2deb284fe99a249b8b0b0a3e4b9809e01ff456063c4df0aac7670c07ab9"},
+    {file = "types_requests-2.32.4.20260324.tar.gz", hash = "sha256:33a2a9ccb1de7d4e4da36e347622c35418f6761269014cc32857acabd5df739e"},
 ]
 
 [package.dependencies]
@@ -1524,4 +1524,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4.0"
-content-hash = "98190e9fb95cb07d8251d998293a253ee2c8af14446ebb21f3c90d66593a19c4"
+content-hash = "41eb311184374e0de941b392368ebd6edcbf0c4153b60852dd6b380d731adead"
