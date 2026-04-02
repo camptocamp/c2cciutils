@@ -1,4 +1,4 @@
-c2cciutils==1.1.66
+c2cciutils==1.1.67
 cryptography>=46.0.5 # not directly required, pinned by Snyk to avoid a vulnerability
 requests>=2.33.0 # not directly required, pinned by Snyk to avoid a vulnerability
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
