@@ -2,6 +2,10 @@
 version: v1.25.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-PYTHON-POETRY-15873752:
+    - '*':
+        reason: Plugin not compatible with new Poetry version
+        created: 2026-04-13T07:28:50.934Z
   SNYK-PYTHON-POETRY-16122096:
     - '*':
         reason: Plugin not compatible with new Poetry version
