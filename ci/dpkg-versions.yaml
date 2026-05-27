@@ -45,7 +45,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libcap2: 1:2.44-1ubuntu0.22.04.3
   ubuntu_22_04/liberror-perl: 0.17029-1
   ubuntu_22_04/libffi: 3.4.2-4
-  ubuntu_22_04/libgcrypt20: 1.9.4-3ubuntu3
+  ubuntu_22_04/libgcrypt20: 1.9.4-3ubuntu3.2
   ubuntu_22_04/libgpg-error: 1.43-3
   ubuntu_22_04/libidn2: 2.3.2-2build1
   ubuntu_22_04/libksba: 1.6.0-2ubuntu0.2
