@@ -108,5 +108,5 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/what-is-python: '10'
   ubuntu_22_04/wheel: 0.37.1-2ubuntu0.22.04.1
   ubuntu_22_04/xxhash: 0.8.1-1
-  ubuntu_22_04/xz-utils: 5.2.5-2ubuntu1
+  ubuntu_22_04/xz-utils: 5.2.5-2ubuntu1.1
   ubuntu_22_04/zlib: 1.2.11.dfsg-2ubuntu9.1
