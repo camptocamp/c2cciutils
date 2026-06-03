@@ -10,12 +10,4 @@ ignore:
     - '*':
         reason: not compatible with used Poetry version
         created: 2026-06-03T00:00:00.000Z
-  SNYK-PYTHON-POETRY-15873752:
-    - '*':
-        reason: Plugin not compatible with new Poetry version
-        created: 2026-04-13T07:28:50.934Z
-  SNYK-PYTHON-POETRY-16122096:
-    - '*':
-        reason: Plugin not compatible with new Poetry version
-        created: 2026-04-23T07:35:20.423Z
 patch: {}
