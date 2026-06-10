@@ -6,4 +6,12 @@ ignore:
     - '*':
         reason: Used Python not supported
         created: 2026-03-18T14:54:08.322Z
+  SNYK-PYTHON-DULWICH-17054926:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-06-10T00:00:00.000Z
+  SNYK-PYTHON-DULWICH-17054927:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-06-10T00:00:00.000Z
 patch: {}
