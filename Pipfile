@@ -27,7 +27,7 @@ twine = "==5.1.1"
 codespell = "==2.1.0"
 # Lock dependencies
 attrs = "==21.4.0"
-bleach = "==4.1.0"
+bleach = "==6.4.0"
 cachetools = "==5.0.0"
 certifi = "==2026.5.20"
 charset-normalizer = "==2.0.12"
