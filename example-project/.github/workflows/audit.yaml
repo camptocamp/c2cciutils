@@ -23,7 +23,7 @@ jobs:
         with:
           ref: ${{ matrix.branch }}
 
-      - uses: camptocamp/initialise-gopass-summon-action@v2
+      - uses: camptocamp/initialise-gopass-summon-action@17703c87720ba3766abc90da60b437783b530d93 # v2.0.1
         with:
           ci-gpg-private-key: ${{secrets.CI_GPG_PRIVATE_KEY}}
           github-gopass-ci-token: ${{secrets.GOPASS_CI_GITHUB_TOKEN}}
@@ -37,7 +37,7 @@ jobs:
         uses: andstor/file-existence-action@v3
         with:
           files: .tool-versions
-      - uses: asdf-vm/actions/install@v3
+      - uses: asdf-vm/actions/install@05e0d2ed97b598bfce82fd30daf324ae0c4570e6 # v3.0.2
         if: steps.tool-versions.outputs.files_exists == 'true'
       - run: cat /tmp/python-build.*.log
         if: failure()
