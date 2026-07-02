@@ -136,7 +136,7 @@ repos:
         additional_dependencies:
           - prospector-profile-utils==1.27.0 # pypi
   - repo: https://github.com/mheap/json-schema-spell-checker
-    rev: main
+    rev: v2.3.0
     hooks:
       - id: json-schema-spell-checker
         files: |-
