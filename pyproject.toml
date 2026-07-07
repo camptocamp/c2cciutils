@@ -96,7 +96,7 @@ oauthlib = "3.2.2"
 pyyaml = "6.0.3"
 protobuf = { version = "6.33.6", optional = true }
 cryptography = { version = "49.0.0", optional = true }
-certifi = { version = "2026.5.20", optional = true }
+certifi = { version = "2026.6.17", optional = true }
 pyopenssl = { version = "26.3.0", optional = true }
 wheel = { version = "0.46.3", optional = true }
 pygments = { version = "2.20.0", optional = true }
