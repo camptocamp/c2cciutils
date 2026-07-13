@@ -374,13 +374,13 @@ files = [
 
 [[package]]
 name = "click"
-version = "8.1.8"
+version = "8.3.3"
 description = "Composable command line interface toolkit"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 files = [
-    {file = "click-8.1.8-py3-none-any.whl", hash = "sha256:63c132bbbed01578a06712a2d1f497bb62d9c1c0d329b7903a866228027263b2"},
-    {file = "click-8.1.8.tar.gz", hash = "sha256:ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"},
+    {file = "click-8.3.3-py3-none-any.whl", hash = "sha256:a2bf429bb3033c89fa4936ffb35d5cb471e3719e1f3c8a7c3fff0b8314305613"},
+    {file = "click-8.3.3.tar.gz", hash = "sha256:398329ad4837b2ff7cbe1dd166a4c0f8900c3ca3a218de04466f38f6497f18a2"},
 ]
 
 [package.dependencies]
@@ -761,7 +761,7 @@ all = ["mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
 name = "importlib-metadata"
 version = "7.2.1"
 description = "Read metadata from Python packages"
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "importlib_metadata-7.2.1-py3-none-any.whl", hash = "sha256:ffef94b0b66046dd8ea2d619b701fe978d9264d38f3998bc4c27ec3b146a87c8"},
@@ -959,9 +959,6 @@ files = [
     {file = "markdown-3.8.1-py3-none-any.whl", hash = "sha256:46cc0c0f1e5211ab2e9d453582f0b28a1bfaf058a9f7d5c50386b99b588d8811"},
     {file = "markdown-3.8.1.tar.gz", hash = "sha256:a2e2f01cead4828ee74ecca9623045f62216aef2212a7685d6eb9163f590b8c1"},
 ]
-
-[package.dependencies]
-importlib-metadata = {version = ">=4.4", markers = "python_version < \"3.10\""}
 
 [package.extras]
 docs = ["mdx_gh_links (>=0.2)", "mkdocs (>=1.6)", "mkdocs-gen-files", "mkdocs-literate-nav", "mkdocs-nature (>=0.6)", "mkdocs-section-index", "mkdocstrings[python]"]
@@ -1412,7 +1409,6 @@ mccabe = ">=0.6,<0.8"
 platformdirs = ">=2.2.0"
 tomli = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
 tomlkit = ">=0.10.1"
-typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 spelling = ["pyenchant (>=3.2,<4.0)"]
@@ -2273,7 +2269,7 @@ files = [
 name = "zipp"
 version = "3.19.3"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "zipp-3.19.3-py3-none-any.whl", hash = "sha256:2ac6af395ff48c672332197b27b2d3fb02881fa4dee2e4cbcbcce096bd500985"},
@@ -2293,5 +2289,5 @@ publish-plugins = []
 
 [metadata]
 lock-version = "2.0"
-python-versions = ">=3.9.2,<4.0"
-content-hash = "a695474fdfce82be23f1524d4c9575f735ed26836259fe9bcf0f7530a964071d"
+python-versions = ">=3.10,<4.0"
+content-hash = "c1d5bcecf5a7758395b971367f5872d17e273827f074e3d6c323c3f9f5dd68b2"
