@@ -10,3 +10,5 @@ protobuf>=6.33.5 # not directly required, pinned by Snyk to avoid a vulnerabilit
 black>=26.3.1 # not directly required, pinned by Snyk to avoid a vulnerability
 pyasn1>=0.6.3 # not directly required, pinned by Snyk to avoid a vulnerability
 cryptography>=48.0.1 # not directly required, pinned by Snyk to avoid a vulnerability
+bleach>=6.4.0 # not directly required, pinned by Snyk to avoid a vulnerability
+httplib2>=0.32.0 # not directly required, pinned by Snyk to avoid a vulnerability
