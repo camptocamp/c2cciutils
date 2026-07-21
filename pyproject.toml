@@ -91,7 +91,7 @@ idna = { version="3.15", optional = true }
 certifi = "2026.6.17"
 zipp = "3.19.3"
 protobuf = "6.33.6"
-pyasn1 = "0.6.3"
+pyasn1 = "0.6.4"
 
 [tool.poetry.extras]
 audit = []
