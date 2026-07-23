@@ -83,7 +83,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libgnutls30: 3.7.3-4ubuntu1.9
   ubuntu_22_04/libgomp1: 12.3.0-1ubuntu1~22.04.3
   ubuntu_22_04/libgpg-error0: 1.43-3
-  ubuntu_22_04/libgssapi-krb5-2: 1.19.2-2ubuntu0.7
+  ubuntu_22_04/libgssapi-krb5-2: 1.19.2-2ubuntu0.8
   ubuntu_22_04/libhogweed6: 3.7.3-1build2
   ubuntu_22_04/libidn2-0: 2.3.2-2build1
   ubuntu_22_04/libisl23: 0.24-2build1
@@ -91,10 +91,10 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libjs-jquery: 3.6.0+dfsg+~3.5.13-1
   ubuntu_22_04/libjs-sphinxdoc: 4.3.2-1
   ubuntu_22_04/libjs-underscore: 1.13.2~dfsg-2
-  ubuntu_22_04/libk5crypto3: 1.19.2-2ubuntu0.7
+  ubuntu_22_04/libk5crypto3: 1.19.2-2ubuntu0.8
   ubuntu_22_04/libkeyutils1: 1.6.1-2ubuntu3
-  ubuntu_22_04/libkrb5-3: 1.19.2-2ubuntu0.7
-  ubuntu_22_04/libkrb5support0: 1.19.2-2ubuntu0.7
+  ubuntu_22_04/libkrb5-3: 1.19.2-2ubuntu0.8
+  ubuntu_22_04/libkrb5support0: 1.19.2-2ubuntu0.8
   ubuntu_22_04/libksba8: 1.6.0-2ubuntu0.2
   ubuntu_22_04/libldap-2.5-0: 2.5.19+dfsg-0ubuntu0.22.04.1
   ubuntu_22_04/liblsan0: 12.3.0-1ubuntu1~22.04.3
@@ -196,7 +196,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/sed: 4.8-1ubuntu2.1
   ubuntu_22_04/sensible-utils: 0.0.17
   ubuntu_22_04/sysvinit-utils: 3.01-1ubuntu1
-  ubuntu_22_04/tar: 1.34+dfsg-1ubuntu0.1.22.04.5
+  ubuntu_22_04/tar: 1.34+dfsg-1ubuntu0.1.22.04.6
   ubuntu_22_04/ubuntu-keyring: 2021.03.26
   ubuntu_22_04/usrmerge: 25ubuntu2
   ubuntu_22_04/util-linux: 2.37.2-4ubuntu3.5
