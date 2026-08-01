@@ -4,7 +4,7 @@ line-length = 110
 
 [tool.ruff.lint]
 select = []
-ignore = ["ANN401", "C90", "COM812", "D100", "D104", "D105", "D107", "D200", "D202", "D207", "D208", "D212", "E501", "EM101", "EM102", "ERA001", "FA", "FBT001", "FBT002", "FIX002", "I001", "PERF203", "PLR09", "PLR2004", "Q000", "S101", "SIM105", "T201", "TD002", "W293"]
+ignore = ["ANN401", "C90", "COM812", "CPY", "D100", "D104", "D105", "D107", "D200", "D202", "D207", "D208", "D212", "E501", "EM101", "EM102", "ERA001", "FA", "FBT001", "FBT002", "FIX002", "I001", "PERF203", "PLR09", "PLR2004", "Q000", "S101", "SIM105", "T201", "TD002", "W293"]
 extend-select = ["UP", "I", "S", "B", "ALL"]
 
 [tool.ruff.lint.pydocstyle]
@@ -28,10 +28,10 @@ PyYAML = "6.0.3"
 applications-download = "1.5.0"
 
 [tool.poetry.group.dev.dependencies]
-prospector = { version = "1.19.0", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff", "with_ruff", "with_pyroma"] }
+prospector = { version = "1.19.1", extras = ["with-bandit", "with-mypy", "with-pyroma", "with-ruff", "with_ruff", "with_pyroma"] }
 prospector-profile-duplicated = "1.12.0"
 prospector-profile-utils = "1.27.0"
-ruff = "0.15.19"
+ruff = "0.16.0"
 types-requests = "2.33.0.20260712"
 types-pyyaml = "6.0.12.20260724"
 

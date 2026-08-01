@@ -16,5 +16,7 @@ bandit:
     - B113 # Call to requests without timeout (didn't work)
 
 ruff:
+  disable:
+    - CPY
   options:
     target-version: py310
