@@ -37,7 +37,7 @@ def main() -> None:
             timestamp_args = [f"--since={timestamp_file.read().strip()}Z"]
 
     with timestamp_file_path.open("w", encoding="utf-8") as timestamp_file:  # nosec
-        timestamp_file.write(datetime.datetime.now(tz=datetime.timezone.utc).isoformat())
+        timestamp_file.write(datetime.datetime.now(tz=datetime.UTC).isoformat())
 
     for name in (
         subprocess.run(  # noqa: S603,S607,RUF100
