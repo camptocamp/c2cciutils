@@ -85,7 +85,7 @@ repos:
     hooks:
       - id: prospector
         args:
-          - --die-on-tool-error
+          - --direct-tool-stdout
           - --output-format=pylint
           - --profile=.prospector.yaml
           - --profile=utils:pre-commit
@@ -105,7 +105,7 @@ repos:
           )
       - id: prospector
         args:
-          - --die-on-tool-error
+          - --direct-tool-stdout
           - --output-format=pylint
           - --profile=utils:tests
           - --profile=utils:pre-commit

@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 AS base-all
+FROM ubuntu:26.04 AS base-all
 LABEL maintainer='Camptocamp "info@camptocamp.com"'
 SHELL ["/bin/bash", "-o", "pipefail", "-cux"]
 
