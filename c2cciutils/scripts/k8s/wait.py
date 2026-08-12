@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright (c) 2020-2026, Camptocamp SA
 
 import argparse
 import json
@@ -150,3 +151,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
