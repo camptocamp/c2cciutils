@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/sbrunner/jsonschema-gentypes/2.13.0/jsonschema_gentypes/schema.json
 
 headers: |
+  # Copyright (c) 2020-2026, Camptocamp SA
+
   """
   Automatically generated file from a JSON schema.
   """

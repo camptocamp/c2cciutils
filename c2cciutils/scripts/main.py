@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright (c) 2020-2026, Camptocamp SA
 
 """The main function of some utilities."""
 

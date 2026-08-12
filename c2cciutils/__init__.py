@@ -1,3 +1,5 @@
+# Copyright (c) 2020-2026, Camptocamp SA
+
 """c2cciutils shared utils function."""
 
 import json
