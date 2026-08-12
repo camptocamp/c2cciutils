@@ -1,5 +1,5 @@
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = []
@@ -12,15 +12,8 @@ extend-select = ["UP", "I", "S", "B", "ALL"]
 "**/test_*.py" = ["ANN", "ARG", "ASYNC", "BLE001", "D", "DTZ", "E722", "FBT003", "INP001", "N", "PGH003", "PLC", "PLR2004", "PLW0603", "PLW1641", "RET", "RUF012", "RUF100", "S104", "S105", "S106", "S108", "S113", "S324", "S603", "S607", "S608", "SLF", "TRY003", "TRY301"]
 "**/*_test.py" = ["ANN", "ARG", "ASYNC", "BLE001", "D", "DTZ", "E722", "FBT003", "INP001", "N", "PGH003", "PLC", "PLR2004", "PLW0603", "PLW1641", "RET", "RUF012", "RUF100", "S104", "S105", "S106", "S108", "S113", "S324", "S603", "S607", "S608", "SLF", "TRY003", "TRY301"]
 
-[tool.black]
-line-length = 110
-target-version = ["py39"]
-
-[tool.isort]
-profile = "black"
-
 [tool.mypy]
-python_version = 3.9
+python_version = 3.11
 ignore_missing_imports = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -28,28 +21,11 @@ warn_return_any = true
 strict = true
 
 [tool.poetry]
-name = "project"
-version = "0.1.0"
-description = "project description"
-readme = "README.md"
-authors = ["Camptocamp <info@camptocamp.com>"]
-repository = "https://github.com/camptocamp/project"
-license = "FreeBSD"
 packages = [{ include = "project" }]
-classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Topic :: Scientific/Engineering :: GIS",
-    "Typing :: Typed",
-]
 include = ["project/py.typed"]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
+python = ">=3.11,<3.15"
 
 [tool.poetry.group.dev.dependencies]
 prospector = { version = "1.19.1", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
@@ -73,6 +49,24 @@ format-jinja = """
 
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "major"
+
+[project]
+name = "project"
+version = "0.1.0"
+description = "project description"
+readme = "README.md"
+authors = [{name = "Camptocamp", email = "info@camptocamp.com"}]
+repository = "https://github.com/camptocamp/project"
+license = "FreeBSD"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Typing :: Typed",
+]
 
 [build-system]
 requires = [
