@@ -12,6 +12,11 @@ on:
 env:
   HAS_SECRETS: ${{ secrets.HAS_SECRETS }}
 
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
 jobs:
   main:
     runs-on: ubuntu-24.04
