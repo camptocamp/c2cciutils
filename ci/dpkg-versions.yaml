@@ -12,7 +12,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/ca-certificates: 20260601~22.04.1
   ubuntu_22_04/cdebconf: 0.261ubuntu1
   ubuntu_22_04/coreutils: 8.32-4.1ubuntu1.2
-  ubuntu_22_04/curl: 7.81.0-1ubuntu1.26
+  ubuntu_22_04/curl: 7.81.0-1ubuntu1.27
   ubuntu_22_04/cyrus-sasl2: 2.1.27+dfsg2-3ubuntu1.2
   ubuntu_22_04/dash: 0.5.11+git20210903+057cd650a4ed-3build1
   ubuntu_22_04/db5.3: 5.3.28+dfsg1-0.8ubuntu3
@@ -76,12 +76,12 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/nodejs: 12.22.9~dfsg-1ubuntu3.6
   ubuntu_22_04/npth: 1.6-3build2
   ubuntu_22_04/openldap: 2.5.16+dfsg-0ubuntu0.22.04.1
-  ubuntu_22_04/openssl: 3.0.2-0ubuntu1.26
-  ubuntu_22_04/p11-kit: 0.24.0-6build1
+  ubuntu_22_04/openssl: 3.0.2-0ubuntu1.29
+  ubuntu_22_04/p11-kit: 0.24.0-6ubuntu0.1
   ubuntu_22_04/pam: 1.4.0-11ubuntu2.3
   ubuntu_22_04/pcre2: 10.39-3ubuntu0.1
   ubuntu_22_04/pcre3: 8.39-13ubuntu0.22.04.1
-  ubuntu_22_04/perl: 5.34.0-3ubuntu1.7
+  ubuntu_22_04/perl: 5.34.0-3ubuntu1.8
   ubuntu_22_04/pinentry: 1.1.1-1build2
   ubuntu_22_04/postgresql-14: 14.24-0ubuntu0.22.04.1
   ubuntu_22_04/procps: 2:3.3.17-6ubuntu2.1
