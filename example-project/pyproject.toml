@@ -13,7 +13,7 @@ extend-select = ["UP", "I", "S", "B", "ALL"]
 "**/*_test.py" = ["ANN", "ARG", "ASYNC", "BLE001", "D", "DTZ", "E722", "FBT003", "INP001", "N", "PGH003", "PLC", "PLR2004", "PLW0603", "PLW1641", "RET", "RUF012", "RUF100", "S104", "S105", "S106", "S108", "S113", "S324", "S603", "S607", "S608", "SLF", "TRY003", "TRY301"]
 
 [tool.mypy]
-python_version = 3.11
+python_version = "3.11"
 ignore_missing_imports = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -60,14 +60,18 @@ authors = [{name = "Camptocamp", email = "info@camptocamp.com"}]
 repository = "https://github.com/camptocamp/project"
 license = "FreeBSD"
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Intended Audience :: Developers",
-    "Topic :: Scientific/Engineering :: GIS",
-    "Typing :: Typed",
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.11',
+    'Topic :: Scientific/Engineering :: GIS',
+    'Typing :: Typed',
 ]
+requires-python = ">=3.11"
+dependencies = []
 
 [build-system]
 requires = [
