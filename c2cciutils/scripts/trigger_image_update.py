@@ -21,11 +21,9 @@ def main() -> None:
 
     Only the branch present in the HELM_RELEASE_NAMES environment variable will be considered.
     """
-    parser = argparse.ArgumentParser(
-        description="""Trigger an image update on the argocd repository.
+    parser = argparse.ArgumentParser(description="""Trigger an image update on the argocd repository.
 
-    Only the branch present in the HELM_RELEASE_NAMES environment variable will be considered."""
-    )
+    Only the branch present in the HELM_RELEASE_NAMES environment variable will be considered.""")
     parser.add_argument("--version", help="The version to be exported")
     parser.add_argument("--event-type", default="image-update", help="The event name to be triggered")
     parser.add_argument(
