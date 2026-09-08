@@ -1553,17 +1553,24 @@ poetry-core = ">=1.6.0,<2.0.0"
 
 [[package]]
 name = "poetry-plugin-tweak-dependencies-version"
-version = "1.5.2"
+version = "1.5.7"
 description = "Poetry plugin used to tweak dependency versions"
 optional = true
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 files = [
-    {file = "poetry_plugin_tweak_dependencies_version-1.5.2-py3-none-any.whl", hash = "sha256:1daad5cf7e1e382c29316c512319b7da7264bffa1dd871fa9b9b2547a91f9441"},
-    {file = "poetry_plugin_tweak_dependencies_version-1.5.2.tar.gz", hash = "sha256:da98453734308a6e6bbfad106d4ecce31377abba88d1731c43904a5a97f28df3"},
+    {file = "poetry_plugin_tweak_dependencies_version-1.5.7-py3-none-any.whl", hash = "sha256:c4193e50308da7d75cae3141ad68b03755fef4d4e29d8629a8fdf2cd890069db"},
+    {file = "poetry_plugin_tweak_dependencies_version-1.5.7.tar.gz", hash = "sha256:525ddc04022e82ce4deb4ccd96bbecc25561e10f0fec782a57b83f6bc4d74e9c"},
 ]
 
 [package.dependencies]
-poetry = "*"
+certifi = "*"
+cryptography = "*"
+filelock = "*"
+idna = "*"
+poetry = "<2.1.0"
+requests = "*"
+urllib3 = "*"
+virtualenv = "*"
 
 [[package]]
 name = "prospector"
@@ -2921,4 +2928,4 @@ publish = ["google-api-python-client", "google-auth-httplib2", "google-auth-oaut
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "8b2fe1f6071985ac27b8238e5cb69c178b90d34e487fc5edfab5471bee88b3ef"
+content-hash = "389ad4468d538bbd57e13bcd2cf609a526d41a323226175888075ca407c2b464"
