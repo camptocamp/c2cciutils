@@ -1,3 +1,11 @@
+exclude: |-
+  (?x)^(
+    c2cciutils/configuration\.py
+    |c2cciutils/applications_definition\.py
+    |applications\.md
+    |config\.md
+  )$
+
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.3
@@ -42,13 +50,11 @@ repos:
       - id: jsonschema2md
         files: c2cciutils/schema.json
         args:
-          - --pre-commit
           - c2cciutils/schema.json
           - config.md
       - id: jsonschema2md
         files: c2cciutils/schema-applications.json
         args:
-          - --pre-commit
           - c2cciutils/schema-applications.json
           - applications.md
   - repo: https://github.com/sbrunner/hooks
@@ -78,10 +84,6 @@ repos:
     rev: v0.9.0.6
     hooks:
       - id: shellcheck
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 3.0.0
-    hooks:
-      - id: git-check
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.23.3
     hooks:
