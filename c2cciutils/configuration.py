@@ -3,7 +3,7 @@ Automatically generated file from a JSON schema.
 """
 
 
-from typing import TypedDict, Union, Literal, List, Dict, Any
+from typing import TypedDict, List, Any, Literal, Union, Dict
 
 
 AUDIT_DEFAULT = {'snyk': True, 'outdated_versions': True}
