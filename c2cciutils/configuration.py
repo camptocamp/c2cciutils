@@ -3,38 +3,47 @@ Automatically generated file from a JSON schema.
 """
 
 
-from typing import Any, Literal, TypedDict, Union
+from typing import Dict, Any, Literal, List, Union, TypedDict
 
-AUDIT_DEFAULT = {"snyk": True, "outdated_versions": True}
+
+AUDIT_DEFAULT = {'snyk': True, 'outdated_versions': True}
 """ Default value of the field path 'configuration audit' """
 
 
-AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: list[Any] = []
+
+AUDIT_SNYK_FILES_NO_INSTALL_DEFAULT: List[Any] = []
 """ Default value of the field path 'Audit snyk config files_no_install' """
 
 
-AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ["--all-projects"]
+
+AUDIT_SNYK_FIX_ARGUMENTS_DEFAULT = ['--all-projects']
 """ Default value of the field path 'Audit snyk config fix_arguments' """
 
 
-AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT = ["--fill", "--label=dependencies"]
+
+AUDIT_SNYK_FIX_PULL_REQUEST_ARGUMENTS_DEFAULT = ['--fill', '--label=dependencies']
 """ Default value of the field path 'Audit snyk config fix_github_create_pull_request_arguments' """
 
 
-AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ["--all-projects"]
+
+AUDIT_SNYK_MONITOR_ARGUMENTS_DEFAULT = ['--all-projects']
 """ Default value of the field path 'Audit snyk config monitor_arguments' """
 
 
-AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT: list[Any] = []
+
+AUDIT_SNYK_PIPENV_SYNC_ARGUMENTS_DEFAULT: List[Any] = []
 """ Default value of the field path 'Audit snyk config pipenv_sync_arguments' """
 
 
-AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT = ["--user"]
+
+AUDIT_SNYK_PIP_INSTALL_ARGUMENTS_DEFAULT = ['--user']
 """ Default value of the field path 'Audit snyk config pip_install_arguments' """
 
 
-AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ["--all-projects", "--fail-on=all", "--severity-threshold=medium"]
+
+AUDIT_SNYK_TEST_ARGUMENTS_DEFAULT = ['--all-projects', '--fail-on=all', '--severity-threshold=medium']
 """ Default value of the field path 'Audit snyk config test_arguments' """
+
 
 
 class Audit(TypedDict, total=False):
@@ -65,12 +74,14 @@ class Audit(TypedDict, total=False):
     """
 
 
+
 AuditOutdatedVersions = bool
 """
 Audit outdated versions.
 
 Audit of outdated version
 """
+
 
 
 class AuditSnykConfig(TypedDict, total=False):
@@ -80,7 +91,7 @@ class AuditSnykConfig(TypedDict, total=False):
     The audit Pipfile configuration
     """
 
-    test_arguments: list[str]
+    test_arguments: List[str]
     """
     audit snyk test arguments.
 
@@ -92,7 +103,7 @@ class AuditSnykConfig(TypedDict, total=False):
       - --severity-threshold=medium
     """
 
-    monitor_arguments: list[str]
+    monitor_arguments: List[str]
     """
     audit snyk monitor arguments.
 
@@ -102,7 +113,7 @@ class AuditSnykConfig(TypedDict, total=False):
       - --all-projects
     """
 
-    fix_arguments: list[str]
+    fix_arguments: List[str]
     """
     audit snyk fix arguments.
 
@@ -112,7 +123,7 @@ class AuditSnykConfig(TypedDict, total=False):
       - --all-projects
     """
 
-    fix_github_create_pull_request_arguments: list[str]
+    fix_github_create_pull_request_arguments: List[str]
     """
     audit snyk fix pull request arguments.
 
@@ -123,7 +134,7 @@ class AuditSnykConfig(TypedDict, total=False):
       - --label=dependencies
     """
 
-    pip_install_arguments: list[str]
+    pip_install_arguments: List[str]
     """
     audit snyk pip install arguments.
 
@@ -133,7 +144,7 @@ class AuditSnykConfig(TypedDict, total=False):
       - --user
     """
 
-    pipenv_sync_arguments: list[str]
+    pipenv_sync_arguments: List[str]
     """
     audit snyk pipenv sync arguments.
 
@@ -143,7 +154,7 @@ class AuditSnykConfig(TypedDict, total=False):
       []
     """
 
-    files_no_install: list[str]
+    files_no_install: List[str]
     """
     audit snyk files no install.
 
@@ -152,6 +163,7 @@ class AuditSnykConfig(TypedDict, total=False):
     default:
       []
     """
+
 
 
 AuditWithSnyk = Union["AuditSnykConfig", bool]
@@ -164,16 +176,20 @@ Aggregation type: oneOf
 """
 
 
-CODESPELL_ARGUMENTS_DEFAULT = ["--quiet-level=2", "--check-filenames", "--ignore-words-list=ro"]
+
+CODESPELL_ARGUMENTS_DEFAULT = ['--quiet-level=2', '--check-filenames', '--ignore-words-list=ro']
 """ Default value of the field path 'Codespell arguments' """
 
 
-CODESPELL_DICTIONARIES_DEFAULT = ["clear", "rare", "informal", "code", "names", "en-GB_to_en-US"]
+
+CODESPELL_DICTIONARIES_DEFAULT = ['clear', 'rare', 'informal', 'code', 'names', 'en-GB_to_en-US']
 """ Default value of the field path 'Codespell internal_dictionaries' """
 
 
-CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ["(.*/)?poetry\\.lock", "(.*/)?package-lock\\.json"]
+
+CODESPELL_IGNORE_REGULAR_EXPRESSION_DEFAULT = ['(.*/)?poetry\\.lock', '(.*/)?package-lock\\.json']
 """ Default value of the field path 'Codespell ignore_re' """
+
 
 
 class Codespell(TypedDict, total=False):
@@ -183,7 +199,7 @@ class Codespell(TypedDict, total=False):
     The codespell check configuration
     """
 
-    internal_dictionaries: list[str]
+    internal_dictionaries: List[str]
     """
     codespell dictionaries.
 
@@ -198,7 +214,7 @@ class Codespell(TypedDict, total=False):
       - en-GB_to_en-US
     """
 
-    arguments: list[str]
+    arguments: List[str]
     """
     codespell arguments.
 
@@ -210,8 +226,8 @@ class Codespell(TypedDict, total=False):
       - --ignore-words-list=ro
     """
 
-    ignore_re: list[str]
-    r"""
+    ignore_re: List[str]
+    """
     codespell ignore regular expression.
 
     List of regular expression that should be ignored
@@ -222,136 +238,126 @@ class Codespell(TypedDict, total=False):
     """
 
 
+
 # configuration.
-#
+# 
 # C2C CI utils configuration file
-Configuration = TypedDict(
-    "Configuration",
-    {
-        # Print versions.
-        #
-        # The print versions configuration
-        "print_versions": "PrintVersions",
-        # Codespell.
-        #
-        # The codespell check configuration
-        "codespell": "Codespell",
-        # Audit.
-        #
-        # The audit configuration
-        #
-        # default:
-        #   outdated_versions: true
-        #   snyk: true
-        "audit": "Audit",
-        # Pull request checks.
-        #
-        # The PR check configuration
-        #
-        # default:
-        #   add_issue_link: true
-        #   commits_messages: true
-        #   commits_spell: true
-        #   pull_request_labels: true
-        #   pull_request_spell: true
-        "pr-checks": "PullRequestChecks",
-        # Publish.
-        #
-        # The publishing configurations
-        #
-        # default:
-        #   docker:
-        #     images: <auto-detected>
-        #   helm:
-        #     folders: <auto-detected>
-        #     versions:
-        #     - version_tag
-        #   pypi:
-        #     packages: <auto-detected>
-        #     versions:
-        #     - version_tag
-        "publish": "Publish",
-        # Version.
-        #
-        # The version configurations
-        "version": "Version",
-        # K8s configuration.
-        #
-        # default:
-        #   {}
-        "k8s": "K8SConfiguration",
-        # dpkg.
-        #
-        # The configuration use t manage the dpkg packages
-        "dpkg": "Dpkg",
-    },
-    total=False,
-)
+Configuration = TypedDict('Configuration', {
+    # Print versions.
+    # 
+    # The print versions configuration
+    'print_versions': "PrintVersions",
+    # Codespell.
+    # 
+    # The codespell check configuration
+    'codespell': "Codespell",
+    # Audit.
+    # 
+    # The audit configuration
+    # 
+    # default:
+    #   outdated_versions: true
+    #   snyk: true
+    'audit': "Audit",
+    # Pull request checks.
+    # 
+    # The PR check configuration
+    # 
+    # default:
+    #   add_issue_link: true
+    #   commits_messages: true
+    #   commits_spell: true
+    #   pull_request_labels: true
+    #   pull_request_spell: true
+    'pr-checks': "PullRequestChecks",
+    # Publish.
+    # 
+    # The publishing configurations
+    # 
+    # default:
+    #   docker:
+    #     images: <auto-detected>
+    #   helm:
+    #     folders: <auto-detected>
+    #     versions:
+    #     - version_tag
+    #   pypi:
+    #     packages: <auto-detected>
+    #     versions:
+    #     - version_tag
+    'publish': "Publish",
+    # Version.
+    # 
+    # The version configurations
+    'version': "Version",
+    # K8s configuration.
+    # 
+    # default:
+    #   {}
+    'k8s': "K8SConfiguration",
+    # dpkg.
+    # 
+    # The configuration use t manage the dpkg packages
+    'dpkg': "Dpkg",
+}, total=False)
 
 
-DB_CONFIGURATION_DEFAULT: dict[str, Any] = {}
+DB_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
 """ Default value of the field path 'K8s configuration db' """
 
 
-DOCKER_DISPATCH_EVENT_TYPE_DEFAULT = "image-update"
+
+DOCKER_DISPATCH_EVENT_TYPE_DEFAULT = 'image-update'
 """ Default value of the field path 'dispatch config event-type' """
 
 
-DOCKER_DISPATCH_REPOSITORY_DEFAULT = "camptocamp/argocd-gs-gmf-apps"
+
+DOCKER_DISPATCH_REPOSITORY_DEFAULT = 'camptocamp/argocd-gs-gmf-apps'
 """ Default value of the field path 'dispatch config repository' """
 
 
-DOCKER_REPOSITORY_DEFAULT = {
-    "github": {"server": "ghcr.io", "versions": ["version_tag", "version_branch", "rebuild"]},
-    "dockerhub": {},
-}
+
+DOCKER_REPOSITORY_DEFAULT = {'github': {'server': 'ghcr.io', 'versions': ['version_tag', 'version_branch', 'rebuild']}, 'dockerhub': {}}
 """ Default value of the field path 'Publish Docker config repository' """
 
 
+
 # DB configuration.
-#
+# 
 # Database configuration
-#
+# 
 # default:
 #   {}
-DbConfiguration = TypedDict(
-    "DbConfiguration",
-    {
-        # K8S DB chart options.
-        #
-        # default:
-        #   auth.postgresPassword: mySuperTestingPassword
-        #   persistence.enabled: 'false'
-        #   tls.autoGenerated: 'true'
-        #   tls.enabled: 'true'
-        #   volumePermissions.enabled: 'true'
-        "chart-options": dict[str, str],
-    },
-    total=False,
-)
+DbConfiguration = TypedDict('DbConfiguration', {
+    # K8S DB chart options.
+    # 
+    # default:
+    #   auth.postgresPassword: mySuperTestingPassword
+    #   persistence.enabled: 'false'
+    #   tls.autoGenerated: 'true'
+    #   tls.enabled: 'true'
+    #   volumePermissions.enabled: 'true'
+    'chart-options': Dict[str, str],
+}, total=False)
 
 
 # dispatch config.
-#
+# 
 # Send a dispatch event to an other repository
-DispatchConfig = TypedDict(
-    "DispatchConfig",
-    {
-        # Docker dispatch repository.
-        #
-        # The repository name to be triggered
-        #
-        # default: camptocamp/argocd-gs-gmf-apps
-        "repository": str,
-        # Docker dispatch event type.
-        #
-        # The event type to be triggered
-        #
-        # default: image-update
-        "event-type": str,
-    },
-    total=False,
-)
+DispatchConfig = TypedDict('DispatchConfig', {
+    # Docker dispatch repository.
+    # 
+    # The repository name to be triggered
+    # 
+    # default: camptocamp/argocd-gs-gmf-apps
+    'repository': str,
+    # Docker dispatch event type.
+    # 
+    # The event type to be triggered
+    # 
+    # default: image-update
+    'event-type': str,
+}, total=False)
 
 
 class Dpkg(TypedDict, total=False):
@@ -361,14 +367,14 @@ class Dpkg(TypedDict, total=False):
     The configuration use t manage the dpkg packages
     """
 
-    packages_mapping: dict[str, str]
+    packages_mapping: Dict[str, str]
     """
     dpkg packages mapping.
 
     The mapping of source package found in the image to package present in repology.org
     """
 
-    ignored_packages: list[str]
+    ignored_packages: List[str]
     """
     dpkg ignored packages.
 
@@ -376,34 +382,33 @@ class Dpkg(TypedDict, total=False):
     """
 
 
+
 # K3d configuration.
-#
+# 
 # default:
 #   {}
-K3DConfiguration = TypedDict(
-    "K3DConfiguration",
-    {
-        # K3D install commands.
-        #
-        # default:
-        #   - - k3d
-        #     - cluster
-        #     - create
-        #     - test-cluster
-        #     - --no-lb
-        #     - --no-rollback
-        "install-commands": list[list[str]],
-    },
-    total=False,
-)
+K3DConfiguration = TypedDict('K3DConfiguration', {
+    # K3D install commands.
+    # 
+    # default:
+    #   - - k3d
+    #     - cluster
+    #     - create
+    #     - test-cluster
+    #     - --no-lb
+    #     - --no-rollback
+    'install-commands': List[List[str]],
+}, total=False)
 
 
-K3D_CONFIGURATION_DEFAULT: dict[str, Any] = {}
+K3D_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
 """ Default value of the field path 'K8s configuration k3d' """
 
 
-K3D_INSTALL_COMMANDS_DEFAULT = [["k3d", "cluster", "create", "test-cluster", "--no-lb", "--no-rollback"]]
+
+K3D_INSTALL_COMMANDS_DEFAULT = [['k3d', 'cluster', 'create', 'test-cluster', '--no-lb', '--no-rollback']]
 """ Default value of the field path 'K3d configuration install-commands' """
+
 
 
 class K8SConfiguration(TypedDict, total=False):
@@ -433,124 +438,120 @@ class K8SConfiguration(TypedDict, total=False):
     """
 
 
-K8S_CONFIGURATION_DEFAULT: dict[str, Any] = {}
+
+K8S_CONFIGURATION_DEFAULT: Dict[str, Any] = {}
 """ Default value of the field path 'configuration k8s' """
 
 
-K8S_DB_CHART_OPTIONS_DEFAULT = {
-    "persistence.enabled": "false",
-    "tls.enabled": "true",
-    "tls.autoGenerated": "true",
-    "auth.postgresPassword": "mySuperTestingPassword",
-    "volumePermissions.enabled": "true",
-}
+
+K8S_DB_CHART_OPTIONS_DEFAULT = {'persistence.enabled': 'false', 'tls.enabled': 'true', 'tls.autoGenerated': 'true', 'auth.postgresPassword': 'mySuperTestingPassword', 'volumePermissions.enabled': 'true'}
 """ Default value of the field path 'DB configuration chart-options' """
 
 
-PRINT_VERSIONS_VERSIONS_DEFAULT = [
-    {"name": "c2cciutils", "cmd": ["c2cciutils", "--version"]},
-    {"name": "python", "cmd": ["python3", "--version"]},
-    {"name": "pip", "cmd": ["python3", "-m", "pip", "--version"]},
-    {"name": "twine", "cmd": ["twine", "--version"]},
-    {"name": "node", "prefix": "node ", "cmd": ["node", "--version"]},
-    {"name": "npm", "prefix": "npm ", "cmd": ["npm", "--version"]},
-    {"name": "make", "cmd": ["make", "--version"], "prefix": "make "},
-    {"name": "docker", "cmd": ["docker", "--version"]},
-    {"name": "docker compose", "cmd": ["docker", "compose", "version"]},
-    {"name": "java", "cmd": ["java", "-version"]},
-    {"name": "helm", "cmd": ["helm", "version"]},
-]
+
+PRINT_VERSIONS_VERSIONS_DEFAULT = [{'name': 'c2cciutils', 'cmd': ['c2cciutils', '--version']}, {'name': 'python', 'cmd': ['python3', '--version']}, {'name': 'pip', 'cmd': ['python3', '-m', 'pip', '--version']}, {'name': 'twine', 'cmd': ['twine', '--version']}, {'name': 'node', 'prefix': 'node ', 'cmd': ['node', '--version']}, {'name': 'npm', 'prefix': 'npm ', 'cmd': ['npm', '--version']}, {'name': 'make', 'cmd': ['make', '--version'], 'prefix': 'make '}, {'name': 'docker', 'cmd': ['docker', '--version']}, {'name': 'docker compose', 'cmd': ['docker', 'compose', 'version']}, {'name': 'java', 'cmd': ['java', '-version']}, {'name': 'helm', 'cmd': ['helm', 'version']}]
 """ Default value of the field path 'Print versions versions' """
 
 
-PUBLISH_DEFAULT = {
-    "pypi": {"versions": ["version_tag"], "packages": "<auto-detected>"},
-    "docker": {"images": "<auto-detected>"},
-    "helm": {"versions": ["version_tag"], "folders": "<auto-detected>"},
-}
+
+PUBLISH_DEFAULT = {'pypi': {'versions': ['version_tag'], 'packages': '<auto-detected>'}, 'docker': {'images': '<auto-detected>'}, 'helm': {'versions': ['version_tag'], 'folders': '<auto-detected>'}}
 """ Default value of the field path 'configuration publish' """
 
 
-PUBLISH_DOCKER_IMAGE_GROUP_DEFAULT = "default"
+
+PUBLISH_DOCKER_IMAGE_GROUP_DEFAULT = 'default'
 """ Default value of the field path 'Publish Docker image group' """
 
 
-PUBLISH_DOCKER_IMAGE_TAGS_DEFAULT = ["{version}"]
+
+PUBLISH_DOCKER_IMAGE_TAGS_DEFAULT = ['{version}']
 """ Default value of the field path 'Publish Docker image tags' """
+
 
 
 PUBLISH_DOCKER_LATEST_DEFAULT = True
 """ Default value of the field path 'Publish Docker config latest' """
 
 
-PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT = ["version_tag", "version_branch", "rebuild", "feature_branch"]
+
+PUBLISH_DOCKER_REPOSITORY_VERSIONS_DEFAULT = ['version_tag', 'version_branch', 'rebuild', 'feature_branch']
 """ Default value of the field path 'Publish Docker repository versions' """
 
 
-PUBLISH_DOCKER_SNYK_MONITOR_ARGS_DEFAULT = ["--app-vulns"]
+
+PUBLISH_DOCKER_SNYK_MONITOR_ARGS_DEFAULT = ['--app-vulns']
 """ Default value of the field path 'Publish Docker config snyk monitor_args' """
 
 
-PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT = ["--app-vulns", "--severity-threshold=critical"]
+
+PUBLISH_DOCKER_SNYK_TEST_ARGS_DEFAULT = ['--app-vulns', '--severity-threshold=critical']
 """ Default value of the field path 'Publish Docker config snyk test_args' """
 
 
-PUBLISH_GOOGLE_CALENDAR_DEFAULT: dict[str, Any] = {}
+
+PUBLISH_GOOGLE_CALENDAR_DEFAULT: Dict[str, Any] = {}
 """ Default value of the field path 'publish_google_calendar' """
 
 
-PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT = ["version_branch", "version_tag", "rebuild"]
+
+PUBLISH_GOOGLE_CALENDAR_ON_DEFAULT = ['version_branch', 'version_tag', 'rebuild']
 """ Default value of the field path 'Publish Google calendar config on' """
 
 
-PUBLISH_PIP_PACKAGE_GROUP_DEFAULT = "default"
+
+PUBLISH_PIP_PACKAGE_GROUP_DEFAULT = 'default'
 """ Default value of the field path 'publish pypi package group' """
 
 
-PUBLISH_PYPI_DEFAULT: dict[str, Any] = {}
+
+PUBLISH_PYPI_DEFAULT: Dict[str, Any] = {}
 """ Default value of the field path 'publish_pypi' """
+
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIRST_CAPITAL_DEFAULT = True
 """ Default value of the field path 'pull request checks commits messages configuration check_first_capital' """
 
 
+
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_FIXUP_DEFAULT = True
 """ Default value of the field path 'pull request checks commits messages configuration check_fixup' """
+
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_MIN_HEAD_LENGTH_DEFAULT = 5
 """ Default value of the field path 'pull request checks commits messages configuration min_head_length' """
 
 
+
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_MERGE_COMMITS_DEFAULT = True
 """ Default value of the field path 'pull request checks commits messages configuration check_no_merge_commits' """
+
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_NO_OWN_REVERT_DEFAULT = True
 """ Default value of the field path 'pull request checks commits messages configuration check_no_own_revert' """
 
 
+
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_ONLY_HEAD_DEFAULT = True
 """ Default value of the field path 'pull request checks commits spelling configuration only_head' """
+
 
 
 PULL_REQUEST_CHECKS_COMMITS_MESSAGES_SQUASH_DEFAULT = True
 """ Default value of the field path 'pull request checks commits messages configuration check_squash' """
 
 
-PULL_REQUEST_CHECKS_DEFAULT = {
-    "commits_messages": True,
-    "commits_spell": True,
-    "pull_request_spell": True,
-    "pull_request_labels": True,
-    "add_issue_link": True,
-}
+
+PULL_REQUEST_CHECKS_DEFAULT = {'commits_messages': True, 'commits_spell': True, 'pull_request_spell': True, 'pull_request_labels': True, 'add_issue_link': True}
 """ Default value of the field path 'configuration pr-checks' """
+
 
 
 PULL_REQUEST_CHECKS_ONLY_HEAD_DEFAULT = True
 """ Default value of the field path 'pull request checks pull request spelling configuration only_head' """
+
 
 
 class PrintVersions(TypedDict, total=False):
@@ -560,7 +561,7 @@ class PrintVersions(TypedDict, total=False):
     The print versions configuration
     """
 
-    versions: list["_PrintVersionsVersionsItem"]
+    versions: List["_PrintVersionsVersionsItem"]
     """
     Print versions versions.
 
@@ -616,6 +617,7 @@ class PrintVersions(TypedDict, total=False):
         - version
         name: helm
     """
+
 
 
 class Publish(TypedDict, total=False):
@@ -680,6 +682,7 @@ class Publish(TypedDict, total=False):
     """
 
 
+
 PublishDocker = Union["PublishDockerConfig", Literal[False]]
 """
 Publish Docker.
@@ -688,6 +691,7 @@ The configuration used to publish on Docker
 
 Aggregation type: oneOf
 """
+
 
 
 class PublishDockerConfig(TypedDict, total=False):
@@ -706,10 +710,10 @@ class PublishDockerConfig(TypedDict, total=False):
     default: True
     """
 
-    images: list["PublishDockerImage"]
+    images: List["PublishDockerImage"]
     """ List of images to be published """
 
-    repository: dict[str, "PublishDockerRepository"]
+    repository: Dict[str, "PublishDockerRepository"]
     """
     Docker repository.
 
@@ -739,8 +743,9 @@ class PublishDockerConfig(TypedDict, total=False):
     """ Checks the published images with Snyk """
 
 
+
 class PublishDockerImage(TypedDict, total=False):
-    """Publish Docker image."""
+    """ Publish Docker image. """
 
     group: str
     """
@@ -754,7 +759,7 @@ class PublishDockerImage(TypedDict, total=False):
     name: str
     """ The image name """
 
-    tags: list[str]
+    tags: List[str]
     """
     publish docker image tags.
 
@@ -765,13 +770,14 @@ class PublishDockerImage(TypedDict, total=False):
     """
 
 
+
 class PublishDockerRepository(TypedDict, total=False):
-    """Publish Docker repository."""
+    """ Publish Docker repository. """
 
     server: str
     """ The server URL """
 
-    versions: list[str]
+    versions: List[str]
     """
     Publish Docker repository versions.
 
@@ -783,6 +789,7 @@ class PublishDockerRepository(TypedDict, total=False):
       - rebuild
       - feature_branch
     """
+
 
 
 PublishGoogleCalendar = Union["PublishGoogleCalendarConfig", Literal[False]]
@@ -798,6 +805,7 @@ Aggregation type: oneOf
 """
 
 
+
 class PublishGoogleCalendarConfig(TypedDict, total=False):
     """
     Publish Google calendar config.
@@ -805,7 +813,7 @@ class PublishGoogleCalendarConfig(TypedDict, total=False):
     The configuration to publish on Google Calendar
     """
 
-    on: list[str]
+    on: List[str]
     """
     Publish Google calendar on.
 
@@ -814,6 +822,7 @@ class PublishGoogleCalendarConfig(TypedDict, total=False):
       - version_tag
       - rebuild
     """
+
 
 
 PublishHelm = Union["PublishHelmConfig", Literal[False]]
@@ -826,6 +835,7 @@ Aggregation type: oneOf
 """
 
 
+
 class PublishHelmConfig(TypedDict, total=False):
     """
     publish helm config.
@@ -833,11 +843,12 @@ class PublishHelmConfig(TypedDict, total=False):
     Configuration to publish on Helm charts on GitHub release
     """
 
-    folders: list[str]
+    folders: List[str]
     """ The folders that will be published """
 
-    versions: list[str]
+    versions: List[str]
     """ The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script """
+
 
 
 PublishPypi = Union["PublishPypiConfig", Literal[False]]
@@ -853,6 +864,7 @@ Aggregation type: oneOf
 """
 
 
+
 class PublishPypiConfig(TypedDict, total=False):
     """
     publish pypi config.
@@ -860,11 +872,12 @@ class PublishPypiConfig(TypedDict, total=False):
     Configuration to publish on pypi
     """
 
-    packages: list["PublishPypiPackage"]
+    packages: List["PublishPypiPackage"]
     """ The configuration of packages that will be published """
 
-    versions: list[str]
+    versions: List[str]
     """ The kind or version that should be published, tag, branch or value of the --version argument of the c2cciutils-publish script """
+
 
 
 class PublishPypiPackage(TypedDict, total=False):
@@ -886,8 +899,9 @@ class PublishPypiPackage(TypedDict, total=False):
     path: str
     """ The path of the pypi package """
 
-    build_command: list[str]
+    build_command: List[str]
     """ The command used to do the build """
+
 
 
 class PullRequestChecks(TypedDict, total=False):
@@ -938,8 +952,10 @@ class PullRequestChecks(TypedDict, total=False):
     """ pull request checks add issue link. """
 
 
+
 PullRequestChecksAddIssueLink = bool
 """ pull request checks add issue link. """
+
 
 
 PullRequestChecksCommitsMessages = Union["PullRequestChecksCommitsMessagesConfiguration", bool]
@@ -950,6 +966,7 @@ Check the pull request commits messages
 
 Aggregation type: oneOf
 """
+
 
 
 class PullRequestChecksCommitsMessagesConfiguration(TypedDict, total=False):
@@ -1014,12 +1031,14 @@ class PullRequestChecksCommitsMessagesConfiguration(TypedDict, total=False):
     """
 
 
+
 PullRequestChecksCommitsSpelling = Union["PullRequestChecksCommitsSpellingConfiguration", bool]
 """
 pull request checks commits spelling.
 
 Aggregation type: oneOf
 """
+
 
 
 class PullRequestChecksCommitsSpellingConfiguration(TypedDict, total=False):
@@ -1037,12 +1056,14 @@ class PullRequestChecksCommitsSpellingConfiguration(TypedDict, total=False):
     """
 
 
+
 PullRequestChecksPullRequestSpelling = Union["PullRequestChecksPullRequestSpellingConfiguration", bool]
 """
 pull request checks pull request spelling.
 
 Aggregation type: oneOf
 """
+
 
 
 class PullRequestChecksPullRequestSpellingConfiguration(TypedDict, total=False):
@@ -1060,12 +1081,14 @@ class PullRequestChecksPullRequestSpellingConfiguration(TypedDict, total=False):
     """
 
 
+
 PullRequestChecksRequestLabels = bool
 """
 pull request checks request labels.
 
 According the create changelog configuration
 """
+
 
 
 class Version(TypedDict, total=False):
@@ -1090,7 +1113,8 @@ class Version(TypedDict, total=False):
     """
 
 
-VersionTransform = list["_VersionTransformItem"]
+
+VersionTransform = List["_VersionTransformItem"]
 """
 Version transform.
 
@@ -1098,12 +1122,14 @@ A version transformer definition
 """
 
 
-_PUBLISH_DOCKER_CONFIG_DISPATCH_DEFAULT: dict[str, Any] = {}
+
+_PUBLISH_DOCKER_CONFIG_DISPATCH_DEFAULT: Dict[str, Any] = {}
 """ Default value of the field path 'Publish Docker config dispatch' """
 
 
+
 class _PrintVersionsVersionsItem(TypedDict, total=False):
-    cmd: list[str]
+    cmd: List[str]
     """ The command that should be used """
 
     name: str
@@ -1113,10 +1139,11 @@ class _PrintVersionsVersionsItem(TypedDict, total=False):
     """ Prefix added when we print the version """
 
 
-class _PublishDockerConfigSnyk(TypedDict, total=False):
-    """Checks the published images with Snyk"""
 
-    monitor_args: Union[list[str], Literal[False]]
+class _PublishDockerConfigSnyk(TypedDict, total=False):
+    """ Checks the published images with Snyk """
+
+    monitor_args: Union[List[str], Literal[False]]
     """
     Publish docker snyk monitor args.
 
@@ -1128,7 +1155,7 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
     Aggregation type: oneOf
     """
 
-    test_args: Union[list[str], Literal[False]]
+    test_args: Union[List[str], Literal[False]]
     """
     Publish docker snyk test args.
 
@@ -1142,13 +1169,10 @@ class _PublishDockerConfigSnyk(TypedDict, total=False):
     """
 
 
-_VersionTransformItem = TypedDict(
-    "_VersionTransformItem",
-    {
-        # The from regular expression
-        "from": str,
-        # The expand regular expression: https://docs.python.org/3/library/re.html#re.Match.expand
-        "to": str,
-    },
-    total=False,
-)
+
+_VersionTransformItem = TypedDict('_VersionTransformItem', {
+    # The from regular expression
+    'from': str,
+    # The expand regular expression: https://docs.python.org/3/library/re.html#re.Match.expand
+    'to': str,
+}, total=False)
