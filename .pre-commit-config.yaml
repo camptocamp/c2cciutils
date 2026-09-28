@@ -27,7 +27,7 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
   - repo: https://github.com/camptocamp/jsonschema-gentypes
-    rev: 2.4.0
+    rev: 2.8.0
     hooks:
       - id: jsonschema-gentypes
         files: |-
