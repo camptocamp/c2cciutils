@@ -6,6 +6,7 @@ doc-warnings: true
 
 ignore-paths:
   - c2cciutils/configuration.py
+  - c2cciutils/applications_definition.py
 
 pylint:
   disable:
