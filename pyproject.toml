@@ -116,7 +116,7 @@ virtualenv = { version = "20.36.1", optional = true }
 jinja2 = "3.1.6"
 bleach = "6.4.0"
 httplib2 = "0.32.0"
-msgpack = "1.2.1"
+msgpack = "1.2.2"
 pyasn1 = "0.6.4"
 
 [tool.poetry.extras]
