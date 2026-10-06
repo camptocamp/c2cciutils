@@ -2,7 +2,8 @@
 
 pypi:
   versions_type:
-    - version_tag
-    - version_branch
+    - tag
+    - default_branch
+    - stabilization_branch
   packages:
     - {}
