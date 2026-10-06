@@ -1,12 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/camptocamp/c2cciutils/1.2.32/c2cciutils/schema.json
 
-publish:
-  pypi:
-    versions:
-      - version_tag
-      - version_branch
-      - rebuild
-
 audit:
   snyk:
     files_no_install:
