@@ -88,7 +88,7 @@ multi-repo-automation = { version="0.3.1", optional = true }
 cryptography = "50.0.2"
 urllib3 = "2.6.3"
 idna = { version="3.15", optional = true }
-certifi = "2026.10.19"
+certifi = "2026.10.23"
 zipp = "3.19.3"
 protobuf = "6.33.6"
 pyasn1 = "0.6.4"
