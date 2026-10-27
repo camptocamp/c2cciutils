@@ -1,7 +1,8 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/camptocamp/c2cciutils/1.6.23/c2cciutils/schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/camptocamp/c2cciutils/1.4/c2cciutils/schema.json
 
 checks:
   codespell: false
+  snyk: false
 audit:
   snyk:
     files_no_install:
