@@ -43,5 +43,45 @@
       enabled: false,
       matchDepNames: ['poetry-plugin-tweak-dependencies-version'],
     },
+    /**
+     * On branch 1.1 (Python 3.9) don't upgrade to versions that require Python >=3.10, otherwise the
+     * Pipfile.lock can't be regenerated and the security auto-merge would re-break it. These are the
+     * latest releases still supporting Python 3.9, see https://github.com/camptocamp/c2cciutils/pull/3525.
+     */
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['pip'],
+      allowedVersions: '<26.1',
+    },
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['setuptools'],
+      allowedVersions: '<83',
+    },
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['requests'],
+      allowedVersions: '<2.33',
+    },
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['urllib3'],
+      allowedVersions: '<2.7',
+    },
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['click'],
+      allowedVersions: '<8.2',
+    },
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['filelock'],
+      allowedVersions: '<3.20',
+    },
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['bleach'],
+      allowedVersions: '<6.3',
+    },
   ],
 }
