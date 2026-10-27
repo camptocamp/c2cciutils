@@ -6,4 +6,68 @@ ignore:
     - '*':
         reason: Used Python not supported
         created: 2026-03-18T14:54:08.322Z
+  SNYK-PYTHON-REQUESTS-15763443:
+    - '*':
+        reason: Fix (requests 2.33.0, CVE-2026-25645) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-URLLIB3-16642024:
+    - '*':
+        reason: Fix (urllib3 2.7.0, CVE-2026-44431) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-URLLIB3-16642059:
+    - '*':
+        reason: Fix (urllib3 2.7.0, CVE-2026-44432) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-URLLIB3-20302844:
+    - '*':
+        reason: Fix (urllib3 2.8.0, CVE-2026-97687) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-URLLIB3-20302845:
+    - '*':
+        reason: Fix (urllib3 2.8.0, CVE-2026-97688) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-URLLIB3-20302846:
+    - '*':
+        reason: Fix (urllib3 2.8.0, CVE-2026-97689) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-FILELOCK-14458335:
+    - '*':
+        reason: Fix (filelock 3.20.1, CVE-2025-68146) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-FILELOCK-14912448:
+    - '*':
+        reason: Fix (filelock 3.20.3, CVE-2026-22701) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-SETUPTOOLS-17895075:
+    - '*':
+        reason: Fix (setuptools 83.0.0, CVE-2026-59890) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-SETUPTOOLS-21689156:
+    - '*':
+        reason: Fix (setuptools 84.1.0, GHSA-xmj3-9gf7-h52w) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-PIP-16115367:
+    - '*':
+        reason: Fix (pip 26.1, CVE-2026-3219) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-PIP-16316401:
+    - '*':
+        reason: Fix (pip 26.1, CVE-2026-6357) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-PIP-16964647:
+    - '*':
+        reason: Fix (pip 26.1.2, CVE-2026-8643) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-PIP-18426311:
+    - '*':
+        reason: Fix (pip 26.2, CVE-2026-13346) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-BLEACH-17356111:
+    - '*':
+        reason: Fix (bleach 6.4.0, GHSA-8rfp-98v4-mmr6) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-BLEACH-17356103:
+    - '*':
+        reason: Fix (bleach 6.4.0, GHSA-gj48-438w-jh9v) requires Python >=3.10, used Python not supported
+        created: 2026-10-27T09:10:54.000Z
 patch: {}
