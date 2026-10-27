@@ -2,6 +2,7 @@
 
 checks:
   codespell: false
+  snyk: false
 audit:
   snyk:
     files_no_install:
