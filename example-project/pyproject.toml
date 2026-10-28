@@ -50,7 +50,7 @@ prospector = { version = "1.7.7", extras = [
     "with_mypy",
     "with_pyorama"
 ] }
-pylint = "2.14.5"
+pylint = "4.0.9"
 mypy = "0.961"
 flake8 = "4.0.1"
 
