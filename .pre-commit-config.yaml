@@ -51,13 +51,17 @@ repos:
           - c2cciutils/schema.json
           - config.md
   - repo: https://github.com/sbrunner/hooks
-    rev: 1.8.0
+    rev: 1.9.0
     hooks:
       - id: copyright
       - id: poetry2-lock
         additional_dependencies:
           - poetry==2.5.1 # pypi
       - id: canonicalize
+      - id: uv-lock
+        additional_dependencies:
+          - uv==0.13.4 # pypi
+        files: ^\.github/publish/pyproject\.toml$
       - id: prospector-to-ruff
         additional_dependencies:
           - prospector-profile-duplicated==1.12.0 # pypi
