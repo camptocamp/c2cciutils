@@ -35,12 +35,16 @@ repos:
           (?x)^(
               ci/config\\.yaml
           )$
-  - repo: https://github.com/camptocamp/c2cciutils
-    rev: 1.8.0
+  - repo: https://github.com/sbrunner/hooks
+    rev: 1.9.0
     hooks:
       - id: workflows-require-timeout
-      - id: check-poetry
-      - id: lock-poetry
+      - id: poetry-check
+        additional_dependencies:
+          - poetry==2.5.1 # pypi
+      - id: poetry-lock
+        additional_dependencies:
+          - poetry==2.5.1 # pypi
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.3
     hooks:
