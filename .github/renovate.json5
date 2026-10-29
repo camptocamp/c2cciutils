@@ -83,5 +83,10 @@
       matchDepNames: ['bleach'],
       allowedVersions: '<6.3',
     },
+    {
+      matchBaseBranches: ['1.1'],
+      matchDepNames: ['pylint'],
+      allowedVersions: '<4',
+    },
   ],
 }
