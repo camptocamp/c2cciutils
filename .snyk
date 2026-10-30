@@ -50,4 +50,16 @@ ignore:
     - '*':
         reason: not compatible with used Poetry version
         created: 2026-10-05T08:15:26.000Z
+  SNYK-PYTHON-FILELOCK-21280751:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-10-25T00:00:00.000Z
+  SNYK-PYTHON-FILELOCK-21280760:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-10-25T00:00:00.000Z
+  SNYK-PYTHON-FILELOCK-21689161:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-10-25T00:00:00.000Z
 patch: {}
