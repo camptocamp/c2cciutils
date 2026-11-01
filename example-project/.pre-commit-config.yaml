@@ -24,7 +24,7 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
   - repo: https://github.com/sbrunner/pre-commit-copyright
-    rev: 1.8.0
+    rev: 1.9.0
     hooks:
       - id: copyright
   - repo: https://github.com/sbrunner/jsonschema-validator
@@ -79,13 +79,13 @@ repos:
     hooks:
       - id: ripsecrets
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.9
+    rev: v0.17.2
     hooks:
       - id: ruff-format
         args:
           - --line-length=110
   - repo: https://github.com/prospector-dev/prospector
-    rev: v1.19.1
+    rev: v1.20.0
     hooks:
       - id: prospector
         args:
