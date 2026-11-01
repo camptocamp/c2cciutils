@@ -132,7 +132,7 @@ repos:
           - prospector-profile-duplicated==1.6.0 # pypi
           - prospector-profile-utils==1.9.1 # pypi
   - repo: https://github.com/mheap/json-schema-spell-checker
-    rev: v2.3.0
+    rev: v2.3.1
     hooks:
       - id: json-schema-spell-checker
         files: ^c2cciutils/schema\.json$
