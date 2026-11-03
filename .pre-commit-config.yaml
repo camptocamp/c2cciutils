@@ -1,3 +1,6 @@
+default_language_version:
+  python: python3.11
+
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.7.1
@@ -9,6 +12,13 @@ repos:
     rev: 1.0.0
     hooks:
       - id: poetry-lock
+        exclude: ^\.github/publish/
         additional_dependencies:
           - poetry==1.6.1 # pypi
         language_version: '3.10'
+
+  - repo: https://github.com/sbrunner/hooks
+    rev: 1.9.0
+    hooks:
+      - id: uv-lock
+        files: ^\.github/publish/pyproject\.toml$
