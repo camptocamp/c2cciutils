@@ -6,6 +6,9 @@ exclude: |-
     |config\.md
   )$
 
+default_language_version:
+  python: python3.12
+
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
@@ -64,6 +67,7 @@ repos:
       - id: poetry-lock
         additional_dependencies:
           - poetry==1.8.5 # pypi
+        exclude: ^\.github/publish/
       - id: pipenv-lock
         additional_dependencies:
           - pipenv==2024.1.0 # pypi
@@ -164,3 +168,9 @@ repos:
           # transitive dependency must be pinned here. Remove once fixed upstream:
           # https://github.com/mheap/json-schema-spell-checker
           - mdast-util-to-markdown@2.1.2
+
+  - repo: https://github.com/sbrunner/hooks
+    rev: 1.9.0
+    hooks:
+      - id: uv-lock
+        files: ^\.github/publish/pyproject\.toml$
