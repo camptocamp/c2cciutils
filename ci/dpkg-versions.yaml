@@ -118,7 +118,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/libpam-modules-bin: 1.4.0-11ubuntu2.8
   ubuntu_22_04/libpam-runtime: 1.4.0-11ubuntu2.8
   ubuntu_22_04/libpam0g: 1.4.0-11ubuntu2.8
-  ubuntu_22_04/libpcre2-8-0: 10.39-3ubuntu0.1
+  ubuntu_22_04/libpcre2-8-0: 10.39-3ubuntu0.2
   ubuntu_22_04/libpcre3: 2:8.39-13ubuntu0.22.04.1
   ubuntu_22_04/libperl5.34: 5.34.0-3ubuntu1.9
   ubuntu_22_04/libpq-dev: 14.24-0ubuntu0.22.04.1
