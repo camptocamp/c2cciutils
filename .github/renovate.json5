@@ -38,11 +38,11 @@
       matchDepNames: ['types-pyyaml'],
     },
     /**
-     * On branch 1.2 (Python 3.10) don't upgrade pre-commit, 4.7.0+ requires Python >= 3.11 and
+     * On branch 1.2 and 1.3 (Python 3.10) don't upgrade pre-commit, 4.7.0+ requires Python >= 3.11 and
      * makes the CI installation fail.
      */
     {
-      matchBaseBranches: ['1.2'],
+      matchBaseBranches: ['1.2', '1.3'],
       enabled: false,
       matchDepNames: ['pre-commit'],
     },
