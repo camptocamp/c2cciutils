@@ -2,7 +2,7 @@
 # Copyright (c) 2020-2026, Camptocamp SA
 
 import argparse
-import datetime
+import datetime as dt
 import subprocess  # nosec
 import sys
 from pathlib import Path
@@ -37,7 +37,7 @@ def main() -> None:
             timestamp_args = [f"--since={timestamp_file.read().strip()}Z"]
 
     with timestamp_file_path.open("w", encoding="utf-8") as timestamp_file:  # nosec
-        timestamp_file.write(datetime.datetime.now(tz=datetime.UTC).isoformat())
+        timestamp_file.write(dt.datetime.now(tz=dt.UTC).isoformat())
 
     for name in (
         subprocess.run(  # noqa: S603,S607,RUF100
