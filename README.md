@@ -90,11 +90,11 @@ To create a patch version you should just create tag.
 
 In the CI we need to have the following secrets::
 
-- `HAS_SECRETS` to be set to 'HAS_SECRETS', to avoid error errors from external
+- `HAS_SECRETS` to be set to 'HAS_SECRETS', to avoid errors from external
   pull requests, already set globally on Camptocamp organization.
-- `GOPASS_CI_GITHUB_TOKEN` and `CI_GPG_PRIVATE_KEY` required to initialize the gopass password store,
-  the secrets exists in the Camptocamp organization but not shared on all project, then you should add
-  your project to the shared list.
+
+The publishing is done by [tag-publish](https://github.com/camptocamp/tag-publish) with the workflow
+`GITHUB_TOKEN`, it doesn't require any additional secret.
 
 ## Use locally, in the projects that use c2cciutils
 
