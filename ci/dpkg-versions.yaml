@@ -1,7 +1,7 @@
 camptocamp/c2cciutils:latest:
   ubuntu_22_04/acl: 2.3.1-1
   ubuntu_22_04/adduser: 3.118ubuntu5
-  ubuntu_22_04/apt: 2.4.14
+  ubuntu_22_04/apt: 2.4.15ubuntu0.1
   ubuntu_22_04/attr: 1:2.5.1-1ubuntu0.1
   ubuntu_22_04/audit: 3.0.7-1build1
   ubuntu_22_04/base-passwd: 3.5.52build1
@@ -9,7 +9,7 @@ camptocamp/c2cciutils:latest:
   ubuntu_22_04/binutils: 2.38-4ubuntu2.12
   ubuntu_22_04/brotli: 1.0.9-2ubuntu0.1
   ubuntu_22_04/bzip2: 1.0.8-5ubuntu0.1
-  ubuntu_22_04/ca-certificates: 20260816ubuntu0.22.04.1
+  ubuntu_22_04/ca-certificates: 20260816ubuntu0.22.04.2
   ubuntu_22_04/cdebconf: 0.261ubuntu1
   ubuntu_22_04/coreutils: 8.32-4.1ubuntu1.4
   ubuntu_22_04/curl: 7.81.0-1ubuntu1.30
