@@ -62,4 +62,80 @@ ignore:
     - '*':
         reason: not compatible with used Poetry version
         created: 2026-10-25T00:00:00.000Z
+  SNYK-PYTHON-URLLIB3-14192442:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-URLLIB3-14192443:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-URLLIB3-14896210:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-URLLIB3-10390193:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-URLLIB3-10390194:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-URLLIB3-16642024:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-URLLIB3-20302844:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-URLLIB3-20302846:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-CRYPTOGRAPHY-8715586:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-CRYPTOGRAPHY-15263096:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-CRYPTOGRAPHY-15809188:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-CRYPTOGRAPHY-17344551:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-CRYPTOGRAPHY-18516620:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-CRYPTOGRAPHY-18516622:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-CERTIFI-21280764:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-IDNA-16769942:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-MARKDOWN-15428352:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-PYGMENTS-15746419:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
+  SNYK-PYTHON-REQUESTS-15763443:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-05T13:00:00.000Z
 patch: {}
