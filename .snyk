@@ -74,4 +74,60 @@ ignore:
     - '*':
         reason: Plugin not compatible with new Poetry version
         created: 2026-04-23T07:35:20.423Z
+  SNYK-PYTHON-URLLIB3-16642024:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-URLLIB3-16642059:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-URLLIB3-20302844:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-URLLIB3-20302845:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-URLLIB3-20302846:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-OAUTHLIB-21802488:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-OAUTHLIB-20305255:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-OAUTHLIB-20305256:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-HTTPLIB2-17900545:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-BLEACH-17356103:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-BLEACH-17356111:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-REQUESTS-15763443:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-BLACK-21431452:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
+  SNYK-PYTHON-BLACK-15518063:
+    - '*':
+        reason: not compatible with used Python version
+        created: 2026-11-06T08:30:00.000Z
 patch: {}
