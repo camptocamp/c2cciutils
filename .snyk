@@ -70,4 +70,8 @@ ignore:
     - '*':
         reason: Fix (bleach 6.4.0, GHSA-gj48-438w-jh9v) requires Python >=3.10, used Python not supported
         created: 2026-10-27T09:10:54.000Z
+  SNYK-PYTHON-PYLINT-21433563:
+    - '*':
+        reason: Fix (pylint 4.0.9, CVE-2026-114608, GHSA-22qq-2fwx-7p67) requires Python >=3.10, used Python not supported
+        created: 2026-10-29T13:58:26.000Z
 patch: {}
