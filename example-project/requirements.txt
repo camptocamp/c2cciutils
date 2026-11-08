@@ -6,5 +6,5 @@ certifi>=2026.10.19 # not directly required, pinned by Snyk to avoid a vulnerabi
 urllib3>=2.7.0 # not directly required, pinned by Snyk to avoid a vulnerability
 idna>=3.15 # not directly required, pinned by Snyk to avoid a vulnerability
 zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
-virtualenv>=20.36.1 # not directly required, pinned by Snyk to avoid a vulnerability
+virtualenv>=21.14.9 # not directly required, pinned by Snyk to avoid a vulnerability
 cryptography>=50.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
