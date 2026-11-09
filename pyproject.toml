@@ -117,7 +117,7 @@ zipp = { version = "3.19.3", optional = true }
 protobuf = "6.33.6"
 pyasn1 = "0.6.5"
 httplib2 = "0.32.0"
-oauthlib = "4.0.0"
+oauthlib = "4.0.1"
 
 [tool.poetry.extras]
 audit = []
