@@ -7,7 +7,7 @@ verify_ssl = true
 PyYAML = "==6.0"
 inotify = "==0.2.10"
 c2cwsgiutils = {version = "==5.0.0", extras = ["broadcast", "standard"]}
-setuptools = "==83.0.0"
+setuptools = "==84.1.0"
 
 [dev-packages]
 pytest-cov = "==3.0.0"
