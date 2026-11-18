@@ -6,4 +6,64 @@ ignore:
     - '*':
         reason: not compatible with used Python version
         created: 2026-10-28T16:05:59.000Z
+  SNYK-PYTHON-VIRTUALENV-21282339:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282342:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282424:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282426:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282481:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282482:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282483:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282484:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282486:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282489:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282491:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282493:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282509:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282510:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
+  SNYK-PYTHON-VIRTUALENV-21282514:
+    - '*':
+        reason: not compatible with used Poetry version
+        created: 2026-11-18T00:00:00.000Z
 patch: {}
